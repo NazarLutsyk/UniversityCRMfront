@@ -1,0 +1,50 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CREATE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form #clientForm="ngForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        name="name"
+        ngModel
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Surname</mat-label>
+      <input
+        type="text"
+        name="surname"
+        ngModel
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input
+        type="tel"
+        name="phone"
+        ngModel
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        name="email"
+        ngModel
+        matInput
+      >
+    </mat-form-field>
+    <button mat-flat-button>Create</button>
+  </form>
+</mat-expansion-panel>
+
+<app-material-table [dataSource]="clients" [headers]="headers">
+
+</app-material-table>

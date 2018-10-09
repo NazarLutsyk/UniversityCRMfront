@@ -1,0 +1,26 @@
+.main-menu{
+  user-select: none;
+}
+
+.menu-span-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 25px;
+  outline: none;
+}
+
+.main-menu span {
+  cursor: pointer;
+  outline: none;
+}
+
+.main-logo {
+  color: #6f0707;
+  font-size: 30px;
+}
+
+.active-main-menu {
+  background: #b02929;
+  transition: 0.3s;
+}

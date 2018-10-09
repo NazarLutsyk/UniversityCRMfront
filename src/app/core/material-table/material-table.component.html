@@ -1,0 +1,18 @@
+<table>
+  <thead>
+  <tr>
+    <td *ngFor="let header of headers">
+      {{header.header}}
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of dataSource">
+    <ng-container *ngFor="let header of headers">
+      <td>
+        {{data[header.key]}}
+      </td>
+    </ng-container>
+  </tr>
+  </tbody>
+</table>

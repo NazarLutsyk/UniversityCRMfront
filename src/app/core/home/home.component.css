@@ -1,0 +1,19 @@
+.logo-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+.logo{
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #faddddbf;
+  animation: rotate 3s linear infinite;
+}
+
+
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
