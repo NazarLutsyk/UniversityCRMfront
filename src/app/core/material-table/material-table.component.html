@@ -1,8 +1,28 @@
 <table>
   <thead>
-  <tr>
-    <td *ngFor="let header of headers">
+  <tr #headerBlock>
+    <td
+      *ngFor="let header of headers"
+      (click)="sort(header,headerBlock,$event)"
+      data-sort=""
+    >
       {{header.header}}
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td *ngFor="let header of headers">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          [name]="header.key"
+          [attr.data-key]="header.key"
+          ngModel
+          matInput
+          [disabled]="!header.filtered"
+          (keyup)="onKeyUp(header, filterBlock, $event)"
+        >
+      </mat-form-field>
     </td>
   </tr>
   </thead>

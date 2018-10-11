@@ -9,6 +9,11 @@ thead {
   font-weight: 500;
 }
 
+thead td{
+  cursor: pointer;
+  user-select: none;
+}
+
 tr{
   background: white;
   border-bottom: 1px solid rgba(0, 0, 0, .12);
@@ -22,4 +27,34 @@ th, td {
   padding: 15px;
   text-align: left;
 }
+
+.sort-asc:after{
+  content: '';
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('../../../assets/images/asc.png');
+}
+.sort-desc:after{
+  content: '';
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('../../../assets/images/desc.png');
+}
+
+.filter-row td{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filter-row input, mat-form-field{
+  width: 100%;
+}
+
+
 

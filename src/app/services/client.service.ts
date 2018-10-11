@@ -19,7 +19,13 @@ export class ClientService {
   }
 
   getClients(query = {}): Observable<Client[]> {
-    return this.http.get<Client[]>(this.clientsURL);
+    let urlToRequest = this.clientsURL + '?';
+    for (const key in query) {
+      if (query[key]) {
+        urlToRequest += `${key}=${JSON.stringify(query[key])}&`;
+      }
+    }
+    return this.http.get<Client[]>(urlToRequest);
   }
 
 }

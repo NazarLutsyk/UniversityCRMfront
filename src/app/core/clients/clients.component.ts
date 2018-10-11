@@ -14,6 +14,9 @@ export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   headers: MaterialTableHeader[] = [];
 
+  sort = '';
+  filter: any = {};
+
   constructor(
     private clietnsService: ClientService
   ) {
@@ -21,20 +24,53 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.headers = [
-      {header: 'Name', key: 'name'},
-      {header: 'Surname', key: 'surname'},
-      {header: 'Phone', key: 'phone'},
-      {header: 'Email', key: 'email'},
-      {header: 'Passport', key: 'passport'},
+      {header: 'Name', key: 'name', filtered: true},
+      {header: 'Surname', key: 'surname', filtered: true},
+      {header: 'Phone', key: 'phone', filtered: true},
+      {header: 'Email', key: 'email', filtered: true},
+      {header: 'Passport', key: 'passport', filtered: false}
     ];
     this.loadClients().subscribe(clients => {
       this.clients = clients;
-      console.log(this.clients);
     });
   }
 
   loadClients(): Observable<Client[]> {
-    return this.clietnsService.getClients();
+    const filterToSend = this.getFilterToSend();
+
+    return this.clietnsService.getClients({
+      q: filterToSend,
+      sort: this.sort
+    });
+  }
+
+  loadSorted($event: string) {
+    this.sort = $event;
+    this.loadClients().subscribe(clients => this.clients = clients);
+  }
+
+  loadFiltered($event: any) {
+    this.filter = $event;
+    this.loadClients().subscribe(clients => this.clients = clients);
+  }
+
+  getFilterToSend() {
+    const res: any = {};
+
+    if (this.filter.name) {
+      res.name = {$like: `${this.filter.name}`};
+    }
+    if (this.filter.surname) {
+      res.surname = {$like: `${this.filter.surname}`};
+    }
+    if (this.filter.phone) {
+      res.phone = {$like: `${this.filter.phone}`};
+    }
+    if (this.filter.email) {
+      res.email = {$like: `${this.filter.email}`};
+    }
+
+    return res;
   }
 
 }

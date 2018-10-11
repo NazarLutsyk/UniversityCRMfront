@@ -45,6 +45,11 @@
   </form>
 </mat-expansion-panel>
 
-<app-material-table [dataSource]="clients" [headers]="headers">
+<app-material-table
+  [dataSource]="clients"
+  [headers]="headers"
+  (onSort)="loadSorted($event)"
+  (onFilter)="loadFiltered($event)"
+>
 
 </app-material-table>
