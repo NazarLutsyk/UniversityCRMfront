@@ -1,0 +1,22 @@
+.delete-snack-bar{
+  display: flex;
+  align-items: center;
+}
+.delete-snack-bar *{
+  padding: 0 0;
+  margin: 0 0;
+}
+.snack-title{
+  margin-right: 5px;
+  justify-self: start;
+}
+.snack-buttons{
+  justify-self: start;
+  margin-left: 20px!important;
+}
+.snack-button-ok{
+  color: green;
+}
+.snack-button-cancel{
+  color: #d5d5d5;
+}

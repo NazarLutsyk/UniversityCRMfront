@@ -1,5 +1,25 @@
 <table>
   <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th [attr.colspan]="headers.length">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="setPage(-1)"></span>
+        <span class="paginator-next" (click)="setPage(1)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (input)="setPage(0, $event)"
+          (blur)="blurPaginator($event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    <th></th>
+  </tr>
   <tr #headerBlock>
     <td
       *ngFor="let header of headers"
@@ -7,6 +27,9 @@
       data-sort=""
     >
       {{header.header}}
+    </td>
+    <td class="controls-col">
+      CONTROLS
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
@@ -24,15 +47,19 @@
         >
       </mat-form-field>
     </td>
+    <td class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of dataSource">
+  <tr *ngFor="let data of dataSource" (click)="openData(data.id, $event)" class="data-row">
     <ng-container *ngFor="let header of headers">
       <td>
         {{data[header.key]}}
       </td>
     </ng-container>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(data.id)" data-controls="true"></div>
+    </td>
   </tr>
   </tbody>
 </table>

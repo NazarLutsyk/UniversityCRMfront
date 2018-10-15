@@ -4,7 +4,7 @@
       CREATE
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <form #clientForm="ngForm">
+  <form (ngSubmit)="createClient(form)" #form="ngForm">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input
@@ -12,6 +12,7 @@
         name="name"
         ngModel
         matInput
+        required
       >
     </mat-form-field>
     <mat-form-field>
@@ -21,6 +22,7 @@
         name="surname"
         ngModel
         matInput
+        required
       >
     </mat-form-field>
     <mat-form-field>
@@ -30,6 +32,8 @@
         name="phone"
         ngModel
         matInput
+        minlength="6"
+        maxlength="15"
       >
     </mat-form-field>
     <mat-form-field>
@@ -39,17 +43,24 @@
         name="email"
         ngModel
         matInput
+        email
       >
     </mat-form-field>
-    <button mat-flat-button>Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>
 
 <app-material-table
+  *ngIf="clients.length > 0"
   [dataSource]="clients"
   [headers]="headers"
+  [count]="count"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
   (onSort)="loadSorted($event)"
   (onFilter)="loadFiltered($event)"
+  (onPagination)="loadPaginated($event)"
+  (onRemove)="remove($event)"
+  (onOpen)="open($event)"
 >
-
 </app-material-table>

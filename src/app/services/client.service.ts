@@ -28,4 +28,11 @@ export class ClientService {
     return this.http.get<Client[]>(urlToRequest);
   }
 
+  create(client: Client): Observable<Client> {
+    return this.http.post<Client>(this.clientsURL, client);
+  }
+
+  remove(id: number | string): Observable<Client> {
+    return this.http.delete<Client>(`${this.clientsURL}/${id}`);
+  }
 }

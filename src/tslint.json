@@ -12,6 +12,8 @@
             "element",
             "app",
             "kebab-case"
-        ]
+        ],
+        "triple-equals": false,
+        "no-output-on-prefix" : false
     }
 }
