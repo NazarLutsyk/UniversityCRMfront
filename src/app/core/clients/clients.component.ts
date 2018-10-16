@@ -4,6 +4,7 @@ import {ClientService} from '../../services/client.service';
 import {Observable} from 'rxjs';
 import {MaterialTableHeader} from '../material-table/material-table.component';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-clients',
@@ -23,7 +24,8 @@ export class ClientsComponent implements OnInit {
   filter: any = {};
 
   constructor(
-    private clientsService: ClientService
+    private clientsService: ClientService,
+    private router: Router
   ) {
   }
 
@@ -108,6 +110,6 @@ export class ClientsComponent implements OnInit {
   }
 
   open(id) {
-    // todo
+    this.router.navigate(['clients', id]);
   }
 }

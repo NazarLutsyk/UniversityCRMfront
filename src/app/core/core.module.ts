@@ -1,24 +1,32 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HomeComponent} from './home/home.component';
-import {ClientsComponent} from './clients/clients.component';
-import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
-import {MaterialTableModule} from './material-table/material-table.module';
+import {ClientsModule} from './clients/clients.module';
+import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
+import {RouterModule} from '@angular/router';
+import {TasksModule} from './tasks/tasks.module';
+import {GroupsModule} from './groups/groups.module';
+import {ApplicationsModule} from './applications/applications.module';
+import {CoursesModule} from './courses/courses.module';
+import {SourcesModule} from './sources/sources.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatExpansionModule,
-    MatButtonModule,
-    MaterialTableModule
+    RouterModule,
+    ClientsModule,
+    TasksModule,
+    ApplicationsModule,
+    GroupsModule,
+    CoursesModule,
+    SourcesModule
   ],
   declarations: [
     HomeComponent,
-    ClientsComponent
+    BreadcrumbsComponent,
+  ],
+  exports: [
+    BreadcrumbsComponent
   ]
 })
 export class CoreModule {

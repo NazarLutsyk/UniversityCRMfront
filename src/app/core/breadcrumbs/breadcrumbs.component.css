@@ -1,0 +1,69 @@
+#breadcrumbs-four{
+  background: white;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 0;
+  list-style: none;
+  padding: 10px 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#breadcrumbs-four li{
+  float: left;
+  margin: 0 .5em 0 1em;
+}
+
+#breadcrumbs-four a{
+  background: #ddd;
+  padding: .3em 1em;
+  float: left;
+  text-decoration: none;
+  color: #444;
+  position: relative;
+}
+
+#breadcrumbs-four a:hover{
+  background: #e9e9e9;
+}
+
+#breadcrumbs-four a::before,
+#breadcrumbs-four a::after{
+  content:'';
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  width: 1em;
+  background: #ddd;
+  transform: skew(-10deg);
+}
+
+#breadcrumbs-four a::before{
+  left: -.5em;
+  border-radius: 5px 0 0 5px;
+}
+
+#breadcrumbs-four a:hover::before{
+  background: #e9e9e9;
+}
+
+#breadcrumbs-four a::after{
+  right: -.5em;
+  border-radius: 0 5px 5px 0;
+}
+
+#breadcrumbs-four a:hover::after{
+  background: #e9e9e9;
+}
+
+#breadcrumbs-four .current,
+#breadcrumbs-four .current:hover{
+  font-weight: bold;
+  background: none;
+  color: #f44336;
+}
+
+#breadcrumbs-four .current::after,
+#breadcrumbs-four .current::before{
+  content: normal;
+}

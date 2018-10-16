@@ -1,0 +1,5 @@
+<ul id="breadcrumbs-four" *ngIf="breadcrumbs.length > 1">
+  <li *ngFor="let breadcrumb of breadcrumbs">
+    <a [routerLink]="breadcrumb.url" routerLinkActive="current" [routerLinkActiveOptions]="{exact: true}">{{breadcrumb.label}}</a>
+  </li>
+</ul>

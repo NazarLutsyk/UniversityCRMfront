@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Client} from '../models/client';
 import {ConfigService} from './config.service';
+import {addParams} from '../helpers/url-helper';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +19,13 @@ export class ClientService {
     this.clientsURL = config.api + '/clients';
   }
 
+  getClientById(id: number, query = {}): Observable<Client[]> {
+    const urlToRequest = addParams(`${this.clientsURL}/${id}`, query);
+    return this.http.get<Client[]>(urlToRequest);
+  }
+
   getClients(query = {}): Observable<Client[]> {
-    let urlToRequest = this.clientsURL + '?';
-    for (const key in query) {
-      if (query[key]) {
-        urlToRequest += `${key}=${JSON.stringify(query[key])}&`;
-      }
-    }
+    const urlToRequest = addParams(this.clientsURL, query);
     return this.http.get<Client[]>(urlToRequest);
   }
 
