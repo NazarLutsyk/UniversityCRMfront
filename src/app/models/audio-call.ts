@@ -6,7 +6,8 @@ export class AudioCall {
     public date: string = '',
     public comment: string = '',
     public file: string = '',
-    public application: Application = null
+    public application: Application = null,
+    public applicationId: number = null
   ) {
   }
 }

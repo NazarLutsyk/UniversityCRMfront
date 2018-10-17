@@ -9,3 +9,155 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  color: rgba(0, 0, 0, .54);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+thead td {
+  cursor: pointer;
+  user-select: none;
+}
+
+.material-table-paginator {
+  width: 100%;
+  user-select: none;
+}
+
+.material-table-paginator mat-form-field, input {
+  width: 30px;
+}
+
+.material-table-paginator input {
+  display: inline-block;
+  text-align: center;
+}
+
+.material-table-paginator th {
+  vertical-align: middle;
+  padding: 0 0;
+}
+
+.material-table-paginator input[type=number]::-webkit-inner-spin-button,
+.material-table-paginator input[type=number]::-webkit-outer-spin-button,
+mat-form-field input[type=number]::-webkit-inner-spin-button,
+mat-form-field input[type=number]::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+mat-form-field input[type=date]::-webkit-inner-spin-button,
+mat-form-field input[type=date]::-webkit-calendar-picker-indicator,
+mat-form-field input[type=time]::-webkit-inner-spin-button,
+mat-form-field input[type=time]::-webkit-calendar-picker-indicator{
+  display: none;
+  -webkit-appearance: none;
+}
+
+
+.paginator-buttons {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.paginator-back {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('assets/images/back.png');
+  cursor: pointer;
+}
+
+.paginator-next {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('assets/images/next.png');
+  cursor: pointer;
+}
+
+tr {
+  background: white;
+  border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+
+tr:hover {
+  background-color: #e9e9e9;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+.sort-asc:after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('assets/images/asc.png');
+}
+
+.sort-desc:after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  background-size: contain;
+  margin: 0 5px;
+  background-image: url('assets/images/desc.png');
+}
+
+.filter-row td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filter-row input, mat-form-field {
+  width: 100%;
+}
+
+.controls-col{
+  background: rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.controls-col .remove-button{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("assets/images/remove.png");
+  background-size: contain;
+  cursor: pointer;
+}
+
+.data-row{
+  cursor: pointer;
+}
+
+.data-row .link{
+  background: #3f51b536;
+}
+
+.data-row .link:hover{
+  background: rgba(17, 16, 232, 0.21);
+}
+
+.data-row .no-link{
+  background: #f443362b;
+}
+

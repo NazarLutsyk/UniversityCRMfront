@@ -10,7 +10,8 @@ export class Group {
     public startTime: string = '',
     public applications: Application[] = [],
     public lessons: Lesson[] = [],
-    public course: Course = null
+    public course: Course = null,
+    public courseId: number = null
   ) {
   }
 }

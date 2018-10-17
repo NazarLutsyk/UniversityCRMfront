@@ -7,6 +7,7 @@ export class Lesson {
     public topic: string = '',
     public main: boolean = false,
     public group: Group = null,
+    public groupId: number = null,
     public applications: Application[] = []
   ) {
   }

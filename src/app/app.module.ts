@@ -10,6 +10,7 @@ import {ConfigService} from './services/config.service';
 import {ClientService} from './services/client.service';
 import {CoreModule} from './core/core.module';
 import {BreadcrumbsService} from './services/breadcrumbs.service';
+import {MaterialTableService} from './services/material-table.service';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,13 @@ import {BreadcrumbsService} from './services/breadcrumbs.service';
     HttpClientModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    MainRouterModule
+    MainRouterModule,
   ],
   providers: [
     ConfigService,
     ClientService,
-    BreadcrumbsService
+    BreadcrumbsService,
+    MaterialTableService
   ],
   bootstrap: [AppComponent]
 })

@@ -10,6 +10,10 @@ import {ApplicationsComponent} from './core/applications/applications.component'
 import {GroupsComponent} from './core/groups/groups.component';
 import {CoursesComponent} from './core/courses/courses.component';
 import {SourcesComponent} from './core/sources/sources.component';
+import {SingleTaskComponent} from './core/tasks/single-task/single-task.component';
+import {SingleSourceComponent} from './core/sources/single-source/single-source.component';
+import {SingleCourseComponent} from './core/courses/single-course/single-course.component';
+import {SingleGroupComponent} from './core/groups/single-group/single-group.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -31,28 +35,28 @@ const routes: Routes = [
     path: 'groups', data: {breadcrumb: 'Groups'}, children:
       [
         {path: '', component: GroupsComponent},
-        // {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
+        {path: ':id', component: SingleGroupComponent, data: {breadcrumb: 'Group'}},
       ]
   },
   {
     path: 'courses', data: {breadcrumb: 'Courses'}, children:
       [
         {path: '', component: CoursesComponent},
-        // {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
-      ]
-  },
-  {
-    path: 'sources', data: {breadcrumb: 'Sources'}, children:
-      [
-        {path: '', component: SourcesComponent},
-        // {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
+        {path: ':id', component: SingleCourseComponent, data: {breadcrumb: 'Course'}},
       ]
   },
   {
     path: 'tasks', data: {breadcrumb: 'Tasks'}, children:
       [
         {path: '', component: TasksComponent},
-        // {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
+        {path: ':id', component: SingleTaskComponent, data: {breadcrumb: 'Task'}},
+      ]
+  },
+  {
+    path: 'sources', data: {breadcrumb: 'Sources'}, children:
+      [
+        {path: '', component: SourcesComponent},
+        {path: ':id', component: SingleSourceComponent, data: {breadcrumb: 'Source'}},
       ]
   }
 ];

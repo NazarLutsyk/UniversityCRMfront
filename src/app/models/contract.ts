@@ -5,7 +5,8 @@ export class Contract {
     public id: number = null,
     public date: string = '',
     public file: string = '',
-    public application: Application = null
+    public application: Application = null,
+    public applicationId: number = null
   ) {
   }
 }

@@ -50,17 +50,137 @@
   </form>
 </mat-expansion-panel>
 
-<app-material-table
-  *ngIf="clients.length > 0"
-  [dataSource]="clients"
-  [headers]="headers"
-  [count]="count"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  (onSort)="loadSorted($event)"
-  (onFilter)="loadFiltered($event)"
-  (onPagination)="loadPaginated($event)"
-  (onRemove)="remove($event)"
-  (onOpen)="open($event)"
->
-</app-material-table>
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Name
+    </td>
+    <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
+      Surname
+    </td>
+    <td (click)="loadSorted('phone',headerBlock,$event)" data-sort="">
+      Phone
+    </td>
+    <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
+      Email
+    </td>
+    <td>
+      Passport
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="surname"
+          data-key="surname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="phone"
+          data-key="phone"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="email"
+          data-key="email"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="passport"
+          data-key="passport"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let client of clients" (click)="open(client.id, 'clients',$event)" class="data-row">
+    <td>
+      {{client.name}}
+    </td>
+    <td>
+      {{client.surname}}
+    </td>
+    <td>
+      {{client.phone}}
+    </td>
+    <td>
+      {{client.email}}
+    </td>
+    <td>
+      {{client.passport}}
+    </td>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(client.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

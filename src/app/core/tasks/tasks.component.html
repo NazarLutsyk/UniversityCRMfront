@@ -1,3 +1,101 @@
-<p>
-  tasks works!
-</p>
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('message',headerBlock,$event)" data-sort="">
+      Message
+    </td>
+    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="">
+      Client
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="message"
+          data-key="message"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="client.name"
+          data-key="client.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let task of tasks" (click)="open(task.id, 'tasks',$event)" class="data-row">
+    <td>
+      {{task.message}}
+    </td>
+    <td>
+      {{task.date | date : 'yyy/MM/dd HH:MM'}}
+    </td>
+    <ng-container>
+      <td [ngClass]="{'link': !!task.client, 'no-link': !!!task.client}"
+          (click)="open(task.client?.id, 'clients',$event)">
+        <span *ngIf="task.client">
+          {{task.client.surname}} {{task.client.name}}
+        </span>
+      </td>
+    </ng-container>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(task.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

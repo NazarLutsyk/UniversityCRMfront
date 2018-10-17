@@ -24,7 +24,7 @@ export class CourseService {
     return this.http.get<Course[]>(urlToRequest);
   }
 
-  getCourses(query = {}): Observable<Course[]> {
+  getCourses(query = {}): Observable<any> {
     const urlToRequest = addParams(this.coursesURL, query);
     return this.http.get<Course[]>(urlToRequest);
   }

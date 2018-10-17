@@ -9,6 +9,8 @@ import {GroupsModule} from './groups/groups.module';
 import {ApplicationsModule} from './applications/applications.module';
 import {CoursesModule} from './courses/courses.module';
 import {SourcesModule} from './sources/sources.module';
+import {DeleteSnackBarComponent} from './delete-snack-bar/delete-snack-bar.component';
+import {MatButtonModule, MatSnackBarModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -19,12 +21,16 @@ import {SourcesModule} from './sources/sources.module';
     ApplicationsModule,
     GroupsModule,
     CoursesModule,
-    SourcesModule
+    SourcesModule,
+    MatSnackBarModule,
+    MatButtonModule,
   ],
   declarations: [
     HomeComponent,
     BreadcrumbsComponent,
+    DeleteSnackBarComponent,
   ],
+  entryComponents: [DeleteSnackBarComponent],
   exports: [
     BreadcrumbsComponent
   ]

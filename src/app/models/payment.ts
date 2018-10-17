@@ -7,7 +7,8 @@ export class Payment {
     public date: string = '',
     public amount: number = 0,
     public file: string = '',
-    public application: Application = null
+    public application: Application = null,
+    public applicationId: number = null
   ) {
   }
 }

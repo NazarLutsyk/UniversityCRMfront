@@ -2,9 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Client} from '../../models/client';
 import {ClientService} from '../../services/client.service';
 import {Observable} from 'rxjs';
-import {MaterialTableHeader} from '../material-table/material-table.component';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
+import {MaterialTableService} from '../../services/material-table.service';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-clients',
@@ -14,40 +15,56 @@ import {Router} from '@angular/router';
 export class ClientsComponent implements OnInit {
 
   clients: Client[] = [];
-  headers: MaterialTableHeader[] = [];
   count = 0;
 
   pageIndex = 1;
   pageSize = 9;
+  countOfPages = 1;
 
   sort = '';
   filter: any = {};
 
   constructor(
     private clientsService: ClientService,
-    private router: Router
+    private router: Router,
+    public materialTableService: MaterialTableService
   ) {
   }
 
   ngOnInit() {
-    this.headers = [
-      {header: 'Name', key: 'name', filtered: true},
-      {header: 'Surname', key: 'surname', filtered: true},
-      {header: 'Phone', key: 'phone', filtered: true},
-      {header: 'Email', key: 'email', filtered: true},
-      {header: 'Passport', key: 'passport', filtered: false}
-    ];
     this.loadClients();
   }
 
-  private loadClients() {
+  loadClients() {
     this.sendLoadClients().subscribe(response => {
       this.count = response.count;
       this.clients = response.models;
+      this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }
 
-  sendLoadClients(): Observable<any> {
+  loadSorted(key: string, headerBlock: HTMLElement, event: any) {
+    this.sort = this.materialTableService.sort(key, headerBlock, event);
+    this.loadClients();
+  }
+
+  loadFiltered(headerBlock: HTMLElement) {
+    this.filter = this.materialTableService.getFilter(headerBlock);
+    this.loadClients();
+  }
+
+  loadPaginated(offset: number, event: any) {
+    this.pageIndex = this.materialTableService.calcNextPage({
+      countOfPages: this.countOfPages,
+      currentPage: this.pageIndex,
+      nextOffset: offset,
+      nextPage: event ? event.target.value : 0,
+      event: event
+    });
+    this.loadClients();
+  }
+
+  private sendLoadClients(): Observable<any> {
     const filterToSend = this.getFilterToSend();
     return this.clientsService.getClients({
       q: filterToSend,
@@ -57,17 +74,7 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  loadSorted($event: string) {
-    this.sort = $event;
-    this.loadClients();
-  }
-
-  loadFiltered($event: any) {
-    this.filter = $event;
-    this.loadClients();
-  }
-
-  getFilterToSend() {
+  private getFilterToSend() {
     const res: any = {};
 
     if (this.filter.name) {
@@ -86,11 +93,6 @@ export class ClientsComponent implements OnInit {
     return res;
   }
 
-  loadPaginated(nextPage: number) {
-    this.pageIndex = nextPage;
-    this.loadClients();
-  }
-
   createClient(clientForm: NgForm) {
     const client: Client = <Client>clientForm.form.value;
     this.clientsService.create(client).subscribe((clientResponse) => {
@@ -100,16 +102,25 @@ export class ClientsComponent implements OnInit {
   }
 
   remove(id) {
-    this.clientsService.remove(id).subscribe((removed) => {
-      const countOfPages = Math.ceil((this.count - 1) / this.pageSize);
-      if (countOfPages < this.pageIndex && this.pageIndex > 1) {
-        --this.pageIndex;
-      }
-      this.loadClients();
+    this.materialTableService.showRemoveSnackBar().subscribe(() => {
+      this.clientsService.remove(id).subscribe((removed) => {
+        const countOfPages = Math.ceil((this.count - 1) / this.pageSize);
+        if (countOfPages < this.pageIndex && this.pageIndex > 1 && countOfPages !== 0) {
+          --this.pageIndex;
+        }
+        this.loadClients();
+      });
     });
   }
 
-  open(id) {
-    this.router.navigate(['clients', id]);
+  open(id, url, $event) {
+    $event.stopPropagation();
+    const isControl = $event.target.dataset.controls;
+    if (isControl || !isNumber(id)) {
+      return false;
+    }
+    this.router.navigate([...url.split('/'), id]);
   }
+
+
 }
