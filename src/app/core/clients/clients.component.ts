@@ -3,9 +3,10 @@ import {Client} from '../../models/client';
 import {ClientService} from '../../services/client.service';
 import {Observable} from 'rxjs';
 import {NgForm} from '@angular/forms';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {isNumber} from 'util';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-clients',
@@ -24,14 +25,25 @@ export class ClientsComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  selectEvent = null;
+
   constructor(
     private clientsService: ClientService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    private activatedRoute: ActivatedRoute,
+    public materialTableService: MaterialTableService,
+    public snackBar: MatSnackBar,
   ) {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((query) => {
+      if (query.selectEvent) {
+        this.selectEvent = {
+          backURL: query.backURL
+        };
+      }
+    });
     this.loadClients();
   }
 
@@ -113,13 +125,18 @@ export class ClientsComponent implements OnInit {
     });
   }
 
-  open(id, url, $event) {
+  open(client, url, $event) {
     $event.stopPropagation();
-    const isControl = $event.target.dataset.controls;
-    if (isControl || !isNumber(id)) {
-      return false;
+    if (this.selectEvent) {
+      this.router.navigate(this.selectEvent.backURL, {queryParams: {client: JSON.stringify(client)}});
+      this.selectEvent = null;
+    } else {
+      const isControl = $event.target.dataset.controls;
+      if (isControl || !isNumber(client.id)) {
+        return false;
+      }
+      this.router.navigate([...url.split('/'), client.id]);
     }
-    this.router.navigate([...url.split('/'), id]);
   }
 
 

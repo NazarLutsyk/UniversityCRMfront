@@ -27,6 +27,10 @@ thead td {
   user-select: none;
 }
 
+.small-td{
+  max-width: 67px;
+}
+
 .material-table-paginator {
   width: 100%;
   user-select: none;

@@ -162,7 +162,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let client of clients" (click)="open(client.id, 'clients',$event)" class="data-row">
+  <tr *ngFor="let client of clients" (click)="open(client, 'clients',$event)" class="data-row">
     <td>
       {{client.name}}
     </td>

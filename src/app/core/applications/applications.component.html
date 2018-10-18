@@ -1,3 +1,287 @@
-<p>
-  applications works!
-</p>
+<mat-expansion-panel #formpanel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CREATE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form #form="ngForm" (ngSubmit)="createApplication(form)">
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input
+        type="date"
+        name="date"
+        [(ngModel)]="applicationForm.date"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field (click)="selectClient($event)">
+      <mat-label>Client</mat-label>
+      <input
+        type="text"
+        name="clientId"
+        [(ngModel)]="selectedClient.name + ' ' + selectedClient.surname"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Course</mat-label>
+      <mat-select [(ngModel)]="applicationForm.courseId" name="courseId" required>
+        <mat-option *ngFor="let course of courses" [value]="course.id">
+          {{course.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Source</mat-label>
+      <mat-select [(ngModel)]="applicationForm.sourceId" name="sourceId">
+        <mat-option *ngFor="let source of sources" [value]="source.id">
+          {{source.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Discount</mat-label>
+      <input
+        type="number"
+        name="discount"
+        [(ngModel)]="applicationForm.discount"
+        matInput
+        (input)="validateDiscount($event)"
+      >
+    </mat-form-field>
+    <button mat-flat-button [disabled]="!form.valid">Create</button>
+  </form>
+</mat-expansion-panel>
+
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="">
+      Client
+    </td>
+    <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
+      Course
+    </td>
+    <td (click)="loadSorted('group.name',headerBlock,$event)" data-sort="">
+      Group
+    </td>
+    <td (click)="loadSorted('source.name',headerBlock,$event)" data-sort="">
+      Source
+    </td>
+    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td class="small-td" (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
+      Price
+    </td>
+    <td class="small-td" (click)="loadSorted('discount',headerBlock,$event)" data-sort="">
+      Discount
+    </td>
+    <td class="small-td" (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
+      With discount
+    </td>
+    <td class="small-td" (click)="loadSorted('leftToPay',headerBlock,$event)" data-sort="">
+      Left to pay
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="client.name"
+          data-key="client.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="course.name"
+          data-key="course.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="group.name"
+          data-key="group.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="source.name"
+          data-key="source.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          name="fullPrice"
+          data-key="fullPrice"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          name="discount"
+          data-key="discount"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="resultPrice"
+          data-key="resultPrice"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="leftToPay"
+          data-key="leftToPay"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let application of applications" (click)="open(application.id, 'applications',$event)" class="data-row">
+    <ng-container>
+      <td [ngClass]="{'link': !!application.client, 'no-link': !!!application.client}"
+          (click)="open(application.client?.id, 'clients',$event)">
+        <span *ngIf="application.client">
+          {{application.client.name}} {{application.client.surname}}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container>
+      <td [ngClass]="{'link': !!application.course, 'no-link': !!!application.course}"
+          (click)="open(application.course?.id, 'courses',$event)">
+        <span *ngIf="application.course">
+          {{application.course.name}}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container>
+      <td [ngClass]="{'link': !!application.group, 'no-link': !!!application.group}"
+          (click)="open(application.group?.id, 'groups',$event)">
+        <span *ngIf="application.group">
+          {{application.group.name}}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container>
+      <td [ngClass]="{'link': !!application.source, 'no-link': !!!application.source}"
+          (click)="open(application.source?.id, 'sources',$event)">
+        <span *ngIf="application.source">
+          {{application.source.name}}
+        </span>
+      </td>
+    </ng-container>
+    <td>
+      {{application.date | date : 'yyy/MM/dd'}}
+    </td>
+    <td class="small-td">
+      {{application.fullPrice}}
+    </td>
+    <td class="small-td">
+      {{application.discount}}%
+    </td>
+    <td class="small-td">
+      {{application.resultPrice}}
+    </td>
+    <td class="small-td">
+      {{application.leftToPay}}
+    </td>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(application.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

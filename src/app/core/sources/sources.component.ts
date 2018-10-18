@@ -18,7 +18,7 @@ export class SourcesComponent implements OnInit {
   count = 0;
 
   pageIndex = 1;
-  pageSize = 1;
+  pageSize = 9;
   countOfPages = 1;
 
   sort = '';

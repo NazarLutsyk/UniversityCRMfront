@@ -25,6 +25,13 @@ const routes: Routes = [
       ]
   },
   {
+    path: 'tasks', data: {breadcrumb: 'Tasks'}, children:
+      [
+        {path: '', component: TasksComponent},
+        {path: ':id', component: SingleTaskComponent, data: {breadcrumb: 'Task'}},
+      ]
+  },
+  {
     path: 'applications', data: {breadcrumb: 'Applications'}, children:
       [
         {path: '', component: ApplicationsComponent},
@@ -43,13 +50,6 @@ const routes: Routes = [
       [
         {path: '', component: CoursesComponent},
         {path: ':id', component: SingleCourseComponent, data: {breadcrumb: 'Course'}},
-      ]
-  },
-  {
-    path: 'tasks', data: {breadcrumb: 'Tasks'}, children:
-      [
-        {path: '', component: TasksComponent},
-        {path: ':id', component: SingleTaskComponent, data: {breadcrumb: 'Task'}},
       ]
   },
   {

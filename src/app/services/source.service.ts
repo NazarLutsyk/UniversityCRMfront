@@ -24,7 +24,7 @@ export class SourceService {
     return this.http.get<Source[]>(urlToRequest);
   }
 
-  getSources(query = {}): Observable<Source[]> {
+  getSources(query = {}): Observable<any> {
     const urlToRequest = addParams(this.sourcesURL, query);
     return this.http.get<Source[]>(urlToRequest);
   }

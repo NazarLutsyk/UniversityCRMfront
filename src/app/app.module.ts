@@ -6,11 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material';
 import {MainRouterModule} from './main-router.module';
 import {HttpClientModule} from '@angular/common/http';
-import {ConfigService} from './services/config.service';
-import {ClientService} from './services/client.service';
 import {CoreModule} from './core/core.module';
-import {BreadcrumbsService} from './services/breadcrumbs.service';
-import {MaterialTableService} from './services/material-table.service';
 
 @NgModule({
   declarations: [
@@ -24,12 +20,7 @@ import {MaterialTableService} from './services/material-table.service';
     MatToolbarModule,
     MainRouterModule,
   ],
-  providers: [
-    ConfigService,
-    ClientService,
-    BreadcrumbsService,
-    MaterialTableService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
