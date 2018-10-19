@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {Observable} from 'rxjs';
 import {NgForm} from '@angular/forms';
 import {Task} from '../../models/task';
 import {TaskService} from '../../services/task.service';
 import {isNumber} from 'util';
+import {Client} from '../../models/client';
+import {StorageService} from '../../services/storage.service';
+import {MatExpansionPanel} from '@angular/material';
 
 @Component({
   selector: 'app-tasks',
@@ -13,6 +16,10 @@ import {isNumber} from 'util';
   styleUrls: ['./tasks.component.css']
 })
 export class TasksComponent implements OnInit {
+
+  @ViewChild('formpanel') formPanel: MatExpansionPanel;
+
+  selectedClient: Client = new Client();
 
   tasks: Task[] = [];
   count = 0;
@@ -24,15 +31,40 @@ export class TasksComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  taskForm = {
+    date: null,
+    message: ''
+  };
+
   constructor(
     private tasksService: TaskService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    private activatedRoute: ActivatedRoute,
+    public materialTableService: MaterialTableService,
+    public storageService: StorageService,
   ) {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe((query) => {
+      if (query.client) {
+        this.selectedClient = JSON.parse(query.client);
+        this.taskForm = this.storageService.taskLevel ? this.storageService.taskLevel : this.taskForm;
+        this.formPanel.open();
+      }
+    });
     this.loadTasks();
+  }
+
+  selectClient($event) {
+    $event.stopPropagation();
+    this.storageService.taskLevel = this.taskForm;
+    this.router.navigate(['clients'], {
+      queryParams: {
+        backURL: ['tasks'],
+        selectEvent: true
+      }
+    });
   }
 
   loadTasks() {
@@ -88,9 +120,14 @@ export class TasksComponent implements OnInit {
   }
 
   createTask(form: NgForm) {
-    const task: Task = <Task>form.form.value;
-    this.tasksService.create(task).subscribe((clientResponse) => {
+    const task: Task = <Task>{
+      clientId: this.selectedClient.id,
+      date: this.taskForm.date,
+      message: this.taskForm.message,
+    };
+    this.tasksService.create(task).subscribe((response) => {
       form.resetForm();
+      this.selectedClient = new Client();
       this.loadTasks();
     });
   }

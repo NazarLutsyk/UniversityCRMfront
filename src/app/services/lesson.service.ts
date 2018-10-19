@@ -19,9 +19,9 @@ export class LessonService {
     this.lessonsURL = config.api + '/lessons';
   }
 
-  getLessonById(id: number, query = {}): Observable<Lesson[]> {
+  getLessonById(id: number, query = {}): Observable<Lesson> {
     const urlToRequest = addParams(`${this.lessonsURL}/${id}`, query);
-    return this.http.get<Lesson[]>(urlToRequest);
+    return this.http.get<Lesson>(urlToRequest);
   }
 
   getLessons(query = {}): Observable<Lesson[]> {

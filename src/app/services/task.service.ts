@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
@@ -19,9 +19,9 @@ export class TaskService {
     this.tasksURL = config.api + '/tasks';
   }
 
-  getTaskById(id: number, query = {}): Observable<Task[]> {
+  getTaskById(id: number, query = {}): Observable<Task> {
     const urlToRequest = addParams(`${this.tasksURL}/${id}`, query);
-    return this.http.get<Task[]>(urlToRequest);
+    return this.http.get<Task>(urlToRequest);
   }
 
   getTasks(query = {}): Observable<Task[]> {
@@ -35,5 +35,9 @@ export class TaskService {
 
   remove(id: number | string): Observable<Task> {
     return this.http.delete<Task>(`${this.tasksURL}/${id}`);
+  }
+
+  update(id: number, task: any): Observable<Task> {
+    return this.http.put<Task>(`${this.tasksURL}/${id}`, task);
   }
 }

@@ -19,9 +19,9 @@ export class PaymentService {
     this.paymentsURL = config.api + '/payments';
   }
 
-  getPaymentById(id: number, query = {}): Observable<Payment[]> {
+  getPaymentById(id: number, query = {}): Observable<Payment> {
     const urlToRequest = addParams(`${this.paymentsURL}/${id}`, query);
-    return this.http.get<Payment[]>(urlToRequest);
+    return this.http.get<Payment>(urlToRequest);
   }
 
   getPayments(query = {}): Observable<Payment[]> {

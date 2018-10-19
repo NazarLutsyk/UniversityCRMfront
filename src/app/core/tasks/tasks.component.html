@@ -1,3 +1,43 @@
+<mat-expansion-panel #formpanel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CREATE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form #form="ngForm" (ngSubmit)="createTask(form)">
+    <mat-form-field (click)="selectClient($event)">
+      <mat-label>Client</mat-label>
+      <input
+        type="text"
+        name="clientId"
+        [(ngModel)]="selectedClient.name + ' ' + selectedClient.surname"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <input
+        type="text"
+        name="message"
+        [(ngModel)]="taskForm.message"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input
+        type="date"
+        name="date"
+        [(ngModel)]="taskForm.date"
+        matInput
+      >
+    </mat-form-field>
+    <button mat-flat-button [disabled]="!form.valid">Create</button>
+  </form>
+</mat-expansion-panel>
+
 <table>
   <thead>
   <tr class="material-table-paginator" #paginator>
@@ -83,7 +123,7 @@
       {{task.message}}
     </td>
     <td>
-      {{task.date | date : 'yyy/MM/dd HH:MM'}}
+      {{task.date | date : 'yyy/MM/dd'}}
     </td>
     <ng-container>
       <td [ngClass]="{'link': !!task.client, 'no-link': !!!task.client}"

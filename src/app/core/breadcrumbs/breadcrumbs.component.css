@@ -60,7 +60,7 @@
 #breadcrumbs-four .current:hover{
   font-weight: bold;
   background: none;
-  color: #f44336;
+  color: #1e305bb8;
 }
 
 #breadcrumbs-four .current::after,

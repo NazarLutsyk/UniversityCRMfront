@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Course} from '../../../models/course';
+import {ActivatedRoute} from '@angular/router';
+import {CourseService} from '../../../services/course.service';
 
 @Component({
   selector: 'app-single-course',
@@ -7,9 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleCourseComponent implements OnInit {
 
-  constructor() { }
+  course: Course = new Course();
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private sourceService: CourseService
+  ) {
+  }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe(({id}) => {
+      this.sourceService.getCourseById(id, {attributes: ['id', 'name', 'fullPrice', 'discount', 'resultPrice']})
+        .subscribe(course => {
+          this.course = course;
+          console.log(this.course);
+        });
+    });
+  }
+
+  updateCourse() {
+    this.sourceService.update(this.course.id, this.course).subscribe(updated => this.course = updated);
+  }
+
+
+  validateDiscount($event) {
+    const value = $event.target.value;
+    if (value < 0) {
+      $event.target.value = 0;
+    }
+    if (value > 100) {
+      $event.target.value = 100;
+    }
   }
 
 }

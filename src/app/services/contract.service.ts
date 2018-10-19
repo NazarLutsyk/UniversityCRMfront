@@ -19,9 +19,9 @@ export class ContractService {
     this.contractsURL = config.api + '/contracts';
   }
 
-  getContractById(id: number, query = {}): Observable<Contract[]> {
+  getContractById(id: number, query = {}): Observable<Contract> {
     const urlToRequest = addParams(`${this.contractsURL}/${id}`, query);
-    return this.http.get<Contract[]>(urlToRequest);
+    return this.http.get<Contract>(urlToRequest);
   }
 
   getContracts(query = {}): Observable<Contract[]> {

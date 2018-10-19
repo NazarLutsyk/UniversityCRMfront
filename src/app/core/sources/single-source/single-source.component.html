@@ -1,3 +1,20 @@
-<p>
-  single-source works!
-</p>
+<div class="main-wrapper">
+  <div class="left-menu">
+    <form #form="ngForm" (ngSubmit)="updateSource()">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="source.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo graphics-->
+  </div>
+</div>

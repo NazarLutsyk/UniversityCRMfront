@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
@@ -19,9 +19,9 @@ export class CourseService {
     this.coursesURL = config.api + '/courses';
   }
 
-  getCourseById(id: number, query = {}): Observable<Course[]> {
+  getCourseById(id: number, query = {}): Observable<Course> {
     const urlToRequest = addParams(`${this.coursesURL}/${id}`, query);
-    return this.http.get<Course[]>(urlToRequest);
+    return this.http.get<Course>(urlToRequest);
   }
 
   getCourses(query = {}): Observable<any> {
@@ -35,5 +35,9 @@ export class CourseService {
 
   remove(id: number | string): Observable<Course> {
     return this.http.delete<Course>(`${this.coursesURL}/${id}`);
+  }
+
+  update(id: number, course: Course) {
+    return this.http.put<Course>(`${this.coursesURL}/${id}`, course);
   }
 }

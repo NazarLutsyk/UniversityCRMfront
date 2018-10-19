@@ -19,9 +19,9 @@ export class ApplicationService {
     this.applicationsURL = config.api + '/applications';
   }
 
-  getApplicationById(id: number, query = {}): Observable<Application[]> {
+  getApplicationById(id: number, query = {}): Observable<Application> {
     const urlToRequest = addParams(`${this.applicationsURL}/${id}`, query);
-    return this.http.get<Application[]>(urlToRequest);
+    return this.http.get<Application>(urlToRequest);
   }
 
   getApplications(query = {}): Observable<Application[]> {

@@ -19,9 +19,9 @@ export class GroupService {
     this.groupsURL = config.api + '/groups';
   }
 
-  getGroupById(id: number, query = {}): Observable<Group[]> {
+  getGroupById(id: number, query = {}): Observable<Group> {
     const urlToRequest = addParams(`${this.groupsURL}/${id}`, query);
-    return this.http.get<Group[]>(urlToRequest);
+    return this.http.get<Group>(urlToRequest);
   }
 
   getGroups(query = {}): Observable<Group[]> {

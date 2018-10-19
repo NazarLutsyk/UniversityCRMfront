@@ -19,9 +19,9 @@ export class CommentService {
     this.commentsURL = config.api + '/comments';
   }
 
-  getCommentById(id: number, query = {}): Observable<Comment[]> {
+  getCommentById(id: number, query = {}): Observable<Comment> {
     const urlToRequest = addParams(`${this.commentsURL}/${id}`, query);
-    return this.http.get<Comment[]>(urlToRequest);
+    return this.http.get<Comment>(urlToRequest);
   }
 
   getComments(query = {}): Observable<Comment[]> {

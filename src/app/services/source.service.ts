@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
@@ -19,9 +19,9 @@ export class SourceService {
     this.sourcesURL = config.api + '/sources';
   }
 
-  getSourceById(id: number, query = {}): Observable<Source[]> {
+  getSourceById(id: number, query = {}): Observable<Source> {
     const urlToRequest = addParams(`${this.sourcesURL}/${id}`, query);
-    return this.http.get<Source[]>(urlToRequest);
+    return this.http.get<Source>(urlToRequest);
   }
 
   getSources(query = {}): Observable<any> {
@@ -35,5 +35,9 @@ export class SourceService {
 
   remove(id: number | string): Observable<Source> {
     return this.http.delete<Source>(`${this.sourcesURL}/${id}`);
+  }
+
+  update(id: number, source: Source): Observable<Source> {
+    return this.http.put<Source>(`${this.sourcesURL}/${id}`, source);
   }
 }

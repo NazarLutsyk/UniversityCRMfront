@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 export class StorageService {
 
   applicationsLevel: any = null;
+  taskLevel: any = null;
 
   constructor() {
   }

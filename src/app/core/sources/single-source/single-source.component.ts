@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SourceService} from '../../../services/source.service';
+import {Source} from '../../../models/source';
 
 @Component({
   selector: 'app-single-source',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleSourceComponent implements OnInit {
 
-  constructor() { }
+  source: Source = new Source();
 
-  ngOnInit() {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private sourceService: SourceService
+  ) {
   }
 
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(({id}) => {
+      this.sourceService.getSourceById(id, {attributes: ['id', 'name']})
+        .subscribe(source => this.source = source);
+    });
+  }
+
+  updateSource() {
+    this.sourceService.update(this.source.id, this.source).subscribe(updated => this.source = updated);
+  }
 }

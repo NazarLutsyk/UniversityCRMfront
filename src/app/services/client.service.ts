@@ -19,9 +19,9 @@ export class ClientService {
     this.clientsURL = config.api + '/clients';
   }
 
-  getClientById(id: number, query = {}): Observable<Client[]> {
+  getClientById(id: number, query = {}): Observable<Client> {
     const urlToRequest = addParams(`${this.clientsURL}/${id}`, query);
-    return this.http.get<Client[]>(urlToRequest);
+    return this.http.get<Client>(urlToRequest);
   }
 
   getClients(query = {}): Observable<Client[]> {

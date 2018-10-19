@@ -1,3 +1,40 @@
-<p>
-  single-course works!
-</p>
+<div class="main-wrapper">
+  <div class="left-menu">
+    <form #form="ngForm" (ngSubmit)="updateCourse()">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="course.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input
+          type="number"
+          name="fullPrice"
+          [(ngModel)]="course.fullPrice"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Discount</mat-label>
+        <input
+          type="text"
+          name="discount"
+          [(ngModel)]="course.discount"
+          matInput
+          (input)="validateDiscount($event)"
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo statistic-->
+  </div>
+</div>

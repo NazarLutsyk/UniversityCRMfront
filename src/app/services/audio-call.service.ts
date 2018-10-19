@@ -19,9 +19,9 @@ export class AudioCallService {
     this.audioCallsURL = config.api + '/audioCalls';
   }
 
-  getAudioCallById(id: number, query = {}): Observable<AudioCall[]> {
+  getAudioCallById(id: number, query = {}): Observable<AudioCall> {
     const urlToRequest = addParams(`${this.audioCallsURL}/${id}`, query);
-    return this.http.get<AudioCall[]>(urlToRequest);
+    return this.http.get<AudioCall>(urlToRequest);
   }
 
   getAudioCalls(query = {}): Observable<AudioCall[]> {

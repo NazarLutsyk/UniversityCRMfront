@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SourcesComponent } from './sources.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {SourcesComponent} from './sources.component';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
-import { SingleSourceComponent } from './single-source/single-source.component';
+import {SingleSourceComponent} from './single-source/single-source.component';
 
 @NgModule({
   imports: [
@@ -12,8 +12,9 @@ import { SingleSourceComponent } from './single-source/single-source.component';
     MatButtonModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
   ],
   declarations: [SourcesComponent, SingleSourceComponent]
 })
-export class SourcesModule { }
+export class SourcesModule {
+}
