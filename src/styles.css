@@ -10,10 +10,13 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-
 table {
   width: 100%;
   border-collapse: collapse;
+}
+
+.overflow-x{
+  overflow-x: auto;
 }
 
 thead {
@@ -27,7 +30,7 @@ thead td {
   user-select: none;
 }
 
-.small-td{
+.small-td {
   max-width: 67px;
 }
 
@@ -53,7 +56,7 @@ thead td {
 .material-table-paginator input[type=number]::-webkit-inner-spin-button,
 .material-table-paginator input[type=number]::-webkit-outer-spin-button,
 mat-form-field input[type=number]::-webkit-inner-spin-button,
-mat-form-field input[type=number]::-webkit-outer-spin-button{
+mat-form-field input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -61,11 +64,10 @@ mat-form-field input[type=number]::-webkit-outer-spin-button{
 mat-form-field input[type=date]::-webkit-inner-spin-button,
 mat-form-field input[type=date]::-webkit-calendar-picker-indicator,
 mat-form-field input[type=time]::-webkit-inner-spin-button,
-mat-form-field input[type=time]::-webkit-calendar-picker-indicator{
+mat-form-field input[type=time]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
-
 
 .paginator-buttons {
   display: inline-block;
@@ -135,12 +137,12 @@ th, td {
   width: 100%;
 }
 
-.controls-col{
+.controls-col {
   background: rgba(0, 0, 0, 0.06);
   text-align: center;
 }
 
-.controls-col .remove-button{
+.controls-col .remove-button {
   display: inline-block;
   width: 20px;
   height: 20px;
@@ -149,18 +151,22 @@ th, td {
   cursor: pointer;
 }
 
-.data-row{
+.data-row {
   cursor: pointer;
 }
 
-.data-row .link{
+.data-row .link {
   background: #3f51b536;
 }
 
-.data-row .link:hover{
+.data-row .link:hover {
   background: rgba(17, 16, 232, 0.21);
 }
 
-.data-row .no-link{
+.data-row .no-link {
   background: #f443362b;
+}
+
+mat-checkbox{
+  margin-bottom: 15px;
 }

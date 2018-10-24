@@ -1,3 +1,82 @@
-<p>
-  single-group works!
-</p>
+<div class="main-wrapper">
+  <div class="left-menu">
+    <form #form="ngForm" (ngSubmit)="updateGroup()">
+      <mat-form-field>
+        <mat-label>Course</mat-label>
+        <input
+          type="text"
+          name="courseId"
+          [value]="group.course?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="group.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Start date</mat-label>
+        <input
+          type="date"
+          name="startDate"
+          [(ngModel)]="group.startDate"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Start time</mat-label>
+        <input
+          type="time"
+          name="startTime"
+          [(ngModel)]="group.startTime"
+          required
+          matInput
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo graphics-->
+    JOURNAL STATISTIC
+  </div>
+
+
+  <div class="group-lesson-block">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE LESSON
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #formLesson="ngForm" (ngSubmit)="createLesson(formLesson)">
+        <mat-form-field>
+          <mat-label>Topic</mat-label>
+          <input
+            type="text"
+            name="topic"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+          <mat-checkbox ngModel name="main" [value]="false">Main lesson</mat-checkbox>
+        <button mat-flat-button [disabled]="!formLesson.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-lessons-table #lessonsTable [byGroupId]="group.id"></app-lessons-table>
+  </div>
+
+
+  <div class="group-applications overflow-x" *ngIf="group.id">
+    <app-applications-table [byGroupId]="group.id"></app-applications-table>
+  </div>
+</div>

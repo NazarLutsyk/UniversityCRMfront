@@ -36,4 +36,8 @@ export class ApplicationService {
   remove(id: number | string): Observable<Application> {
     return this.http.delete<Application>(`${this.applicationsURL}/${id}`);
   }
+
+  update(id: number, application: any): Observable<Application> {
+    return this.http.put<Application>(`${this.applicationsURL}/${id}`, application);
+  }
 }

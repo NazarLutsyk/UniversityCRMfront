@@ -23,7 +23,6 @@ export class SingleCourseComponent implements OnInit {
       this.sourceService.getCourseById(id, {attributes: ['id', 'name', 'fullPrice', 'discount', 'resultPrice']})
         .subscribe(course => {
           this.course = course;
-          console.log(this.course);
         });
     });
   }

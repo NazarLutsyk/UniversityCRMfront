@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {Client} from '../../../models/client';
+import {ClientService} from '../../../services/client.service';
 
 @Component({
   selector: 'app-single-client',
@@ -8,15 +10,30 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class SingleClientComponent implements OnInit {
 
+  client: Client = new Client();
+
   constructor(
-    private router: Router,
-    private activeRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private clientService: ClientService
   ) {
   }
 
   ngOnInit() {
-    this.activeRoute.params.subscribe(({id}) => {
-        console.log(id);
+    this.activatedRoute.params.subscribe(({id}) => {
+      this.loadClient(id);
+    });
+  }
+
+  loadClient(id) {
+    this.clientService.getClientById(id, {
+      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: []
+    })
+      .subscribe(client => this.client = client);
+  }
+
+  updateClient() {
+    this.clientService.update(this.client.id, this.client).subscribe(updated => {
+      this.loadClient(updated.id);
     });
   }
 

@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {ApplicationsComponent} from './applications.component';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import { SingleApplicationComponent } from './single-application/single-application.component';
+import { ApplicationsTableComponent } from './applications-table/applications-table.component';
 
 @NgModule({
   imports: [
@@ -14,7 +16,8 @@ import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule,
     MatInputModule,
     MatSelectModule
   ],
-  declarations: [ApplicationsComponent]
+  declarations: [ApplicationsComponent, SingleApplicationComponent, ApplicationsTableComponent],
+  exports: [ApplicationsTableComponent]
 })
 export class ApplicationsModule {
 }

@@ -36,5 +36,10 @@
   </div>
   <div class="right-menu">
     <!--todo statistic-->
+    FUTURE STATISTIC BY APPLICATIONS
+    AND GROUPS
+  </div>
+  <div class="course-groups" *ngIf="course.id">
+    <app-groups-table [byCourseId]="course.id"></app-groups-table>
   </div>
 </div>

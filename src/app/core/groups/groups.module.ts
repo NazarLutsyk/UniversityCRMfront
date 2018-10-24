@@ -1,9 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GroupsComponent } from './groups.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {GroupsComponent} from './groups.component';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
-import { SingleGroupComponent } from './single-group/single-group.component';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule
+} from '@angular/material';
+import {SingleGroupComponent} from './single-group/single-group.component';
+import {GroupsTableComponent} from './groups-table/groups-table.component';
+import {ApplicationsModule} from '../applications/applications.module';
+import {LessonsModule} from '../lessons/lessons.module';
 
 @NgModule({
   imports: [
@@ -13,8 +23,13 @@ import { SingleGroupComponent } from './single-group/single-group.component';
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule,
+    ApplicationsModule,
+    LessonsModule
   ],
-  declarations: [GroupsComponent, SingleGroupComponent]
+  declarations: [GroupsComponent, SingleGroupComponent, GroupsTableComponent],
+  exports: [GroupsTableComponent]
 })
-export class GroupsModule { }
+export class GroupsModule {
+}

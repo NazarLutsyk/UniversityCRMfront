@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
@@ -35,5 +35,9 @@ export class GroupService {
 
   remove(id: number | string): Observable<Group> {
     return this.http.delete<Group>(`${this.groupsURL}/${id}`);
+  }
+
+  update(id: number, group: Group): Observable<Group> {
+    return this.http.put<Group>(`${this.groupsURL}/${id}`, group);
   }
 }

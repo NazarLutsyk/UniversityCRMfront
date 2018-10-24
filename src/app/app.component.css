@@ -10,17 +10,22 @@
   outline: none;
 }
 
+mat-toolbar{
+  background: #313440;
+}
+
 .main-menu span {
   cursor: pointer;
   outline: none;
+  color: #fdfdfd;
 }
 
 .main-logo {
-  color: #6f0707;
+  color: #184690 !important;
   font-size: 30px;
 }
 
 .active-main-menu {
-  background: #b02929;
+  background: #36416b;
   transition: 0.3s;
 }

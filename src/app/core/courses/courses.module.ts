@@ -4,6 +4,7 @@ import { CoursesComponent } from './courses.component';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import { SingleCourseComponent } from './single-course/single-course.component';
+import {GroupsModule} from '../groups/groups.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { SingleCourseComponent } from './single-course/single-course.component';
     MatButtonModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    GroupsModule
   ],
   declarations: [CoursesComponent, SingleCourseComponent]
 })

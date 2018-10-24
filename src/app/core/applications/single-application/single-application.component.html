@@ -1,0 +1,98 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <form #form="ngForm" (ngSubmit)="updateApplication()">
+      <mat-form-field>
+        <mat-label>Client</mat-label>
+        <input
+          type="text"
+          name="clientId"
+          [value]="application.client?.name + ' ' + application.client?.surname"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Course</mat-label>
+        <input
+          type="text"
+          name="courseId"
+          [value]="application.course?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Group</mat-label>
+        <input
+          type="text"
+          name="groupId"
+          [value]="application.group?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Discount</mat-label>
+        <input
+          type="number"
+          name="discount"
+          [value]="application.discount"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Full price</mat-label>
+        <input
+          type="number"
+          name="fullPrice"
+          [value]="application.fullPrice"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>With discount</mat-label>
+        <input
+          type="number"
+          name="resultPrice"
+          [value]="application.resultPrice"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Left to pay</mat-label>
+        <input
+          type="number"
+          name="leftToPay"
+          [value]="application.leftToPay"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Source</mat-label>
+        <mat-select [(ngModel)]="application.sourceId" name="sourceId">
+          <mat-option *ngFor="let source of sources" [value]="source.id">
+            {{source.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input
+          type="date"
+          name="date"
+          [(ngModel)]="application.date"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo graphics-->
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Name
+    </td>
+    <td (click)="loadSorted('startDate',headerBlock,$event)" data-sort="">
+      Start Date
+    </td>
+    <td (click)="loadSorted('startTime',headerBlock,$event)" data-sort="">
+      Start Time
+    </td>
+    <td *ngIf="!(byCourseId >= 0)" (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
+      Course
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="startDate"
+          data-key="startDate"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="startTime"
+          data-key="startTime"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td
+      *ngIf="!(byCourseId >= 0)"
+    >
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="course.name"
+          data-key="course.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let group of groups" (click)="open(group.id, 'groups',$event)" class="data-row">
+    <td>
+      {{group.name}}
+    </td>
+    <td>
+      {{group.startDate | date : 'yyy/MM/dd'}}
+    </td>
+    <td>
+      {{group.startTime.split(':')[0]}}:{{group.startTime.split(':')[1]}}
+    </td>
+    <ng-container *ngIf="!(byCourseId >= 0)">
+      <td [ngClass]="{'link': !!group.course, 'no-link': !!!group.course}"
+          (click)="open(group.course?.id, 'courses',$event)">
+        <span *ngIf="group.course">
+          {{group.course.name}}
+        </span>
+      </td>
+    </ng-container>
+
+
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(group.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

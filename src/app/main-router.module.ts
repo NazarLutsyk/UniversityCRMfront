@@ -14,6 +14,7 @@ import {SingleTaskComponent} from './core/tasks/single-task/single-task.componen
 import {SingleSourceComponent} from './core/sources/single-source/single-source.component';
 import {SingleCourseComponent} from './core/courses/single-course/single-course.component';
 import {SingleGroupComponent} from './core/groups/single-group/single-group.component';
+import {SingleApplicationComponent} from './core/applications/single-application/single-application.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -35,7 +36,7 @@ const routes: Routes = [
     path: 'applications', data: {breadcrumb: 'Applications'}, children:
       [
         {path: '', component: ApplicationsComponent},
-        // {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
+        {path: ':id', component: SingleApplicationComponent, data: {breadcrumb: 'Application'}},
       ]
   },
   {
