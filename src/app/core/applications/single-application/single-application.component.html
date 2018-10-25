@@ -94,5 +94,58 @@
   </div>
   <div class="right-menu">
     <!--todo graphics-->
+    JOURNAL STATISTIC
   </div>
+
+  <div class="application-payment-block">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE PAYMENT
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #formPayment="ngForm" (ngSubmit)="createPayment(formPayment)">
+        <mat-form-field>
+          <mat-label>Number</mat-label>
+          <input
+            type="text"
+            name="number"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            type="date"
+            name="date"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Amount</mat-label>
+          <input
+            type="number"
+            name="amount"
+            ngModel
+            matInput
+            required
+            (input)="validateAmount($event)"
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!formPayment.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-payments-table
+      *ngIf="application.id"
+      #paymentTable
+      [byApplicationId]="application.id"
+      (onPaymentRemove)="loadApplication(application.id)"
+    ></app-payments-table>
+  </div>
+
+
 </div>

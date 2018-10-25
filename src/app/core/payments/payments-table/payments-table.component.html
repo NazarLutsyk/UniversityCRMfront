@@ -21,11 +21,17 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
-    <td (click)="loadSorted('topic',headerBlock,$event)" data-sort="">
-      Topic
+    <td (click)="loadSorted('number',headerBlock,$event)" data-sort="">
+      Number
     </td>
-    <td (click)="loadSorted('main',headerBlock,$event)" data-sort="">
-      Main(+/-)
+    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
+      Amount
+    </td>
+    <td>
+      File
     </td>
     <td class="controls-col">
       CONTROLS
@@ -37,8 +43,8 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="topic"
-          data-key="topic"
+          name="number"
+          data-key="number"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -50,11 +56,39 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="main"
-          data-key="main"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          name="amount"
+          data-key="amount"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td
+      *ngIf="!(byCourseId >= 0)"
+    >
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="file"
+          data-key="file"
+          ngModel
+          matInput
+          disabled
         >
       </mat-form-field>
     </td>
@@ -62,16 +96,21 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let lesson of lessons" (click)="open(lesson.id, 'lessons',$event)" class="data-row">
+  <tr *ngFor="let payment of payments" class="data-row">
     <td>
-      {{lesson.topic}}
+      {{payment.number}}
     </td>
     <td>
-      <span *ngIf="lesson.main">MAIN</span>
-      <span *ngIf="!lesson.main">NOT MAIN</span>
+      {{payment.date | date : 'yyy/MM/dd'}}
+    </td>
+    <td>
+      {{payment.amount}}
+    </td>
+    <td>
+      {{payment.file}}
     </td>
     <td class="controls-col" data-controls="true">
-      <div class="remove-button" (click)="remove(lesson.id)" data-controls="true"></div>
+      <div class="remove-button" (click)="remove(payment.id)" data-controls="true"></div>
     </td>
   </tr>
   </tbody>
