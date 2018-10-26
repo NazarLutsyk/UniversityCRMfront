@@ -1,0 +1,23 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <form #formLesson="ngForm" (ngSubmit)="updateLesson(formLesson)">
+      <mat-form-field>
+        <mat-label>Topic</mat-label>
+        <input
+          type="text"
+          name="topic"
+          [(ngModel)]="lesson.topic"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="lesson.main" name="main" [checked]="lesson.main">Main lesson</mat-checkbox>
+      <button mat-flat-button [disabled]="!formLesson.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <ng-container *ngFor="let application of applications">
+      <!--//todo-->
+    </ng-container>
+  </div>
+</div>

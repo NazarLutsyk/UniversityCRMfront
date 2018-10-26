@@ -21,11 +21,14 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
-    <td (click)="loadSorted('topic',headerBlock,$event)" data-sort="">
-      Topic
+    <td (click)="loadSorted('message',headerBlock,$event)" data-sort="">
+      Message
     </td>
-    <td (click)="loadSorted('main',headerBlock,$event)" data-sort="">
-      Main(+/-)
+    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="" *ngIf="!byClientId">
+      Client
     </td>
     <td class="controls-col">
       CONTROLS
@@ -37,8 +40,8 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="topic"
-          data-key="topic"
+          name="message"
+          data-key="message"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -50,8 +53,21 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="main"
-          data-key="main"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td *ngIf="!byClientId">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="client.name"
+          data-key="client.name"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -62,16 +78,23 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let lesson of lessons" (click)="open(lesson.id, 'groups/'+lesson.groupId ,$event)" class="data-row">
+  <tr *ngFor="let task of tasks" (click)="open(task.id, 'tasks',$event)" class="data-row">
     <td>
-      {{lesson.topic}}
+      {{task.message}}
     </td>
     <td>
-      <span *ngIf="lesson.main">MAIN</span>
-      <span *ngIf="!lesson.main">NOT MAIN</span>
+      {{task.date | date : 'yyy/MM/dd'}}
     </td>
+    <ng-container *ngIf="!byClientId">
+      <td [ngClass]="{'link': !!task.client, 'no-link': !!!task.client}"
+          (click)="open(task.client?.id, 'clients',$event)">
+        <span *ngIf="task.client">
+          {{task.client.surname}} {{task.client.name}}
+        </span>
+      </td>
+    </ng-container>
     <td class="controls-col" data-controls="true">
-      <div class="remove-button" (click)="remove(lesson.id)" data-controls="true"></div>
+      <div class="remove-button" (click)="remove(task.id)" data-controls="true"></div>
     </td>
   </tr>
   </tbody>

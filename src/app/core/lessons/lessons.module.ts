@@ -2,7 +2,16 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LessonsTableComponent} from './lessons-table/lessons-table.component';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatSelectModule
+} from '@angular/material';
+import { SingleLessonComponent } from './single-lesson/single-lesson.component';
 
 @NgModule({
   imports: [
@@ -12,9 +21,11 @@ import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, 
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule,
+    MatDividerModule
   ],
-  declarations: [LessonsTableComponent],
+  declarations: [LessonsTableComponent, SingleLessonComponent],
   exports: [LessonsTableComponent]
 })
 export class LessonsModule {

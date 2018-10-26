@@ -24,7 +24,7 @@ export class GroupService {
     return this.http.get<Group>(urlToRequest);
   }
 
-  getGroups(query = {}): Observable<Group[]> {
+  getGroups(query = {}): Observable<any> {
     const urlToRequest = addParams(this.groupsURL, query);
     return this.http.get<Group[]>(urlToRequest);
   }

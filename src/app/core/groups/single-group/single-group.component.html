@@ -72,11 +72,11 @@
         <button mat-flat-button [disabled]="!formLesson.valid">Create</button>
       </form>
     </mat-expansion-panel>
-    <app-lessons-table #lessonsTable [byGroupId]="group.id"></app-lessons-table>
+    <app-lessons-table *ngIf="group.id" #lessonsTable [byGroupId]="group.id"></app-lessons-table>
   </div>
 
 
   <div class="group-applications overflow-x" *ngIf="group.id">
-    <app-applications-table [byGroupId]="group.id"></app-applications-table>
+    <app-applications-table *ngIf="group.id" [byGroupId]="group.id"></app-applications-table>
   </div>
 </div>

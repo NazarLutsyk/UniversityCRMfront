@@ -6,6 +6,9 @@ import {SourceService} from '../../../services/source.service';
 import {Source} from '../../../models/source';
 import {Payment} from '../../../models/payment';
 import {PaymentService} from '../../../services/payment.service';
+import {GroupService} from '../../../services/group.service';
+import {Group} from '../../../models/group';
+import {MatSelectionListChange} from '@angular/material';
 
 @Component({
   selector: 'app-single-application',
@@ -15,20 +18,35 @@ import {PaymentService} from '../../../services/payment.service';
 export class SingleApplicationComponent implements OnInit {
 
   @ViewChild('paymentTable') paymentTable;
+  @ViewChild('groupsList') groupsList;
 
   application: Application = new Application();
 
   sources: Source[] = [];
+  groups: Group[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private applicationService: ApplicationService,
     private sourceService: SourceService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private groupService: GroupService
   ) {
   }
 
   ngOnInit() {
+    this.groupsList.selectionChange.subscribe((s: MatSelectionListChange) => {
+      const newGroupId = s.option.value != this.application.groupId ? s.option.value : null;
+      this.groupsList.deselectAll();
+      if (newGroupId) {
+        s.option.selected = true;
+      }
+      this.applicationService.update(this.application.id, {groupId: newGroupId})
+        .subscribe(() => {
+          this.loadApplication(this.application.id);
+        });
+    });
+
     this.activatedRoute.params.subscribe(({id}) => {
       this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
       this.loadApplication(id);
@@ -37,10 +55,21 @@ export class SingleApplicationComponent implements OnInit {
 
   loadApplication(id) {
     this.applicationService.getApplicationById(id, {
-      attributes: ['id', 'date', 'fullPrice', 'discount', 'resultPrice', 'leftToPay', 'sourceId'],
+      attributes: ['id', 'date', 'fullPrice', 'discount', 'resultPrice', 'leftToPay', 'sourceId', 'courseId', 'groupId'],
       include: ['client', 'source', 'course', 'group', 'contract', 'audio_calls', 'lessons']
     })
-      .subscribe(application => this.application = application);
+      .subscribe(application => {
+        this.application = application;
+        this.loadGroups();
+      });
+  }
+
+  loadGroups() {
+    this.groupService.getGroups({
+        q: {courseId: this.application.courseId}
+      }
+    )
+      .subscribe(response => this.groups = response.models);
   }
 
   updateApplication() {

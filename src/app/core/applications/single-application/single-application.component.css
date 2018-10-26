@@ -10,7 +10,7 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .right-menu, .application-payment-block {
+.left-menu, .right-menu, .application-payment-block, .application-groups-block {
   background: white;
   padding: 15px 25px;
 }
@@ -19,6 +19,13 @@ mat-list {
   width: 30%;
   margin-left: 15px;
   border-left: 5px solid green;
+}
+.application-groups-block {
+  width: 30%;
+  margin-top: 15px;
+  margin-left: 15px;
+  border-left: 5px solid green;
+  justify-self: flex-start;
 }
 
 .right-menu {

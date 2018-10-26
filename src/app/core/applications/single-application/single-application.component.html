@@ -146,6 +146,16 @@
       (onPaymentRemove)="loadApplication(application.id)"
     ></app-payments-table>
   </div>
+  <div class="application-groups-block">
+    <mat-selection-list #groupsList>
+      <ng-container *ngFor="let group of groups">
+        <mat-list-option [value]="group.id" [selected]="group.id === application.groupId">
+          <p>{{group.name}}</p>
+        </mat-list-option>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-selection-list>
+  </div>
 
 
 </div>

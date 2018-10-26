@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
 import {Lesson} from '../models/lesson';
+import {Task} from '../models/task';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,9 @@ export class LessonService {
 
   remove(id: number | string): Observable<Lesson> {
     return this.http.delete<Lesson>(`${this.lessonsURL}/${id}`);
+  }
+
+  update(id: number, lesson: Lesson): Observable<Lesson> {
+    return this.http.put<Lesson>(`${this.lessonsURL}/${id}`, lesson);
   }
 }

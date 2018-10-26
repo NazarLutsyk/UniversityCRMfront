@@ -15,6 +15,7 @@ import {SingleSourceComponent} from './core/sources/single-source/single-source.
 import {SingleCourseComponent} from './core/courses/single-course/single-course.component';
 import {SingleGroupComponent} from './core/groups/single-group/single-group.component';
 import {SingleApplicationComponent} from './core/applications/single-application/single-application.component';
+import {SingleLessonComponent} from './core/lessons/single-lesson/single-lesson.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -44,6 +45,7 @@ const routes: Routes = [
       [
         {path: '', component: GroupsComponent},
         {path: ':id', component: SingleGroupComponent, data: {breadcrumb: 'Group'}},
+        {path: ':id/lessons/:lessonId', component: SingleLessonComponent, data: {breadcrumb: 'Lesson'}},
       ]
   },
   {

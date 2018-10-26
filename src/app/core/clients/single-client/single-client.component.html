@@ -46,7 +46,129 @@
       <button mat-flat-button [disabled]="!form.valid">Update</button>
     </form>
   </div>
-  <div class="right-menu">
-    <!--todo statistic-->
+  <div class="client-tasks">
+    <mat-expansion-panel #formpanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)">
+        <mat-form-field>
+          <mat-label>Message</mat-label>
+          <input
+            type="text"
+            name="message"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            type="date"
+            name="date"
+            ngModel
+            matInput
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!taskForm.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-tasks-table
+      *ngIf="client.id"
+      [byClientId]="client.id"
+      #tasksTable
+    ></app-tasks-table>
+  </div>
+  <div class="client-comments">
+    <mat-expansion-panel #formpanelComments>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #commentForm="ngForm" (ngSubmit)="createComment(commentForm)">
+        <mat-form-field>
+          <mat-label>Text</mat-label>
+          <input
+            type="text"
+            name="text"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            type="date"
+            name="date"
+            ngModel
+            matInput
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!commentForm.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-comments-table
+      *ngIf="client.id"
+      #commentTable
+      [byClientId]="client.id"
+    ></app-comments-table>
+  </div>
+  <div class="client-applications">
+    <mat-expansion-panel #formpanelApplications>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #formApplication="ngForm" (ngSubmit)="createApplication(formApplication)">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            type="date"
+            name="date"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Course</mat-label>
+          <mat-select ngModel name="courseId" required>
+            <mat-option *ngFor="let course of courses" [value]="course.id">
+              {{course.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Source</mat-label>
+          <mat-select ngModel name="sourceId">
+            <mat-option *ngFor="let source of sources" [value]="source.id">
+              {{source.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Discount</mat-label>
+          <input
+            type="number"
+            name="discount"
+            ngModel
+            matInput
+            (input)="validateDiscount($event)"
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!formApplication.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-applications-table
+      *ngIf="client.id"
+      [byClientId]="client.id"
+      #applicationTable
+    ></app-applications-table>
   </div>
 </div>

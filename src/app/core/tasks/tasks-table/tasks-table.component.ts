@@ -1,23 +1,21 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Application} from '../../../models/application';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Task} from '../../../models/task';
+import {TaskService} from '../../../services/task.service';
+import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
-import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {isNumber} from 'util';
 
 @Component({
-  selector: 'app-applications-table',
-  templateUrl: './applications-table.component.html',
-  styleUrls: ['./applications-table.component.css']
+  selector: 'app-tasks-table',
+  templateUrl: './tasks-table.component.html',
+  styleUrls: ['./tasks-table.component.css']
 })
-export class ApplicationsTableComponent implements OnInit {
+export class TasksTableComponent implements OnInit {
 
-  @Input() byGroupId;
   @Input() byClientId;
 
-  applications: Application[] = [];
-
+  tasks: Task[] = [];
   count = 0;
 
   pageIndex = 1;
@@ -27,34 +25,34 @@ export class ApplicationsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+
   constructor(
-    public router: Router,
-    public activatedRoute: ActivatedRoute,
+    private tasksService: TaskService,
+    private router: Router,
     public materialTableService: MaterialTableService,
-    public applicationService: ApplicationService,
   ) {
   }
 
   ngOnInit() {
-    this.loadApplications();
+    this.loadTasks();
   }
 
-  loadApplications() {
-    this.sendLoadApplications().subscribe(response => {
+  loadTasks() {
+    this.sendLoadTasks().subscribe(response => {
       this.count = response.count;
-      this.applications = response.models;
+      this.tasks = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {
     this.sort = this.materialTableService.sort(key, headerBlock, event);
-    this.loadApplications();
+    this.loadTasks();
   }
 
   loadFiltered(headerBlock: HTMLElement) {
     this.filter = this.materialTableService.getFilter(headerBlock);
-    this.loadApplications();
+    this.loadTasks();
   }
 
   loadPaginated(offset: number, event: any) {
@@ -65,64 +63,43 @@ export class ApplicationsTableComponent implements OnInit {
       nextPage: event ? event.target.value : 0,
       event: event
     });
-    this.loadApplications();
+    this.loadTasks();
   }
 
-  private sendLoadApplications(): Observable<any> {
+  private sendLoadTasks(): Observable<any> {
     const filterToSend = this.getFilterToSend();
-    return this.applicationService.getApplications({
+    return this.tasksService.getTasks({
       q: filterToSend,
+      include: ['client'],
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
-      offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['client', 'course', 'group', 'source']
+      offset: (this.pageIndex * this.pageSize) - this.pageSize
     });
   }
 
   private getFilterToSend() {
     const res: any = {};
 
+    if (this.filter.message) {
+      res.message = {$like: `${this.filter.message}`};
+    }
     if (this.filter['client.name']) {
       res.client = {name: `${this.filter['client.name']}`};
     }
-    if (this.filter['course.name']) {
-      res.course = {name: `${this.filter['course.name']}`};
-    }
-    if (this.filter['group.name']) {
-      res.group = {name: `${this.filter['group.name']}`};
-    }
-    if (this.filter['source.name']) {
-      res.source = {name: `${this.filter['source.name']}`};
-    }
-    if (this.filter.fullPrice) {
-      res.fullPrice = this.filter.fullPrice;
-    }
-    if (this.filter.discount) {
-      res.discount = this.filter.discount;
-    }
-    if (this.filter.resultPrice) {
-      res.resultPrice = this.filter.resultPrice;
-    }
-    if (this.filter.leftToPay) {
-      res.leftToPay = this.filter.leftToPay;
-    }
-    if (this.byGroupId) {
-      res.group = {id: this.byGroupId, ...res.group};
-    }
     if (this.byClientId) {
-      res.client = {id: this.byClientId, ...res.client};
+      res.client = {id: this.byClientId, ...res.group};
     }
     return res;
   }
 
   remove(id) {
     this.materialTableService.showRemoveSnackBar().subscribe(() => {
-      this.applicationService.remove(id).subscribe((removed) => {
+      this.tasksService.remove(id).subscribe((removed) => {
         const countOfPages = Math.ceil((this.count - 1) / this.pageSize);
         if (countOfPages < this.pageIndex && this.pageIndex > 1 && countOfPages !== 0) {
           --this.pageIndex;
         }
-        this.loadApplications();
+        this.loadTasks();
       });
     });
   }
