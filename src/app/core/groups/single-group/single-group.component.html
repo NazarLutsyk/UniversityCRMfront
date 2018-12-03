@@ -1,5 +1,6 @@
 <div class="main-wrapper">
   <div class="left-menu">
+    <h3>UPDATE</h3>
     <form #form="ngForm" (ngSubmit)="updateGroup()">
       <mat-form-field>
         <mat-label>Course</mat-label>
@@ -51,6 +52,7 @@
 
 
   <div class="group-lesson-block">
+    <h3>LESSONS</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -77,6 +79,7 @@
 
 
   <div class="group-applications overflow-x" *ngIf="group.id">
+    <h3>APPLICATIONS</h3>
     <app-applications-table *ngIf="group.id" [byGroupId]="group.id"></app-applications-table>
   </div>
 </div>

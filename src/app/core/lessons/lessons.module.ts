@@ -6,12 +6,12 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatDividerModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatListModule,
   MatSelectModule
 } from '@angular/material';
-import { SingleLessonComponent } from './single-lesson/single-lesson.component';
+import {SingleLessonComponent} from './single-lesson/single-lesson.component';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { SingleLessonComponent } from './single-lesson/single-lesson.component';
     MatCheckboxModule,
     MatSelectModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
   ],
   declarations: [LessonsTableComponent, SingleLessonComponent],
   exports: [LessonsTableComponent]

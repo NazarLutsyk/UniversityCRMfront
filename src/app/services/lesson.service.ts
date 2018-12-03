@@ -38,7 +38,7 @@ export class LessonService {
     return this.http.delete<Lesson>(`${this.lessonsURL}/${id}`);
   }
 
-  update(id: number, lesson: Lesson): Observable<Lesson> {
+  update(id: number, lesson: any): Observable<Lesson> {
     return this.http.put<Lesson>(`${this.lessonsURL}/${id}`, lesson);
   }
 }

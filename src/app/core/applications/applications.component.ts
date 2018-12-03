@@ -85,10 +85,10 @@ export class ApplicationsComponent implements OnInit {
   validateDiscount($event) {
     const value = $event.target.value;
     if (value < 0) {
-      $event.target.value = 0;
+      this.applicationForm.discount = 0;
     }
     if (value > 100) {
-      $event.target.value = 100;
+      this.applicationForm.discount = 100;
     }
   }
 

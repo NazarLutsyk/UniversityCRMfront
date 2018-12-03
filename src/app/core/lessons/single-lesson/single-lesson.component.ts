@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Lesson} from '../../../models/lesson';
 import {LessonService} from '../../../services/lesson.service';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {Application} from '../../../models/application';
+import {MatSelectionList, MatSelectionListChange} from '@angular/material';
 
 @Component({
   selector: 'app-single-lesson',
@@ -13,17 +14,21 @@ import {Application} from '../../../models/application';
 })
 export class SingleLessonComponent implements OnInit {
 
+  @ViewChild('clientsList') clientsList: MatSelectionList;
+
   lesson: Lesson = new Lesson();
   applications: Application[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private lessonService: LessonService,
     private applicationService: ApplicationService
   ) {
   }
 
   ngOnInit() {
+
     this.activatedRoute.params.subscribe(({lessonId}) => {
       this.loadLesson(lessonId).subscribe((lesson) => {
         this.lesson = lesson;
@@ -33,7 +38,12 @@ export class SingleLessonComponent implements OnInit {
   }
 
   loadLesson(id): Observable<Lesson> {
-    return this.lessonService.getLessonById(id, {attributes: ['id', 'topic', 'main', 'groupId']});
+    return this.lessonService.getLessonById(id,
+      {
+        attributes: ['id', 'topic', 'main', 'groupId'],
+        include: ['application']
+      }
+    );
   }
 
   loadApplications() {
@@ -41,8 +51,9 @@ export class SingleLessonComponent implements OnInit {
       q: {groupId: this.lesson.groupId},
       include: ['client'],
       attributes: ['id', 'clientId', 'groupId']
-    }).subscribe(applications => {
-      this.applications = applications;
+    }).subscribe(response => {
+      this.applications = response.models;
+      this.clientsList.selectionChange.subscribe((s) => this.updateJournal(s));
     });
   }
 
@@ -52,8 +63,23 @@ export class SingleLessonComponent implements OnInit {
       main: this.lesson.main ? 1 : 0
     };
     this.lessonService.update(this.lesson.id, <any>lessonToUpdate).subscribe(updated => {
-      this.loadLesson(updated.id);
+      this.loadLesson(updated.id).subscribe(value => this.lesson = value);
     });
   }
 
+  private updateJournal(s: MatSelectionListChange) {
+    const selectedClients = s.source.selectedOptions.selected.map(option => option.value);
+    this.lessonService.update(this.lesson.id, {applications: selectedClients}).subscribe(() => {
+      this.loadLesson(this.lesson.id).subscribe(value => this.lesson = value);
+    });
+  }
+
+  isPresent(id: number) {
+    return this.lesson.applications.some(value => value.id == id);
+  }
+
+  openClient(clientId: number, $event) {
+    $event.stopPropagation();
+    this.router.navigate(['clients', clientId]);
+  }
 }

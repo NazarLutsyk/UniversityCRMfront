@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Application} from '../../../models/application';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ApplicationService} from '../../../services/application.service';
 import {SourceService} from '../../../services/source.service';
 import {Source} from '../../../models/source';
@@ -27,6 +27,7 @@ export class SingleApplicationComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private applicationService: ApplicationService,
     private sourceService: SourceService,
     private paymentService: PaymentService,
@@ -105,5 +106,10 @@ export class SingleApplicationComponent implements OnInit {
       this.paymentTable.loadPayments();
       this.loadApplication(this.application.id);
     });
+  }
+
+  openGroup(id: number, $event) {
+    $event.stopPropagation();
+    this.router.navigate(['groups', id]);
   }
 }

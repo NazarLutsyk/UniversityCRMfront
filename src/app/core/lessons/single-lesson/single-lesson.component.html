@@ -1,5 +1,6 @@
 <div class="main-wrapper">
   <div class="left-menu">
+    <h3>UPDATE</h3>
     <form #formLesson="ngForm" (ngSubmit)="updateLesson(formLesson)">
       <mat-form-field>
         <mat-label>Topic</mat-label>
@@ -16,8 +17,15 @@
     </form>
   </div>
   <div class="right-menu">
-    <ng-container *ngFor="let application of applications">
-      <!--//todo-->
-    </ng-container>
+    <h3>JOURNAL</h3>
+    <mat-selection-list #clientsList>
+      <ng-container *ngFor="let application of applications">
+        <mat-list-option [value]="application.id" [selected]="isPresent(application.id)">
+          <mat-icon mat-list-icon (click)="openClient(application.clientId, $event)">perm_identity</mat-icon>
+          <p>{{application.client.name}} {{application.client.surname}}</p>
+        </mat-list-option>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-selection-list>
   </div>
 </div>

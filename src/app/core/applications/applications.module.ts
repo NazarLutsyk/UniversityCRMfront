@@ -6,7 +6,7 @@ import {
   MatButtonModule,
   MatDividerModule,
   MatExpansionModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatListModule,
   MatSelectModule
@@ -26,7 +26,8 @@ import {PaymentsModule} from '../payments/payments.module';
     MatSelectModule,
     MatListModule,
     MatDividerModule,
-    PaymentsModule
+    PaymentsModule,
+    MatIconModule
   ],
   declarations: [ApplicationsComponent, SingleApplicationComponent, ApplicationsTableComponent],
   exports: [ApplicationsTableComponent]

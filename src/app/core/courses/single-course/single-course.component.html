@@ -1,5 +1,6 @@
 <div class="main-wrapper">
   <div class="left-menu">
+    <h3>UPDATE</h3>
     <form #form="ngForm" (ngSubmit)="updateCourse()">
       <mat-form-field>
         <mat-label>Name</mat-label>
@@ -40,6 +41,7 @@
     AND GROUPS
   </div>
   <div class="course-groups" *ngIf="course.id">
+    <h3>GROUPS</h3>
     <app-groups-table [byCourseId]="course.id"></app-groups-table>
   </div>
 </div>

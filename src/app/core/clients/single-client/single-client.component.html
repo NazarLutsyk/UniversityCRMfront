@@ -1,5 +1,6 @@
 <div class="main-wrapper">
   <div class="left-menu">
+    <h3>UPDATE</h3>
     <form #form="ngForm" (ngSubmit)="updateClient()">
       <mat-form-field>
         <mat-label>Name</mat-label>
@@ -47,6 +48,7 @@
     </form>
   </div>
   <div class="client-tasks">
+    <h3>TASKS</h3>
     <mat-expansion-panel #formpanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -83,6 +85,7 @@
     ></app-tasks-table>
   </div>
   <div class="client-comments">
+    <h3>COMMENTS</h3>
     <mat-expansion-panel #formpanelComments>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -119,6 +122,7 @@
     ></app-comments-table>
   </div>
   <div class="client-applications">
+    <h3>APPLICATIONS</h3>
     <mat-expansion-panel #formpanelApplications>
       <mat-expansion-panel-header>
         <mat-panel-title>

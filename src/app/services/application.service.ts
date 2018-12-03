@@ -24,9 +24,9 @@ export class ApplicationService {
     return this.http.get<Application>(urlToRequest);
   }
 
-  getApplications(query = {}): Observable<Application[]> {
+  getApplications(query = {}): Observable<any> {
     const urlToRequest = addParams(this.applicationsURL, query);
-    return this.http.get<Application[]>(urlToRequest);
+    return this.http.get<any>(urlToRequest);
   }
 
   create(model: Application): Observable<Application> {

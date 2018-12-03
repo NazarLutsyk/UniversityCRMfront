@@ -1,5 +1,6 @@
 <div class="main-wrapper">
   <div class="left-menu">
+    <h3>UPDATE</h3>
     <form #form="ngForm" (ngSubmit)="updateApplication()">
       <mat-form-field>
         <mat-label>Client</mat-label>
@@ -98,6 +99,7 @@
   </div>
 
   <div class="application-payment-block">
+    <h3>PAYMENTS</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -147,15 +149,15 @@
     ></app-payments-table>
   </div>
   <div class="application-groups-block">
+    <h3>GROUPS</h3>
     <mat-selection-list #groupsList>
       <ng-container *ngFor="let group of groups">
         <mat-list-option [value]="group.id" [selected]="group.id === application.groupId">
+          <mat-icon mat-list-icon (click)="openGroup(group.id, $event)">meeting_room</mat-icon>
           <p>{{group.name}}</p>
         </mat-list-option>
         <mat-divider></mat-divider>
       </ng-container>
     </mat-selection-list>
   </div>
-
-
 </div>

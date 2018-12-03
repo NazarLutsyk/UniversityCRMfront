@@ -35,10 +35,10 @@ export class SingleCourseComponent implements OnInit {
   validateDiscount($event) {
     const value = $event.target.value;
     if (value < 0) {
-      $event.target.value = 0;
+      this.course.discount = 0;
     }
     if (value > 100) {
-      $event.target.value = 100;
+      this.course.discount = 100;
     }
   }
 
