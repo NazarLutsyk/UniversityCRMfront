@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class SocketService {
 
+  public EMAIL_EVENT = 'mail';
   private socket;
 
   constructor(

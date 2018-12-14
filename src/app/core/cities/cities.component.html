@@ -1,0 +1,79 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CREATE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form (ngSubmit)="createCity(form)" #form="ngForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        name="name"
+        ngModel
+        matInput
+        required
+      >
+    </mat-form-field>
+    <button mat-flat-button [disabled]="!form.valid">Create</button>
+  </form>
+</mat-expansion-panel>
+
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Name
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let city of cities" (click)="open(city.id, 'cities',$event)" class="data-row">
+    <td>
+      {{city.name}}
+    </td>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(city.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -3,6 +3,7 @@ import {Group} from '../../../models/group';
 import {ActivatedRoute} from '@angular/router';
 import {GroupService} from '../../../services/group.service';
 import {LessonService} from '../../../services/lesson.service';
+import {CityService} from '../../../services/city.service';
 
 @Component({
   selector: 'app-single-group',
@@ -18,7 +19,7 @@ export class SingleGroupComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private groupService: GroupService,
-    private lessonService: LessonService
+    private lessonService: LessonService,
   ) {
   }
 
@@ -29,12 +30,17 @@ export class SingleGroupComponent implements OnInit {
   }
 
   loadGroup(id) {
-    this.groupService.getGroupById(id, {attributes: ['id', 'name', 'startDate', 'startTime'], include: ['course']})
+    this.groupService.getGroupById(id, {attributes: ['id', 'name', 'startDate', 'startTime'], include: ['course', 'city']})
       .subscribe(group => this.group = group);
   }
 
   updateGroup() {
-    this.groupService.update(this.group.id, this.group).subscribe(updated => {
+    const groupToUpdate = {
+      name: this.group.name,
+      startDate: this.group.startDate,
+      startTime: this.group.startTime,
+    };
+    this.groupService.update(this.group.id, <Group>groupToUpdate).subscribe(updated => {
       this.loadGroup(updated.id);
     });
   }

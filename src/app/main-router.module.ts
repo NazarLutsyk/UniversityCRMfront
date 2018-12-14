@@ -16,6 +16,8 @@ import {SingleCourseComponent} from './core/courses/single-course/single-course.
 import {SingleGroupComponent} from './core/groups/single-group/single-group.component';
 import {SingleApplicationComponent} from './core/applications/single-application/single-application.component';
 import {SingleLessonComponent} from './core/lessons/single-lesson/single-lesson.component';
+import {CitiesComponent} from './core/cities/cities.component';
+import {SingleCityComponent} from './core/cities/single-city/single-city.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -60,6 +62,13 @@ const routes: Routes = [
       [
         {path: '', component: SourcesComponent},
         {path: ':id', component: SingleSourceComponent, data: {breadcrumb: 'Source'}},
+      ]
+  },
+  {
+    path: 'cities', data: {breadcrumb: 'Cities'}, children:
+      [
+        {path: '', component: CitiesComponent},
+        {path: ':id', component: SingleCityComponent, data: {breadcrumb: 'City'}},
       ]
   }
 ];

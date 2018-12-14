@@ -11,6 +11,7 @@ import {CoursesModule} from './courses/courses.module';
 import {SourcesModule} from './sources/sources.module';
 import {DeleteSnackBarComponent} from './delete-snack-bar/delete-snack-bar.component';
 import {MatButtonModule, MatSnackBarModule} from '@angular/material';
+import {CitiesModule} from './cities/cities.module';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {MatButtonModule, MatSnackBarModule} from '@angular/material';
     GroupsModule,
     CoursesModule,
     SourcesModule,
+    CitiesModule,
     MatSnackBarModule,
     MatButtonModule,
   ],

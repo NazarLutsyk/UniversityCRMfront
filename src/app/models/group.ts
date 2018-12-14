@@ -1,6 +1,7 @@
 import {Application} from './application';
 import {Lesson} from './lesson';
 import {Course} from './course';
+import {City} from './city';
 
 export class Group {
   constructor(
@@ -11,7 +12,9 @@ export class Group {
     public applications: Application[] = [],
     public lessons: Lesson[] = [],
     public course: Course = null,
-    public courseId: number = null
+    public courseId: number = null,
+    public city: City = null,
+    public cityId: number = null
   ) {
   }
 }

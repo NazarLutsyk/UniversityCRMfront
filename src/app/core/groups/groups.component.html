@@ -43,6 +43,14 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <mat-select ngModel name="cityId" required>
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+          {{city.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>

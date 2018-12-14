@@ -1,22 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Group} from '../../../models/group';
-import {GroupService} from '../../../services/group.service';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MaterialTableService} from '../../../services/material-table.service';
+import {MaterialTableService} from '../../services/material-table.service';
 import {Observable} from 'rxjs';
+import {NgForm} from '@angular/forms';
+// @ts-ignore
 import {isNumber} from 'util';
+import {City} from '../../models/city';
+import {CityService} from '../../services/city.service';
 
 @Component({
-  selector: 'app-groups-table',
-  templateUrl: './groups-table.component.html',
-  styleUrls: ['./groups-table.component.css']
+  selector: 'app-cities',
+  templateUrl: './cities.component.html',
+  styleUrls: ['./cities.component.css']
 })
-export class GroupsTableComponent implements OnInit {
+export class CitiesComponent implements OnInit {
 
-  @Input() byCourseId;
-
-  groups: Group[] = [];
-
+  cities: City[] = [];
   count = 0;
 
   pageIndex = 1;
@@ -26,34 +25,33 @@ export class GroupsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
-
   constructor(
-    private groupsService: GroupService,
+    private citiesService: CityService,
     private router: Router,
     public materialTableService: MaterialTableService
   ) {
   }
 
   ngOnInit() {
-    this.loadGroups();
+    this.loadCities();
   }
 
-  loadGroups() {
-    this.sendLoadGroups().subscribe(response => {
+  loadCities() {
+    this.sendLoadCities().subscribe(response => {
       this.count = response.count;
-      this.groups = response.models;
+      this.cities = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {
     this.sort = this.materialTableService.sort(key, headerBlock, event);
-    this.loadGroups();
+    this.loadCities();
   }
 
   loadFiltered(headerBlock: HTMLElement) {
     this.filter = this.materialTableService.getFilter(headerBlock);
-    this.loadGroups();
+    this.loadCities();
   }
 
   loadPaginated(offset: number, event: any) {
@@ -64,17 +62,16 @@ export class GroupsTableComponent implements OnInit {
       nextPage: event ? event.target.value : 0,
       event: event
     });
-    this.loadGroups();
+    this.loadCities();
   }
 
-  private sendLoadGroups(): Observable<any> {
+  private sendLoadCities(): Observable<any> {
     const filterToSend = this.getFilterToSend();
-    return this.groupsService.getGroups({
+    return this.citiesService.getCities({
       q: filterToSend,
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
-      offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['course', 'city']
+      offset: (this.pageIndex * this.pageSize) - this.pageSize
     });
   }
 
@@ -84,27 +81,25 @@ export class GroupsTableComponent implements OnInit {
     if (this.filter.name) {
       res.name = {$like: `${this.filter.name}`};
     }
-    if (this.filter['course.name']) {
-      res.course = {name: `${this.filter['course.name']}`};
-    }
-    if (this.filter['city.name']) {
-      res.city = {name: `${this.filter['city.name']}`};
-    }
-    if (this.byCourseId) {
-      res.course = {id: this.byCourseId};
-    }
-
     return res;
+  }
+
+  createCity(cityForm: NgForm) {
+    const city: City = <City>cityForm.form.value;
+    this.citiesService.create(city).subscribe((cityResponse) => {
+      cityForm.resetForm();
+      this.loadCities();
+    });
   }
 
   remove(id) {
     this.materialTableService.showRemoveSnackBar().subscribe(() => {
-      this.groupsService.remove(id).subscribe((removed) => {
+      this.citiesService.remove(id).subscribe((removed) => {
         const countOfPages = Math.ceil((this.count - 1) / this.pageSize);
         if (countOfPages < this.pageIndex && this.pageIndex > 1 && countOfPages !== 0) {
           --this.pageIndex;
         }
-        this.loadGroups();
+        this.loadCities();
       });
     });
   }
@@ -117,5 +112,4 @@ export class GroupsTableComponent implements OnInit {
     }
     this.router.navigate([...url.split('/'), id]);
   }
-
 }

@@ -3,6 +3,16 @@
     <h3>UPDATE</h3>
     <form #form="ngForm" (ngSubmit)="updateGroup()">
       <mat-form-field>
+        <mat-label>City</mat-label>
+        <input
+          type="text"
+          name="cityId"
+          [value]="group?.city?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Course</mat-label>
         <input
           type="text"

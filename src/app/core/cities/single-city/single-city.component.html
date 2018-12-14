@@ -1,0 +1,22 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <h3>UPDATE</h3>
+    <form #form="ngForm" (ngSubmit)="updateCity()">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="city.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo statistic-->
+    FUTURE STATISTIC BY APPLICATIONS
+  </div>
+</div>

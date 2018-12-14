@@ -33,6 +33,9 @@
     <td *ngIf="!(byCourseId >= 0)" (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
       Course
     </td>
+    <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
+      City
+    </td>
     <td class="controls-col">
       CONTROLS
     </td>
@@ -92,6 +95,19 @@
         >
       </mat-form-field>
     </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="city.name"
+          data-key="city.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
     <td class="controls-col"></td>
   </tr>
   </thead>
@@ -114,6 +130,13 @@
         </span>
       </td>
     </ng-container>
+
+    <td [ngClass]="{'link': !!group.city, 'no-link': !!!group.city}"
+        (click)="open(group.city?.id, 'cities',$event)">
+        <span *ngIf="group.city">
+          {{group.city.name}}
+        </span>
+    </td>
 
 
     <td class="controls-col" data-controls="true">

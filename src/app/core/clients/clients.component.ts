@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {isNumber} from 'util';
 import {MatSnackBar} from '@angular/material';
+import {SocketService} from '../../services/socket.service';
 
 @Component({
   selector: 'app-clients',
@@ -32,8 +33,11 @@ export class ClientsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
-    public snackBar: MatSnackBar,
+    private mySocket: SocketService
   ) {
+    mySocket.onEvent(mySocket.EMAIL_EVENT).subscribe((mail) => {
+      console.log(mail);
+    });
   }
 
   ngOnInit() {
