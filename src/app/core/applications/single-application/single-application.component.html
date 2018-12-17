@@ -13,6 +13,16 @@
         >
       </mat-form-field>
       <mat-form-field>
+        <mat-label>City</mat-label>
+        <input
+          type="text"
+          name="cityId"
+          [value]="application?.city?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Course</mat-label>
         <input
           type="text"

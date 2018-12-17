@@ -26,6 +26,14 @@
       >
     </mat-form-field>
     <mat-form-field>
+      <mat-label>City</mat-label>
+      <mat-select [(ngModel)]="applicationForm.cityId" name="cityId" required>
+        <mat-option *ngFor="let city of cities" [value]="city.id">
+          {{city.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Course</mat-label>
       <mat-select [(ngModel)]="applicationForm.courseId" name="courseId" required>
         <mat-option *ngFor="let course of courses" [value]="course.id">

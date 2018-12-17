@@ -1,0 +1,79 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <h3>UPDATE</h3>
+    <form #form="ngForm" (ngSubmit)="updateManager()">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="manager.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Surname</mat-label>
+        <input
+          type="text"
+          name="surname"
+          [(ngModel)]="manager.surname"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input
+          type="text"
+          name="login"
+          [(ngModel)]="manager.login"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          type="text"
+          name="password"
+          [(ngModel)]="manager.password"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Role</mat-label>
+        <mat-select ngModel name="role" required [(ngModel)]="manager.role">
+          <mat-option value="BOSS_ROLE">
+            BOSS_ROLE
+          </mat-option>
+          <mat-option value="MANAGER_ROLE">
+            MANAGER_ROLE
+          </mat-option>
+          <mat-option value="TEACHER_ROLE">
+            TEACHER_ROLE
+          </mat-option>
+          <mat-option value="REVIEWER_ROLE">
+            REVIEWER_ROLE
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input
+          type="text"
+          name="cityId"
+          [value]="manager?.city?.name"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Update</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <!--todo graphics-->
+    MANAGER STATISTIC
+  </div>
+</div>

@@ -1,0 +1,139 @@
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Name
+    </td>
+    <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
+      Surname
+    </td>
+    <td (click)="loadSorted('login',headerBlock,$event)" data-sort="">
+      Login
+    </td>
+    <td (click)="loadSorted('role',headerBlock,$event)" data-sort="">
+      Role
+    </td>
+    <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
+      City
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="surname"
+          data-key="surname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="login"
+          data-key="login"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="role"
+          data-key="role"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="city.name"
+          data-key="city.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let manager of managers" (click)="open(manager.id, 'managers',$event)" class="data-row">
+    <td>
+      {{manager.name}}
+    </td>
+    <td>
+      {{manager.surname}}
+    </td>
+    <td>
+      {{manager.login}}
+    </td>
+    <td>
+      {{manager.role}}
+    </td>
+    <td [ngClass]="{'link': !!manager.city, 'no-link': !!!manager.city}"
+        (click)="open(manager.city?.id, 'cities',$event)">
+        <span *ngIf="manager.city">
+          {{manager.city.name}}
+        </span>
+    </td>
+
+
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(manager.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

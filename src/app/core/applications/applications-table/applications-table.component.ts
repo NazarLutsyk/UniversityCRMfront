@@ -75,7 +75,7 @@ export class ApplicationsTableComponent implements OnInit {
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['client', 'course', 'group', 'source']
+      include: ['client', 'course', 'group', 'source', 'city']
     });
   }
 
@@ -93,6 +93,9 @@ export class ApplicationsTableComponent implements OnInit {
     }
     if (this.filter['source.name']) {
       res.source = {name: `${this.filter['source.name']}`};
+    }
+    if (this.filter['city.name']) {
+      res.source = {name: `${this.filter['city.name']}`};
     }
     if (this.filter.fullPrice) {
       res.fullPrice = this.filter.fullPrice;

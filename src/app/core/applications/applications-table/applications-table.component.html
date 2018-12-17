@@ -1,7 +1,7 @@
 <table>
   <thead>
   <tr class="material-table-paginator" #paginator>
-    <th colspan="9">
+    <th colspan="10">
       <div class="paginator-buttons">
         <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
         <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
@@ -27,6 +27,9 @@
       data-sort=""
     >
       Client
+    </td>
+    <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
+      City
     </td>
     <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
       Course
@@ -66,6 +69,19 @@
           type="text"
           name="client.name"
           data-key="client.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="city.name"
+          data-key="city.name"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -191,6 +207,12 @@
         </span>
       </td>
     </ng-container>
+    <td [ngClass]="{'link': !!application.city, 'no-link': !!!application.city}"
+        (click)="open(application.city?.id, 'cities',$event)">
+        <span *ngIf="application.city">
+          {{application.city.name}}
+        </span>
+    </td>
     <ng-container>
       <td [ngClass]="{'link': !!application.course, 'no-link': !!!application.course}"
           (click)="open(application.course?.id, 'courses',$event)">

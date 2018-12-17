@@ -6,6 +6,7 @@ import {Contract} from './contract';
 import {AudioCall} from './audio-call';
 import {Payment} from './payment';
 import {Lesson} from './lesson';
+import {City} from './city';
 
 export class Application {
   constructor(
@@ -23,6 +24,8 @@ export class Application {
     public courseId: number = null,
     public group: Group = null,
     public groupId: number = null,
+    public city: City = null,
+    public cityId: number = null,
     public contract: Contract = null,
     public contractId: number = null,
     public audioCalls: AudioCall[] = [],

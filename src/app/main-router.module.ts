@@ -18,6 +18,8 @@ import {SingleApplicationComponent} from './core/applications/single-application
 import {SingleLessonComponent} from './core/lessons/single-lesson/single-lesson.component';
 import {CitiesComponent} from './core/cities/cities.component';
 import {SingleCityComponent} from './core/cities/single-city/single-city.component';
+import {ManagersComponent} from './core/managers/managers.component';
+import {SingleManagerComponent} from './core/managers/single-manager/single-manager.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -69,6 +71,13 @@ const routes: Routes = [
       [
         {path: '', component: CitiesComponent},
         {path: ':id', component: SingleCityComponent, data: {breadcrumb: 'City'}},
+      ]
+  },
+  {
+    path: 'managers', data: {breadcrumb: 'Managers'}, children:
+      [
+        {path: '', component: ManagersComponent},
+        {path: ':id', component: SingleManagerComponent, data: {breadcrumb: 'Manager'}},
       ]
   }
 ];

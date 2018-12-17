@@ -57,7 +57,7 @@ export class SingleApplicationComponent implements OnInit {
   loadApplication(id) {
     this.applicationService.getApplicationById(id, {
       attributes: ['id', 'date', 'fullPrice', 'discount', 'resultPrice', 'leftToPay', 'sourceId', 'courseId', 'groupId'],
-      include: ['client', 'source', 'course', 'group', 'contract', 'audio_calls', 'lessons']
+      include: ['client', 'source', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
     })
       .subscribe(application => {
         this.application = application;

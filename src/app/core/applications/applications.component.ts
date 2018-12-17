@@ -10,6 +10,8 @@ import {NgForm} from '@angular/forms';
 import {ApplicationService} from '../../services/application.service';
 import {Application} from '../../models/application';
 import {StorageService} from '../../services/storage.service';
+import {City} from '../../models/city';
+import {CityService} from '../../services/city.service';
 
 @Component({
   selector: 'app-applications',
@@ -25,10 +27,12 @@ export class ApplicationsComponent implements OnInit {
 
   sources: Source[] = [];
   courses: Course[] = [];
+  cities: City[] = [];
 
   applicationForm = {
     sourceId: null,
     courseId: null,
+    cityId: null,
     date: null,
     discount: 0,
   };
@@ -36,6 +40,7 @@ export class ApplicationsComponent implements OnInit {
   constructor(
     public sourceService: SourceService,
     public courseService: CourseService,
+    private citiesService: CityService,
     public applicationService: ApplicationService,
     public storageService: StorageService,
     public activatedRoute: ActivatedRoute,
@@ -53,6 +58,7 @@ export class ApplicationsComponent implements OnInit {
     });
     this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
     this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
+    this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
   }
 
   selectClient($event) {
@@ -72,6 +78,7 @@ export class ApplicationsComponent implements OnInit {
       clientId: this.selectedClient.id,
       sourceId: this.applicationForm.sourceId ? this.applicationForm.sourceId : null,
       courseId: this.applicationForm.courseId,
+      cityId: this.applicationForm.cityId,
       date: this.applicationForm.date,
       discount: +this.applicationForm.discount ? +this.applicationForm.discount : 0,
     };

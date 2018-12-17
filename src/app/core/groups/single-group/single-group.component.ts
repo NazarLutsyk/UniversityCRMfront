@@ -3,7 +3,6 @@ import {Group} from '../../../models/group';
 import {ActivatedRoute} from '@angular/router';
 import {GroupService} from '../../../services/group.service';
 import {LessonService} from '../../../services/lesson.service';
-import {CityService} from '../../../services/city.service';
 
 @Component({
   selector: 'app-single-group',
