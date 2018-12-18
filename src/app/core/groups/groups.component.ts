@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {NgForm, NgModel} from '@angular/forms';
 import {Group} from '../../models/group';
 import {Course} from '../../models/course';
 import {CourseService} from '../../services/course.service';
@@ -34,6 +34,8 @@ export class GroupsComponent implements OnInit {
 
   createGroup(groupForm: NgForm) {
     const group: Group = <Group>groupForm.form.value;
+    group.freePractice = group.freePractice ? group.freePractice : 0;
+    group.usedPractice = 0;
     this.groupsService.create(group).subscribe((groupResponse) => {
       groupForm.resetForm();
       this.groupsTable.loadGroups();
@@ -41,4 +43,9 @@ export class GroupsComponent implements OnInit {
   }
 
 
+  validatePractice(inputRef: NgModel) {
+    if (+inputRef.value < 0) {
+      inputRef.reset(0);
+    }
+  }
 }

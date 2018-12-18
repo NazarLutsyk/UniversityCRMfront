@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ApplicationsComponent} from './applications.component';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule,
   MatDividerModule,
   MatExpansionModule,
   MatFormFieldModule, MatIconModule,
@@ -27,7 +27,8 @@ import {PaymentsModule} from '../payments/payments.module';
     MatListModule,
     MatDividerModule,
     PaymentsModule,
-    MatIconModule
+    MatIconModule,
+    MatCheckboxModule,
   ],
   declarations: [ApplicationsComponent, SingleApplicationComponent, ApplicationsTableComponent],
   exports: [ApplicationsTableComponent]

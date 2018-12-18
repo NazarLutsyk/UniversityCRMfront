@@ -59,6 +59,7 @@
         (input)="validateDiscount($event)"
       >
     </mat-form-field>
+    <mat-checkbox ngModel name="wantPractice" [(ngModel)]="applicationForm.wantPractice">Want practice</mat-checkbox>
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>

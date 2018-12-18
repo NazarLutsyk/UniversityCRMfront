@@ -6,8 +6,8 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatExpansionModule,
-  MatFormFieldModule,
-  MatInputModule,
+  MatFormFieldModule, MatIconModule,
+  MatInputModule, MatListModule,
   MatSelectModule
 } from '@angular/material';
 import {SingleGroupComponent} from './single-group/single-group.component';
@@ -24,9 +24,11 @@ import {LessonsModule} from '../lessons/lessons.module';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatListModule,
+    MatIconModule,
     MatCheckboxModule,
     ApplicationsModule,
-    LessonsModule
+    LessonsModule,
   ],
   declarations: [GroupsComponent, SingleGroupComponent, GroupsTableComponent],
   exports: [GroupsTableComponent]

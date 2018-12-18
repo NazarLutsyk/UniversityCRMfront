@@ -33,6 +33,28 @@
         >
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Free practice</mat-label>
+        <input
+          type="number"
+          name="freePractice"
+          [(ngModel)]="group.freePractice"
+          #freePractice="ngModel"
+          (input)="validatePractice(freePractice)"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Used practice</mat-label>
+        <input
+          type="number"
+          name="usedPractice"
+          [(ngModel)]="group.usedPractice"
+          matInput
+          disabled
+        >
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Start date</mat-label>
         <input
           type="date"
@@ -80,7 +102,7 @@
             required
           >
         </mat-form-field>
-          <mat-checkbox ngModel name="main" [value]="false">Main lesson</mat-checkbox>
+        <mat-checkbox ngModel name="main" [value]="false">Main lesson</mat-checkbox>
         <button mat-flat-button [disabled]="!formLesson.valid">Create</button>
       </form>
     </mat-expansion-panel>
@@ -91,5 +113,18 @@
   <div class="group-applications overflow-x" *ngIf="group.id">
     <h3>APPLICATIONS</h3>
     <app-applications-table *ngIf="group.id" [byGroupId]="group.id"></app-applications-table>
+  </div>
+
+  <div class="group-practice overflow-x">
+    <h3>PRACTICE</h3>
+    <mat-selection-list #practiceList>
+      <ng-container *ngFor="let app of applicationsToPractice">
+        <mat-list-option [value]="app.id" [selected]="!!app.hasPractice" [disabled]="(!canSelect && !app.hasPractice)">
+          <mat-icon mat-list-icon (click)="openApplication(app.id, $event)">meeting_room</mat-icon>
+          <p>{{app.client.name}} {{app.client.surname}}</p>
+        </mat-list-option>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-selection-list>
   </div>
 </div>

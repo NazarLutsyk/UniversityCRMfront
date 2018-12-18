@@ -1,7 +1,7 @@
 <table>
   <thead>
   <tr class="material-table-paginator" #paginator>
-    <th colspan="10">
+    <th colspan="12">
       <div class="paginator-buttons">
         <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
         <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
@@ -28,7 +28,7 @@
     >
       Client
     </td>
-    <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
+    <td class="small-td" (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
       City
     </td>
     <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
@@ -42,7 +42,7 @@
     <td (click)="loadSorted('source.name',headerBlock,$event)" data-sort="">
       Source
     </td>
-    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+    <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
       Date
     </td>
     <td class="small-td" (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
@@ -56,6 +56,12 @@
     </td>
     <td class="small-td" (click)="loadSorted('leftToPay',headerBlock,$event)" data-sort="">
       Left to pay
+    </td>
+    <td class="small-td" (click)="loadSorted('wantPractice',headerBlock,$event)" data-sort="">
+      Want practice(+/-)
+    </td>
+    <td class="small-td" (click)="loadSorted('hasPractice',headerBlock,$event)" data-sort="">
+      Has practice(+/-)
     </td>
     <td class="controls-col">
       CONTROLS
@@ -75,7 +81,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -129,7 +135,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -194,6 +200,32 @@
         >
       </mat-form-field>
     </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="wantPractice"
+          data-key="wantPractice"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="hasPractice"
+          data-key="hasPractice"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
     <td class="controls-col"></td>
   </tr>
   </thead>
@@ -207,7 +239,7 @@
         </span>
       </td>
     </ng-container>
-    <td [ngClass]="{'link': !!application.city, 'no-link': !!!application.city}"
+    <td class="small-td" [ngClass]="{'link': !!application.city, 'no-link': !!!application.city}"
         (click)="open(application.city?.id, 'cities',$event)">
         <span *ngIf="application.city">
           {{application.city.name}}
@@ -237,7 +269,7 @@
         </span>
       </td>
     </ng-container>
-    <td>
+    <td class="small-td">
       {{application.date | date : 'yyy/MM/dd'}}
     </td>
     <td class="small-td">
@@ -251,6 +283,14 @@
     </td>
     <td class="small-td">
       {{application.leftToPay}}
+    </td>
+    <td class="small-td">
+      <span *ngIf="application.wantPractice">+</span>
+      <span *ngIf="!application.wantPractice">-</span>
+    </td>
+    <td class="small-td">
+      <span *ngIf="application.hasPractice">+</span>
+      <span *ngIf="!application.hasPractice">-</span>
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(application.id)" data-controls="true"></div>

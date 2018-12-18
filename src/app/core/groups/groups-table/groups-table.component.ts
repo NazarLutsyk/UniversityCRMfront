@@ -84,6 +84,12 @@ export class GroupsTableComponent implements OnInit {
     if (this.filter.name) {
       res.name = {$like: `${this.filter.name}`};
     }
+    if (this.filter.freePractice) {
+      res.freePractice = this.filter.freePractice;
+    }
+    if (this.filter.usedPractice) {
+      res.usedPractice = this.filter.usedPractice;
+    }
     if (this.filter['course.name']) {
       res.course = {name: `${this.filter['course.name']}`};
     }

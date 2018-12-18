@@ -24,6 +24,12 @@
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
       Name
     </td>
+    <td (click)="loadSorted('freePractice',headerBlock,$event)" data-sort="">
+      Free practice
+    </td>
+    <td (click)="loadSorted('usedPractice',headerBlock,$event)" data-sort="">
+      Used practice
+    </td>
     <td (click)="loadSorted('startDate',headerBlock,$event)" data-sort="">
       Start Date
     </td>
@@ -48,6 +54,32 @@
           type="text"
           name="name"
           data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          name="freePractice"
+          data-key="freePractice"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          name="usedPractice"
+          data-key="usedPractice"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -115,6 +147,12 @@
   <tr *ngFor="let group of groups" (click)="open(group.id, 'groups',$event)" class="data-row">
     <td>
       {{group.name}}
+    </td>
+    <td>
+      {{group.freePractice}}
+    </td>
+    <td>
+      {{group.usedPractice}}
     </td>
     <td>
       {{group.startDate | date : 'yyy/MM/dd'}}

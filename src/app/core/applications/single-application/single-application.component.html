@@ -82,6 +82,12 @@
           disabled
         >
       </mat-form-field>
+      <mat-checkbox [(ngModel)]="application.hasPractice" name="hasPractice" [checked]="application.hasPractice" disabled>
+        Has practice
+      </mat-checkbox>
+      <mat-checkbox [(ngModel)]="application.wantPractice" name="wantPractice" [checked]="application.wantPractice">
+        Want practice
+      </mat-checkbox>
       <mat-form-field>
         <mat-label>Source</mat-label>
         <mat-select [(ngModel)]="application.sourceId" name="sourceId">

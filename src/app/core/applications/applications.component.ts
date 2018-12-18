@@ -35,6 +35,7 @@ export class ApplicationsComponent implements OnInit {
     cityId: null,
     date: null,
     discount: 0,
+    wantPractice: false
   };
 
   constructor(
@@ -81,6 +82,8 @@ export class ApplicationsComponent implements OnInit {
       cityId: this.applicationForm.cityId,
       date: this.applicationForm.date,
       discount: +this.applicationForm.discount ? +this.applicationForm.discount : 0,
+      wantPractice: this.applicationForm.wantPractice,
+      hasPractice: false
     };
     this.applicationService.create(application).subscribe((applicationResponse) => {
       applicationForm.resetForm();

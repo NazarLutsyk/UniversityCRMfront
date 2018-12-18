@@ -56,7 +56,19 @@ export class SingleApplicationComponent implements OnInit {
 
   loadApplication(id) {
     this.applicationService.getApplicationById(id, {
-      attributes: ['id', 'date', 'fullPrice', 'discount', 'resultPrice', 'leftToPay', 'sourceId', 'courseId', 'groupId'],
+      attributes: [
+        'id',
+        'date',
+        'fullPrice',
+        'discount',
+        'resultPrice',
+        'wantPractice',
+        'hasPractice',
+        'leftToPay',
+        'sourceId',
+        'courseId',
+        'groupId'
+      ],
       include: ['client', 'source', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
     })
       .subscribe(application => {
@@ -77,6 +89,7 @@ export class SingleApplicationComponent implements OnInit {
     const applicationToUpdate = {
       sourceId: this.application.sourceId,
       date: this.application.date,
+      wantPractice: this.application.wantPractice
     };
     this.applicationService.update(this.application.id, applicationToUpdate).subscribe(updated => {
       this.loadApplication(updated.id);
@@ -99,7 +112,7 @@ export class SingleApplicationComponent implements OnInit {
       number: paymentFormValue.number,
       date: paymentFormValue.date,
       amount: paymentFormValue.amount,
-      applicationId: this.application.id
+      applicationId: this.application.id,
     };
     this.paymentService.create(payment).subscribe(() => {
       paymentForm.resetForm();

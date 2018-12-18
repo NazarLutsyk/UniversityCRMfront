@@ -51,6 +51,17 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Free practice places</mat-label>
+      <input
+        type="number"
+        name="freePractice"
+        ngModel
+        matInput
+        #freePractice="ngModel"
+        (input)="validatePractice(freePractice)"
+      >
+    </mat-form-field>
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>

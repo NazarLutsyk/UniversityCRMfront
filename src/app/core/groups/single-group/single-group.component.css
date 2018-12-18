@@ -10,7 +10,7 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .right-menu, .group-applications, .group-lesson-block {
+.left-menu, .right-menu, .group-applications, .group-lesson-block, .group-practice {
   background: white;
   padding: 15px 25px;
 }
@@ -38,6 +38,13 @@ form button {
   width: inherit;
   border-left: 3px solid #3f51b5;
   border-top: 3px solid #3f51b5;
+}
+
+.group-practice{
+  margin: 15px;
+  width: inherit;
+  border-left: 3px solid #b52a92;
+  border-top: 3px solid #b52a92;
 }
 
 .group-lesson-block {

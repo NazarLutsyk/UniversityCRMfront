@@ -103,6 +103,12 @@ export class ApplicationsTableComponent implements OnInit {
     if (this.filter.discount) {
       res.discount = this.filter.discount;
     }
+    if (this.filter.wantPractice === '+' || this.filter.wantPractice === '-') {
+      res.wantPractice = this.filter.wantPractice === '+' ? 1 : this.filter.wantPractice === '-' ? 0 : null;
+    }
+    if (this.filter.hasPractice === '+' || this.filter.hasPractice === '-') {
+      res.hasPractice = this.filter.hasPractice === '+' ? 1 : this.filter.hasPractice === '-' ? 0 : null;
+    }
     if (this.filter.resultPrice) {
       res.resultPrice = this.filter.resultPrice;
     }

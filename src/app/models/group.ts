@@ -9,6 +9,8 @@ export class Group {
     public name: string = '',
     public startDate: string = '',
     public startTime: string = '',
+    public freePractice: number = 0,
+    public usedPractice: number = 0,
     public applications: Application[] = [],
     public lessons: Lesson[] = [],
     public course: Course = null,

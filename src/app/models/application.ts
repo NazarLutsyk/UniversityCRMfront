@@ -16,6 +16,8 @@ export class Application {
     public discount: number = 0,
     public resultPrice: number = 0,
     public leftToPay: number = 0,
+    public wantPractice: boolean = false,
+    public hasPractice: boolean = false,
     public client: Client = null,
     public clientId: number = null,
     public source: Source = null,
