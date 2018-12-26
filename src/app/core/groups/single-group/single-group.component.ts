@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Group} from '../../../models/group';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../../../services/group.service';
 import {LessonService} from '../../../services/lesson.service';
 import {NgModel} from '@angular/forms';
@@ -29,7 +29,8 @@ export class SingleGroupComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private groupService: GroupService,
     private lessonService: LessonService,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    private router: Router
   ) {
   }
 
@@ -117,5 +118,9 @@ export class SingleGroupComponent implements OnInit {
   }
 
   openApplication(id: number, $event) {
+    $event.stopPropagation();
+    this.router.navigate(['applications', id]);
   }
 }
+
+

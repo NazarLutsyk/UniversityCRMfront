@@ -90,7 +90,7 @@
       </mat-checkbox>
       <mat-form-field>
         <mat-label>Source</mat-label>
-        <mat-select [(ngModel)]="application.sourceId" name="sourceId">
+        <mat-select [(ngModel)]="applicationSources" name="sources" multiple>
           <mat-option *ngFor="let source of sources" [value]="source.id">
             {{source.name}}
           </mat-option>

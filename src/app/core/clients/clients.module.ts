@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ClientsComponent} from './clients.component';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
@@ -25,6 +25,7 @@ import {ApplicationsModule} from '../applications/applications.module';
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatCheckboxModule,
     TasksModule,
     CommentsModule,
     ApplicationsModule

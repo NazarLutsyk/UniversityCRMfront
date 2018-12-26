@@ -21,6 +21,7 @@ export class SingleApplicationComponent implements OnInit {
   @ViewChild('groupsList') groupsList;
 
   application: Application = new Application();
+  applicationSources: number[] = [];
 
   sources: Source[] = [];
   groups: Group[] = [];
@@ -65,14 +66,17 @@ export class SingleApplicationComponent implements OnInit {
         'wantPractice',
         'hasPractice',
         'leftToPay',
-        'sourceId',
         'courseId',
         'groupId'
       ],
-      include: ['client', 'source', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
+      include: ['client', 'sources', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
     })
       .subscribe(application => {
         this.application = application;
+        if (this.application.sources && this.application.sources.length > 0) {
+          this.applicationSources = [];
+          this.applicationSources = this.application.sources.map(source => source.id);
+        }
         this.loadGroups();
       });
   }
@@ -87,7 +91,7 @@ export class SingleApplicationComponent implements OnInit {
 
   updateApplication() {
     const applicationToUpdate = {
-      sourceId: this.application.sourceId,
+      sources: this.applicationSources,
       date: this.application.date,
       wantPractice: this.application.wantPractice
     };

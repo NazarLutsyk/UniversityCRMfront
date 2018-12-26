@@ -12,6 +12,8 @@ import {SourceService} from '../../../services/source.service';
 import {CourseService} from '../../../services/course.service';
 import {Application} from '../../../models/application';
 import {ApplicationService} from '../../../services/application.service';
+import {City} from '../../../models/city';
+import {CityService} from '../../../services/city.service';
 
 @Component({
   selector: 'app-single-client',
@@ -27,6 +29,8 @@ export class SingleClientComponent implements OnInit {
   client: Client = new Client();
   sources: Source[] = [];
   courses: Course[] = [];
+  cities: City[] = [];
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +39,7 @@ export class SingleClientComponent implements OnInit {
     private commentService: CommentService,
     private sourceService: SourceService,
     private courseService: CourseService,
+    private citiesService: CityService,
     private applicationService: ApplicationService
   ) {
   }
@@ -45,6 +50,7 @@ export class SingleClientComponent implements OnInit {
     });
     this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
     this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
+    this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
   }
 
   loadClient(id) {
@@ -100,8 +106,11 @@ export class SingleClientComponent implements OnInit {
       clientId: this.client.id,
       date: applicationFormValue.date,
       courseId: applicationFormValue.courseId,
-      sourceId: applicationFormValue.sourceId,
-      discount: applicationFormValue.discount >= 0 ? applicationFormValue.discount : 0
+      cityId: applicationFormValue.cityId,
+      sources: applicationFormValue.sources ? applicationFormValue.sources : null,
+      discount: applicationFormValue.discount >= 0 ? applicationFormValue.discount : 0,
+      wantPractice: !!applicationFormValue.wantPractice,
+      hasPractice: false
     };
     this.applicationService.create(application).subscribe(() => {
       formApplication.resetForm();

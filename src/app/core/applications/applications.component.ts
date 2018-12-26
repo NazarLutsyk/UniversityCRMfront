@@ -30,7 +30,7 @@ export class ApplicationsComponent implements OnInit {
   cities: City[] = [];
 
   applicationForm = {
-    sourceId: null,
+    sources: null,
     courseId: null,
     cityId: null,
     date: null,
@@ -77,12 +77,12 @@ export class ApplicationsComponent implements OnInit {
   createApplication(applicationForm: NgForm) {
     const application: Application = <Application>{
       clientId: this.selectedClient.id,
-      sourceId: this.applicationForm.sourceId ? this.applicationForm.sourceId : null,
+      sources: this.applicationForm.sources ? this.applicationForm.sources : null,
       courseId: this.applicationForm.courseId,
       cityId: this.applicationForm.cityId,
       date: this.applicationForm.date,
       discount: +this.applicationForm.discount ? +this.applicationForm.discount : 0,
-      wantPractice: this.applicationForm.wantPractice,
+      wantPractice: !!this.applicationForm.wantPractice,
       hasPractice: false
     };
     this.applicationService.create(application).subscribe((applicationResponse) => {

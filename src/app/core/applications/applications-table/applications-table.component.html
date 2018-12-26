@@ -39,9 +39,6 @@
       (click)="loadSorted('group.name',headerBlock,$event)" data-sort="">
       Group
     </td>
-    <td (click)="loadSorted('source.name',headerBlock,$event)" data-sort="">
-      Source
-    </td>
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
       Date
     </td>
@@ -116,19 +113,6 @@
           type="text"
           name="group.name"
           data-key="group.name"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="text"
-          name="source.name"
-          data-key="source.name"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -258,14 +242,6 @@
           (click)="open(application.group?.id, 'groups',$event)">
         <span *ngIf="application.group">
           {{application.group.name}}
-        </span>
-      </td>
-    </ng-container>
-    <ng-container>
-      <td [ngClass]="{'link': !!application.source, 'no-link': !!!application.source}"
-          (click)="open(application.source?.id, 'sources',$event)">
-        <span *ngIf="application.source">
-          {{application.source.name}}
         </span>
       </td>
     </ng-container>

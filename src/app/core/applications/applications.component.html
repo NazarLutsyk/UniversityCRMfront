@@ -43,7 +43,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Source</mat-label>
-      <mat-select [(ngModel)]="applicationForm.sourceId" name="sourceId">
+      <mat-select [(ngModel)]="applicationForm.sources" name="sources" multiple>
         <mat-option *ngFor="let source of sources" [value]="source.id">
           {{source.name}}
         </mat-option>

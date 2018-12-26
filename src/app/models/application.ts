@@ -20,8 +20,6 @@ export class Application {
     public hasPractice: boolean = false,
     public client: Client = null,
     public clientId: number = null,
-    public source: Source = null,
-    public sourceId: number = null,
     public course: Course = null,
     public courseId: number = null,
     public group: Group = null,
@@ -32,6 +30,7 @@ export class Application {
     public contractId: number = null,
     public audioCalls: AudioCall[] = [],
     public payments: Payment[] = [],
+    public sources: Source[] = [],
     public lessons: Lesson[] = [],
   ) {
   }
