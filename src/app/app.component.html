@@ -27,6 +27,12 @@
     <div class="menu-span-wrapper" routerLink="/managers" routerLinkActive="active-main-menu">
       <span>Managers</span>
     </div>
+    <div class="menu-span-wrapper" routerLink="/login" routerLinkActive="active-main-menu">
+      <span>Login</span>
+    </div>
+    <div class="menu-span-wrapper" (click)="logout()">
+      <span>Logout</span>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 

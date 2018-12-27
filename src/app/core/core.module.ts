@@ -13,6 +13,7 @@ import {DeleteSnackBarComponent} from './delete-snack-bar/delete-snack-bar.compo
 import {MatButtonModule, MatSnackBarModule} from '@angular/material';
 import {CitiesModule} from './cities/cities.module';
 import {ManagersModule} from './managers/managers.module';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {ManagersModule} from './managers/managers.module';
     SourcesModule,
     CitiesModule,
     ManagersModule,
+    AuthModule,
     MatSnackBarModule,
     MatButtonModule,
   ],

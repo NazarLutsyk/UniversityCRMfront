@@ -1,0 +1,28 @@
+<div class="main-wrapper">
+  <div class="login-wrapper" #loginwrapper>
+    <h3>Sign In</h3>
+    <form #form="ngForm" (ngSubmit)="login(form)">
+      <mat-form-field>
+        <mat-label>Login</mat-label>
+        <input
+          type="text"
+          name="login"
+          required
+          ngModel
+          matInput
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          name="password"
+          required
+          ngModel
+          matInput
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">LOGIN</button>
+    </form>
+  </div>
+</div>
