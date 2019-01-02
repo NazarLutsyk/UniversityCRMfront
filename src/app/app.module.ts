@@ -8,6 +8,7 @@ import {MainRouterModule} from './main-router.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
 import {AuthInterceptorService} from './services/auth-interceptor.service';
+import {AuthService} from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,4 +32,11 @@ import {AuthInterceptorService} from './services/auth-interceptor.service';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+
+  constructor(
+    private authService: AuthService
+  ) {
+    authService.getPrincipal().subscribe();
+  }
 }

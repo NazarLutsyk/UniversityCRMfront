@@ -18,7 +18,7 @@
       of
       <span>{{countOfPages}}</span>
     </th>
-    <th data-controls="true"></th>
+    <th *ngIf="canDeleteGroup" data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
@@ -42,7 +42,7 @@
     <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
       City
     </td>
-    <td class="controls-col">
+    <td *ngIf="canDeleteGroup" class="controls-col">
       CONTROLS
     </td>
   </tr>
@@ -140,7 +140,7 @@
         >
       </mat-form-field>
     </td>
-    <td class="controls-col"></td>
+    <td *ngIf="canDeleteGroup" class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
@@ -177,7 +177,7 @@
     </td>
 
 
-    <td class="controls-col" data-controls="true">
+    <td *ngIf="canDeleteGroup" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(group.id)" data-controls="true"></div>
     </td>
   </tr>

@@ -6,6 +6,7 @@ import {NgForm} from '@angular/forms';
 import {Course} from '../../models/course';
 import {CourseService} from '../../services/course.service';
 import {isNumber} from 'util';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-courses',
@@ -24,14 +25,21 @@ export class CoursesComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  canCreateCourse = false;
+  canDeleteCourse = false;
+
   constructor(
     private coursesService: CourseService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    public materialTableService: MaterialTableService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
+    const p = this.authService.getLocalPrincipal();
+    this.canCreateCourse = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+    this.canDeleteCourse = this.canCreateCourse;
     this.loadCourses();
   }
 

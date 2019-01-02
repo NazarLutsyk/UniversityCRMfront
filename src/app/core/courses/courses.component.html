@@ -1,43 +1,46 @@
-<mat-expansion-panel>
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      CREATE
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <form (ngSubmit)="createCourse(form)" #form="ngForm">
-    <mat-form-field>
-      <mat-label>Name</mat-label>
-      <input
-        type="text"
-        name="name"
-        ngModel
-        matInput
-        required
-      >
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Price</mat-label>
-      <input
-        type="number"
-        name="fullPrice"
-        ngModel
-        matInput
-        required
-      >
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Discount</mat-label>
-      <input
-        type="number"
-        name="discount"
-        ngModel
-        matInput
-        (input)="validateDiscount($event)"
-      >
-    </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
-  </form>
-</mat-expansion-panel>
+<div
+  *ngIf="canCreateCourse">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        CREATE
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form (ngSubmit)="createCourse(form)" #form="ngForm">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          name="name"
+          ngModel
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input
+          type="number"
+          name="fullPrice"
+          ngModel
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Discount</mat-label>
+        <input
+          type="number"
+          name="discount"
+          ngModel
+          matInput
+          (input)="validateDiscount($event)"
+        >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Create</button>
+    </form>
+  </mat-expansion-panel>
+</div>
 
 <table>
   <thead>
@@ -74,7 +77,7 @@
     <td (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
       Result
     </td>
-    <td class="controls-col">
+    <td *ngIf="canDeleteCourse" class="controls-col">
       CONTROLS
     </td>
   </tr>
@@ -132,7 +135,7 @@
         >
       </mat-form-field>
     </td>
-    <td class="controls-col"></td>
+    <td *ngIf="canDeleteCourse" class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
@@ -149,7 +152,7 @@
     <td>
       {{course.resultPrice}}
     </td>
-    <td class="controls-col" data-controls="true">
+    <td *ngIf="canDeleteCourse" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(course.id)" data-controls="true"></div>
     </td>
   </tr>

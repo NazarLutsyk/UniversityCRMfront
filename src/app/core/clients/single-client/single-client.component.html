@@ -44,10 +44,10 @@
         >
       </mat-form-field>
 
-      <button mat-flat-button [disabled]="!form.valid">Update</button>
+      <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Update</button>
     </form>
   </div>
-  <div class="client-tasks">
+  <div class="client-tasks" *ngIf="canSeeTasks">
     <h3>TASKS</h3>
     <mat-expansion-panel #formpanel>
       <mat-expansion-panel-header>
@@ -84,7 +84,7 @@
       #tasksTable
     ></app-tasks-table>
   </div>
-  <div class="client-comments">
+  <div class="client-comments" *ngIf="canSeeComments">
     <h3>COMMENTS</h3>
     <mat-expansion-panel #formpanelComments>
       <mat-expansion-panel-header>
@@ -121,9 +121,9 @@
       [byClientId]="client.id"
     ></app-comments-table>
   </div>
-  <div class="client-applications">
+  <div class="client-applications" *ngIf="canSeeApplications">
     <h3>APPLICATIONS</h3>
-    <mat-expansion-panel #formpanelApplications>
+    <mat-expansion-panel #formpanelApplications *ngIf="canCreateApplication">
       <mat-expansion-panel-header>
         <mat-panel-title>
           CREATE
@@ -181,6 +181,7 @@
     <app-applications-table
       *ngIf="client.id"
       [byClientId]="client.id"
+      [canDeleteApplicationInput]="canDeleteApplication"
       #applicationTable
     ></app-applications-table>
   </div>

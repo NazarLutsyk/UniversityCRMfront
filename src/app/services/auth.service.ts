@@ -4,6 +4,7 @@ import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {Manager} from '../models/manager';
 import {map} from 'rxjs/operators';
+import {Roles} from '../models/roles';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import {map} from 'rxjs/operators';
 export class AuthService {
 
   public principal: Manager = null;
+  public roles = Roles;
 
   private authURL = '';
 

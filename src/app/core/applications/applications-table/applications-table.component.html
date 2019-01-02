@@ -60,7 +60,7 @@
     <td class="small-td" (click)="loadSorted('hasPractice',headerBlock,$event)" data-sort="">
       Has practice(+/-)
     </td>
-    <td class="controls-col">
+    <td *ngIf="canDeleteApplication" class="controls-col">
       CONTROLS
     </td>
   </tr>
@@ -210,7 +210,7 @@
         >
       </mat-form-field>
     </td>
-    <td class="controls-col"></td>
+    <td *ngIf="canDeleteApplication" class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
@@ -268,7 +268,7 @@
       <span *ngIf="application.hasPractice">+</span>
       <span *ngIf="!application.hasPractice">-</span>
     </td>
-    <td class="controls-col" data-controls="true">
+    <td *ngIf="canDeleteApplication" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(application.id)" data-controls="true"></div>
     </td>
   </tr>

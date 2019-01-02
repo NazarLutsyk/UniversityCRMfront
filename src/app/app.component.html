@@ -1,36 +1,78 @@
 <mat-toolbar>
   <mat-toolbar-row class="main-menu">
-    <div class="menu-span-wrapper" routerLink="/">
+    <div
+      class="menu-span-wrapper"
+      routerLink="/"
+    >
       <span class="main-logo">OWU CRM</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/clients" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/clients"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal()"
+    >
       <span>Clients</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/tasks" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/tasks"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Tasks</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/applications" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/applications"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Applications</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/groups" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/groups"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Groups</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/courses" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/courses"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Courses</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/sources" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/sources"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Sources</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/cities" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/cities"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Cities</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/managers" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/managers"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
       <span>Managers</span>
     </div>
-    <div class="menu-span-wrapper" routerLink="/login" routerLinkActive="active-main-menu">
+    <div class="menu-span-wrapper"
+         routerLink="/login"
+         routerLinkActive="active-main-menu"
+         *ngIf="!authService.getLocalPrincipal()"
+    >
       <span>Login</span>
     </div>
-    <div class="menu-span-wrapper" (click)="logout()">
+    <div class="menu-span-wrapper"
+         (click)="logout()"
+         *ngIf="authService.getLocalPrincipal()"
+    >
       <span>Logout</span>
     </div>
   </mat-toolbar-row>

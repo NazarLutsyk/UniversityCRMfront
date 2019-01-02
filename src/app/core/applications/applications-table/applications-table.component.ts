@@ -5,6 +5,7 @@ import {MaterialTableService} from '../../../services/material-table.service';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {isNumber} from 'util';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-applications-table',
@@ -15,6 +16,7 @@ export class ApplicationsTableComponent implements OnInit {
 
   @Input() byGroupId;
   @Input() byClientId;
+  @Input() canDeleteApplicationInput = null;
 
   applications: Application[] = [];
 
@@ -27,16 +29,25 @@ export class ApplicationsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  canDeleteApplication = false;
+
   constructor(
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
     public applicationService: ApplicationService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
     this.loadApplications();
+    if (typeof this.canDeleteApplicationInput !== 'boolean') {
+      const p = this.authService.getLocalPrincipal();
+      this.canDeleteApplication = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+    } else {
+      this.canDeleteApplication = this.canDeleteApplicationInput;
+    }
   }
 
   loadApplications() {

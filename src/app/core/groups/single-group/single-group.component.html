@@ -74,7 +74,7 @@
           matInput
         >
       </mat-form-field>
-      <button mat-flat-button [disabled]="!form.valid">Update</button>
+      <button *ngIf="canUpdateGroup" mat-flat-button [disabled]="!form.valid">Update</button>
     </form>
   </div>
   <div class="right-menu">
@@ -85,7 +85,7 @@
 
   <div class="group-lesson-block">
     <h3>LESSONS</h3>
-    <mat-expansion-panel>
+    <mat-expansion-panel *ngIf="canCreateLesson">
       <mat-expansion-panel-header>
         <mat-panel-title>
           CREATE LESSON
@@ -106,20 +106,27 @@
         <button mat-flat-button [disabled]="!formLesson.valid">Create</button>
       </form>
     </mat-expansion-panel>
-    <app-lessons-table *ngIf="group.id" #lessonsTable [byGroupId]="group.id"></app-lessons-table>
+    <app-lessons-table
+      *ngIf="group.id"
+      #lessonsTable
+      [byGroupId]="group.id"
+      [canDeleteLessonInput]="canDeleteLesson"
+    ></app-lessons-table>
   </div>
 
 
   <div class="group-applications overflow-x" *ngIf="group.id">
     <h3>APPLICATIONS</h3>
-    <app-applications-table *ngIf="group.id" [byGroupId]="group.id"></app-applications-table>
+    <app-applications-table *ngIf="group.id" [byGroupId]="group.id"
+                            [canDeleteApplicationInput]="canDeleteApplication"></app-applications-table>
   </div>
 
   <div class="group-practice overflow-x">
     <h3>PRACTICE</h3>
     <mat-selection-list #practiceList>
       <ng-container *ngFor="let app of applicationsToPractice">
-        <mat-list-option [value]="app.id" [selected]="!!app.hasPractice" [disabled]="(!canSelect && !app.hasPractice)">
+        <mat-list-option [value]="app.id" [selected]="!!app.hasPractice"
+                         [disabled]="(!canSelectPractice) || (!hasFreePracticePlaces && !app.hasPractice)">
           <mat-icon mat-list-icon (click)="openApplication(app.id, $event)">meeting_room</mat-icon>
           <p>{{app.client.name}} {{app.client.surname}}</p>
         </mat-list-option>

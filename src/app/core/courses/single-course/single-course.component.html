@@ -32,7 +32,7 @@
           (input)="validateDiscount($event)"
         >
       </mat-form-field>
-      <button mat-flat-button [disabled]="!form.valid">Update</button>
+      <button mat-flat-button *ngIf="canUpdateCourse" [disabled]="!form.valid">Update</button>
     </form>
   </div>
   <div class="right-menu">
@@ -42,6 +42,6 @@
   </div>
   <div class="course-groups" *ngIf="course.id">
     <h3>GROUPS</h3>
-    <app-groups-table [byCourseId]="course.id"></app-groups-table>
+    <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>
   </div>
 </div>

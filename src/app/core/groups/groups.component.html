@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel *ngIf="canCreateGroup">
   <mat-expansion-panel-header>
     <mat-panel-title>
       CREATE
@@ -66,4 +66,4 @@
   </form>
 </mat-expansion-panel>
 
-<app-groups-table #groupsTable></app-groups-table>
+<app-groups-table #groupsTable [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>

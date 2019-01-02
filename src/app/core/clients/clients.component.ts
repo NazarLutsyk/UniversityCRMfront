@@ -6,8 +6,7 @@ import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {isNumber} from 'util';
-import {MatSnackBar} from '@angular/material';
-import {SocketService} from '../../services/socket.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-clients',
@@ -28,16 +27,16 @@ export class ClientsComponent implements OnInit {
 
   selectEvent = null;
 
+  canCreateClient = false;
+  canDeleteClient = false;
+
   constructor(
     private clientsService: ClientService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
-    private mySocket: SocketService
+    public authService: AuthService
   ) {
-    mySocket.onEvent(mySocket.EMAIL_EVENT).subscribe((mail) => {
-      console.log(mail);
-    });
   }
 
   ngOnInit() {
@@ -49,6 +48,10 @@ export class ClientsComponent implements OnInit {
       }
     });
     this.loadClients();
+
+    const p = this.authService.getLocalPrincipal();
+    this.canCreateClient = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+    this.canDeleteClient = this.canCreateClient;
   }
 
   loadClients() {

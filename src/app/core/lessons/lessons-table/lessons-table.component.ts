@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Lesson} from '../../../models/lesson';
 import {LessonService} from '../../../services/lesson.service';
 import {isNumber} from 'util';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-lessons-table',
@@ -14,6 +15,7 @@ import {isNumber} from 'util';
 export class LessonsTableComponent implements OnInit {
 
   @Input() byGroupId;
+  @Input() canDeleteLessonInput = null;
 
 
   lessons: Lesson[] = [];
@@ -26,15 +28,29 @@ export class LessonsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  canDeleteLesson = false;
+
   constructor(
     private lessonService: LessonService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    public materialTableService: MaterialTableService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
     this.loadLessons();
+    if (typeof this.canDeleteLessonInput !== 'boolean') {
+      const p = this.authService.getLocalPrincipal();
+      this.canDeleteLesson = (p
+        && [
+          this.authService.roles.BOSS_ROLE,
+          this.authService.roles.MANAGER_ROLE,
+          this.authService.roles.TEACHER_ROLE
+        ].indexOf(p.role) > -1);
+    } else {
+      this.canDeleteLesson = this.canDeleteLessonInput;
+    }
   }
 
   loadLessons() {

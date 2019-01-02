@@ -1,4 +1,5 @@
 import {City} from './city';
+import {Roles} from './roles';
 
 export class Manager {
   constructor(
@@ -7,7 +8,7 @@ export class Manager {
     public password: string = '',
     public name: string = '',
     public surname: string = '',
-    public role: string = '',
+    public role: Roles = null,
     public cityId: number = null,
     public city: City = null,
   ) {

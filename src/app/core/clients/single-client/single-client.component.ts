@@ -14,6 +14,8 @@ import {Application} from '../../../models/application';
 import {ApplicationService} from '../../../services/application.service';
 import {City} from '../../../models/city';
 import {CityService} from '../../../services/city.service';
+import {AuthService} from '../../../services/auth.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-single-client',
@@ -22,6 +24,7 @@ import {CityService} from '../../../services/city.service';
 })
 export class SingleClientComponent implements OnInit {
 
+  @ViewChild('form') updateClientForm: NgForm;
   @ViewChild('tasksTable') tasksTable;
   @ViewChild('commentTable') commentTable;
   @ViewChild('applicationTable') applicationTable;
@@ -31,6 +34,12 @@ export class SingleClientComponent implements OnInit {
   courses: Course[] = [];
   cities: City[] = [];
 
+  canUpdateClient = false;
+  canSeeTasks = false;
+  canSeeComments = false;
+  canSeeApplications = false;
+  canCreateApplication = false;
+  canDeleteApplication = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -40,7 +49,8 @@ export class SingleClientComponent implements OnInit {
     private sourceService: SourceService,
     private courseService: CourseService,
     private citiesService: CityService,
-    private applicationService: ApplicationService
+    private applicationService: ApplicationService,
+    public authService: AuthService
   ) {
   }
 
@@ -51,13 +61,34 @@ export class SingleClientComponent implements OnInit {
     this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
     this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
     this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
+
+    const p = this.authService.getLocalPrincipal();
+    const isBoss = p.role === this.authService.roles.BOSS_ROLE;
+    const isTeacher = p.role === this.authService.roles.TEACHER_ROLE;
+    const isManager = p.role === this.authService.roles.MANAGER_ROLE;
+
+    this.canSeeTasks = isBoss || isManager;
+    this.canSeeComments = isBoss || isManager || isTeacher;
+    this.canSeeApplications = isBoss || isManager;
+    this.canCreateApplication = isBoss || isManager;
+    this.canDeleteApplication = isBoss || isManager;
   }
 
   loadClient(id) {
     this.clientService.getClientById(id, {
       attributes: ['id', 'name', 'surname', 'phone', 'email'], include: []
     })
-      .subscribe(client => this.client = client);
+      .subscribe(client => {
+        this.client = client;
+        this.canUpdateClient = [
+          this.authService.roles.BOSS_ROLE,
+          this.authService.roles.MANAGER_ROLE
+        ].indexOf(this.authService.getLocalPrincipal().role) > -1;
+
+        if (!this.canUpdateClient) {
+          this.updateClientForm.form.disable();
+        }
+      });
   }
 
   updateClient() {

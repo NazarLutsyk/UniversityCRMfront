@@ -23,32 +23,46 @@ import {SingleManagerComponent} from './core/managers/single-manager/single-mana
 import {LoginComponent} from './core/auth/login/login.component';
 import {AuthenticatedGuard} from './services/guards/authenticated.guard';
 import {NotAuthenticatedGuard} from './services/guards/not-authenticated.guard';
+import {Roles} from './models/roles';
+import {RoleGuard} from './services/guards/role.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
   {
-    path: 'clients', data: {breadcrumb: 'Clients'}, canActivate: [AuthenticatedGuard], children:
+    path: 'clients',
+    data: {breadcrumb: 'Clients'},
+    canActivate: [AuthenticatedGuard],
+    children:
       [
         {path: '', component: ClientsComponent},
         {path: ':id', component: SingleClientComponent, data: {breadcrumb: 'Client'}},
       ]
   },
   {
-    path: 'tasks', data: {breadcrumb: 'Tasks'}, canActivate: [AuthenticatedGuard], children:
+    path: 'tasks',
+    data: {breadcrumb: 'Tasks', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: TasksComponent},
         {path: ':id', component: SingleTaskComponent, data: {breadcrumb: 'Task'}},
       ]
   },
   {
-    path: 'applications', data: {breadcrumb: 'Applications'}, canActivate: [AuthenticatedGuard], children:
+    path: 'applications',
+    data: {breadcrumb: 'Applications', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: ApplicationsComponent},
         {path: ':id', component: SingleApplicationComponent, data: {breadcrumb: 'Application'}},
       ]
   },
   {
-    path: 'groups', data: {breadcrumb: 'Groups'}, canActivate: [AuthenticatedGuard], children:
+    path: 'groups',
+    data: {breadcrumb: 'Groups', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE, Roles.TEACHER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: GroupsComponent},
         {path: ':id', component: SingleGroupComponent, data: {breadcrumb: 'Group'}},
@@ -56,35 +70,52 @@ const routes: Routes = [
       ]
   },
   {
-    path: 'courses', data: {breadcrumb: 'Courses'}, canActivate: [AuthenticatedGuard], children:
+    path: 'courses',
+    data: {breadcrumb: 'Courses', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE, Roles.TEACHER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: CoursesComponent},
         {path: ':id', component: SingleCourseComponent, data: {breadcrumb: 'Course'}},
       ]
   },
   {
-    path: 'sources', data: {breadcrumb: 'Sources'}, canActivate: [AuthenticatedGuard], children:
+    path: 'sources',
+    data: {breadcrumb: 'Sources', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: SourcesComponent},
         {path: ':id', component: SingleSourceComponent, data: {breadcrumb: 'Source'}},
       ]
   },
   {
-    path: 'cities', data: {breadcrumb: 'Cities'}, canActivate: [AuthenticatedGuard], children:
+    path: 'cities',
+    data: {breadcrumb: 'Cities', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: CitiesComponent},
         {path: ':id', component: SingleCityComponent, data: {breadcrumb: 'City'}},
       ]
   },
   {
-    path: 'managers', data: {breadcrumb: 'Managers'}, canActivate: [AuthenticatedGuard], children:
+    path: 'managers',
+    data: {breadcrumb: 'Managers', expectedRoles: [Roles.BOSS_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
       [
         {path: '', component: ManagersComponent},
         {path: ':id', component: SingleManagerComponent, data: {breadcrumb: 'Manager'}},
       ]
   },
   {
-    path: 'login', component: LoginComponent, canActivate: [NotAuthenticatedGuard], data: {breadcrumb: 'Login'}
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [NotAuthenticatedGuard],
+    data: {
+      breadcrumb: 'Login'
+    }
   }
 ];
 

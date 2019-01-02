@@ -3,12 +3,13 @@ import {Group} from '../../../models/group';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../../../services/group.service';
 import {LessonService} from '../../../services/lesson.service';
-import {NgModel} from '@angular/forms';
+import {NgForm, NgModel} from '@angular/forms';
 import {Application} from '../../../models/application';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {MatSelectionListChange} from '@angular/material';
 import {map} from 'rxjs/operators';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-single-group',
@@ -17,41 +18,63 @@ import {map} from 'rxjs/operators';
 })
 export class SingleGroupComponent implements OnInit {
 
+  @ViewChild('form') updateGroupForm: NgForm;
   @ViewChild('lessonsTable') lessonsTable;
   @ViewChild('practiceList') practiceList;
 
   applicationsToPractice: Application[] = [];
   group: Group = new Group();
 
-  canSelect = false;
+  hasFreePracticePlaces = false;
+  canSelectPractice = false;
+  canUpdateGroup = false;
+  canCreateLesson = false;
+  canDeleteLesson = false;
+  canDeleteApplication = false;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private groupService: GroupService,
     private lessonService: LessonService,
     private applicationService: ApplicationService,
-    private router: Router
+    private router: Router,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
     this.practiceList.selectionChange.subscribe((s: MatSelectionListChange) => {
-      const applicationId = s.option.value;
-      const selected = s.option.selected;
-      this.applicationService
-        .update(applicationId, {hasPractice: selected ? 1 : 0})
-        .subscribe(app => {
-          this.loadGroup(this.group.id).subscribe(group => this.group = group);
-          const index = this.applicationsToPractice.findIndex(a => a.id === applicationId);
-          if (this.applicationsToPractice[index]) {
-            this.applicationsToPractice[index].hasPractice = selected;
-          }
-        });
+      if (this.canSelectPractice && this.hasFreePracticePlaces) {
+        const applicationId = s.option.value;
+        const selected = s.option.selected;
+        this.applicationService
+          .update(applicationId, {hasPractice: selected ? 1 : 0})
+          .subscribe(app => {
+            this.loadGroup(this.group.id).subscribe(group => this.group = group);
+            const index = this.applicationsToPractice.findIndex(a => a.id === applicationId);
+            if (this.applicationsToPractice[index]) {
+              this.applicationsToPractice[index].hasPractice = selected;
+            }
+          });
+      }
     });
 
     this.activatedRoute.params.subscribe(({id}) => {
       this.loadGroup(id).subscribe(group => {
         this.group = group;
+
+        const p = this.authService.getLocalPrincipal();
+        this.canUpdateGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+        this.canSelectPractice = this.canUpdateGroup;
+        this.canCreateLesson = this.canUpdateGroup
+          || [this.authService.roles.TEACHER_ROLE].indexOf(this.authService.getLocalPrincipal().role) > -1;
+        this.canDeleteLesson = this.canCreateLesson;
+        this.canDeleteApplication = this.canUpdateGroup;
+        if (!this.canUpdateGroup) {
+          this.updateGroupForm.form.disable();
+        }
+
         this.loadPractice();
       });
     });
@@ -77,9 +100,9 @@ export class SingleGroupComponent implements OnInit {
       include: ['course', 'city']
     }).pipe(map((group) => {
       if (group.freePractice > 0) {
-        this.canSelect = true;
+        this.hasFreePracticePlaces = true;
       } else {
-        this.canSelect = false;
+        this.hasFreePracticePlaces = false;
       }
       return group;
     }));

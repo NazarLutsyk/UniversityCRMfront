@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable} from 'rxjs';
 import {isNumber} from 'util';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-groups-table',
@@ -14,6 +15,7 @@ import {isNumber} from 'util';
 export class GroupsTableComponent implements OnInit {
 
   @Input() byCourseId;
+  @Input() canDeleteGroupInput = null;
 
   groups: Group[] = [];
 
@@ -26,15 +28,23 @@ export class GroupsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  canDeleteGroup = false;
 
   constructor(
     private groupsService: GroupService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    public materialTableService: MaterialTableService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
+    if (typeof this.canDeleteGroupInput !== 'boolean') {
+      const p = this.authService.getLocalPrincipal();
+      this.canDeleteGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+    } else {
+      this.canDeleteGroup = this.canDeleteGroupInput;
+    }
     this.loadGroups();
   }
 

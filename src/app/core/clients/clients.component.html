@@ -1,4 +1,4 @@
-<mat-expansion-panel>
+<mat-expansion-panel *ngIf="canCreateClient">
   <mat-expansion-panel-header>
     <mat-panel-title>
       CREATE
@@ -88,7 +88,7 @@
     <td>
       Passport
     </td>
-    <td class="controls-col">
+    <td *ngIf="canDeleteClient" class="controls-col">
       CONTROLS
     </td>
   </tr>
@@ -158,7 +158,7 @@
         >
       </mat-form-field>
     </td>
-    <td class="controls-col"></td>
+    <td *ngIf="canDeleteClient" class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
@@ -178,7 +178,7 @@
     <td>
       {{client.passport}}
     </td>
-    <td class="controls-col" data-controls="true">
+    <td *ngIf="canDeleteClient" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(client.id)" data-controls="true"></div>
     </td>
   </tr>

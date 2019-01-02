@@ -6,6 +6,7 @@ import {CourseService} from '../../services/course.service';
 import {GroupService} from '../../services/group.service';
 import {City} from '../../models/city';
 import {CityService} from '../../services/city.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-groups',
@@ -19,14 +20,22 @@ export class GroupsComponent implements OnInit {
   courses: Course[] = [];
   cities: City[] = [];
 
+  canCreateGroup = false;
+  canDeleteGroup = false;
+
   constructor(
     private coursesService: CourseService,
     private citiesService: CityService,
     private groupsService: GroupService,
+    public authService: AuthService
   ) {
   }
 
   ngOnInit() {
+    const p = this.authService.getLocalPrincipal();
+    this.canCreateGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+    this.canDeleteGroup = this.canCreateGroup;
+
     this.coursesService.getCourses({}).subscribe(response => this.courses = response.models);
     this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
   }
