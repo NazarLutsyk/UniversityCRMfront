@@ -71,7 +71,6 @@ export class ManagersTableComponent implements OnInit {
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['city']
     });
   }
 
@@ -89,9 +88,6 @@ export class ManagersTableComponent implements OnInit {
     }
     if (this.filter.role) {
       res.role = {$like: `${this.filter.role}`};
-    }
-    if (this.filter['city.name']) {
-      res.city = {name: `${this.filter['city.name']}`};
     }
 
     return res;

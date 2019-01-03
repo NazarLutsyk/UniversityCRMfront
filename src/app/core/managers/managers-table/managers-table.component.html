@@ -33,9 +33,6 @@
     <td (click)="loadSorted('role',headerBlock,$event)" data-sort="">
       Role
     </td>
-    <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
-      City
-    </td>
     <td class="controls-col">
       CONTROLS
     </td>
@@ -93,19 +90,6 @@
         >
       </mat-form-field>
     </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="text"
-          name="city.name"
-          data-key="city.name"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
     <td class="controls-col"></td>
   </tr>
   </thead>
@@ -123,14 +107,6 @@
     <td>
       {{manager.role}}
     </td>
-    <td [ngClass]="{'link': !!manager.city, 'no-link': !!!manager.city}"
-        (click)="open(manager.city?.id, 'cities',$event)">
-        <span *ngIf="manager.city">
-          {{manager.city.name}}
-        </span>
-    </td>
-
-
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(manager.id)" data-controls="true"></div>
     </td>

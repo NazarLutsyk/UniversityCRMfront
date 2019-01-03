@@ -63,8 +63,8 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>City</mat-label>
-      <mat-select ngModel name="cityId" required>
+      <mat-label>Cities</mat-label>
+      <mat-select ngModel name="cities" required multiple>
         <mat-option *ngFor="let city of cities" [value]="city.id">
           {{city.name}}
         </mat-option>

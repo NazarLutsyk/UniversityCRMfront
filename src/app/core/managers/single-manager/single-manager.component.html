@@ -60,15 +60,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>City</mat-label>
-        <input
-          type="text"
-          name="cityId"
-          [value]="manager?.city?.name"
-          matInput
-          disabled
-        >
+        <mat-label>Cities</mat-label>
+        <mat-select [(ngModel)]="managerCities" name="cities" multiple>
+          <mat-option *ngFor="let city of cities" [value]="city.id">
+            {{city.name}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+
       <button mat-flat-button [disabled]="!form.valid">Update</button>
     </form>
   </div>

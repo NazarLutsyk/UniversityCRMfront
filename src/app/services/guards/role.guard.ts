@@ -20,12 +20,6 @@ export class RoleGuard implements CanActivate {
 
     const expectedRoles = [...next.data.expectedRoles];
 
-    if (expectedRoles.indexOf(this.authService.getLocalPrincipal().role) > -1) {
-      return true;
-    }
-
-    this.router.navigate(['/']);
-
-    return false;
+    return expectedRoles.indexOf(this.authService.getLocalPrincipal().role) > -1;
   }
 }

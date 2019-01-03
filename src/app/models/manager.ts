@@ -9,8 +9,7 @@ export class Manager {
     public name: string = '',
     public surname: string = '',
     public role: Roles = null,
-    public cityId: number = null,
-    public city: City = null,
+    public cities: City[] = [],
   ) {
   }
 }

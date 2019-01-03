@@ -19,13 +19,7 @@ export class AuthenticatedGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.authService.getLocalPrincipal()) {
-      return true;
-    }
-
-    this.router.navigate(['/login']);
-
-    return false;
+    return !!this.authService.getLocalPrincipal();
 
   }
 }
