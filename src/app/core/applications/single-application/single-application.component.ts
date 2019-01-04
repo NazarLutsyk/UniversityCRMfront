@@ -67,7 +67,8 @@ export class SingleApplicationComponent implements OnInit {
         'hasPractice',
         'leftToPay',
         'courseId',
-        'groupId'
+        'groupId',
+        'cityId'
       ],
       include: ['client', 'sources', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
     })
@@ -83,7 +84,10 @@ export class SingleApplicationComponent implements OnInit {
 
   loadGroups() {
     this.groupService.getGroups({
-        q: {courseId: this.application.courseId}
+        q: {
+          courseId: this.application.courseId,
+          cityId: this.application.cityId
+        }
       }
     )
       .subscribe(response => this.groups = response.models);

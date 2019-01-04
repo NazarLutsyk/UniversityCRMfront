@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 
@@ -7,8 +7,7 @@ import {Router} from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -16,7 +15,13 @@ export class AppComponent {
   ) {
   }
 
+  ngOnInit() {
+    this.authService.getPrincipal().subscribe();
+  }
+
   logout() {
-    this.authService.logout().subscribe(_ => this.router.navigate(['/']));
+    this.authService.logout().subscribe(_ => {
+      this.router.navigate(['/']);
+    });
   }
 }

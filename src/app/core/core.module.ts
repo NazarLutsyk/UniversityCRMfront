@@ -14,6 +14,7 @@ import {MatButtonModule, MatSnackBarModule} from '@angular/material';
 import {CitiesModule} from './cities/cities.module';
 import {ManagersModule} from './managers/managers.module';
 import {AuthModule} from './auth/auth.module';
+import {EApplicationsModule} from './e-applications/e-applications.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {AuthModule} from './auth/auth.module';
     CitiesModule,
     ManagersModule,
     AuthModule,
+    EApplicationsModule,
     MatSnackBarModule,
     MatButtonModule,
   ],

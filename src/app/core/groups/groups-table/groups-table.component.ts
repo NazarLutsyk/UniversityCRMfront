@@ -110,6 +110,8 @@ export class GroupsTableComponent implements OnInit {
       res.course = {id: this.byCourseId};
     }
 
+    res.cityId = this.authService.getLocalPrincipal().cities.map(c => c.id);
+
     return res;
   }
 

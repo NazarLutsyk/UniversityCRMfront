@@ -25,6 +25,7 @@ import {AuthenticatedGuard} from './services/guards/authenticated.guard';
 import {NotAuthenticatedGuard} from './services/guards/not-authenticated.guard';
 import {Roles} from './models/roles';
 import {RoleGuard} from './services/guards/role.guard';
+import {EApplicationsComponent} from './core/e-applications/e-applications.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -57,6 +58,12 @@ const routes: Routes = [
         {path: '', component: ApplicationsComponent},
         {path: ':id', component: SingleApplicationComponent, data: {breadcrumb: 'Application'}},
       ]
+  },
+  {
+    path: 'e-applications',
+    data: {breadcrumb: 'EApplications', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    component: EApplicationsComponent
   },
   {
     path: 'groups',

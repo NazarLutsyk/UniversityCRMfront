@@ -25,7 +25,14 @@
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
-      <span>Applications</span>
+      <span>Apps</span>
+    </div>
+    <div class="menu-span-wrapper"
+         routerLink="/e-applications"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
+      <span>EApps</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/groups"

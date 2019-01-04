@@ -1,0 +1,66 @@
+<div
+  class="tile"
+  *ngIf="eapplication">
+  <div
+    class="tile-header"
+    [ngClass]="[
+    (eapplication.wantTime || eapplication.source || eapplication.social)
+    && !eapplication.wantPractice
+    ? 'free-tile-header-bg'
+    : 'paid-tile-header-bg']"
+  >
+    <i class="material-icons ok-button" (click)="buildEapp(eapplication)">
+      done
+    </i>
+    <h3 (click)="buildClient(eapplication)">{{eapplication.name}} {{eapplication.surname}}</h3>
+    <i class="material-icons delete-button" (click)="deleteEapp(eapplication)">
+      clear
+    </i>
+  </div>
+  <div class="tile-content">
+    <div *ngIf="eapplication.email" class="tile-content-item">
+      <p class="tile-content-item-header">Email:</p>
+      <p>{{eapplication.email}}</p>
+    </div>
+    <div *ngIf="eapplication.phone" class="tile-content-item">
+      <p class="tile-content-item-header">Phone:</p>
+      <p>{{eapplication.phone}}</p>
+    </div>
+    <div *ngIf="eapplication.city" class="tile-content-item">
+      <p class="tile-content-item-header">City:</p>
+      <p>{{eapplication.city}}</p>
+    </div>
+    <div *ngIf="eapplication.course" class="tile-content-item">
+      <p class="tile-content-item-header">Course:</p>
+      <p>{{eapplication.course}}</p>
+    </div>
+    <div *ngIf="eapplication.type" class="tile-content-item">
+      <p class="tile-content-item-header">Type:</p>
+      <p>{{eapplication.type}}</p>
+    </div>
+    <div *ngIf="eapplication.wantTime" class="tile-content-item">
+      <p class="tile-content-item-header">Want Time:</p>
+      <p>{{eapplication.wantTime}}</p>
+    </div>
+    <div class="tile-content-item">
+      <p class="tile-content-item-header">Want practice:</p>
+      <p>{{!!eapplication.wantPractice}}</p>
+    </div>
+    <div *ngIf="eapplication.social" class="tile-content-item">
+      <p class="tile-content-item-header">Social:</p>
+      <p>{{eapplication.social}}</p>
+    </div>
+    <div *ngIf="eapplication.source" class="tile-content-item">
+      <p class="tile-content-item-header">Source:</p>
+      <p>{{eapplication.source}}</p>
+    </div>
+    <div *ngIf="eapplication.comment" class="tile-content-item">
+      <p class="tile-content-item-header">Comment:</p>
+      <p>{{eapplication.comment}}</p>
+    </div>
+    <div *ngIf="eapplication.date" class="tile-content-item">
+      <p class="tile-content-item-header">Date:</p>
+      <p>{{eapplication.date}}</p>
+    </div>
+  </div>
+</div>

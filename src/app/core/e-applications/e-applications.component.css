@@ -1,0 +1,12 @@
+.main-wrapper {
+  width: 95%;
+  margin: 15px auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+app-single-eapplication{
+  width: 24%;
+  margin-bottom: 20px;
+}

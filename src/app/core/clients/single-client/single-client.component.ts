@@ -122,7 +122,7 @@ export class SingleClientComponent implements OnInit {
   }
 
   validateDiscount($event) {
-    const value = $event.target.value;
+    const value = +$event.target.value;
     if (value < 0) {
       $event.target.value = 0;
     }

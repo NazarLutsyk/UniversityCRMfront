@@ -12,6 +12,7 @@ import {Application} from '../../models/application';
 import {StorageService} from '../../services/storage.service';
 import {City} from '../../models/city';
 import {CityService} from '../../services/city.service';
+import {Eapplication} from '../../models/eapplication';
 
 @Component({
   selector: 'app-applications',
@@ -24,6 +25,8 @@ export class ApplicationsComponent implements OnInit {
   @ViewChild('applicationsTable') applicationsTable;
 
   selectedClient: Client = new Client();
+
+  byEapplication = false;
 
   sources: Source[] = [];
   courses: Course[] = [];
@@ -50,6 +53,21 @@ export class ApplicationsComponent implements OnInit {
   }
 
   ngOnInit() {
+    let eapplication: Eapplication = null;
+    const eapplicationJSON = this.activatedRoute.snapshot.queryParams.eapplication;
+    if (eapplicationJSON) {
+      this.byEapplication = true;
+      try {
+        eapplication = JSON.parse(eapplicationJSON);
+        this.applicationForm.wantPractice = eapplication.wantPractice;
+        this.applicationForm.date = eapplication.date;
+        this.formPanel.open();
+      } catch (e) {
+        this.byEapplication = false;
+        eapplication = null;
+      }
+    }
+
     this.activatedRoute.queryParams.subscribe((query) => {
       if (query.client) {
         this.selectedClient = JSON.parse(query.client);
@@ -57,9 +75,33 @@ export class ApplicationsComponent implements OnInit {
         this.formPanel.open();
       }
     });
-    this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
-    this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
-    this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
+    this.sourceService.getSources({}).subscribe(response => {
+      this.sources = response.models;
+      if (this.byEapplication && eapplication) {
+        const foundedSource = this.sources.find(s => s.name === eapplication.source);
+        if (foundedSource) {
+          this.applicationForm.sources = [foundedSource.id];
+        }
+      }
+    });
+    this.courseService.getCourses({}).subscribe(response => {
+      this.courses = response.models;
+      if (this.byEapplication && eapplication) {
+        const foundedCourse = this.courses.find(c => c.name === eapplication.course);
+        if (foundedCourse) {
+          this.applicationForm.courseId = foundedCourse.id;
+        }
+      }
+    });
+    this.citiesService.getCities({}).subscribe(response => {
+      this.cities = response.models;
+      if (this.byEapplication && eapplication) {
+        const foundedCity = this.cities.find(c => c.name === eapplication.city);
+        if (foundedCity) {
+          this.applicationForm.cityId = foundedCity.id;
+        }
+      }
+    });
   }
 
   selectClient($event) {
@@ -93,12 +135,14 @@ export class ApplicationsComponent implements OnInit {
   }
 
   validateDiscount($event) {
-    const value = $event.target.value;
+    const value = +$event.target.value;
     if (value < 0) {
       this.applicationForm.discount = 0;
+      $event.target.value = this.applicationForm.discount;
     }
     if (value > 100) {
       this.applicationForm.discount = 100;
+      $event.target.value = this.applicationForm.discount;
     }
   }
 

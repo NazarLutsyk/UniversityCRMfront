@@ -1,0 +1,10 @@
+<div class="main-wrapper">
+  <app-single-eapplication
+    *ngFor="let eapplication of eapplications"
+    [eapplication]="eapplication"
+    (onBuildEapp)="buildEapp($event)"
+    (onDeleteEapp)="deleteEapp($event)"
+    (onBuildClient)="buildClient($event)"
+  >
+  </app-single-eapplication>
+</div>

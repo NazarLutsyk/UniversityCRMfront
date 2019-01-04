@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Client} from '../../models/client';
 import {ClientService} from '../../services/client.service';
 import {Observable} from 'rxjs';
@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {isNumber} from 'util';
 import {AuthService} from '../../services/auth.service';
+import {MatExpansionPanel} from '@angular/material';
 
 @Component({
   selector: 'app-clients',
@@ -14,6 +15,9 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
+
+  @ViewChild('form') clientForm: NgForm;
+  @ViewChild('formPanel') formPanel: MatExpansionPanel;
 
   clients: Client[] = [];
   count = 0;
@@ -26,6 +30,13 @@ export class ClientsComponent implements OnInit {
   filter: any = {};
 
   selectEvent = null;
+
+  clientFormObject = {
+    name: null,
+    surname: null,
+    phone: null,
+    email: null,
+  };
 
   canCreateClient = false;
   canDeleteClient = false;
@@ -47,6 +58,24 @@ export class ClientsComponent implements OnInit {
         };
       }
     });
+    setTimeout(() => {
+      const clientJSON = this.activatedRoute.snapshot.queryParams.client;
+      if (clientJSON) {
+        try {
+          const clientFromEapp = JSON.parse(clientJSON);
+          this.formPanel.open();
+          this.clientFormObject.name = clientFromEapp.name;
+          this.clientFormObject.surname = clientFromEapp.surname;
+          this.clientFormObject.email = clientFromEapp.phone;
+          this.clientFormObject.phone = clientFromEapp.email;
+        } catch (e) {
+          this.clientFormObject.name = null;
+          this.clientFormObject.surname = null;
+          this.clientFormObject.email = null;
+          this.clientFormObject.phone = null;
+        }
+      }
+    }, 0);
     this.loadClients();
 
     const p = this.authService.getLocalPrincipal();

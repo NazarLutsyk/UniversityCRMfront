@@ -1,4 +1,4 @@
-<mat-expansion-panel *ngIf="canCreateClient">
+<mat-expansion-panel #formPanel *ngIf="canCreateClient">
   <mat-expansion-panel-header>
     <mat-panel-title>
       CREATE
@@ -10,7 +10,7 @@
       <input
         type="text"
         name="name"
-        ngModel
+        [(ngModel)]="clientFormObject.name"
         matInput
         required
       >
@@ -20,7 +20,7 @@
       <input
         type="text"
         name="surname"
-        ngModel
+        [(ngModel)]="clientFormObject.surname"
         matInput
         required
       >
@@ -30,7 +30,7 @@
       <input
         type="tel"
         name="phone"
-        ngModel
+        [(ngModel)]="clientFormObject.phone"
         matInput
         minlength="6"
         maxlength="15"
@@ -41,7 +41,7 @@
       <input
         type="email"
         name="email"
-        ngModel
+        [(ngModel)]="clientFormObject.email"
         matInput
         email
       >
