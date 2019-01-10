@@ -1,0 +1,150 @@
+<mat-expansion-panel #formPanel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      FILTER
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form (ngSubmit)="loadClients(form)" #form="ngForm">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="filter.name"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Surname</mat-label>
+      <input
+        type="text"
+        name="surname"
+        [(ngModel)]="filter.surname"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="filter.phone"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="filter.email"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Group</mat-label>
+      <mat-select [(ngModel)]="filter.group" name="group">
+        <mat-option value="">None</mat-option>
+        <mat-option *ngFor="let group of groups" [value]="group.id">
+          {{group.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox name="freebie" [(ngModel)]="filter.freebie">Freebie</mat-checkbox>
+    <button mat-flat-button>Find</button>
+  </form>
+</mat-expansion-panel>
+
+<div class="main-wrapper">
+  <div class="filtered-clients">
+    <div class="tile-header">
+      <h3>FILTERED</h3>
+    </div>
+
+    <div class="paginator">
+      <div class="paginator-navigation">
+        <div class="paginator-buttons">
+          <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+          <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+        </div>
+        <mat-form-field>
+          <mat-label></mat-label>
+          <input
+            type="number"
+            [value]="pageIndex"
+            matInput
+            (blur)="loadPaginated(0, $event)"
+          >
+        </mat-form-field>
+        of
+        <span>{{countOfPages}}</span>
+      </div>
+      <mat-checkbox (change)="checkAllClients()"></mat-checkbox>
+    </div>
+
+    <div class="tile-content">
+      <div class="tile-content-item" *ngFor="let client of clients">
+        <p
+          (click)="openClient(client)"
+        >{{client.name}} {{client.surname}}</p>
+        <mat-checkbox
+          (change)="checkClient(client)"
+          [checked]="isSelected(client)"
+        ></mat-checkbox>
+      </div>
+    </div>
+  </div>
+  <div class="to-send-clients">
+    <h3>TO SEND</h3>
+
+    <div class="paginator" style="justify-content: flex-start;">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginatedSelectedClients(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginatedSelectedClients(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="selectedClientsPageIndex"
+          matInput
+          (blur)="loadPaginatedSelectedClients(0, $event)"
+        >
+      </mat-form-field>
+      <span> of {{selectedClientsCountOfPages}}</span>
+    </div>
+
+    <div class="tile-content">
+      <div
+        class="tile-content-item"
+        *ngFor="let client of selectedClientsToShow"
+      >
+        <p
+          (click)="openClient(client)"
+        >{{client.name}} {{client.surname}}</p>
+        <mat-checkbox (change)="checkClient(client)" [checked]="true"></mat-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="send-block">
+    <h3>SEND FORM</h3>
+    <form #form="ngForm">
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <textarea
+          name="message"
+          ngModel
+          matInput
+          required
+          rows="5"
+        >
+        </textarea>
+      </mat-form-field>
+      <div class="send-block-buttons">
+        <button mat-flat-button [disabled]="!form.valid || selectedClients.length === 0">SMS</button>
+        <button mat-flat-button [disabled]="!form.valid || selectedClients.length === 0">EMAIL</button>
+      </div>
+    </form>
+  </div>
+</div>

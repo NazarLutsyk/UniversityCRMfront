@@ -26,6 +26,7 @@ import {NotAuthenticatedGuard} from './services/guards/not-authenticated.guard';
 import {Roles} from './models/roles';
 import {RoleGuard} from './services/guards/role.guard';
 import {EApplicationsComponent} from './core/e-applications/e-applications.component';
+import {SendingComponent} from './core/sending/sending.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
@@ -122,6 +123,15 @@ const routes: Routes = [
     canActivate: [NotAuthenticatedGuard],
     data: {
       breadcrumb: 'Login'
+    }
+  },
+  {
+    path: 'sending',
+    component: SendingComponent,
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {
+      breadcrumb: 'Sending',
+      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
     }
   }
 ];

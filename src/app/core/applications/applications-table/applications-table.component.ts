@@ -130,7 +130,14 @@ export class ApplicationsTableComponent implements OnInit {
       res.client = {id: this.byClientId, ...res.client};
     }
     if (!this.byClientId) {
-      res.cityId = this.authService.getLocalPrincipal().cities.map(c => c.id);
+      res.$or = [
+        {
+          cityId: this.authService.getLocalPrincipal().cities.map(c => c.id)
+        },
+        {
+          cityId: null
+        }
+      ];
     }
     return res;
   }

@@ -7,6 +7,7 @@ export class StorageService {
 
   applicationsLevel: any = null;
   taskLevel: any = null;
+  sendingLevel: any = {};
 
   constructor() {
   }

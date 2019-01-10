@@ -1,0 +1,105 @@
+mat-expansion-panel {
+  background: #f9f9f9;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  font-size: 18px;
+}
+
+.main-wrapper {
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.filtered-clients, .to-send-clients, .send-block {
+  background: white;
+}
+
+.filtered-clients {
+  width: 30%;
+  border-left: 3px solid #36416b;
+  border-top: 3px solid #36416b;
+}
+
+.filtered-clients h3, .to-send-clients h3, .send-block h3 {
+  padding-left: 25px;
+}
+
+.to-send-clients {
+  width: 30%;
+  border-left: 3px solid #3fb54e;
+  border-top: 3px solid #3fb54e;
+}
+
+.send-block {
+  width: 30%;
+  border-left: 3px solid #b22424;
+  border-top: 3px solid #b22424;
+}
+
+.tile-content-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.tile-content-item p {
+  cursor: pointer;
+}
+
+.tile-content-item > * {
+  padding: 0 20px;
+  margin: 5px;
+}
+
+.send-block {
+  padding: 0 25px;
+}
+
+.send-block-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.send-block-buttons button {
+  width: 48%;
+}
+
+.send-block-buttons button:last-child {
+  background: #b22424;
+}
+
+.paginator {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.paginator mat-checkbox {
+  padding: 0 25px;
+
+}
+
+.paginator-buttons {
+  width: 13%;
+}
+
+.paginator-navigation {
+  width: 90%;
+}
+
+.paginator mat-form-field {
+  width: 4%;
+}
+

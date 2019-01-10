@@ -23,7 +23,7 @@ export class EApplicationsComponent implements OnInit {
   ngOnInit() {
     this.loadEapplications();
     this.socketService.onEvent(this.socketService.EMAIL_EVENT).subscribe((eapp) => {
-      this.eapplications.push(eapp);
+      this.eapplications.push(eapp.json);
     });
   }
 
@@ -40,7 +40,9 @@ export class EApplicationsComponent implements OnInit {
   }
 
   loadEapplications() {
-    this.eaplicationService.getEapplications({}).subscribe(eas => this.eapplications = eas.models);
+    this.eaplicationService.getEapplications({}).subscribe(eas => {
+      this.eapplications = eas.models;
+    });
   }
 
   buildClient(eapplication: Eapplication) {

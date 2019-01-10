@@ -59,11 +59,11 @@
         (input)="validateDiscount($event)"
       >
     </mat-form-field>
-      <mat-checkbox ngModel name="wantPractice" [(ngModel)]="applicationForm.wantPractice">Want practice</mat-checkbox>
+    <mat-checkbox ngModel name="wantPractice" [(ngModel)]="applicationForm.wantPractice">Want practice</mat-checkbox>
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>
 
 <div class="overflow-x">
-  <app-applications-table #applicationsTable ></app-applications-table>
+  <app-applications-table #applicationsTable></app-applications-table>
 </div>
