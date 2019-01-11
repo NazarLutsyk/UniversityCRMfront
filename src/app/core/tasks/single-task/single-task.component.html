@@ -25,11 +25,15 @@
       <mat-form-field>
         <mat-label>Date</mat-label>
         <input
-          type="date"
-          name="date"
-          [(ngModel)]="task.date"
+          type="text"
           matInput
+          [(ngModel)]="task.date"
+          name="date"
+          [matDatepicker]="pickerStartDate"
+          placeholder="Choose a date"
         >
+        <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
       </mat-form-field>
       <button mat-flat-button [disabled]="!form.valid">Update</button>
     </form>

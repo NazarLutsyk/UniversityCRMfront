@@ -69,11 +69,15 @@
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input
-            type="date"
-            name="date"
-            ngModel
+            type="text"
             matInput
+            ngModel
+            name="date"
+            [matDatepicker]="taskPickerDate"
+            placeholder="Choose a date"
           >
+          <mat-datepicker-toggle matSuffix [for]="taskPickerDate"></mat-datepicker-toggle>
+          <mat-datepicker #taskPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <button mat-flat-button [disabled]="!taskForm.valid">Create</button>
       </form>
@@ -106,11 +110,15 @@
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input
-            type="date"
-            name="date"
-            ngModel
+            type="text"
             matInput
+            ngModel
+            name="date"
+            [matDatepicker]="commentPickerDate"
+            placeholder="Choose a date"
           >
+          <mat-datepicker-toggle matSuffix [for]="commentPickerDate"></mat-datepicker-toggle>
+          <mat-datepicker #commentPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <button mat-flat-button [disabled]="!commentForm.valid">Create</button>
       </form>
@@ -133,12 +141,15 @@
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input
-            type="date"
-            name="date"
-            ngModel
+            type="text"
             matInput
-            required
+            ngModel
+            name="date"
+            [matDatepicker]="applicationPickerDate"
+            placeholder="Choose a date"
           >
+          <mat-datepicker-toggle matSuffix [for]="applicationPickerDate"></mat-datepicker-toggle>
+          <mat-datepicker #applicationPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
           <mat-label>City</mat-label>

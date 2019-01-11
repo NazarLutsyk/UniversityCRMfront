@@ -10,6 +10,8 @@ import {Observable} from 'rxjs';
 import {MatSelectionListChange} from '@angular/material';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../../../services/auth.service';
+import {StatisticService} from '../../../services/statistic.service';
+import {ChartService} from '../../../services/chart.service';
 
 @Component({
   selector: 'app-single-group',
@@ -32,6 +34,27 @@ export class SingleGroupComponent implements OnInit {
   canDeleteLesson = false;
   canDeleteApplication = false;
 
+  chartLabels: String[] = [];
+  chartDatasets: any[] = [];
+  chartColors: any[] = [];
+  chartOptions = {
+    scales: {
+      xAxes: [{
+        ticks: {
+          min: 0,
+          stepSize: 1
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          stepSize: 1
+        }
+      }],
+      responsive: true
+    }
+  };
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -39,7 +62,9 @@ export class SingleGroupComponent implements OnInit {
     private lessonService: LessonService,
     private applicationService: ApplicationService,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private statisticService: StatisticService,
+    private chartService: ChartService
   ) {
   }
 
@@ -63,7 +88,7 @@ export class SingleGroupComponent implements OnInit {
     this.activatedRoute.params.subscribe(({id}) => {
       this.loadGroup(id).subscribe(group => {
         this.group = group;
-
+        this.loadStatistic();
         const p = this.authService.getLocalPrincipal();
         this.canUpdateGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
         this.canSelectPractice = this.canUpdateGroup;
@@ -144,6 +169,30 @@ export class SingleGroupComponent implements OnInit {
     $event.stopPropagation();
     this.router.navigate(['applications', id]);
   }
+
+  loadStatistic() {
+    this.statisticService.getJournalStatisticByGroup(
+      {
+        q:
+          {
+            groupId: this.group.id
+          }
+      }
+    ).subscribe((res) => {
+      this.chartLabels = res.map(s => s.client);
+      const data = res.map(s => s.count);
+      this.chartDatasets = [
+        {
+          label: 'Journal',
+          data,
+        }
+      ];
+      this.chartColors = [{
+        backgroundColor: this.chartService.getRandomColors(data.length)
+      }];
+    });
+  }
+
 }
 
 

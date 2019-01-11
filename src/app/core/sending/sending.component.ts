@@ -31,7 +31,7 @@ export class SendingComponent implements OnInit {
 
   count = 0;
   pageIndex = 1;
-  pageSize = 2;
+  pageSize = 9;
   countOfPages = 1;
 
   selectedClientsPageIndex = 1;

@@ -99,19 +99,18 @@
       <mat-form-field>
         <mat-label>Date</mat-label>
         <input
-          type="date"
-          name="date"
-          [(ngModel)]="application.date"
+          type="text"
           matInput
-          required
+          [(ngModel)]="application.date"
+          name="date"
+          [matDatepicker]="pickerStartDate"
+          placeholder="Choose a date"
         >
+        <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
       </mat-form-field>
       <button mat-flat-button [disabled]="!form.valid">Update</button>
     </form>
-  </div>
-  <div class="right-menu">
-    <!--todo graphics-->
-    JOURNAL STATISTIC
   </div>
 
   <div class="application-payment-block">
@@ -136,12 +135,15 @@
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input
-            type="date"
-            name="date"
-            ngModel
+            type="text"
             matInput
-            required
+            ngModel
+            name="date"
+            [matDatepicker]="paymentPickerStartDate"
+            placeholder="Choose a date"
           >
+          <mat-datepicker-toggle matSuffix [for]="paymentPickerStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Amount</mat-label>

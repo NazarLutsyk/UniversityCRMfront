@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ClientsComponent} from './clients.component';
 import {
-  MatButtonModule, MatCheckboxModule,
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatInputModule,
+  MatInputModule, MatNativeDateModule,
   MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -28,7 +28,9 @@ import {ApplicationsModule} from '../applications/applications.module';
     MatCheckboxModule,
     TasksModule,
     CommentsModule,
-    ApplicationsModule
+    ApplicationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [
     ClientsComponent,

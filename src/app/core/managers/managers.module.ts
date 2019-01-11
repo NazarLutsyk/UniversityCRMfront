@@ -5,6 +5,7 @@ import { SingleManagerComponent } from './single-manager/single-manager.componen
 import { ManagersTableComponent } from './managers-table/managers-table.component';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    ChartsModule
   ],
   declarations: [ManagersComponent, SingleManagerComponent, ManagersTableComponent]
 })

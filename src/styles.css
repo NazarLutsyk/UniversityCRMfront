@@ -184,3 +184,7 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
   border-radius: 10px;
 }
+
+canvas{
+  margin: 10px 0;
+}

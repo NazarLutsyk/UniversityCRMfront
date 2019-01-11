@@ -2,8 +2,16 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SourcesComponent} from './sources.component';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDatepickerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule
+} from '@angular/material';
 import {SingleSourceComponent} from './single-source/single-source.component';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -13,6 +21,9 @@ import {SingleSourceComponent} from './single-source/single-source.component';
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [SourcesComponent, SingleSourceComponent]
 })

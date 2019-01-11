@@ -8,12 +8,15 @@
     <mat-form-field>
       <mat-label>Date</mat-label>
       <input
-        type="date"
-        name="date"
-        [(ngModel)]="applicationForm.date"
+        type="text"
         matInput
-        required
+        [(ngModel)]="applicationForm.date"
+        name="date"
+        [matDatepicker]="pickerStartDate"
+        placeholder="Choose a date"
       >
+      <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field (click)="selectClient($event)">
       <mat-label>Client</mat-label>

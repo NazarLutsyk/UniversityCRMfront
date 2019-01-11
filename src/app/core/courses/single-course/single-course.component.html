@@ -36,9 +36,76 @@
     </form>
   </div>
   <div class="right-menu">
-    <!--todo statistic-->
-    FUTURE STATISTIC BY APPLICATIONS
-    AND GROUPS
+
+    <h3>APPLICATIONS STATISTIC</h3>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          FILTER
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #statForm="ngForm">
+        <mat-form-field>
+          <mat-label>Start date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="startDate"
+            [matDatepicker]="pickerStartDate"
+            placeholder="Choose a date"
+            disabled
+          >
+          <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>End date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="endDate"
+            [matDatepicker]="pickerEndDate"
+            placeholder="Choose a date"
+            disabled
+          >
+          <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEndDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="stat-form-buttons">
+          <button
+            mat-flat-button
+            (click)="loadStatistic(statForm, false)"
+          >
+            Find
+          </button>
+          <button
+            mat-flat-button
+            (click)="loadStatistic(statForm, true)"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+    <div>
+      <canvas
+        *ngIf="chartDatasets.length > 0"
+        baseChart
+        chartType="bar"
+        [labels]="chartLabels"
+        [datasets]="chartDatasets"
+        [legend]="false"
+        [colors]="chartColors"
+        [options]="chartOptions"
+        width="100%"
+        height="48%"
+      >
+      </canvas>
+    </div>
+
+
   </div>
   <div class="course-groups" *ngIf="course.id">
     <h3>GROUPS</h3>

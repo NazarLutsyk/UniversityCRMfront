@@ -18,12 +18,15 @@
     <mat-form-field>
       <mat-label>Start Date</mat-label>
       <input
-        type="date"
-        name="startDate"
-        ngModel
+        type="text"
         matInput
-        required
+        ngModel
+        name="startDate"
+        [matDatepicker]="pickerStartDate"
+        placeholder="Choose a date"
       >
+      <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Start Time</mat-label>

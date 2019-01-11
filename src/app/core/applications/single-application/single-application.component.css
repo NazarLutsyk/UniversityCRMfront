@@ -10,7 +10,7 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .right-menu, .application-payment-block, .application-groups-block {
+.left-menu, .application-payment-block, .application-groups-block {
   background: white;
   padding: 15px 25px;
 }
@@ -30,21 +30,14 @@ mat-list {
   justify-self: flex-start;
 }
 
-.right-menu {
-  width: 60%;
-  margin-right: 15px;
-  border-left: 3px solid #f44336;
-  border-top: 3px solid #f44336;
-}
-
 
 form button {
   width: 100%;
 }
 
 .application-payment-block {
-  margin: 15px 15px 0px;
-  width: inherit;
+  width: 60%;
+  margin-right: 15px;
   border-left: 3px solid #cea51a;
   border-top: 3px solid #cea51a;
 }

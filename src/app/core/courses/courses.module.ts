@@ -2,9 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoursesComponent } from './courses.component';
 import {FormsModule} from '@angular/forms';
-import {MatButtonModule, MatExpansionModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatDatepickerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule
+} from '@angular/material';
 import { SingleCourseComponent } from './single-course/single-course.component';
 import {GroupsModule} from '../groups/groups.module';
+import {ChartsModule} from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -14,7 +22,10 @@ import {GroupsModule} from '../groups/groups.module';
     MatExpansionModule,
     MatFormFieldModule,
     MatInputModule,
-    GroupsModule
+    GroupsModule,
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   declarations: [CoursesComponent, SingleCourseComponent]
 })

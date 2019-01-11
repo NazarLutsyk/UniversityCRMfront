@@ -73,3 +73,20 @@ mat-icon{
   margin-right: 10px;
 }
 
+.left-menu > form button {
+  width: 100%;
+}
+
+.stat-form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-form-buttons button {
+  width: 48%;
+}
+
+.stat-form-buttons button:last-child {
+  background: #b22424;
+}
+
