@@ -20,8 +20,10 @@ export class ClientsComponent implements OnInit {
   @ViewChild('formPanel') formPanel: MatExpansionPanel;
 
   clients: Client[] = [];
-  count = 0;
 
+  passportFilesToUpload: File[] = [];
+
+  count = 0;
   pageIndex = 1;
   pageSize = 9;
   countOfPages = 1;
@@ -144,6 +146,11 @@ export class ClientsComponent implements OnInit {
   createClient(clientForm: NgForm) {
     const client: Client = <Client>clientForm.form.value;
     this.clientsService.create(client).subscribe((clientResponse) => {
+      if (this.passportFilesToUpload && this.passportFilesToUpload.length > 0) {
+        this.clientsService
+          .uploadPassportFiles(clientResponse.id, this.passportFilesToUpload)
+          .subscribe();
+      }
       clientForm.resetForm();
       this.loadClients();
     });
@@ -175,5 +182,8 @@ export class ClientsComponent implements OnInit {
     }
   }
 
+  passportChange($event) {
+    this.passportFilesToUpload = (<any>event.target).files;
+  }
 
 }

@@ -105,6 +105,8 @@
           name="date"
           [matDatepicker]="pickerStartDate"
           placeholder="Choose a date"
+          readonly
+          (click)="pickerStartDate.open()"
         >
         <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
@@ -141,6 +143,8 @@
             name="date"
             [matDatepicker]="paymentPickerStartDate"
             placeholder="Choose a date"
+            readonly
+            (click)="paymentPickerStartDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="paymentPickerStartDate"></mat-datepicker-toggle>
           <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
@@ -156,6 +160,14 @@
             (input)="validateAmount($event)"
           >
         </mat-form-field>
+        <label>Check</label>
+        <input
+          type="file"
+          name="file"
+          multiple
+          ngModel
+          (change)="paymentChange($event)"
+        >
         <button mat-flat-button [disabled]="!formPayment.valid">Create</button>
       </form>
     </mat-expansion-panel>

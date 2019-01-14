@@ -188,3 +188,9 @@ body::-webkit-scrollbar-thumb {
 canvas{
   margin: 10px 0;
 }
+
+input[type="file"] {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 14px!important;
+}

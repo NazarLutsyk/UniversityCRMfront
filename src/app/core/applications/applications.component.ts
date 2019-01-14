@@ -13,6 +13,7 @@ import {StorageService} from '../../services/storage.service';
 import {City} from '../../models/city';
 import {CityService} from '../../services/city.service';
 import {Eapplication} from '../../models/eapplication';
+import {ContractService} from '../../services/contract.service';
 
 @Component({
   selector: 'app-applications',
@@ -27,6 +28,8 @@ export class ApplicationsComponent implements OnInit {
   selectedClient: Client = new Client();
 
   byEapplication = false;
+
+  contractFilesToUpload: File[] = [];
 
   sources: Source[] = [];
   courses: Course[] = [];
@@ -49,6 +52,7 @@ export class ApplicationsComponent implements OnInit {
     public storageService: StorageService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
+    private contractService: ContractService
   ) {
   }
 
@@ -128,6 +132,7 @@ export class ApplicationsComponent implements OnInit {
       hasPractice: false
     };
     this.applicationService.create(application).subscribe((applicationResponse) => {
+      this.contractService.uploadFiles(applicationResponse.id, this.contractFilesToUpload).subscribe();
       applicationForm.resetForm();
       this.selectedClient = new Client();
       this.applicationsTable.loadApplications();
@@ -144,6 +149,10 @@ export class ApplicationsComponent implements OnInit {
       this.applicationForm.discount = 100;
       $event.target.value = this.applicationForm.discount;
     }
+  }
+
+  contractChange($event) {
+    this.contractFilesToUpload = (<any>event.target).files;
   }
 
 }

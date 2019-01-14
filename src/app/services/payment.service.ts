@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
 import {Payment} from '../models/payment';
+import {Ufile} from '../models/ufile';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,20 @@ export class PaymentService {
 
   remove(id: number | string): Observable<Payment> {
     return this.http.delete<Payment>(`${this.paymentsURL}/${id}`);
+  }
+
+  uploadFiles(paymentId: number, images: File[]): Observable<Ufile[]> {
+    const formData: FormData = new FormData();
+    for (const image of images) {
+      formData.append('files', image, image.name);
+    }
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.post<Ufile[]>(
+      `${this.paymentsURL}/${paymentId}/upload`,
+      formData,
+      {headers: headers}
+    );
   }
 }

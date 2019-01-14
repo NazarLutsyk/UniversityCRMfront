@@ -74,7 +74,9 @@
             ngModel
             name="date"
             [matDatepicker]="taskPickerDate"
+            readonly
             placeholder="Choose a date"
+            (click)="taskPickerDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="taskPickerDate"></mat-datepicker-toggle>
           <mat-datepicker #taskPickerDate disabled="false"></mat-datepicker>
@@ -116,6 +118,8 @@
             name="date"
             [matDatepicker]="commentPickerDate"
             placeholder="Choose a date"
+            readonly
+            (click)="commentPickerDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="commentPickerDate"></mat-datepicker-toggle>
           <mat-datepicker #commentPickerDate disabled="false"></mat-datepicker>
@@ -147,6 +151,8 @@
             name="date"
             [matDatepicker]="applicationPickerDate"
             placeholder="Choose a date"
+            readonly
+            (click)="applicationPickerDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="applicationPickerDate"></mat-datepicker-toggle>
           <mat-datepicker #applicationPickerDate disabled="false"></mat-datepicker>

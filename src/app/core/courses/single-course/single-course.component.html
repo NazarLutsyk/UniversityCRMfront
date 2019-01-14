@@ -54,7 +54,8 @@
             name="startDate"
             [matDatepicker]="pickerStartDate"
             placeholder="Choose a date"
-            disabled
+            readonly
+            (click)="pickerStartDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
           <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
@@ -68,7 +69,8 @@
             name="endDate"
             [matDatepicker]="pickerEndDate"
             placeholder="Choose a date"
-            disabled
+            readonly
+            (click)="pickerEndDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
           <mat-datepicker #pickerEndDate disabled="false"></mat-datepicker>

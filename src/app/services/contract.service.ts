@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
 import {Contract} from '../models/contract';
+import {Ufile} from '../models/ufile';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +37,20 @@ export class ContractService {
   remove(id: number | string): Observable<Contract> {
     return this.http.delete<Contract>(`${this.contractsURL}/${id}`);
   }
+
+  uploadFiles(applicationId: number, images: File[]): Observable<Ufile[]> {
+    const formData: FormData = new FormData();
+    for (const image of images) {
+      formData.append('files', image, image.name);
+    }
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.post<Ufile[]>(
+      `${this.contractsURL}/${applicationId}`,
+      formData,
+      {headers: headers}
+    );
+  }
+
 }

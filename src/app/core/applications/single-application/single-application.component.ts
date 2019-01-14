@@ -23,6 +23,8 @@ export class SingleApplicationComponent implements OnInit {
   application: Application = new Application();
   applicationSources: number[] = [];
 
+  paymentFilesToUpload: File[] = [];
+
   sources: Source[] = [];
   groups: Group[] = [];
 
@@ -122,7 +124,8 @@ export class SingleApplicationComponent implements OnInit {
       amount: paymentFormValue.amount,
       applicationId: this.application.id,
     };
-    this.paymentService.create(payment).subscribe(() => {
+    this.paymentService.create(payment).subscribe((paymentResponse) => {
+      this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe();
       paymentForm.resetForm();
       this.paymentTable.loadPayments();
       this.loadApplication(this.application.id);
@@ -132,5 +135,9 @@ export class SingleApplicationComponent implements OnInit {
   openGroup(id: number, $event) {
     $event.stopPropagation();
     this.router.navigate(['groups', id]);
+  }
+
+  paymentChange($event) {
+    this.paymentFilesToUpload = (<any>event.target).files;
   }
 }

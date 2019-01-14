@@ -1,4 +1,5 @@
 import {Application} from './application';
+import {Ufile} from './ufile';
 
 export class Payment {
   constructor(
@@ -6,9 +7,9 @@ export class Payment {
     public number: string = '',
     public date: string = '',
     public amount: number = 0,
-    public file: string = '',
     public application: Application = null,
-    public applicationId: number = null
+    public applicationId: number = null,
+    public files: Ufile[] = []
   ) {
   }
 }

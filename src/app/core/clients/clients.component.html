@@ -4,7 +4,7 @@
       CREATE
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <form (ngSubmit)="createClient(form)" #form="ngForm">
+  <form (ngSubmit)="createClient(form)" #form="ngForm" enctype="multipart/form-data">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input
@@ -46,6 +46,14 @@
         email
       >
     </mat-form-field>
+    <label>Passport</label>
+    <input
+      type="file"
+      name="passport"
+      multiple
+      ngModel
+      (change)="passportChange($event)"
+    >
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>
