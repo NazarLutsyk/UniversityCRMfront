@@ -9,7 +9,7 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .client-tasks, .client-comments, .client-applications {
+.left-menu, .client-tasks, .client-comments, .client-applications, .audio-calls {
   background: white;
   padding: 15px 25px;
 }
@@ -22,18 +22,30 @@ mat-list {
   border-top: 3px solid green;
 }
 
-.client-tasks, .client-comments, .client-applications{
-  width: 35%;
-  margin-right: 15px;
+.client-comments, .audio-calls{
+  width: 45%;
+  margin-left: 15px;
   border-left: 3px solid #cea51a;
   border-top: 3px solid #cea51a;
+  margin-top: 15px;
+}
+
+.audio-calls{
+  border-left: 3px solid #3f51b5;
+  border-top: 3px solid #3f51b5;
+}
+
+.client-tasks{
+  width: 75%;
+  border-left: 3px solid #b52a92;
+  border-top: 3px solid #b52a92;
 }
 
 .client-applications{
   width: 100%;
+  margin-top: 15px;
   margin-right: 15px;
   margin-left: 15px;
-  margin-top: 15px;
   border-left: 3px solid #f44336;
   border-top: 3px solid #f44336;
 }

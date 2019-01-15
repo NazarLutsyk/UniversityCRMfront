@@ -16,6 +16,7 @@ import {ManagersModule} from './managers/managers.module';
 import {AuthModule} from './auth/auth.module';
 import {EApplicationsModule} from './e-applications/e-applications.module';
 import {SendingModule} from './sending/sending.module';
+import {AudioCallsModule} from './audio-calls/audio-calls.module';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {SendingModule} from './sending/sending.module';
     AuthModule,
     EApplicationsModule,
     SendingModule,
+    AudioCallsModule,
     MatSnackBarModule,
     MatButtonModule,
   ],

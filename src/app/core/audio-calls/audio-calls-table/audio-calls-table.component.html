@@ -1,0 +1,119 @@
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="5">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td
+      *ngIf="!(byClientId >= 0)"
+      (click)="loadSorted('clientFullname',headerBlock,$event)"
+      data-sort=""
+    >
+      Client
+    </td>
+    <td (click)="loadSorted('comment',headerBlock,$event)" data-sort="">
+      Comment
+    </td>
+    <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td>
+      File
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td *ngIf="!(byClientId >= 0)">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="clientFullname"
+          data-key="clientFullname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="comment"
+          data-key="comment"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="file"
+          data-key="file"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let audioCall of audioCalls" class="data-row">
+    <td *ngIf="!(byClientId >= 0)">
+        {{audioCall.client.name}} {{audioCall.client.surname}}
+    </td>
+    <td>
+      {{audioCall.comment}}
+    </td>
+    <td class="small-td">
+      {{audioCall.date | date : 'yyyy/MM/dd'}}
+    </td>
+    <td>
+      {{audioCall.files[0].path}}
+    </td>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(audioCall.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

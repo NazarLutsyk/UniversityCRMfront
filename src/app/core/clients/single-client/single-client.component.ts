@@ -16,6 +16,8 @@ import {City} from '../../../models/city';
 import {CityService} from '../../../services/city.service';
 import {AuthService} from '../../../services/auth.service';
 import {NgForm} from '@angular/forms';
+import {AudioCall} from '../../../models/audio-call';
+import {AudioCallService} from '../../../services/audio-call.service';
 
 @Component({
   selector: 'app-single-client',
@@ -28,6 +30,7 @@ export class SingleClientComponent implements OnInit {
   @ViewChild('tasksTable') tasksTable;
   @ViewChild('commentTable') commentTable;
   @ViewChild('applicationTable') applicationTable;
+  @ViewChild('audioCallsTable') audioCallsTable;
 
   client: Client = new Client();
   sources: Source[] = [];
@@ -40,6 +43,9 @@ export class SingleClientComponent implements OnInit {
   canSeeApplications = false;
   canCreateApplication = false;
   canDeleteApplication = false;
+  canSeeAudioCalls = false;
+
+  audioCallFilesToUpload: File[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,7 +56,8 @@ export class SingleClientComponent implements OnInit {
     private courseService: CourseService,
     private citiesService: CityService,
     private applicationService: ApplicationService,
-    public authService: AuthService
+    public authService: AuthService,
+    private audioCallService: AudioCallService
   ) {
   }
 
@@ -72,6 +79,7 @@ export class SingleClientComponent implements OnInit {
     this.canSeeApplications = isBoss || isManager;
     this.canCreateApplication = isBoss || isManager;
     this.canDeleteApplication = isBoss || isManager;
+    this.canSeeAudioCalls = isBoss || isManager;
   }
 
   loadClient(id) {
@@ -147,7 +155,20 @@ export class SingleClientComponent implements OnInit {
       formApplication.resetForm();
       this.applicationTable.loadApplications();
     });
-
   }
 
+  audioCallFileChange($event) {
+    this.audioCallFilesToUpload = (<any>event.target).files;
+  }
+
+  createAudioCall(audioCallForm: NgForm) {
+    const audioCallValue: AudioCall = audioCallForm.value;
+    audioCallValue.clientId = this.client.id;
+    this.audioCallService.create(audioCallValue).subscribe((acr) => {
+      audioCallForm.resetForm();
+      this.audioCallService.uploadFiles(acr.id, this.audioCallFilesToUpload).subscribe(() => {
+        this.audioCallsTable.loadAudioCalls();
+      });
+    });
+  }
 }

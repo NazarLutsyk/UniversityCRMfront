@@ -14,6 +14,7 @@ import {SingleClientComponent} from './single-client/single-client.component';
 import {TasksModule} from '../tasks/tasks.module';
 import {CommentsModule} from '../comments/comments.module';
 import {ApplicationsModule} from '../applications/applications.module';
+import {AudioCallsModule} from '../audio-calls/audio-calls.module';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import {ApplicationsModule} from '../applications/applications.module';
     TasksModule,
     CommentsModule,
     ApplicationsModule,
+    AudioCallsModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

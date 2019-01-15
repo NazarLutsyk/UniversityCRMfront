@@ -90,6 +90,57 @@
       #tasksTable
     ></app-tasks-table>
   </div>
+  <div class="audio-calls" *ngIf="canSeeAudioCalls">
+    <h3>AUDIO CALLS</h3>
+    <mat-expansion-panel #audioCallsFormpanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #audioCallForm="ngForm" (ngSubmit)="createAudioCall(audioCallForm)">
+        <mat-form-field>
+          <mat-label>Comment</mat-label>
+          <input
+            type="text"
+            name="comment"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="date"
+            [matDatepicker]="audioCallDatepicker"
+            readonly
+            placeholder="Choose a date"
+            (click)="audioCallDatepicker.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #audioCallDatepicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <label>File</label>
+        <input
+          type="file"
+          name="file"
+          multiple
+          ngModel
+          (change)="audioCallFileChange($event)"
+        >
+        <button mat-flat-button [disabled]="!audioCallForm.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-audio-calls-table
+      *ngIf="client.id"
+      #audioCallsTable
+      [byClientId]="client.id"
+    ></app-audio-calls-table>
+  </div>
   <div class="client-comments" *ngIf="canSeeComments">
     <h3>COMMENTS</h3>
     <mat-expansion-panel #formpanelComments>
