@@ -72,7 +72,7 @@ export class SingleApplicationComponent implements OnInit {
         'groupId',
         'cityId'
       ],
-      include: ['client', 'sources', 'course', 'group', 'contract', 'audio_calls', 'lessons', 'city']
+      include: ['client', 'sources', 'course', 'group', 'contract', 'lessons', 'city']
     })
       .subscribe(application => {
         this.application = application;

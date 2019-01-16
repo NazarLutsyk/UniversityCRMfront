@@ -100,7 +100,7 @@
   <tbody>
   <tr *ngFor="let audioCall of audioCalls" class="data-row">
     <td *ngIf="!(byClientId >= 0)">
-        {{audioCall.client.name}} {{audioCall.client.surname}}
+      {{audioCall.client.name}} {{audioCall.client.surname}}
     </td>
     <td>
       {{audioCall.comment}}
@@ -109,7 +109,9 @@
       {{audioCall.date | date : 'yyyy/MM/dd'}}
     </td>
     <td>
-      {{audioCall.files[0].path}}
+      <span *ngIf="audioCall.files && audioCall.files.length > 0">
+        {{audioCall.files[0].path}}
+      </span>
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(audioCall.id)" data-controls="true"></div>

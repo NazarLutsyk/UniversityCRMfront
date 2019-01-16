@@ -158,17 +158,17 @@ export class SingleClientComponent implements OnInit {
   }
 
   audioCallFileChange($event) {
-    this.audioCallFilesToUpload = (<any>event.target).files;
+    this.audioCallFilesToUpload = (<any>$event.target).files;
   }
 
   createAudioCall(audioCallForm: NgForm) {
     const audioCallValue: AudioCall = audioCallForm.value;
     audioCallValue.clientId = this.client.id;
     this.audioCallService.create(audioCallValue).subscribe((acr) => {
-      audioCallForm.resetForm();
       this.audioCallService.uploadFiles(acr.id, this.audioCallFilesToUpload).subscribe(() => {
         this.audioCallsTable.loadAudioCalls();
       });
+      audioCallForm.resetForm();
     });
   }
 }

@@ -183,7 +183,7 @@ export class ClientsComponent implements OnInit {
   }
 
   passportChange($event) {
-    this.passportFilesToUpload = (<any>event.target).files;
+    this.passportFilesToUpload = (<any>$event.target).files;
   }
 
 }
