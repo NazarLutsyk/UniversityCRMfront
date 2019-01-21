@@ -1,0 +1,40 @@
+.dialog-close-button{
+  width: 100%;
+}
+
+.dialog-header{
+  text-align: center;
+}
+
+.dialog-form{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #f3f3f3;
+  margin-bottom: 20px;
+}
+
+.dialog-form button{
+  background: #3fb54e;
+}
+
+.file-tiles-wrapper{
+  overflow-y: auto;
+}
+
+.file-tile{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.file-tile button{
+    background: #b22424;
+}
+
+.file-tile p{
+    color: #3f51b5;
+  cursor: pointer;
+}

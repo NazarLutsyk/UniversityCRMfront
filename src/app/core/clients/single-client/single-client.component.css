@@ -66,3 +66,10 @@ form {
 form input{
   font-size: 18px;
 }
+
+.passport-link {
+  cursor: pointer;
+  color: #3f51b5;
+  border-bottom: 1px solid rgba(0, 0, 0, .42);
+  padding-bottom: 10px;
+}

@@ -1,0 +1,6 @@
+export enum UfileTypes {
+  CONTRACT = 'CONTRACT',
+  PAYMENT = 'PAYMENT',
+  PASSPORT = 'PASSPORT',
+  AUDIO_CALL = 'AUDIO_CALL'
+}

@@ -106,8 +106,8 @@
     <td>
       {{payment.amount}}
     </td>
-    <td>
-      {{payment.file}}
+    <td class="link" (click)="editFiles(payment)">
+      {{payment.files ? payment.files.length : 0}} payment files
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(payment.id)" data-controls="true"></div>

@@ -1,0 +1,43 @@
+<h2 mat-dialog-title
+    class="dialog-header">{{targetType}}</h2>
+
+<mat-dialog-content>
+  <div class="dialog-form">
+    <input type="file"
+           name="file"
+           multiple
+           ngModel
+           required
+           (change)="newFilesChange($event)">
+    <button mat-button
+            mat-flat-button
+            (click)="addFiles()"
+            [disabled]="!filesToUpload || filesToUpload.length <= 0"
+            type="submit">
+      Add
+    </button>
+  </div>
+  <div class="file-tiles-wrapper" *ngIf="currentFiles && currentFiles.length > 0">
+    <div class="file-tile" *ngFor="let file of currentFiles">
+      <p (click)="downloadFile(file)">
+        {{file.path}}
+      </p>
+      <button mat-button
+              mat-flat-button
+              (click)="deleteFile(file)"
+              type="button">
+        DELETE
+      </button>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button
+          mat-flat-button
+          class="dialog-close-button"
+          type="button"
+          [mat-dialog-close]="true">
+    Close
+  </button>
+</mat-dialog-actions>

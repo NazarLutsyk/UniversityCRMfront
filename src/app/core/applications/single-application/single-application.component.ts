@@ -8,7 +8,9 @@ import {Payment} from '../../../models/payment';
 import {PaymentService} from '../../../services/payment.service';
 import {GroupService} from '../../../services/group.service';
 import {Group} from '../../../models/group';
-import {MatSelectionListChange} from '@angular/material';
+import {MatDialog, MatSelectionListChange} from '@angular/material';
+import {UfileComponent} from '../../ufile/ufile.component';
+import {UfileTypes} from '../../ufile/ufile-types';
 
 @Component({
   selector: 'app-single-application',
@@ -34,7 +36,8 @@ export class SingleApplicationComponent implements OnInit {
     private applicationService: ApplicationService,
     private sourceService: SourceService,
     private paymentService: PaymentService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private filesDialog: MatDialog
   ) {
   }
 
@@ -139,5 +142,17 @@ export class SingleApplicationComponent implements OnInit {
 
   paymentChange($event) {
     this.paymentFilesToUpload = (<any>event.target).files;
+  }
+
+  editFiles(application: Application) {
+    const filesDialogRef = this.filesDialog.open(UfileComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        targetId: application.contract.id,
+        files: application.contract.files,
+        type: UfileTypes.CONTRACT
+      }
+    });
   }
 }

@@ -18,6 +18,9 @@ import {AuthService} from '../../../services/auth.service';
 import {NgForm} from '@angular/forms';
 import {AudioCall} from '../../../models/audio-call';
 import {AudioCallService} from '../../../services/audio-call.service';
+import {UfileComponent} from '../../ufile/ufile.component';
+import {UfileTypes} from '../../ufile/ufile-types';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-single-client',
@@ -57,7 +60,8 @@ export class SingleClientComponent implements OnInit {
     private citiesService: CityService,
     private applicationService: ApplicationService,
     public authService: AuthService,
-    private audioCallService: AudioCallService
+    private audioCallService: AudioCallService,
+    private filesDialog: MatDialog
   ) {
   }
 
@@ -84,10 +88,11 @@ export class SingleClientComponent implements OnInit {
 
   loadClient(id) {
     this.clientService.getClientById(id, {
-      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: []
+      attributes: ['id', 'name', 'surname', 'phone', 'email', 'file'], include: ['file']
     })
       .subscribe(client => {
         this.client = client;
+        console.log(this.client);
         this.canUpdateClient = [
           this.authService.roles.BOSS_ROLE,
           this.authService.roles.MANAGER_ROLE
@@ -169,6 +174,18 @@ export class SingleClientComponent implements OnInit {
         this.audioCallsTable.loadAudioCalls();
       });
       audioCallForm.resetForm();
+    });
+  }
+
+  editFiles(client: Client) {
+    const filesDialogRef = this.filesDialog.open(UfileComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        targetId: client.id,
+        files: client.files,
+        type: UfileTypes.PASSPORT
+      }
     });
   }
 }

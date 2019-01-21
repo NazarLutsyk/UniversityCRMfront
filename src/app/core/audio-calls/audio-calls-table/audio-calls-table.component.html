@@ -108,10 +108,8 @@
     <td class="small-td">
       {{audioCall.date | date : 'yyyy/MM/dd'}}
     </td>
-    <td>
-      <span *ngIf="audioCall.files && audioCall.files.length > 0">
-        {{audioCall.files[0].path}}
-      </span>
+    <td class="link" (click)="editFiles(audioCall)">
+      {{audioCall.files ? audioCall.files.length : 0}} audio call files
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(audioCall.id)" data-controls="true"></div>

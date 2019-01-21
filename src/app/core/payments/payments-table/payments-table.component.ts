@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable} from 'rxjs';
 import {PaymentService} from '../../../services/payment.service';
 import {Payment} from '../../../models/payment';
+import {MatDialog} from '@angular/material';
+import {UfileComponent} from '../../ufile/ufile.component';
+import {UfileTypes} from '../../ufile/ufile-types';
 
 @Component({
   selector: 'app-payments-table',
@@ -29,8 +31,8 @@ export class PaymentsTableComponent implements OnInit {
 
   constructor(
     private paymentService: PaymentService,
-    private router: Router,
     public materialTableService: MaterialTableService,
+    private filesDialog: MatDialog
   ) {
   }
 
@@ -74,7 +76,7 @@ export class PaymentsTableComponent implements OnInit {
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['application']
+      include: ['application', 'file']
     });
   }
 
@@ -106,4 +108,18 @@ export class PaymentsTableComponent implements OnInit {
     });
   }
 
+  editFiles(payment: Payment) {
+    const filesDialogRef = this.filesDialog.open(UfileComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        targetId: payment.id,
+        files: payment.files,
+        type: UfileTypes.PAYMENT
+      }
+    });
+    filesDialogRef.afterClosed().subscribe((result) => {
+      this.loadPayments();
+    });
+  }
 }

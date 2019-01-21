@@ -111,6 +111,9 @@
         <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
         <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
       </mat-form-field>
+      <p class="contracts-link" (click)="editFiles(application)">
+        {{application.contract.files ? application.contract.files.length : 0}} contract files
+      </p>
       <button mat-flat-button [disabled]="!form.valid">Update</button>
     </form>
   </div>

@@ -38,9 +38,9 @@ export class ContractService {
     return this.http.delete<Contract>(`${this.contractsURL}/${id}`);
   }
 
-  uploadFiles(applicationId: number, images: File[]): Observable<Ufile[]> {
+  createContracts(applicationId: number, filesToUpload: File[]): Observable<Ufile[]> {
     const formData: FormData = new FormData();
-    for (const image of images) {
+    for (const image of filesToUpload) {
       formData.append('files', image, image.name);
     }
     const headers = new HttpHeaders();
@@ -53,4 +53,18 @@ export class ContractService {
     );
   }
 
+  uploadContractFiles(contractId: number, filesToUpload: File[]) {
+    const formData: FormData = new FormData();
+    for (const image of filesToUpload) {
+      formData.append('files', image, image.name);
+    }
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.post<Ufile[]>(
+      `${this.contractsURL}/${contractId}/upload`,
+      formData,
+      {headers: headers}
+    );
+  }
 }

@@ -17,6 +17,8 @@ import {AuthModule} from './auth/auth.module';
 import {EApplicationsModule} from './e-applications/e-applications.module';
 import {SendingModule} from './sending/sending.module';
 import {AudioCallsModule} from './audio-calls/audio-calls.module';
+import {UfileModule} from './ufile/ufile.module';
+import {UfileComponent} from './ufile/ufile.component';
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import {AudioCallsModule} from './audio-calls/audio-calls.module';
     EApplicationsModule,
     SendingModule,
     AudioCallsModule,
+    UfileModule,
     MatSnackBarModule,
     MatButtonModule,
   ],
@@ -42,7 +45,7 @@ import {AudioCallsModule} from './audio-calls/audio-calls.module';
     BreadcrumbsComponent,
     DeleteSnackBarComponent,
   ],
-  entryComponents: [DeleteSnackBarComponent],
+  entryComponents: [DeleteSnackBarComponent, UfileComponent],
   exports: [
     BreadcrumbsComponent
   ]

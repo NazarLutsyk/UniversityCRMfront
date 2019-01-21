@@ -43,7 +43,9 @@
           email
         >
       </mat-form-field>
-
+      <p class="passport-link" (click)="editFiles(client)">
+        {{client.files ? client.files.length : 0}} passport files
+      </p>
       <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Update</button>
     </form>
   </div>

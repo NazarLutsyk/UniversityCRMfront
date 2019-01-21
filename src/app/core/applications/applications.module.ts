@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ApplicationsComponent} from './applications.component';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule,
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
   MatDividerModule,
   MatExpansionModule,
   MatFormFieldModule, MatIconModule,
@@ -14,6 +14,7 @@ import {
 import {SingleApplicationComponent} from './single-application/single-application.component';
 import {ApplicationsTableComponent} from './applications-table/applications-table.component';
 import {PaymentsModule} from '../payments/payments.module';
+import {UfileModule} from '../ufile/ufile.module';
 
 @NgModule({
   imports: [
@@ -30,7 +31,9 @@ import {PaymentsModule} from '../payments/payments.module';
     MatIconModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule,
+    UfileModule,
   ],
   declarations: [ApplicationsComponent, SingleApplicationComponent, ApplicationsTableComponent],
   exports: [ApplicationsTableComponent]

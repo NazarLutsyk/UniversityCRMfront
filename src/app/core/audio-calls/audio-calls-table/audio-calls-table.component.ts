@@ -4,6 +4,9 @@ import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable} from 'rxjs';
 import {AudioCall} from '../../../models/audio-call';
 import {AudioCallService} from '../../../services/audio-call.service';
+import {UfileComponent} from '../../ufile/ufile.component';
+import {UfileTypes} from '../../ufile/ufile-types';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-audio-calls-table',
@@ -30,6 +33,7 @@ export class AudioCallsTableComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
     public audioCallService: AudioCallService,
+    private filesDialog: MatDialog
   ) {
   }
 
@@ -101,6 +105,21 @@ export class AudioCallsTableComponent implements OnInit {
         }
         this.loadAudioCalls();
       });
+    });
+  }
+
+  editFiles(audioCall: AudioCall) {
+    const filesDialogRef = this.filesDialog.open(UfileComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        targetId: audioCall.id,
+        files: audioCall.files,
+        type: UfileTypes.AUDIO_CALL
+      }
+    });
+    filesDialogRef.afterClosed().subscribe((result) => {
+      this.loadAudioCalls();
     });
   }
 }

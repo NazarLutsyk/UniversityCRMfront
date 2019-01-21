@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ClientsComponent} from './clients.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule,
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule, MatNativeDateModule,
@@ -15,6 +15,7 @@ import {TasksModule} from '../tasks/tasks.module';
 import {CommentsModule} from '../comments/comments.module';
 import {ApplicationsModule} from '../applications/applications.module';
 import {AudioCallsModule} from '../audio-calls/audio-calls.module';
+import {UfileModule} from '../ufile/ufile.module';
 
 @NgModule({
   imports: [
@@ -32,7 +33,9 @@ import {AudioCallsModule} from '../audio-calls/audio-calls.module';
     ApplicationsModule,
     AudioCallsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule,
+    UfileModule
   ],
   declarations: [
     ClientsComponent,

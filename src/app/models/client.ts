@@ -12,7 +12,7 @@ export class Client {
     public tasks: Task[] = [],
     public applications: Application[] = [],
     public comments: Comment[] = [],
-    public passports: Ufile[] = []
+    public files: Ufile[] = []
   ) {
   }
 }

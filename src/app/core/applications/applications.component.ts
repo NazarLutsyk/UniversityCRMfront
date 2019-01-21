@@ -132,7 +132,7 @@ export class ApplicationsComponent implements OnInit {
       hasPractice: false
     };
     this.applicationService.create(application).subscribe((applicationResponse) => {
-      this.contractService.uploadFiles(applicationResponse.id, this.contractFilesToUpload).subscribe();
+      this.contractService.createContracts(applicationResponse.id, this.contractFilesToUpload).subscribe();
       applicationForm.resetForm();
       this.selectedClient = new Client();
       this.applicationsTable.loadApplications();
