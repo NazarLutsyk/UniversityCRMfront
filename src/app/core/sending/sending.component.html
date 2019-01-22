@@ -138,12 +138,21 @@
           matInput
           required
           rows="5"
+          #text
         >
         </textarea>
       </mat-form-field>
       <div class="send-block-buttons">
-        <button mat-flat-button [disabled]="!form.valid || selectedClients.length === 0">SMS</button>
-        <button mat-flat-button [disabled]="!form.valid || selectedClients.length === 0">EMAIL</button>
+        <button mat-flat-button
+                (click)="sendBySms(text.value)"
+                [disabled]="!form.valid || selectedClients.length === 0">
+          SMS
+        </button>
+        <button mat-flat-button
+                (click)="sendByEmail(text.value)"
+                [disabled]="!form.valid || selectedClients.length === 0">
+          EMAIL
+        </button>
       </div>
     </form>
   </div>

@@ -88,11 +88,10 @@ export class SingleClientComponent implements OnInit {
 
   loadClient(id) {
     this.clientService.getClientById(id, {
-      attributes: ['id', 'name', 'surname', 'phone', 'email', 'file'], include: ['file']
+      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: ['files']
     })
       .subscribe(client => {
         this.client = client;
-        console.log(this.client);
         this.canUpdateClient = [
           this.authService.roles.BOSS_ROLE,
           this.authService.roles.MANAGER_ROLE

@@ -7,6 +7,7 @@ import {ClientService} from '../../services/client.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
+import {SendingService} from '../../services/sending.service';
 
 @Component({
   selector: 'app-sending',
@@ -42,7 +43,8 @@ export class SendingComponent implements OnInit {
     private materialTableService: MaterialTableService,
     private clientService: ClientService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private sendingService: SendingService
   ) {
   }
 
@@ -161,12 +163,30 @@ export class SendingComponent implements OnInit {
   }
 
 
-  sendBySms() {
-    // todo sending by sms
+  sendBySms(text: string) {
+    const phones = this.selectedClients.map(c => c.phone);
+    this.sendingService.sendSms(phones, text)
+      .subscribe(
+        () => {
+            console.log('ok');
+        },
+        (err) => {
+            console.log(err);
+        }
+      );
   }
 
-  sendByEmail() {
-    // todo sending by email
+  sendByEmail(text: string) {
+    const emails = this.selectedClients.map(c => c.email);
+    this.sendingService.sendMails(emails, text)
+      .subscribe(
+        () => {
+          console.log('ok');
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 
 }
