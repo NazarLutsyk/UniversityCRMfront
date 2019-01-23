@@ -145,12 +145,12 @@
       <div class="send-block-buttons">
         <button mat-flat-button
                 (click)="sendBySms(text.value)"
-                [disabled]="!form.valid || selectedClients.length === 0">
+                [disabled]="!form.valid || selectedClients.length === 0 || disablePhoneButton">
           SMS
         </button>
         <button mat-flat-button
                 (click)="sendByEmail(text.value)"
-                [disabled]="!form.valid || selectedClients.length === 0">
+                [disabled]="!form.valid || selectedClients.length === 0 || disableEmailButton">
           EMAIL
         </button>
       </div>

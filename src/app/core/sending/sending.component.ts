@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GroupService} from '../../services/group.service';
 import {Group} from '../../models/group';
 import {Client} from '../../models/client';
@@ -38,13 +38,16 @@ export class SendingComponent implements OnInit {
   selectedClientsPageIndex = 1;
   selectedClientsCountOfPages = 1;
 
+  disableEmailButton = false;
+  disablePhoneButton = false;
+
   constructor(
     private groupService: GroupService,
     private materialTableService: MaterialTableService,
     private clientService: ClientService,
     private storageService: StorageService,
     private router: Router,
-    private sendingService: SendingService
+    private sendingService: SendingService,
   ) {
   }
 
@@ -165,26 +168,32 @@ export class SendingComponent implements OnInit {
 
   sendBySms(text: string) {
     const phones = this.selectedClients.map(c => c.phone);
+    this.disablePhoneButton = true;
     this.sendingService.sendSms(phones, text)
       .subscribe(
         () => {
-            console.log('ok');
+          setTimeout(() => {
+            this.disablePhoneButton = false;
+          }, 1000 * 60 * 3);
         },
         (err) => {
-            console.log(err);
+          console.log(err);
         }
       );
   }
 
   sendByEmail(text: string) {
     const emails = this.selectedClients.map(c => c.email);
+    this.disableEmailButton = true;
     this.sendingService.sendMails(emails, text)
       .subscribe(
-        () => {
-          console.log('ok');
+        (res) => {
+          setTimeout(() => {
+            this.disableEmailButton = false;
+          }, 1000 * 60 * 3);
         },
         (err) => {
-          console.log(err);
+            console.log(err);
         }
       );
   }
