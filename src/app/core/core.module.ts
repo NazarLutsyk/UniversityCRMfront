@@ -19,6 +19,8 @@ import {SendingModule} from './sending/sending.module';
 import {AudioCallsModule} from './audio-calls/audio-calls.module';
 import {UfileModule} from './ufile/ufile.module';
 import {UfileComponent} from './ufile/ufile.component';
+import {NotificationsModule} from './notifications/notifications.module';
+import {NotificationsComponent} from './notifications/notifications.component';
 
 @NgModule({
   imports: [
@@ -37,6 +39,7 @@ import {UfileComponent} from './ufile/ufile.component';
     SendingModule,
     AudioCallsModule,
     UfileModule,
+    NotificationsModule,
     MatSnackBarModule,
     MatButtonModule,
   ],
@@ -47,7 +50,8 @@ import {UfileComponent} from './ufile/ufile.component';
   ],
   entryComponents: [DeleteSnackBarComponent, UfileComponent],
   exports: [
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    NotificationsComponent
   ]
 })
 export class CoreModule {

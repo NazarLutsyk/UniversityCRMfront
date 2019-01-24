@@ -1,4 +1,4 @@
-.main-menu{
+.main-menu {
   user-select: none;
 }
 
@@ -10,7 +10,7 @@
   outline: none;
 }
 
-mat-toolbar{
+mat-toolbar {
   background: #313440;
 }
 
@@ -29,3 +29,30 @@ mat-toolbar{
   background: #36416b;
   transition: 0.3s;
 }
+
+app-notifications {
+  position: fixed;
+  width: 25%;
+  height: 100%;
+  right: -25%;
+  background: white;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notifications-toggle-button {
+  cursor: pointer;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  top: 50%;
+  background: #bbbbbb;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  height: 50px;
+  transition: 0.5s;
+}
+

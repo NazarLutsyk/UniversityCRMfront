@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 
@@ -8,6 +8,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  hideNotifications = true;
 
   constructor(
     private router: Router,
@@ -23,5 +25,9 @@ export class AppComponent implements OnInit {
     this.authService.logout().subscribe(_ => {
       this.router.navigate(['/']);
     });
+  }
+
+  toggleNotifications() {
+    this.hideNotifications = !this.hideNotifications;
   }
 }

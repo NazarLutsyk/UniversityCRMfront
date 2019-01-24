@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatToolbarModule} from '@angular/material';
+import {MatIconModule, MatToolbarModule} from '@angular/material';
 import {MainRouterModule} from './main-router.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
@@ -21,6 +21,7 @@ import {AuthService} from './services/auth.service';
     BrowserAnimationsModule,
     MatToolbarModule,
     MainRouterModule,
+    MatIconModule
   ],
   providers: [
     {
