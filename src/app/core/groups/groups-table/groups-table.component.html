@@ -30,10 +30,10 @@
     <td (click)="loadSorted('usedPractice',headerBlock,$event)" data-sort="">
       Used practice
     </td>
-    <td (click)="loadSorted('startDate',headerBlock,$event)" data-sort="">
+    <td class="small-td" (click)="loadSorted('startDate',headerBlock,$event)" data-sort="">
       Start Date
     </td>
-    <td (click)="loadSorted('startTime',headerBlock,$event)" data-sort="">
+    <td class="small-td" (click)="loadSorted('startTime',headerBlock,$event)" data-sort="">
       Start Time
     </td>
     <td *ngIf="!(byCourseId >= 0)" (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
@@ -86,7 +86,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -99,7 +99,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -154,10 +154,10 @@
     <td>
       {{group.usedPractice}}
     </td>
-    <td>
+    <td class="small-td">
       {{group.startDate | date : 'yyy/MM/dd'}}
     </td>
-    <td>
+    <td class="small-td">
       {{group.startTime.split(':')[0]}}:{{group.startTime.split(':')[1]}}
     </td>
     <ng-container *ngIf="!(byCourseId >= 0)">

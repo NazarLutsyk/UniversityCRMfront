@@ -1,16 +1,36 @@
 .notification-wrapper{
   width: 100%;
   min-height: 65px;
-  border-radius: 80px 0px 0px 80px / 82px 0px 0px 82px;
-  background: grey;
   display: flex;
+  cursor: pointer;
+  flex-wrap: nowrap;
 }
 
 .notification-type{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 45px;
+  color: white;
   min-height: 65px;
-  border-radius: 80px 0px 0px 80px / 82px 0px 0px 82px;
   background: green;
+}
+
+
+.notification-wrapper-info{
+  background: #3fb54e;
+}
+
+.notification-wrapper-error{
+  background: #cd2323;
+}
+
+.notification-type-info{
+  background: #40a04f;
+}
+
+.notification-type-error{
+  background: #b22424;
 }
 
 .notification-info{

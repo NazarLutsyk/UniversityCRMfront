@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {NotificationService} from '../../services/notification.service';
 import {NotificationData} from './notification-data';
-import {NotificationType} from './notification-type';
 
 @Component({
   selector: 'app-notifications',
@@ -10,17 +9,9 @@ import {NotificationType} from './notification-type';
 })
 export class NotificationsComponent implements OnInit {
 
-  notifications: NotificationData[] = [
-    {
-      text: 'User created',
-      type: NotificationType.INFO,
-      date: new Date()
-    },
-    {
-      text: 'Cannot send email',
-      type: NotificationType.ERROR,
-      date: new Date()
-    }];
+  notifications: NotificationData[] = [];
+
+  @Output() onNotification = new EventEmitter();
 
   constructor(
     private notificationService: NotificationService
@@ -30,8 +21,13 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.notificationService.$notificationData.subscribe((notification) => {
       this.notifications.push(notification);
+      this.onNotification.emit();
     });
   }
 
+  closeNotification(notification: NotificationData) {
+    const toDeleteIndex = this.notifications.findIndex(n => n.type === notification.type && n.text === notification.text);
+    this.notifications.splice(toDeleteIndex, 1);
+  }
 
 }

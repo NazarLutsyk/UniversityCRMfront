@@ -94,13 +94,17 @@
 
 <app-breadcrumbs></app-breadcrumbs>
 
-<div class="notifications-toggle-button" (click)="toggleNotifications()" [ngStyle]="{right: hideNotifications ? '0' : '25%'}">
+<div class="notifications-toggle-button" (click)="toggleNotifications()"
+     [ngStyle]="{right: hideNotifications ? '0' : '25%', background: highlightNotificationButton ? '#3f51b5' : '#bbbbbb'}">
   <i class="material-icons">
     keyboard_arrow_left
   </i>
 </div>
-<app-notifications #notificationsBlock [ngStyle]="{right: hideNotifications ? '-25%' : '0'}">
-
+<app-notifications
+  #notificationsBlock
+  [ngStyle]="{right: hideNotifications ? '-25%' : '0'}"
+  (onNotification)="highlightToggleNotifications()"
+>
 </app-notifications>
 
 <router-outlet></router-outlet>

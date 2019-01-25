@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NotificationData} from '../notification-data';
+import {NotificationType} from '../notification-type';
 
 @Component({
   selector: 'app-single-notification',
@@ -8,7 +9,10 @@ import {NotificationData} from '../notification-data';
 })
 export class SingleNotificationComponent implements OnInit {
 
+  notificationTypes = NotificationType;
   @Input() notification: NotificationData;
+
+  @Output() onCloseNotification = new EventEmitter<NotificationData>();
 
   constructor() {
   }
@@ -16,4 +20,7 @@ export class SingleNotificationComponent implements OnInit {
   ngOnInit() {
   }
 
+  closeNotification() {
+    this.onCloseNotification.emit(this.notification);
+  }
 }

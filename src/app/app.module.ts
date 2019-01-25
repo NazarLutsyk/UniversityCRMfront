@@ -7,8 +7,9 @@ import {MatIconModule, MatToolbarModule} from '@angular/material';
 import {MainRouterModule} from './main-router.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
-import {AuthInterceptorService} from './services/auth-interceptor.service';
+import {AuthInterceptorService} from './services/interceptors/auth-interceptor.service';
 import {AuthService} from './services/auth.service';
+import {NotificationInterceptorService} from './services/interceptors/notification-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,11 @@ import {AuthService} from './services/auth.service';
       useClass: AuthInterceptorService,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NotificationInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

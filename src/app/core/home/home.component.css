@@ -5,10 +5,12 @@
   height: 90vh;
 }
 .logo{
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
-  background: #faddddbf;
+  color: #36416b;
+  background: url("../../../assets/images/logo.png") no-repeat center center;
+  background-size: contain;
   animation: rotate 3s linear infinite;
 }
 

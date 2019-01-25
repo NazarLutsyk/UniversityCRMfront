@@ -1,12 +1,22 @@
-<div class="notification-wrapper">
-  <div class="notification-type">
+<div class="notification-wrapper" [ngClass]="[notification.type === notificationTypes.INFO ? 'notification-wrapper-info' : '',
+       notification.type === notificationTypes.ERROR ? 'notification-wrapper-error' : '']"
+     (click)="closeNotification()">
+  <div class="notification-type"
+       [ngClass]="[notification.type === notificationTypes.INFO ? 'notification-type-info' : '',
+       notification.type === notificationTypes.ERROR ? 'notification-type-error' : '']">
+    <i class="material-icons" *ngIf="notification.type === notificationTypes.INFO">
+      done
+    </i>
+    <i class="material-icons" *ngIf="notification.type === notificationTypes.ERROR">
+      clear
+    </i>
   </div>
   <div class="notification-info">
     <div class="notification-info-text">
       <p>{{notification.text}}</p>
     </div>
     <div class="notification-info-date">
-      {{notification.date | date:'short'}}
+      {{notification.date | date:'y/MM/dd  HH:mm'}}
     </div>
   </div>
 </div>
