@@ -33,8 +33,10 @@ mat-toolbar {
 app-notifications {
   position: fixed;
   width: 25%;
-  height: calc(100% - 64px);
+  /*height: calc(100% - 64px);*/
+  height: 100%;
   right: -25%;
+  top: 0;
   background: white;
   transition: 0.5s;
   display: flex;
@@ -42,8 +44,8 @@ app-notifications {
   align-items: center;
   overflow-y: auto;
   flex-wrap: nowrap;
-  z-index: 1000!important;
-  border-left: 1px solid rgba(0,0,0,0.1);
+  z-index: 1000 !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .notifications-toggle-button {

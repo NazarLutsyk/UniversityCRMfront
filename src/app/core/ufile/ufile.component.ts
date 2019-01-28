@@ -10,6 +10,7 @@ import {AudioCallService} from '../../services/audio-call.service';
 import {UfileService} from '../../services/ufile.service';
 import {ConfigService} from '../../services/config.service';
 import {MaterialTableService} from '../../services/material-table.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-ufile',
@@ -33,7 +34,8 @@ export class UfileComponent implements OnInit {
     private audioCallService: AudioCallService,
     private ufileService: UfileService,
     private configService: ConfigService,
-    private materialTableService: MaterialTableService
+    private materialTableService: MaterialTableService,
+    public authService: AuthService
   ) {
   }
 

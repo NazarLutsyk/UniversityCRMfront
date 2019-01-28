@@ -61,7 +61,7 @@ export class SingleClientComponent implements OnInit {
     private applicationService: ApplicationService,
     public authService: AuthService,
     private audioCallService: AudioCallService,
-    private filesDialog: MatDialog
+    private filesDialog: MatDialog,
   ) {
   }
 
@@ -69,9 +69,6 @@ export class SingleClientComponent implements OnInit {
     this.activatedRoute.params.subscribe(({id}) => {
       this.loadClient(id);
     });
-    this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
-    this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
-    this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
 
     const p = this.authService.getLocalPrincipal();
     const isBoss = p.role === this.authService.roles.BOSS_ROLE;
@@ -84,6 +81,12 @@ export class SingleClientComponent implements OnInit {
     this.canCreateApplication = isBoss || isManager;
     this.canDeleteApplication = isBoss || isManager;
     this.canSeeAudioCalls = isBoss || isManager;
+
+    if (isBoss || isManager || isTeacher) {
+      this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
+      this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
+      this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
+    }
   }
 
   loadClient(id) {

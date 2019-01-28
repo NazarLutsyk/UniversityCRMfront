@@ -2,7 +2,8 @@
     class="dialog-header">{{targetType}}</h2>
 
 <mat-dialog-content>
-  <div class="dialog-form">
+  <div class="dialog-form"
+       *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
     <input type="file"
            name="file"
            multiple
@@ -24,6 +25,7 @@
       </p>
       <button mat-button
               mat-flat-button
+              *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
               (click)="deleteFile(file)"
               type="button">
         DELETE
