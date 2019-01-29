@@ -71,6 +71,7 @@ export class SingleApplicationComponent implements OnInit {
         'wantPractice',
         'hasPractice',
         'leftToPay',
+        'certificate',
         'courseId',
         'groupId',
         'cityId'
@@ -102,7 +103,8 @@ export class SingleApplicationComponent implements OnInit {
     const applicationToUpdate = {
       sources: this.applicationSources,
       date: this.application.date,
-      wantPractice: this.application.wantPractice
+      wantPractice: this.application.wantPractice,
+      certificate: this.application.certificate
     };
     this.applicationService.update(this.application.id, applicationToUpdate).subscribe(updated => {
       this.loadApplication(updated.id);

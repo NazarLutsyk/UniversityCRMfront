@@ -18,6 +18,7 @@ export class Application {
     public leftToPay: number = 0,
     public wantPractice: boolean = false,
     public hasPractice: boolean = false,
+    public certificate: string = '',
     public client: Client = null,
     public clientId: number = null,
     public course: Course = null,

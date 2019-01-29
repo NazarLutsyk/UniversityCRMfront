@@ -105,6 +105,9 @@ export class ApplicationsTableComponent implements OnInit {
     if (this.filter['city.name']) {
       res.city = {name: `${this.filter['city.name']}`};
     }
+    if (this.filter.certificate) {
+      res.certificate = {$like: `${this.filter.certificate}`};
+    }
     if (this.filter.fullPrice) {
       res.fullPrice = this.filter.fullPrice;
     }

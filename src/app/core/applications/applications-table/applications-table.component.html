@@ -42,9 +42,6 @@
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
       Date
     </td>
-    <td class="small-td" (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
-      Price
-    </td>
     <td class="small-td" (click)="loadSorted('discount',headerBlock,$event)" data-sort="">
       Discount
     </td>
@@ -54,11 +51,11 @@
     <td class="small-td" (click)="loadSorted('leftToPay',headerBlock,$event)" data-sort="">
       Left to pay
     </td>
-    <td class="small-td" (click)="loadSorted('wantPractice',headerBlock,$event)" data-sort="">
-      Want practice(+/-)
-    </td>
     <td class="small-td" (click)="loadSorted('hasPractice',headerBlock,$event)" data-sort="">
       Has practice(+/-)
+    </td>
+    <td (click)="loadSorted('certificate',headerBlock,$event)" data-sort="">
+      Certificate
     </td>
     <td *ngIf="canDeleteApplication" class="controls-col">
       CONTROLS
@@ -137,19 +134,6 @@
         <mat-label></mat-label>
         <input
           type="number"
-          name="fullPrice"
-          data-key="fullPrice"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
-    <td class="small-td">
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="number"
           name="discount"
           data-key="discount"
           ngModel
@@ -189,21 +173,21 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="wantPractice"
-          data-key="wantPractice"
+          name="hasPractice"
+          data-key="hasPractice"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
         >
       </mat-form-field>
     </td>
-    <td class="small-td">
+    <td>
       <mat-form-field>
         <mat-label></mat-label>
         <input
           type="text"
-          name="hasPractice"
-          data-key="hasPractice"
+          name="certificate"
+          data-key="certificate"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -249,9 +233,6 @@
       {{application.date | date : 'yyy/MM/dd'}}
     </td>
     <td class="small-td">
-      {{application.fullPrice}}
-    </td>
-    <td class="small-td">
       {{application.discount}}%
     </td>
     <td class="small-td">
@@ -261,12 +242,11 @@
       {{application.leftToPay}}
     </td>
     <td class="small-td">
-      <span *ngIf="application.wantPractice">+</span>
-      <span *ngIf="!application.wantPractice">-</span>
-    </td>
-    <td class="small-td">
       <span *ngIf="application.hasPractice">+</span>
       <span *ngIf="!application.hasPractice">-</span>
+    </td>
+    <td>
+      {{application.certificate}}
     </td>
     <td *ngIf="canDeleteApplication" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(application.id)" data-controls="true"></div>

@@ -82,6 +82,15 @@
           disabled
         >
       </mat-form-field>
+      <mat-form-field>
+        <mat-label>Certificate</mat-label>
+        <input
+          type="text"
+          name="certificate"
+          [(ngModel)]="application.certificate"
+          matInput
+        >
+      </mat-form-field>
       <mat-checkbox [(ngModel)]="application.hasPractice" name="hasPractice" [checked]="application.hasPractice" disabled>
         Has practice
       </mat-checkbox>
