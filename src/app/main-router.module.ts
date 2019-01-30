@@ -26,9 +26,16 @@ import {Roles} from './models/roles';
 import {RoleGuard} from './services/guards/role.guard';
 import {EApplicationsComponent} from './core/e-applications/e-applications.component';
 import {SendingComponent} from './core/sending/sending.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, data: {breadcrumb: 'Home'}},
+  {
+    path: '',
+    component: HomeComponent,
+    data: {
+      breadcrumb: 'Home'
+    }
+  },
   {
     path: 'clients',
     data: {breadcrumb: 'Clients'},
@@ -120,7 +127,7 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [NotAuthenticatedGuard],
     data: {
-      breadcrumb: 'Login'
+      breadcrumb: 'Login',
     }
   },
   {
@@ -129,6 +136,7 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard, RoleGuard],
     data: {
       breadcrumb: 'Sending',
+
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
     }
   }
@@ -137,7 +145,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes, {scrollPositionRestoration: 'top'}),
     CoreModule
   ],
   exports: [
