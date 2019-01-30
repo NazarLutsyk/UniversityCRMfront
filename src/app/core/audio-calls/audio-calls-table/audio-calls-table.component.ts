@@ -7,6 +7,8 @@ import {AudioCallService} from '../../../services/audio-call.service';
 import {UfileComponent} from '../../ufile/ufile.component';
 import {UfileTypes} from '../../ufile/ufile-types';
 import {MatDialog} from '@angular/material';
+import {UpdateAudioCallComponent} from '../update-audio-call/update-audio-call.component';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-audio-calls-table',
@@ -33,7 +35,7 @@ export class AudioCallsTableComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
     public audioCallService: AudioCallService,
-    private filesDialog: MatDialog
+    private filesDialog: MatDialog,
   ) {
   }
 
@@ -108,7 +110,8 @@ export class AudioCallsTableComponent implements OnInit {
     });
   }
 
-  editFiles(audioCall: AudioCall) {
+  editFiles(audioCall: AudioCall, event) {
+    event.stopPropagation();
     const filesDialogRef = this.filesDialog.open(UfileComponent, {
       disableClose: true,
       minWidth: '40%',
@@ -121,5 +124,28 @@ export class AudioCallsTableComponent implements OnInit {
     filesDialogRef.afterClosed().subscribe((result) => {
       this.loadAudioCalls();
     });
+  }
+
+  update(audioCall: AudioCall, $event) {
+    $event.stopPropagation();
+    const isControl = $event.target.dataset.controls;
+    if (isControl) {
+      return false;
+    }
+    const matDialogRef = this.filesDialog.open(UpdateAudioCallComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        audioCall
+      }
+    });
+    matDialogRef.afterClosed().subscribe((updated) => {
+      if (updated && updated.comment && updated.date) {
+        audioCall.comment = updated.comment;
+        audioCall.date = updated.date;
+      }
+    });
+
+
   }
 }

@@ -49,6 +49,34 @@
       <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Update</button>
     </form>
   </div>
+  <div class="client-socials" *ngIf="canSeeSocials">
+    <h3>SOCIALS</h3>
+    <mat-expansion-panel #socialsFormpanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          CREATE
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #socialForm="ngForm" (ngSubmit)="createSocial(socialForm)">
+        <mat-form-field>
+          <mat-label>URL</mat-label>
+          <input
+            type="text"
+            name="url"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!socialForm.valid">Create</button>
+      </form>
+    </mat-expansion-panel>
+    <app-social-table *ngIf="client.id"
+                      #socialTable
+                      [byClientId]="client.id">
+
+    </app-social-table>
+  </div>
   <div class="client-tasks" *ngIf="canSeeTasks">
     <h3>TASKS</h3>
     <mat-expansion-panel #formpanel>

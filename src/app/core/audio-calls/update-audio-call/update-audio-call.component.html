@@ -1,0 +1,51 @@
+<h2 mat-dialog-title
+    class="dialog-header">UPDATE AUDIO CALL</h2>
+
+<mat-dialog-content>
+  <form #form="ngForm" (ngSubmit)="updateAudioCall()">
+    <mat-form-field>
+      <mat-label>Comment</mat-label>
+      <input
+        type="text"
+        name="comment"
+        [(ngModel)]="audioCall.comment"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input
+        type="text"
+        matInput
+        [(ngModel)]="audioCall.date"
+        name="date"
+        [matDatepicker]="audioCallDatepicker"
+        readonly
+        placeholder="Choose a date"
+        (click)="audioCallDatepicker.open()"
+      >
+      <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #audioCallDatepicker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <div class="form-buttons">
+      <button mat-button
+              mat-flat-button
+              [disabled]="form.invalid"
+              type="submit">
+        Update
+      </button>
+      <button mat-button
+              mat-flat-button
+              class="dialog-close-button"
+              type="button"
+              [mat-dialog-close]="true">
+        Close
+      </button>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+</mat-dialog-actions>

@@ -1,0 +1,51 @@
+<h2 mat-dialog-title
+    class="dialog-header">UPDATE TASK</h2>
+
+<mat-dialog-content>
+  <form #form="ngForm" (ngSubmit)="updateTask()">
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <input
+        type="text"
+        name="message"
+        [(ngModel)]="task.message"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input
+        type="text"
+        matInput
+        [(ngModel)]="task.date"
+        name="date"
+        [matDatepicker]="pickerStartDate"
+        placeholder="Choose a date"
+        readonly
+        (click)="pickerStartDate.open()"
+      >
+      <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <div class="form-buttons">
+      <button mat-button
+              mat-flat-button
+              [disabled]="form.invalid"
+              type="submit">
+        Update
+      </button>
+      <button mat-button
+              mat-flat-button
+              class="dialog-close-button"
+              type="button"
+              [mat-dialog-close]="true">
+        Close
+      </button>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+</mat-dialog-actions>

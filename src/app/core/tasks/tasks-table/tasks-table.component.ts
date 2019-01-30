@@ -4,7 +4,8 @@ import {TaskService} from '../../../services/task.service';
 import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable} from 'rxjs';
-import {isNumber} from 'util';
+import {MatDialog} from '@angular/material';
+import {UpdateTaskComponent} from '../update-task/update-task.component';
 
 @Component({
   selector: 'app-tasks-table',
@@ -30,6 +31,7 @@ export class TasksTableComponent implements OnInit {
     private tasksService: TaskService,
     private router: Router,
     public materialTableService: MaterialTableService,
+    private  updateDialog: MatDialog
   ) {
   }
 
@@ -104,13 +106,26 @@ export class TasksTableComponent implements OnInit {
     });
   }
 
-  open(id, url, $event) {
+  open(task, $event) {
     $event.stopPropagation();
     const isControl = $event.target.dataset.controls;
-    if (isControl || !isNumber(id)) {
+    if (isControl) {
       return false;
     }
-    this.router.navigate([...url.split('/'), id]);
+    const matDialogRef = this.updateDialog.open(UpdateTaskComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        task
+      }
+    });
+    matDialogRef.afterClosed().subscribe((updated) => {
+      if (updated && updated.message && updated.date) {
+        task.message = updated.message;
+        task.date = updated.date;
+      }
+    });
+
   }
 
 

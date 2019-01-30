@@ -1,22 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Social} from '../../../models/social';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
+import {SocialService} from '../../../services/social.service';
 import {Observable} from 'rxjs';
-import {Comment} from '../../../models/comment';
-import {CommentService} from '../../../services/comment.service';
 import {MatDialog} from '@angular/material';
-import {UpdateCommentComponent} from '../update-comment/update-comment.component';
+import {UpdateSocialComponent} from '../update-social/update-social.component';
 
 @Component({
-  selector: 'app-comments-table',
-  templateUrl: './comments-table.component.html',
-  styleUrls: ['./comments-table.component.css']
+  selector: 'app-social-table',
+  templateUrl: './social-table.component.html',
+  styleUrls: ['./social-table.component.css']
 })
-export class CommentsTableComponent implements OnInit {
+export class SocialTableComponent implements OnInit {
 
   @Input() byClientId;
 
-  comments: Comment[] = [];
+  socials: Social[] = [];
 
   count = 0;
 
@@ -31,31 +31,31 @@ export class CommentsTableComponent implements OnInit {
     public router: Router,
     public activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
-    public commentService: CommentService,
-    private  updateDialog: MatDialog
+    public socialService: SocialService,
+    private updateDialog: MatDialog
   ) {
   }
 
   ngOnInit() {
-    this.loadComments();
+    this.loadSocials();
   }
 
-  loadComments() {
-    this.sendLoadComments().subscribe(response => {
+  loadSocials() {
+    this.sendLoadSocials().subscribe(response => {
       this.count = response.count;
-      this.comments = response.models;
+      this.socials = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {
     this.sort = this.materialTableService.sort(key, headerBlock, event);
-    this.loadComments();
+    this.loadSocials();
   }
 
   loadFiltered(headerBlock: HTMLElement) {
     this.filter = this.materialTableService.getFilter(headerBlock);
-    this.loadComments();
+    this.loadSocials();
   }
 
   loadPaginated(offset: number, event: any) {
@@ -66,24 +66,24 @@ export class CommentsTableComponent implements OnInit {
       nextPage: event ? event.target.value : 0,
       event: event
     });
-    this.loadComments();
+    this.loadSocials();
   }
 
-  private sendLoadComments(): Observable<any> {
+  private sendLoadSocials(): Observable<any> {
     const filterToSend = this.getFilterToSend();
-    return this.commentService.getComments({
+    return this.socialService.getSocials({
       q: filterToSend,
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      attributes: ['id', 'text', 'date', 'clientId']
+      attributes: ['id', 'url', 'clientId']
     });
   }
 
   private getFilterToSend() {
     const res: any = {};
-    if (this.filter.text) {
-      res.text = {$like: `${this.filter.text}`};
+    if (this.filter.url) {
+      res.url = {$like: `${this.filter.url}`};
     }
     if (this.byClientId) {
       res.clientId = this.byClientId;
@@ -93,37 +93,29 @@ export class CommentsTableComponent implements OnInit {
 
   remove(id) {
     this.materialTableService.showRemoveSnackBar().subscribe(() => {
-      this.commentService.remove(id).subscribe((removed) => {
+      this.socialService.remove(id).subscribe((removed) => {
         const countOfPages = Math.ceil((this.count - 1) / this.pageSize);
         if (countOfPages < this.pageIndex && this.pageIndex > 1 && countOfPages !== 0) {
           --this.pageIndex;
         }
-        this.loadComments();
+        this.loadSocials();
       });
     });
   }
 
-  update(comment, $event) {
-    $event.stopPropagation();
-    const isControl = $event.target.dataset.controls;
-    if (isControl) {
-      return false;
-    }
-    const matDialogRef = this.updateDialog.open(UpdateCommentComponent, {
+
+  updateSocial(social: Social) {
+    const matDialogRef = this.updateDialog.open(UpdateSocialComponent, {
       disableClose: true,
       minWidth: '40%',
       data: {
-        comment
+        social
       }
     });
     matDialogRef.afterClosed().subscribe((updated) => {
-      if (updated && updated.text && updated.date) {
-        comment.text = updated.text;
-        comment.date = updated.date;
+      if (updated && updated.url) {
+        social.url = updated.url;
       }
     });
-
   }
-
-
 }

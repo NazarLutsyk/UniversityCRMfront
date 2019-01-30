@@ -36,4 +36,8 @@ export class CommentService {
   remove(id: number | string): Observable<Comment> {
     return this.http.delete<Comment>(`${this.commentsURL}/${id}`);
   }
+
+  update(id: number, comment: Comment): Observable<Comment> {
+    return this.http.put<Comment>(`${this.commentsURL}/${id}`, comment);
+  }
 }

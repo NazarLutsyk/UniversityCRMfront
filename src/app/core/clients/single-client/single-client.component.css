@@ -9,7 +9,7 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .client-tasks, .client-comments, .client-applications, .audio-calls {
+.left-menu, .client-tasks, .client-comments, .client-applications, .audio-calls, .client-socials {
   background: white;
   padding: 15px 25px;
 }
@@ -35,10 +35,17 @@ mat-list {
   border-top: 3px solid #3f51b5;
 }
 
+.client-socials{
+  width: 35%;
+  border-left: 3px solid #808080;
+  border-top: 3px solid #808080;
+}
+
 .client-tasks{
-  width: 75%;
+  width: 35%;
   border-left: 3px solid #b52a92;
   border-top: 3px solid #b52a92;
+  margin-left: 15px;
 }
 
 .client-applications{

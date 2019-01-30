@@ -16,6 +16,7 @@ import {CommentsModule} from '../comments/comments.module';
 import {ApplicationsModule} from '../applications/applications.module';
 import {AudioCallsModule} from '../audio-calls/audio-calls.module';
 import {UfileModule} from '../ufile/ufile.module';
+import {SocialModule} from '../social/social.module';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {UfileModule} from '../ufile/ufile.module';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    UfileModule
+    UfileModule,
+    SocialModule,
   ],
   declarations: [
     ClientsComponent,

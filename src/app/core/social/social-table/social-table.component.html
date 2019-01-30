@@ -21,11 +21,8 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
-    <td (click)="loadSorted('text',headerBlock,$event)" data-sort="">
-      Text
-    </td>
-    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+    <td (click)="loadSorted('url',headerBlock,$event)" data-sort="">
+      URL
     </td>
     <td class="controls-col">
       CONTROLS
@@ -45,32 +42,16 @@
         >
       </mat-form-field>
     </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="text"
-          name="date"
-          data-key="date"
-          ngModel
-          matInput
-          disabled
-        >
-      </mat-form-field>
-    </td>
     <td class="controls-col"></td>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let comment of comments" class="data-row" (click)="update(comment, $event)">
-    <td>
-      {{comment.text}}
-    </td>
-    <td>
-      {{comment.date | date : 'yyyy/MM/dd'}}
+  <tr *ngFor="let social of socials" class="data-row">
+    <td (click)="updateSocial(social)">
+      {{social.url}}
     </td>
     <td class="controls-col" data-controls="true">
-      <div class="remove-button" (click)="remove(comment.id)" data-controls="true"></div>
+      <div class="remove-button" (click)="remove(social.id)" data-controls="true"></div>
     </td>
   </tr>
   </tbody>

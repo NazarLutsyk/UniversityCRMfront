@@ -21,6 +21,10 @@ import {UfileModule} from './ufile/ufile.module';
 import {UfileComponent} from './ufile/ufile.component';
 import {NotificationsModule} from './notifications/notifications.module';
 import {NotificationsComponent} from './notifications/notifications.component';
+import {UpdateSocialComponent} from './social/update-social/update-social.component';
+import {UpdateTaskComponent} from './tasks/update-task/update-task.component';
+import {UpdateAudioCallComponent} from './audio-calls/update-audio-call/update-audio-call.component';
+import {UpdateCommentComponent} from './comments/update-comment/update-comment.component';
 
 @NgModule({
   imports: [
@@ -48,7 +52,14 @@ import {NotificationsComponent} from './notifications/notifications.component';
     BreadcrumbsComponent,
     DeleteSnackBarComponent,
   ],
-  entryComponents: [DeleteSnackBarComponent, UfileComponent],
+  entryComponents: [
+    DeleteSnackBarComponent,
+    UfileComponent,
+    UpdateSocialComponent,
+    UpdateTaskComponent,
+    UpdateAudioCallComponent,
+    UpdateCommentComponent
+  ],
   exports: [
     BreadcrumbsComponent,
     NotificationsComponent

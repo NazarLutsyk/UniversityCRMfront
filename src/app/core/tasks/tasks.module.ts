@@ -4,14 +4,14 @@ import {TasksComponent} from './tasks.component';
 import {FormsModule} from '@angular/forms';
 import {
   MatButtonModule,
-  MatDatepickerModule,
+  MatDatepickerModule, MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
   MatNativeDateModule
 } from '@angular/material';
-import {SingleTaskComponent} from './single-task/single-task.component';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
 @NgModule({
   imports: [
@@ -22,9 +22,10 @@ import { TasksTableComponent } from './tasks-table/tasks-table.component';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
-  declarations: [TasksComponent, SingleTaskComponent, TasksTableComponent],
+  declarations: [TasksComponent, TasksTableComponent, UpdateTaskComponent],
   exports: [TasksTableComponent]
 })
 export class TasksModule {

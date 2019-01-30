@@ -1,0 +1,26 @@
+.dialog-header{
+  text-align: center;
+}
+
+.dialog-form{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.form-buttons{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-buttons button{
+  width: 49%;
+}
+
+.form-buttons button:first-child{
+  background: #3f51b5;
+}
+
+.form-buttons button:last-child{
+  background: #cd2323;
+}
+

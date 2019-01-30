@@ -46,14 +46,6 @@
         email
       >
     </mat-form-field>
-    <label>Passport</label>
-    <input
-      type="file"
-      name="passport"
-      multiple
-      ngModel
-      (change)="passportChange($event)"
-    >
     <button mat-flat-button [disabled]="!form.valid">Create</button>
   </form>
 </mat-expansion-panel>
@@ -92,9 +84,6 @@
     </td>
     <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
       Email
-    </td>
-    <td>
-      Passport
     </td>
     <td *ngIf="canDeleteClient" class="controls-col">
       CONTROLS
@@ -153,19 +142,6 @@
         >
       </mat-form-field>
     </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="text"
-          name="passport"
-          data-key="passport"
-          ngModel
-          matInput
-          disabled
-        >
-      </mat-form-field>
-    </td>
     <td *ngIf="canDeleteClient" class="controls-col"></td>
   </tr>
   </thead>
@@ -182,9 +158,6 @@
     </td>
     <td>
       {{client.email}}
-    </td>
-    <td>
-      {{client.passport}}
     </td>
     <td *ngIf="canDeleteClient" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(client.id)" data-controls="true"></div>

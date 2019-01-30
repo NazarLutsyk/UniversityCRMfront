@@ -53,5 +53,9 @@ export class AudioCallService {
     );
   }
 
+  update(id: number, audioCall: AudioCall): Observable<AudioCall> {
+    return this.http.put<AudioCall>(`${this.audioCallsURL}/${id}`, audioCall);
+  }
+
 
 }

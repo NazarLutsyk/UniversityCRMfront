@@ -98,7 +98,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let audioCall of audioCalls" class="data-row">
+  <tr *ngFor="let audioCall of audioCalls" class="data-row" (click)="update(audioCall, $event)">
     <td *ngIf="!(byClientId >= 0)">
       {{audioCall.client.name}} {{audioCall.client.surname}}
     </td>
@@ -108,7 +108,7 @@
     <td class="small-td">
       {{audioCall.date | date : 'yyyy/MM/dd'}}
     </td>
-    <td class="link" (click)="editFiles(audioCall)">
+    <td class="link" (click)="editFiles(audioCall, $event)">
       {{audioCall.files ? audioCall.files.length : 0}} audio call files
     </td>
     <td class="controls-col" data-controls="true">

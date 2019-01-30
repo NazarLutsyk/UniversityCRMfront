@@ -21,6 +21,8 @@ import {AudioCallService} from '../../../services/audio-call.service';
 import {UfileComponent} from '../../ufile/ufile.component';
 import {UfileTypes} from '../../ufile/ufile-types';
 import {MatDialog} from '@angular/material';
+import {Social} from '../../../models/social';
+import {SocialService} from '../../../services/social.service';
 
 @Component({
   selector: 'app-single-client',
@@ -34,6 +36,7 @@ export class SingleClientComponent implements OnInit {
   @ViewChild('commentTable') commentTable;
   @ViewChild('applicationTable') applicationTable;
   @ViewChild('audioCallsTable') audioCallsTable;
+  @ViewChild('socialTable') socialTable;
 
   client: Client = new Client();
   sources: Source[] = [];
@@ -47,6 +50,7 @@ export class SingleClientComponent implements OnInit {
   canCreateApplication = false;
   canDeleteApplication = false;
   canSeeAudioCalls = false;
+  canSeeSocials = false;
 
   audioCallFilesToUpload: File[] = [];
 
@@ -62,6 +66,7 @@ export class SingleClientComponent implements OnInit {
     public authService: AuthService,
     private audioCallService: AudioCallService,
     private filesDialog: MatDialog,
+    private socialService: SocialService
   ) {
   }
 
@@ -81,6 +86,7 @@ export class SingleClientComponent implements OnInit {
     this.canCreateApplication = isBoss || isManager;
     this.canDeleteApplication = isBoss || isManager;
     this.canSeeAudioCalls = isBoss || isManager;
+    this.canSeeSocials = isBoss || isManager || isTeacher;
 
     if (isBoss || isManager || isTeacher) {
       this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
@@ -188,6 +194,17 @@ export class SingleClientComponent implements OnInit {
         files: client.files,
         type: UfileTypes.PASSPORT
       }
+    });
+  }
+
+  createSocial(socialForm: NgForm) {
+    const social: Social = <Social>{
+      clientId: this.client.id,
+      url: socialForm.value.url
+    };
+    this.socialService.create(social).subscribe(() => {
+      socialForm.resetForm();
+      this.socialTable.loadSocials();
     });
   }
 }

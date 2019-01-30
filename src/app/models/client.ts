@@ -1,6 +1,7 @@
 import {Task} from './task';
 import {Application} from './application';
 import {Ufile} from './ufile';
+import {Social} from './social';
 
 export class Client {
   constructor(
@@ -12,7 +13,8 @@ export class Client {
     public tasks: Task[] = [],
     public applications: Application[] = [],
     public comments: Comment[] = [],
-    public files: Ufile[] = []
+    public files: Ufile[] = [],
+    public socials: Social[] = [],
   ) {
   }
 }
