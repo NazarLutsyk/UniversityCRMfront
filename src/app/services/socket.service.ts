@@ -10,7 +10,7 @@ import Socket = SocketIOClient.Socket;
 export class SocketService {
 
   public EMAIL_EVENT = 'mail';
-  private socket: Socket;
+  public socket: Socket;
 
   constructor(
     private configService: ConfigService

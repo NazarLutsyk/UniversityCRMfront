@@ -27,6 +27,7 @@ import {RoleGuard} from './services/guards/role.guard';
 import {EApplicationsComponent} from './core/e-applications/e-applications.component';
 import {SendingComponent} from './core/sending/sending.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CompetitorsComponent} from './core/competitors/competitors.component';
 
 const routes: Routes = [
   {
@@ -136,6 +137,16 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard, RoleGuard],
     data: {
       breadcrumb: 'Sending',
+
+      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
+    }
+  },
+  {
+    path: 'competitors',
+    component: CompetitorsComponent,
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {
+      breadcrumb: 'Competitors',
 
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
     }

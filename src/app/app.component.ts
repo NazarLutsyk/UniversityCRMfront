@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from './services/auth.service';
-import {Router, RouterOutlet} from '@angular/router';
+import {Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
+import {EapplicationService} from './services/eapplication.service';
 
 
 @Component({
@@ -24,11 +25,13 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     public authService: AuthService,
+    private eapplicationService: EapplicationService
   ) {
   }
 
   ngOnInit() {
     this.authService.getPrincipal().subscribe();
+    this.eapplicationService.checkEapps();
   }
 
   logout() {

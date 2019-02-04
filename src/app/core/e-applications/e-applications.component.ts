@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {SocketService} from '../../services/socket.service';
 import {Eapplication} from '../../models/eapplication';
 import {EapplicationService} from '../../services/eapplication.service';
 import {Router} from '@angular/router';
@@ -14,17 +13,16 @@ export class EApplicationsComponent implements OnInit {
   eapplications: Eapplication[] = [];
 
   constructor(
-    private socketService: SocketService,
     private eaplicationService: EapplicationService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
   ngOnInit() {
-    this.loadEapplications();
-    this.socketService.onEvent(this.socketService.EMAIL_EVENT).subscribe((eapp) => {
+    this.eaplicationService.$neweapp.subscribe((eapp: any) => {
       this.eapplications.push(eapp.json);
     });
+    this.loadEapplications();
   }
 
   buildEapp(eapplication: Eapplication) {

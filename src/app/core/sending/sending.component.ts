@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GroupService} from '../../services/group.service';
 import {Group} from '../../models/group';
 import {Client} from '../../models/client';
@@ -8,6 +8,8 @@ import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {StorageService} from '../../services/storage.service';
 import {SendingService} from '../../services/sending.service';
+import {NotificationService} from '../../services/notification.service';
+import {NotificationType} from '../notifications/notification-type';
 
 @Component({
   selector: 'app-sending',
@@ -48,6 +50,7 @@ export class SendingComponent implements OnInit {
     private storageService: StorageService,
     private router: Router,
     private sendingService: SendingService,
+    private notificationService: NotificationService
   ) {
   }
 
@@ -61,7 +64,6 @@ export class SendingComponent implements OnInit {
       const startIndex = (this.selectedClientsPageIndex * this.pageSize) - this.pageSize;
       const endIndex = startIndex * 2 > 0 ? startIndex * 2 : this.pageSize;
       this.selectedClientsToShow = this.selectedClients.slice(startIndex, endIndex);
-
     }
   }
 
@@ -172,6 +174,11 @@ export class SendingComponent implements OnInit {
     this.sendingService.sendSms(phones, text)
       .subscribe(
         () => {
+          this.notificationService.$notificationData.next({
+            text: 'SMS mailing had completed',
+            date: new Date(),
+            type: NotificationType.INFO
+          });
           setTimeout(() => {
             this.disablePhoneButton = false;
           }, 1000 * 60 * 3);
@@ -186,14 +193,18 @@ export class SendingComponent implements OnInit {
     const emails = this.selectedClients.map(c => c.email);
     this.disableEmailButton = true;
     this.sendingService.sendMails(emails, text)
-      .subscribe(
-        (res) => {
+      .subscribe((res) => {
+          this.notificationService.$notificationData.next({
+            text: 'EMAIL mailing had completed',
+            date: new Date(),
+            type: NotificationType.INFO
+          });
           setTimeout(() => {
             this.disableEmailButton = false;
           }, 1000 * 60 * 3);
         },
         (err) => {
-            console.log(err);
+          console.log(err);
         }
       );
   }

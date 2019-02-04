@@ -1,9 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Eapplication} from '../models/eapplication';
 import {addParams} from '../helpers/url-helper';
+import {SocketService} from './socket.service';
+import {NotificationType} from '../core/notifications/notification-type';
+import {NotificationService} from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +15,13 @@ export class EapplicationService {
 
   private eapplicationsURL = '';
 
+  public $neweapp = new Subject();
+
   constructor(
     private http: HttpClient,
-    private config: ConfigService
+    private config: ConfigService,
+    private socketService: SocketService,
+    private notificationService: NotificationService
   ) {
     this.eapplicationsURL = config.api + '/eapplications';
   }
@@ -39,5 +46,16 @@ export class EapplicationService {
 
   update(id: number, eapplication: Eapplication) {
     return this.http.put<Eapplication>(`${this.eapplicationsURL}/${id}`, eapplication);
+  }
+
+  checkEapps() {
+    this.socketService.onEvent(this.socketService.EMAIL_EVENT).subscribe((eapp) => {
+      this.notificationService.$notificationData.next({
+        text: 'Eapplication received',
+        date: new Date(),
+        type: NotificationType.INFO
+      });
+      this.$neweapp.next(eapp.json);
+    });
   }
 }

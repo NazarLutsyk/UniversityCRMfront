@@ -26,6 +26,7 @@ import {UpdateTaskComponent} from './tasks/update-task/update-task.component';
 import {UpdateAudioCallComponent} from './audio-calls/update-audio-call/update-audio-call.component';
 import {UpdateCommentComponent} from './comments/update-comment/update-comment.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CompetitorsModule} from './competitors/competitors.module';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NotificationsModule,
     MatSnackBarModule,
     MatButtonModule,
+    CompetitorsModule
   ],
   declarations: [
     HomeComponent,
