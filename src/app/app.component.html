@@ -38,7 +38,10 @@
         <span>EApps</span>
       </div>
     </mat-menu>
-    <div mat-icon-button [matMenuTriggerFor]="appMenu" class="menu-span-wrapper">
+    <div mat-icon-button
+         [matMenuTriggerFor]="appMenu"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+         class="menu-span-wrapper">
       <span>Applications</span>
     </div>
     <div class="menu-span-wrapper"
@@ -55,7 +58,8 @@
     >
       <span>Courses</span>
     </div>
-    <mat-menu #otherMenu="matMenu" class="dropdown-menu">
+    <mat-menu #otherMenu="matMenu"
+              class="dropdown-menu">
       <div
         mat-menu-item
         routerLink="/sources"
@@ -89,18 +93,40 @@
         <span>Sending</span>
       </div>
     </mat-menu>
-    <div mat-icon-button [matMenuTriggerFor]="otherMenu" class="menu-span-wrapper">
+    <div mat-icon-button
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+         [matMenuTriggerFor]="otherMenu"
+         class="menu-span-wrapper">
       <span>Other</span>
     </div>
 
 
-    <div class="menu-span-wrapper"
-         routerLink="/competitors"
-         routerLinkActive="active-main-menu"
+    <mat-menu #competitorsMenu="matMenu" class="dropdown-menu">
+      <div class="menu-span-wrapper"
+           mat-menu-item
+           routerLink="/competitors"
+           routerLinkActive="active-main-menu"
+           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Competitors</span>
+      </div>
+      <div class="menu-span-wrapper"
+           mat-menu-item
+           routerLink="/competitor-applications"
+           routerLinkActive="active-main-menu"
+           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Applications</span>
+      </div>
+    </mat-menu>
+    <div mat-icon-button
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-    >
+         [matMenuTriggerFor]="competitorsMenu"
+         class="menu-span-wrapper">
       <span>Competitors</span>
     </div>
+
+
     <div class="menu-span-wrapper"
          routerLink="/login"
          routerLinkActive="active-main-menu"

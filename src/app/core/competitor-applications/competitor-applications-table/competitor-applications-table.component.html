@@ -1,0 +1,130 @@
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="">
+      Client
+    </td>
+    <td (click)="loadSorted('competitor.name',headerBlock,$event)" data-sort="">
+      Competitor
+    </td>
+    <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
+      Course
+    </td>
+    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
+      Date
+    </td>
+    <td class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="client.fullname"
+          data-key="client.fullname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td *ngIf="!(byCompetitorId >= 0)">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="competitor.name"
+          data-key="competitor.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="course.name"
+          data-key="course.name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="date"
+          data-key="date"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let competitorApp of competitorApplications"
+      (click)="open(competitorApp.id, 'competitor-applications',$event)" class="data-row">
+
+    <td [ngClass]="{'link': !!competitorApp.client, 'no-link': !!!competitorApp.client}"
+        (click)="open(competitorApp.client?.id, 'clients',$event)">
+        <span *ngIf="competitorApp.client">
+          {{competitorApp.client.name}} {{competitorApp.client.surname}}
+        </span>
+    </td>
+
+    <ng-container *ngIf="!(byCompetitorId >= 0)">
+      <td [ngClass]="{'link': !!competitorApp.competitor, 'no-link': !!!competitorApp.competitor}"
+          (click)="open(competitorApp.competitor?.id, 'competitors',$event)">
+        <span *ngIf="competitorApp.competitor">
+          {{competitorApp.competitor.name}}
+        </span>
+      </td>
+    </ng-container>
+    <td [ngClass]="{'link': !!competitorApp.course, 'no-link': !!!competitorApp.course}"
+        (click)="open(competitorApp.course?.id, 'courses',$event)">
+        <span *ngIf="competitorApp.course">
+          {{competitorApp.course.name}}
+        </span>
+    </td>
+    <td>
+      {{competitorApp.date  | date : 'yyy/MM/dd'}}
+    </td>
+
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(competitorApp.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -16,7 +16,7 @@ export class CompetitorApplicationService {
     private http: HttpClient,
     private config: ConfigService
   ) {
-    this.competitorApplicationsURL = config.api + '/competitorApplication-applications';
+    this.competitorApplicationsURL = config.api + '/competitor-applications';
   }
 
   getCompetitorApplicationById(id: number, query = {}): Observable<CompetitorApplication> {

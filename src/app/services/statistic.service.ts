@@ -43,4 +43,8 @@ export class StatisticService {
     return this.http.get<any>(urlToRequest);
   }
 
+  getApplicationsStatisticByCompetitor(query) {
+    const urlToRequest = addParams(`${this.statisticURL}/competitor-application`, query);
+    return this.http.get<any>(urlToRequest);
+  }
 }

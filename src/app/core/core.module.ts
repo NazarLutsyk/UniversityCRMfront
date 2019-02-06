@@ -27,6 +27,7 @@ import {UpdateAudioCallComponent} from './audio-calls/update-audio-call/update-a
 import {UpdateCommentComponent} from './comments/update-comment/update-comment.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CompetitorsModule} from './competitors/competitors.module';
+import {CompetitorApplicationsModule} from './competitor-applications/competitor-applications.module';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import {CompetitorsModule} from './competitors/competitors.module';
     NotificationsModule,
     MatSnackBarModule,
     MatButtonModule,
-    CompetitorsModule
+    CompetitorsModule,
+    CompetitorApplicationsModule
   ],
   declarations: [
     HomeComponent,

@@ -37,7 +37,6 @@ export class MaterialTableService {
 
 
   sort(header: string, headerBlock: HTMLElement, event: any): string {
-    const sort = '';
     this.setNextSortState(event.target, header);
     const headerElements = headerBlock.getElementsByTagName('td');
     for (let i = 0; i < headerElements.length; i++) {

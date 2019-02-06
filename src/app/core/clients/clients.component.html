@@ -1,1 +1,167 @@
-w
+<mat-expansion-panel #formPanel *ngIf="canCreateClient">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      CREATE
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form (ngSubmit)="createClient(form)" #form="ngForm" enctype="multipart/form-data">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="clientFormObject.name"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Surname</mat-label>
+      <input
+        type="text"
+        name="surname"
+        [(ngModel)]="clientFormObject.surname"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone</mat-label>
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="clientFormObject.phone"
+        matInput
+        minlength="6"
+        maxlength="15"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="clientFormObject.email"
+        matInput
+        email
+      >
+    </mat-form-field>
+    <button mat-flat-button [disabled]="!form.valid">Create</button>
+  </form>
+</mat-expansion-panel>
+
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Name
+    </td>
+    <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
+      Surname
+    </td>
+    <td (click)="loadSorted('phone',headerBlock,$event)" data-sort="">
+      Phone
+    </td>
+    <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
+      Email
+    </td>
+    <td *ngIf="canDeleteClient" class="controls-col">
+      CONTROLS
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="surname"
+          data-key="surname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="phone"
+          data-key="phone"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="email"
+          data-key="email"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td *ngIf="canDeleteClient" class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let client of clients" (click)="open(client, 'clients',$event)" class="data-row">
+    <td>
+      {{client.name}}
+    </td>
+    <td>
+      {{client.surname}}
+    </td>
+    <td>
+      {{client.phone}}
+    </td>
+    <td>
+      {{client.email}}
+    </td>
+    <td *ngIf="canDeleteClient" class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(client.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

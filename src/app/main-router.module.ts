@@ -28,6 +28,9 @@ import {EApplicationsComponent} from './core/e-applications/e-applications.compo
 import {SendingComponent} from './core/sending/sending.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CompetitorsComponent} from './core/competitors/competitors.component';
+import {SingleCompetitorComponent} from './core/competitors/single-competitor/single-competitor.component';
+import {CompetitorApplicationsComponent} from './core/competitor-applications/competitor-applications.component';
+import {SingleCompetitorApplicationComponent} from './core/competitor-applications/single-competitor-application/single-competitor-application.component';
 
 const routes: Routes = [
   {
@@ -137,20 +140,29 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard, RoleGuard],
     data: {
       breadcrumb: 'Sending',
-
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
     }
   },
   {
     path: 'competitors',
-    component: CompetitorsComponent,
     canActivate: [AuthenticatedGuard, RoleGuard],
-    data: {
-      breadcrumb: 'Competitors',
-
-      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
-    }
-  }
+    data: {breadcrumb: 'Competitors', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    children:
+      [
+        {path: '', component: CompetitorsComponent},
+        {path: ':id', component: SingleCompetitorComponent, data: {breadcrumb: 'Competitor'}},
+      ]
+  },
+  {
+    path: 'competitor-applications',
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {breadcrumb: 'Applications', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    children:
+      [
+        {path: '', component: CompetitorApplicationsComponent},
+        {path: ':id', component: SingleCompetitorApplicationComponent, data: {breadcrumb: 'Application'}},
+      ]
+  },
 ];
 
 @NgModule({

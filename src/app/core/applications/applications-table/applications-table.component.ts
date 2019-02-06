@@ -93,8 +93,8 @@ export class ApplicationsTableComponent implements OnInit {
   private getFilterToSend() {
     const res: any = {};
 
-    if (this.filter['client.name']) {
-      res.client = {name: `${this.filter['client.name']}`};
+    if (this.filter['client.fullname']) {
+      res.client = {fullname: `${this.filter['client.fullname']}`};
     }
     if (this.filter['course.name']) {
       res.course = {name: `${this.filter['course.name']}`};

@@ -1,5 +1,6 @@
 import {Competitor} from './competitor';
 import {Client} from './client';
+import {Course} from './course';
 
 export class CompetitorApplication {
 
@@ -10,6 +11,8 @@ export class CompetitorApplication {
     public competitor: Competitor = null,
     public clientId: number = null,
     public client: Client = null,
+    public courseId: number = null,
+    public course: Course = null
   ) {
   }
 }
