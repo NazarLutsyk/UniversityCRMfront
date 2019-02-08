@@ -29,7 +29,8 @@ export class SendingComponent implements OnInit {
     email: '',
     phone: '',
     group: null,
-    freebie: false
+    freebie: false,
+    debtor: false
   };
 
   count = 0;
@@ -104,6 +105,9 @@ export class SendingComponent implements OnInit {
     }
     if (this.filter.freebie) {
       res.freebie = true;
+    }
+    if (this.filter.debtor) {
+      res.debtor = true;
     }
     return res;
   }

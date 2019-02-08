@@ -6,6 +6,9 @@ import {Payment} from '../../../models/payment';
 import {MatDialog} from '@angular/material';
 import {UfileComponent} from '../../ufile/ufile.component';
 import {UfileTypes} from '../../ufile/ufile-types';
+import {PaymentUpdateComponent} from '../payment-update/payment-update.component';
+import {isNumber} from "util";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-payments-table',
@@ -16,6 +19,7 @@ export class PaymentsTableComponent implements OnInit {
 
   @Input() byApplicationId;
   @Output() onPaymentRemove = new EventEmitter<any>();
+  @Output() onPaymentUpdate = new EventEmitter<any>();
 
   payments: Payment[] = [];
 
@@ -28,11 +32,14 @@ export class PaymentsTableComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  now = new Date();
+
 
   constructor(
     private paymentService: PaymentService,
     public materialTableService: MaterialTableService,
-    private filesDialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {
   }
 
@@ -64,7 +71,7 @@ export class PaymentsTableComponent implements OnInit {
       currentPage: this.pageIndex,
       nextOffset: offset,
       nextPage: event ? event.target.value : 0,
-      event: event
+      event: event,
     });
     this.loadPayments();
   }
@@ -73,10 +80,10 @@ export class PaymentsTableComponent implements OnInit {
     const filterToSend = this.getFilterToSend();
     return this.paymentService.getPayments({
       q: filterToSend,
-      sort: this.sort ? this.sort : 'createdAt DESC',
+      sort: this.sort ? this.sort : 'expectedDate ASC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['application', 'file']
+      include: [this.byApplicationId ? '' : 'application>client' , 'file']
     });
   }
 
@@ -89,7 +96,7 @@ export class PaymentsTableComponent implements OnInit {
       res.amount = this.filter.amount;
     }
     if (this.byApplicationId) {
-      res.application = {id: this.byApplicationId};
+      res.applicationId = this.byApplicationId;
     }
 
     return res;
@@ -108,8 +115,9 @@ export class PaymentsTableComponent implements OnInit {
     });
   }
 
-  editFiles(payment: Payment) {
-    const filesDialogRef = this.filesDialog.open(UfileComponent, {
+  editFiles(payment: Payment, $event) {
+    $event.stopPropagation();
+    const filesDialogRef = this.dialog.open(UfileComponent, {
       disableClose: true,
       minWidth: '40%',
       data: {
@@ -122,4 +130,47 @@ export class PaymentsTableComponent implements OnInit {
       this.loadPayments();
     });
   }
+
+  open(payment: Payment, $event) {
+    $event.stopPropagation();
+    const isControl = $event.target.dataset.controls;
+    if (isControl) {
+      return false;
+    }
+    const matDialogRef = this.dialog.open(PaymentUpdateComponent, {
+      disableClose: true,
+      minWidth: '40%',
+      data: {
+        payment
+      }
+    });
+    matDialogRef.afterClosed().subscribe((updated) => {
+      if (updated && updated.id) {
+        payment.expectedDate = updated.expectedDate;
+        payment.paymentDate = updated.paymentDate;
+        payment.amount = updated.amount;
+        payment.number = updated.number;
+        this.onPaymentUpdate.emit();
+      }
+    });
+  }
+
+  checkFailedPayment(payment: Payment) {
+    if (payment.paymentDate) {
+      return true;
+    } else if (new Date(payment.expectedDate) <= this.now) {
+      return false;
+    }
+  }
+
+
+  openLink(id, url, $event) {
+    $event.stopPropagation();
+    const isControl = $event.target.dataset.controls;
+    if (isControl || !isNumber(id)) {
+      return false;
+    }
+    this.router.navigate([...url.split('/'), id]);
+  }
+
 }

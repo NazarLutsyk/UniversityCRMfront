@@ -104,7 +104,8 @@ export class SingleApplicationComponent implements OnInit {
       sources: this.applicationSources,
       date: this.application.date,
       wantPractice: this.application.wantPractice,
-      certificate: this.application.certificate
+      certificate: this.application.certificate,
+      leftToPay: this.application.leftToPay
     };
     this.applicationService.update(this.application.id, applicationToUpdate).subscribe(updated => {
       this.loadApplication(updated.id);
@@ -125,10 +126,13 @@ export class SingleApplicationComponent implements OnInit {
     const paymentFormValue: Payment = <Payment>paymentForm.form.value;
     const payment: Payment = <Payment>{
       number: paymentFormValue.number,
-      date: paymentFormValue.date,
-      amount: paymentFormValue.amount,
+      expectedDate: paymentFormValue.expectedDate,
+      amount: paymentFormValue.amount ? paymentFormValue.amount : 0,
       applicationId: this.application.id,
     };
+    if (paymentFormValue.paymentDate) {
+      payment.paymentDate = paymentFormValue.paymentDate;
+    }
     this.paymentService.create(payment).subscribe((paymentResponse) => {
       this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe();
       paymentForm.resetForm();

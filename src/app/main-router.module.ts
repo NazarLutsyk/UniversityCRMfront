@@ -31,6 +31,7 @@ import {CompetitorsComponent} from './core/competitors/competitors.component';
 import {SingleCompetitorComponent} from './core/competitors/single-competitor/single-competitor.component';
 import {CompetitorApplicationsComponent} from './core/competitor-applications/competitor-applications.component';
 import {SingleCompetitorApplicationComponent} from './core/competitor-applications/single-competitor-application/single-competitor-application.component';
+import {PaymentsComponent} from './core/payments/payments.component';
 
 const routes: Routes = [
   {
@@ -162,6 +163,15 @@ const routes: Routes = [
         {path: '', component: CompetitorApplicationsComponent},
         {path: ':id', component: SingleCompetitorApplicationComponent, data: {breadcrumb: 'Application'}},
       ]
+  },
+  {
+    path: 'payments',
+    component: PaymentsComponent,
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {
+      breadcrumb: 'Payments',
+      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
+    }
   },
 ];
 

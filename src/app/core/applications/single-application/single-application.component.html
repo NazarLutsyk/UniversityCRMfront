@@ -77,9 +77,8 @@
         <input
           type="number"
           name="leftToPay"
-          [value]="application.leftToPay"
+          [(ngModel)]="application.leftToPay"
           matInput
-          disabled
         >
       </mat-form-field>
       <mat-form-field>
@@ -147,12 +146,13 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Date</mat-label>
+          <mat-label>Expected date</mat-label>
           <input
             type="text"
             matInput
             ngModel
-            name="date"
+            required
+            name="expectedDate"
             [matDatepicker]="paymentPickerStartDate"
             placeholder="Choose a date"
             readonly
@@ -162,13 +162,27 @@
           <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
+          <mat-label>Payment date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="paymentDate"
+            [matDatepicker]="paymentDate"
+            placeholder="Choose a date"
+            readonly
+            (click)="paymentDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="paymentDate"></mat-datepicker-toggle>
+          <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
           <mat-label>Amount</mat-label>
           <input
             type="number"
             name="amount"
             ngModel
             matInput
-            required
             (input)="validateAmount($event)"
           >
         </mat-form-field>
@@ -188,6 +202,7 @@
       #paymentTable
       [byApplicationId]="application.id"
       (onPaymentRemove)="loadApplication(application.id)"
+      (onPaymentUpdate)="loadApplication(application.id)"
     ></app-payments-table>
   </div>
   <div class="application-groups-block">

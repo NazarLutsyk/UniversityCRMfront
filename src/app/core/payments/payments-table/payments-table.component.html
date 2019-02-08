@@ -21,11 +21,17 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
-    <td (click)="loadSorted('number',headerBlock,$event)" data-sort="">
+    <td *ngIf="!byApplicationId" (click)="loadSorted('application.client.name',headerBlock,$event)" data-sort="">
+      Client
+    </td>
+    <td class="small-td" (click)="loadSorted('number',headerBlock,$event)" data-sort="">
       Number
     </td>
-    <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+    <td class="small-td" (click)="loadSorted('expectedDate',headerBlock,$event)" data-sort="">
+      Expected Date
+    </td>
+    <td class="small-td" (click)="loadSorted('paymentDate',headerBlock,$event)" data-sort="">
+      Payment Date
     </td>
     <td (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
       Amount
@@ -38,7 +44,20 @@
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
-    <td>
+    <td *ngIf="!byApplicationId">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="client.fullname"
+          data-key="client.fullname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -51,13 +70,26 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
           type="text"
-          name="date"
-          data-key="date"
+          name="expectedDate"
+          data-key="expectedDate"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="paymentDate"
+          data-key="paymentDate"
           ngModel
           matInput
           disabled
@@ -77,9 +109,7 @@
         >
       </mat-form-field>
     </td>
-    <td
-      *ngIf="!(byCourseId >= 0)"
-    >
+    <td>
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -96,17 +126,29 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let payment of payments" class="data-row">
-    <td>
+  <tr *ngFor="let payment of payments"
+      class="data-row"
+      [ngClass]="{
+        'success-payment': checkFailedPayment(payment) === true,
+        'failed-payment': checkFailedPayment(payment) === false
+      }"
+      (click)="open(payment, $event)">
+    <td *ngIf="!byApplicationId" class="link" (click)="openLink(payment.application.id, 'applications', $event)">
+      {{payment.application && payment.application.client ? payment.application.client.name + ' ' + payment.application.client.surname : ''}}
+    </td>
+    <td class="small-td">
       {{payment.number}}
     </td>
-    <td>
-      {{payment.date | date : 'yyy/MM/dd'}}
+    <td class="small-td">
+      {{payment.expectedDate | date : 'yyy/MM/dd'}}
+    </td>
+    <td class="small-td">
+      {{payment.paymentDate | date : 'yyy/MM/dd'}}
     </td>
     <td>
       {{payment.amount}}
     </td>
-    <td class="link" (click)="editFiles(payment)">
+    <td class="link" (click)="editFiles(payment, $event)">
       {{payment.files ? payment.files.length : 0}} payment files
     </td>
     <td class="controls-col" data-controls="true">

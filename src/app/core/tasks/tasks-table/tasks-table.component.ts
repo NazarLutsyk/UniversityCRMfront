@@ -125,7 +125,6 @@ export class TasksTableComponent implements OnInit {
         task.date = updated.date;
       }
     });
-
   }
 
 

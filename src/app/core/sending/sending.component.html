@@ -4,7 +4,7 @@
       FILTER
     </mat-panel-title>
   </mat-expansion-panel-header>
-  <form (ngSubmit)="loadClients(form)" #form="ngForm">
+  <form (ngSubmit)="loadClients()" #form="ngForm">
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input
@@ -51,6 +51,7 @@
       </mat-select>
     </mat-form-field>
     <mat-checkbox name="freebie" [(ngModel)]="filter.freebie">Freebie</mat-checkbox>
+    <mat-checkbox name="debtor" [(ngModel)]="filter.debtor">Debtors</mat-checkbox>
     <button mat-flat-button>Find</button>
   </form>
 </mat-expansion-panel>

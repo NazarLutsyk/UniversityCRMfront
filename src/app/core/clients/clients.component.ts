@@ -7,7 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
 import {isNumber} from 'util';
 import {AuthService} from '../../services/auth.service';
-import {MatExpansionPanel} from '@angular/material';
+import {MatDialog, MatExpansionPanel} from '@angular/material';
+import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
 
 @Component({
   selector: 'app-clients',
@@ -48,7 +49,8 @@ export class ClientsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
-    public authService: AuthService
+    public authService: AuthService,
+    private createClientDialog: MatDialog
   ) {
   }
 
@@ -120,7 +122,8 @@ export class ClientsComponent implements OnInit {
       q: filterToSend,
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
-      offset: (this.pageIndex * this.pageSize) - this.pageSize
+      offset: (this.pageIndex * this.pageSize) - this.pageSize,
+      include: ['social']
     });
   }
 
@@ -139,11 +142,37 @@ export class ClientsComponent implements OnInit {
     if (this.filter.email) {
       res.email = {$like: `${this.filter.email}`};
     }
+    if (this.filter['social.url']) {
+      res.social = {url: `${this.filter['social.url']}`};
+    }
 
     return res;
   }
 
   createClient(clientForm: NgForm) {
+    const client: Client = <Client>clientForm.form.value;
+
+    this.clientsService.exists(client).subscribe((alreadyExistsClients) => {
+      if (alreadyExistsClients && alreadyExistsClients.length > 0) {
+        const createDialog = this.createClientDialog.open(ClientMatchDialogComponent, {
+          disableClose: true,
+          minWidth: '40%',
+          data: {
+            clients: alreadyExistsClients
+          }
+        });
+        createDialog.afterClosed().subscribe((reallyCreate) => {
+          if (reallyCreate) {
+            this.sendCreateClient(clientForm);
+          }
+        });
+      } else {
+        this.sendCreateClient(clientForm);
+      }
+    });
+  }
+
+  private sendCreateClient(clientForm: NgForm) {
     const client: Client = <Client>clientForm.form.value;
     this.clientsService.create(client).subscribe((clientResponse) => {
       if (this.passportFilesToUpload && this.passportFilesToUpload.length > 0) {
@@ -185,5 +214,4 @@ export class ClientsComponent implements OnInit {
   passportChange($event) {
     this.passportFilesToUpload = (<any>$event.target).files;
   }
-
 }

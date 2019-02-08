@@ -28,6 +28,8 @@ import {UpdateCommentComponent} from './comments/update-comment/update-comment.c
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CompetitorsModule} from './competitors/competitors.module';
 import {CompetitorApplicationsModule} from './competitor-applications/competitor-applications.module';
+import {ClientMatchDialogComponent} from './clients/client-match-dialog/client-match-dialog.component';
+import {PaymentUpdateComponent} from './payments/payment-update/payment-update.component';
 
 @NgModule({
   imports: [
@@ -64,7 +66,9 @@ import {CompetitorApplicationsModule} from './competitor-applications/competitor
     UpdateSocialComponent,
     UpdateTaskComponent,
     UpdateAudioCallComponent,
-    UpdateCommentComponent
+    UpdateCommentComponent,
+    ClientMatchDialogComponent,
+    PaymentUpdateComponent
   ],
   exports: [
     BreadcrumbsComponent,

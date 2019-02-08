@@ -42,9 +42,6 @@
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
       Date
     </td>
-    <td class="small-td" (click)="loadSorted('discount',headerBlock,$event)" data-sort="">
-      Discount
-    </td>
     <td class="small-td" (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
       With discount
     </td>
@@ -126,19 +123,6 @@
           ngModel
           matInput
           disabled
-        >
-      </mat-form-field>
-    </td>
-    <td class="small-td">
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="number"
-          name="discount"
-          data-key="discount"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
         >
       </mat-form-field>
     </td>
@@ -231,9 +215,6 @@
     </ng-container>
     <td class="small-td">
       {{application.date | date : 'yyy/MM/dd'}}
-    </td>
-    <td class="small-td">
-      {{application.discount}}%
     </td>
     <td class="small-td">
       {{application.resultPrice}}

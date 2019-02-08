@@ -1,0 +1,27 @@
+<h2 mat-dialog-title
+    class="dialog-header">FOUNDED CLIENTS</h2>
+
+<mat-dialog-content>
+  <div class="client-tile" *ngFor="let client of clients">
+    <div class="client-tile-data">{{client.name}} {{client.surname}}</div>
+    <div class="client-tile-data">{{client.email}}</div>
+    <div class="client-tile-data">{{client.phone}}</div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <div class="dialog-buttons">
+    <button mat-button
+            mat-flat-button
+            type="button"
+            (click)="close(false)">
+      Close
+    </button>
+    <button mat-button
+            mat-flat-button
+            type="button"
+            (click)="close(true)">
+      Create
+    </button>
+  </div>
+</mat-dialog-actions>

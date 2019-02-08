@@ -17,6 +17,7 @@ import {ApplicationsModule} from '../applications/applications.module';
 import {AudioCallsModule} from '../audio-calls/audio-calls.module';
 import {UfileModule} from '../ufile/ufile.module';
 import {SocialModule} from '../social/social.module';
+import { ClientMatchDialogComponent } from './client-match-dialog/client-match-dialog.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {SocialModule} from '../social/social.module';
   ],
   declarations: [
     ClientsComponent,
-    SingleClientComponent
+    SingleClientComponent,
+    ClientMatchDialogComponent
   ]
 })
 export class ClientsModule {

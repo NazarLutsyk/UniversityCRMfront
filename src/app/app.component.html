@@ -37,6 +37,14 @@
       >
         <span>EApps</span>
       </div>
+      <div
+        mat-menu-item
+        routerLink="/payments"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Payments</span>
+      </div>
     </mat-menu>
     <div mat-icon-button
          [matMenuTriggerFor]="appMenu"

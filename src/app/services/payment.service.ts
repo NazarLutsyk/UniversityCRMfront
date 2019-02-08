@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
@@ -51,5 +51,9 @@ export class PaymentService {
       formData,
       {headers: headers}
     );
+  }
+
+  update(id: number, payment: Payment): Observable<Payment> {
+    return this.http.put<Payment>(`${this.paymentsURL}/${id}`, payment);
   }
 }

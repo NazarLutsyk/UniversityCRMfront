@@ -1,0 +1,7 @@
+.success-payment {
+  background: rgba(64, 160, 79, 0.3);
+}
+
+.failed-payment {
+  background: rgba(219, 38, 38, 0.3);
+}

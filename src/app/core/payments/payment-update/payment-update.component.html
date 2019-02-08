@@ -1,0 +1,75 @@
+<h2 mat-dialog-title
+    class="dialog-header">UPDATE AUDIO CALL</h2>
+
+<mat-dialog-content>
+  <form #form="ngForm" (ngSubmit)="updatePayment()">
+    <mat-form-field>
+      <mat-label>Number</mat-label>
+      <input
+        type="text"
+        name="number"
+        [(ngModel)]="payment.number"
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Expected date</mat-label>
+      <input
+        type="text"
+        matInput
+        [(ngModel)]="payment.expectedDate"
+        required
+        name="expectedDate"
+        [matDatepicker]="paymentPickerStartDate"
+        placeholder="Choose a date"
+        readonly
+        (click)="paymentPickerStartDate.open()"
+      >
+      <mat-datepicker-toggle matSuffix [for]="paymentPickerStartDate"></mat-datepicker-toggle>
+      <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Payment date</mat-label>
+      <input
+        type="text"
+        matInput
+        [(ngModel)]="payment.paymentDate"
+        name="paymentDate"
+        [matDatepicker]="paymentDate"
+        placeholder="Choose a date"
+        readonly
+        (click)="paymentDate.open()"
+      >
+      <mat-datepicker-toggle matSuffix [for]="paymentDate"></mat-datepicker-toggle>
+      <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input
+        type="number"
+        name="amount"
+        [(ngModel)]="payment.amount"
+        matInput
+      >
+    </mat-form-field>
+    <div class="form-buttons">
+      <button mat-button
+              mat-flat-button
+              [disabled]="form.invalid"
+              type="submit">
+        Update
+      </button>
+      <button mat-button
+              mat-flat-button
+              class="dialog-close-button"
+              type="button"
+              [mat-dialog-close]="true">
+        Close
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+</mat-dialog-actions>
