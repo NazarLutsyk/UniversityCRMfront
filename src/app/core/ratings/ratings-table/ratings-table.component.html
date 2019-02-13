@@ -1,0 +1,70 @@
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="12">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      of
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td>
+      Client
+    </td>
+    <td>
+      Rating
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="fullname"
+          data-key="fullname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="rating"
+          data-key="rating"
+          ngModel
+          disabled
+          matInput
+        >
+      </mat-form-field>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let rating of ratings" (click)="open(rating.clientId, 'ratings/info',$event)" class="data-row">
+    <td>
+      {{rating.fullname}}
+    </td>
+    <td>
+      {{rating.visited}} / {{rating.full}}
+    </td>
+  </tr>
+  </tbody>
+</table>

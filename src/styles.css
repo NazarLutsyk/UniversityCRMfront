@@ -198,3 +198,13 @@ input[type="file"] {
 snack-bar-container{
   background: #560101!important;
 }
+
+
+.mat-menu-panel, .cdk-overlay-pane{
+  position: absolute;
+  top: 65px;
+}
+
+.cdk-overlay-backdrop {
+  transition: opacity .1s cubic-bezier(.25,.8,.25,1)!important;
+}

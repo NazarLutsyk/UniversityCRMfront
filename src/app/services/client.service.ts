@@ -60,4 +60,8 @@ export class ClientService {
   exists(client: Client): Observable<Client[]> {
     return this.http.post<Client[]>(this.clientsURL + '/exists', client);
   }
+
+  getClientByIdWithLessons(id) {
+    return this.http.get<Client>(`${this.clientsURL}/${id}/lessons`);
+  }
 }

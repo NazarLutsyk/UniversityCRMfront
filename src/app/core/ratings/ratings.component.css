@@ -1,0 +1,23 @@
+.rating-tile {
+  width: 20%;
+  padding: 15px;
+  background: white;
+  margin: 15px 15px;
+  text-align: center;
+  flex-grow: 1;
+  transition: 1s;
+  border-radius: 5px;
+}
+
+.ratings-wrapper {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.rating-tile p {
+  font-size: 18px;
+  font-weight: 500;
+}

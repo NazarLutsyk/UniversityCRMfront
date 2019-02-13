@@ -1,5 +1,5 @@
 <h2 mat-dialog-title
-    class="dialog-header">UPDATE AUDIO CALL</h2>
+    class="dialog-header">UPDATE PAYMENT</h2>
 
 <mat-dialog-content>
   <form #form="ngForm" (ngSubmit)="updatePayment()">
@@ -50,6 +50,15 @@
         type="number"
         name="amount"
         [(ngModel)]="payment.amount"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Expected Amount</mat-label>
+      <input
+        type="number"
+        name="expectedAmount"
+        [(ngModel)]="payment.expectedAmount"
         matInput
       >
     </mat-form-field>

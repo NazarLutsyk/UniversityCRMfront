@@ -8,6 +8,7 @@ export class Payment {
     public expectedDate: string = '',
     public paymentDate: string = '',
     public amount: number = 0,
+    public expectedAmount: number = 0,
     public application: Application = null,
     public applicationId: number = null,
     public files: Ufile[] = []

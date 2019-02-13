@@ -21,8 +21,15 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
-    <td *ngIf="!byApplicationId" (click)="loadSorted('application.client.name',headerBlock,$event)" data-sort="">
+    <td *ngIf="!byApplicationId"
+        class="small-td"
+        (click)="loadSorted('application.client.name',headerBlock,$event)" data-sort="">
       Client
+    </td>
+    <td *ngIf="!byApplicationId"
+        class="small-td"
+        (click)="loadSorted('application.course.name',headerBlock,$event)" data-sort="">
+      Course
     </td>
     <td class="small-td" (click)="loadSorted('number',headerBlock,$event)" data-sort="">
       Number
@@ -30,13 +37,16 @@
     <td class="small-td" (click)="loadSorted('expectedDate',headerBlock,$event)" data-sort="">
       Expected Date
     </td>
+    <td class="small-td" (click)="loadSorted('expectedAmount',headerBlock,$event)" data-sort="">
+      Expected Amount
+    </td>
     <td class="small-td" (click)="loadSorted('paymentDate',headerBlock,$event)" data-sort="">
       Payment Date
     </td>
-    <td (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
+    <td class="small-td" (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
       Amount
     </td>
-    <td>
+    <td class="small-td">
       Ufile
     </td>
     <td class="controls-col">
@@ -44,13 +54,26 @@
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
-    <td *ngIf="!byApplicationId">
+    <td *ngIf="!byApplicationId" class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
           type="text"
           name="client.fullname"
           data-key="client.fullname"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td *ngIf="!byApplicationId" class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="course.name"
+          data-key="course.name"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -87,6 +110,19 @@
       <mat-form-field>
         <mat-label></mat-label>
         <input
+          type="number"
+          name="expectedAmount"
+          data-key="expectedAmount"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="small-td">
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
           type="text"
           name="paymentDate"
           data-key="paymentDate"
@@ -96,7 +132,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -109,7 +145,7 @@
         >
       </mat-form-field>
     </td>
-    <td>
+    <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
         <input
@@ -133,8 +169,13 @@
         'failed-payment': checkFailedPayment(payment) === false
       }"
       (click)="open(payment, $event)">
-    <td *ngIf="!byApplicationId" class="link" (click)="openLink(payment.application.id, 'applications', $event)">
+    <td *ngIf="!byApplicationId" class="link small-td"
+        (click)="openLink(payment.application.clientId, 'clients', $event)">
       {{payment.application && payment.application.client ? payment.application.client.name + ' ' + payment.application.client.surname : ''}}
+    </td>
+    <td *ngIf="!byApplicationId" class="link small-td"
+        (click)="openLink(payment.application.courseId, 'courses', $event)">
+      {{payment.application && payment.application.course ? payment.application.course.name : ''}}
     </td>
     <td class="small-td">
       {{payment.number}}
@@ -143,12 +184,15 @@
       {{payment.expectedDate | date : 'yyy/MM/dd'}}
     </td>
     <td class="small-td">
+      {{payment.expectedAmount}}
+    </td>
+    <td class="small-td">
       {{payment.paymentDate | date : 'yyy/MM/dd'}}
     </td>
-    <td>
+    <td class="small-td">
       {{payment.amount}}
     </td>
-    <td class="link" (click)="editFiles(payment, $event)">
+    <td class="link small-td" (click)="editFiles(payment, $event)">
       {{payment.files ? payment.files.length : 0}} payment files
     </td>
     <td class="controls-col" data-controls="true">

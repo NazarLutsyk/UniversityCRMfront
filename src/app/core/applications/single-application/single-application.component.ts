@@ -128,6 +128,7 @@ export class SingleApplicationComponent implements OnInit {
       number: paymentFormValue.number,
       expectedDate: paymentFormValue.expectedDate,
       amount: paymentFormValue.amount ? paymentFormValue.amount : 0,
+      expectedAmount: paymentFormValue.expectedAmount ? paymentFormValue.expectedAmount : 0,
       applicationId: this.application.id,
     };
     if (paymentFormValue.paymentDate) {

@@ -32,6 +32,9 @@ import {SingleCompetitorComponent} from './core/competitors/single-competitor/si
 import {CompetitorApplicationsComponent} from './core/competitor-applications/competitor-applications.component';
 import {SingleCompetitorApplicationComponent} from './core/competitor-applications/single-competitor-application/single-competitor-application.component';
 import {PaymentsComponent} from './core/payments/payments.component';
+import {RatingsComponent} from './core/ratings/ratings.component';
+import {SingleRatingComponent} from './core/ratings/single-rating/single-rating.component';
+import {SingleRatingInfoComponent} from './core/ratings/single-rating-info/single-rating-info.component';
 
 const routes: Routes = [
   {
@@ -171,7 +174,18 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Payments',
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
-    }
+    },
+  },
+  {
+    path: 'ratings',
+    canActivate: [AuthenticatedGuard],
+    data: {breadcrumb: 'Ratings'},
+    children:
+      [
+        {path: '', component: RatingsComponent},
+        {path: ':id', component: SingleRatingComponent, data: {breadcrumb: 'Rating'}},
+        {path: 'info/:id', component: SingleRatingInfoComponent, data: {breadcrumb: 'Info'}},
+      ]
   },
 ];
 

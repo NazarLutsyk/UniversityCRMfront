@@ -30,6 +30,7 @@ import {CompetitorsModule} from './competitors/competitors.module';
 import {CompetitorApplicationsModule} from './competitor-applications/competitor-applications.module';
 import {ClientMatchDialogComponent} from './clients/client-match-dialog/client-match-dialog.component';
 import {PaymentUpdateComponent} from './payments/payment-update/payment-update.component';
+import {RatingsModule} from './ratings/ratings.module';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import {PaymentUpdateComponent} from './payments/payment-update/payment-update.c
     MatSnackBarModule,
     MatButtonModule,
     CompetitorsModule,
-    CompetitorApplicationsModule
+    CompetitorApplicationsModule,
+    RatingsModule
   ],
   declarations: [
     HomeComponent,

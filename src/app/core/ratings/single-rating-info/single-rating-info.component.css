@@ -1,0 +1,39 @@
+.main-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.lessons-group {
+  background: white;
+  margin: 15px;
+  width: 25%;
+  flex-grow: 1;
+  padding: 0 15px 15px 15px;
+}
+
+.lessons-group h3 {
+  text-align: center;
+}
+
+.lesson-tile {
+  padding: 10px;
+  border-bottom: 1px solid #dadada;
+}
+
+.comments-wrapper {
+  background: white;
+  margin: 0 15px;
+  padding: 18.720px 15px 15px 15px;
+}
+
+.comments-wrapper h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.comment {
+  padding: 10px;
+  border-bottom: 1px solid #dadada;
+}

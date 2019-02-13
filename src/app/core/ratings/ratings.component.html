@@ -1,0 +1,8 @@
+<div class="ratings-wrapper">
+  <div class="rating-tile"
+       *ngFor="let c of courses"
+       (click)="openRating(c.id)"
+       [ngStyle]="getTileStyle()">
+    <p>{{c.name}}</p>
+  </div>
+</div>

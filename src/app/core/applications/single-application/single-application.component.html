@@ -90,7 +90,8 @@
           matInput
         >
       </mat-form-field>
-      <mat-checkbox [(ngModel)]="application.hasPractice" name="hasPractice" [checked]="application.hasPractice" disabled>
+      <mat-checkbox [(ngModel)]="application.hasPractice" name="hasPractice" [checked]="application.hasPractice"
+                    disabled>
         Has practice
       </mat-checkbox>
       <mat-checkbox [(ngModel)]="application.wantPractice" name="wantPractice" [checked]="application.wantPractice">
@@ -160,6 +161,17 @@
           >
           <mat-datepicker-toggle matSuffix [for]="paymentPickerStartDate"></mat-datepicker-toggle>
           <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Expected Amount</mat-label>
+          <input
+            type="number"
+            name="expectedAmount"
+            ngModel
+            required
+            matInput
+            (input)="validateAmount($event)"
+          >
         </mat-form-field>
         <mat-form-field>
           <mat-label>Payment date</mat-label>

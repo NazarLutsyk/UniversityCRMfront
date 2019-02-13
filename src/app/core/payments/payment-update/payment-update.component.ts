@@ -30,6 +30,7 @@ export class PaymentUpdateComponent implements OnInit {
       expectedDate: this.payment.expectedDate,
       paymentDate: this.payment.paymentDate,
       amount: this.payment.amount ? this.payment.amount : 0,
+      expectedAmount: this.payment.expectedAmount ? this.payment.expectedAmount : 0,
     };
     this.paymentService.update(
       this.payment.id,

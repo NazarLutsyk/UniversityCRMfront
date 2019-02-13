@@ -7,7 +7,7 @@ import {MatDialog} from '@angular/material';
 import {UfileComponent} from '../../ufile/ufile.component';
 import {UfileTypes} from '../../ufile/ufile-types';
 import {PaymentUpdateComponent} from '../payment-update/payment-update.component';
-import {isNumber} from "util";
+import {isNumber} from 'util';
 import {Router} from '@angular/router';
 
 @Component({
@@ -83,7 +83,11 @@ export class PaymentsTableComponent implements OnInit {
       sort: this.sort ? this.sort : 'expectedDate ASC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: [this.byApplicationId ? '' : 'application>client' , 'file']
+      include: [
+        this.byApplicationId ? '' : 'application>client',
+        this.byApplicationId ? '' : 'application>course',
+        'file'
+      ],
     });
   }
 
@@ -95,8 +99,17 @@ export class PaymentsTableComponent implements OnInit {
     if (this.filter.amount) {
       res.amount = this.filter.amount;
     }
+    if (this.filter.expectedAmount) {
+      res.expectedAmount = this.filter.expectedAmount;
+    }
     if (this.byApplicationId) {
       res.applicationId = this.byApplicationId;
+    }
+    if (this.filter['client.fullname']) {
+      res.client = {fullname: `${this.filter['client.fullname']}`};
+    }
+    if (this.filter['course.name']) {
+      res.course = {name: `${this.filter['course.name']}`};
     }
 
     return res;
@@ -149,6 +162,7 @@ export class PaymentsTableComponent implements OnInit {
         payment.expectedDate = updated.expectedDate;
         payment.paymentDate = updated.paymentDate;
         payment.amount = updated.amount;
+        payment.expectedAmount = updated.expectedAmount;
         payment.number = updated.number;
         this.onPaymentUpdate.emit();
       }

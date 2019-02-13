@@ -52,4 +52,5 @@ export class AppComponent implements OnInit {
       this.highlightNotificationButton = true;
     }
   }
+
 }

@@ -47,4 +47,9 @@ export class StatisticService {
     const urlToRequest = addParams(`${this.statisticURL}/competitor-application`, query);
     return this.http.get<any>(urlToRequest);
   }
+
+  getPaymentsStatistic(query) {
+    const urlToRequest = addParams(`${this.statisticURL}/payments-statistic`, query);
+    return this.http.get<any>(urlToRequest);
+  }
 }

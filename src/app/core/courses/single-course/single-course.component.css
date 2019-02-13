@@ -10,23 +10,23 @@ mat-list {
   padding-top: 0;
 }
 
-.left-menu, .right-menu, .course-groups {
+.left-menu, .right-menu, .course-groups, .payment-statistic {
   background: white;
   padding: 15px 25px;
 }
 
 .left-menu {
-  width: 30%;
-  margin-left: 15px;
+  width: inherit;
   border-left: 3px solid green;
   border-top: 3px solid green;
+  margin: 0 15px;
 }
 
 .right-menu {
-  width: 60%;
-  margin-right: 15px;
+  width: inherit;
   border-left: 3px solid #f44336;
   border-top: 3px solid #f44336;
+  margin: 0 15px;
 }
 
 .course-groups {
@@ -34,6 +34,13 @@ mat-list {
   width: inherit;
   border-left: 3px solid #3f51b5;
   border-top: 3px solid #3f51b5;
+}
+
+.payment-statistic{
+  margin: 15px;
+  width: inherit;
+  border-left: 3px solid #b52a92;
+  border-top: 3px solid #b52a92;
 }
 
 .left-menu > form button {

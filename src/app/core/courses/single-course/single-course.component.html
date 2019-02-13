@@ -35,8 +35,11 @@
       <button mat-flat-button *ngIf="canUpdateCourse" [disabled]="!form.valid">Update</button>
     </form>
   </div>
+  <div class="course-groups" *ngIf="course.id">
+    <h3>GROUPS</h3>
+    <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>
+  </div>
   <div class="right-menu">
-
     <h3>APPLICATIONS STATISTIC</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -78,13 +81,13 @@
         <div class="stat-form-buttons">
           <button
             mat-flat-button
-            (click)="loadStatistic(statForm, false)"
+            (click)="loadApplicationStatistic(statForm, false)"
           >
             Find
           </button>
           <button
             mat-flat-button
-            (click)="loadStatistic(statForm, true)"
+            (click)="loadApplicationStatistic(statForm, true)"
           >
             Reset
           </button>
@@ -93,24 +96,89 @@
     </mat-expansion-panel>
     <div>
       <canvas
-        *ngIf="chartDatasets.length > 0"
+        *ngIf="appChartDatasets.length > 0"
         baseChart
         chartType="bar"
-        [labels]="chartLabels"
-        [datasets]="chartDatasets"
+        [labels]="appChartLabels"
+        [datasets]="appChartDatasets"
         [legend]="false"
-        [colors]="chartColors"
-        [options]="chartOptions"
+        [colors]="appChartColors"
+        [options]="appChartOptions"
         width="100%"
-        height="48%"
+        height="25%"
       >
       </canvas>
     </div>
-
-
   </div>
-  <div class="course-groups" *ngIf="course.id">
-    <h3>GROUPS</h3>
-    <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>
+  <div class="payment-statistic">
+    <h3>PAYMENT STATISTIC</h3>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          FILTER
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #paymentStatForm="ngForm">
+        <mat-form-field>
+          <mat-label>Start date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="startDate"
+            [matDatepicker]="paymentPickerStartDate"
+            placeholder="Choose a date"
+            readonly
+            (click)="paymentPickerStartDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="paymentPickerStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>End date</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="endDate"
+            [matDatepicker]="paymentPickerEndDate"
+            placeholder="Choose a date"
+            readonly
+            (click)="paymentPickerEndDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="paymentPickerEndDate"></mat-datepicker-toggle>
+          <mat-datepicker #paymentPickerEndDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="stat-form-buttons">
+          <button
+            mat-flat-button
+            (click)="loadPaymentStatistic(paymentStatForm, false)"
+          >
+            Find
+          </button>
+          <button
+            mat-flat-button
+            (click)="loadPaymentStatistic(paymentStatForm, true)"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+    <div>
+      <canvas
+        *ngIf="paymentChartDatasets.length > 0"
+        baseChart
+        chartType="bar"
+        [labels]="paymentChartLabels"
+        [datasets]="paymentChartDatasets"
+        [legend]="false"
+        [colors]="[undefined]"
+        [options]="paymentChartOptions"
+        width="100%"
+        height="25%"
+      >
+      </canvas>
+    </div>
   </div>
 </div>

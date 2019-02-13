@@ -61,4 +61,5 @@ app-notifications {
   border-bottom-left-radius: 50%;
   height: 50px;
   transition: 0.5s;
+  z-index: 1000!important;
 }

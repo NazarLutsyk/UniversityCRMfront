@@ -9,9 +9,16 @@
     <div class="menu-span-wrapper"
          routerLink="/clients"
          routerLinkActive="active-main-menu"
-         *ngIf="authService.getLocalPrincipal()"
+         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
       <span>Clients</span>
+    </div>
+    <div class="menu-span-wrapper"
+         routerLink="/ratings"
+         routerLinkActive="active-main-menu"
+         *ngIf="authService.getLocalPrincipal()"
+    >
+      <span>Ratings</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/tasks"
