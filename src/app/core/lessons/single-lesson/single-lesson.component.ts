@@ -59,12 +59,12 @@ export class SingleLessonComponent implements OnInit {
 
   updateLesson() {
     const lessonToUpdate = {
-      ...this.lesson,
+      topic: this.lesson.topic,
       main: this.lesson.main ? 1 : 0
     };
     this.lessonService.update(this.lesson.id, <any>lessonToUpdate).subscribe(updated => {
       this.loadLesson(updated.id).subscribe(value => {
-        this.lesson = value;
+        this.lesson = {...value, applications: this.lesson.applications};
       });
     });
   }
