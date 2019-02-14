@@ -3,12 +3,12 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        CREATE
+        СТВОРИТИ
       </mat-panel-title>
     </mat-expansion-panel-header>
     <form (ngSubmit)="createCourse(form)" #form="ngForm">
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>Назва</mat-label>
         <input
           type="text"
           name="name"
@@ -18,7 +18,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Price</mat-label>
+        <mat-label>Ціна</mat-label>
         <input
           type="number"
           name="fullPrice"
@@ -28,7 +28,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Discount</mat-label>
+        <mat-label>Знижка</mat-label>
         <input
           type="number"
           name="discount"
@@ -37,7 +37,7 @@
           (input)="validateDiscount($event)"
         >
       </mat-form-field>
-      <button mat-flat-button [disabled]="!form.valid">Create</button>
+      <button mat-flat-button [disabled]="!form.valid">Створити</button>
     </form>
   </mat-expansion-panel>
 </div>
@@ -59,26 +59,26 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
-      Name
+      Назва
     </td>
     <td (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
-      Price
+      Ціна
     </td>
     <td (click)="loadSorted('discount',headerBlock,$event)" data-sort="">
-      Discount
+      Знижка
     </td>
     <td (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
-      Result
+      Результат
     </td>
     <td *ngIf="canDeleteCourse" class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

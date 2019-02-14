@@ -1,12 +1,12 @@
 <mat-expansion-panel #formpanel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form #form="ngForm" (ngSubmit)="createTask(form)">
     <mat-form-field (click)="selectClient($event)">
-      <mat-label>Client</mat-label>
+      <mat-label>Клієнт</mat-label>
       <input
         type="text"
         name="clientId"
@@ -16,7 +16,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Message</mat-label>
+      <mat-label>Повідомлення</mat-label>
       <input
         type="text"
         name="message"
@@ -26,21 +26,21 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label>Дата</mat-label>
       <input
         type="text"
         matInput
         [(ngModel)]="taskForm.date"
         name="date"
         [matDatepicker]="pickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="pickerStartDate.open()"
       >
       <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 

@@ -1,9 +1,9 @@
 <div class="main-wrapper">
   <div class="left-menu">
-    <h3>UPDATE</h3>
+    <h3>ОНОВИТИ</h3>
     <form #form="ngForm" (ngSubmit)="updateClient()">
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>Ім'я</mat-label>
         <input
           type="text"
           name="name"
@@ -13,7 +13,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Surname</mat-label>
+        <mat-label>Прізвище</mat-label>
         <input
           type="text"
           name="surname"
@@ -23,7 +23,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Phone</mat-label>
+        <mat-label>Телефон</mat-label>
         <input
           type="tel"
           name="phone"
@@ -34,7 +34,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Email</mat-label>
+        <mat-label>Емейл</mat-label>
         <input
           type="email"
           name="email"
@@ -44,22 +44,22 @@
         >
       </mat-form-field>
       <p class="passport-link" (click)="editFiles(client)">
-        {{client.files ? client.files.length : 0}} passport files
+        Паспорти: {{client.files ? client.files.length : 0}}
       </p>
-      <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Update</button>
+      <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
   <div class="client-socials" *ngIf="canSeeSocials">
-    <h3>SOCIALS</h3>
+    <h3>СОЦІАЛКИ</h3>
     <mat-expansion-panel #socialsFormpanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE
+          СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #socialForm="ngForm" (ngSubmit)="createSocial(socialForm)">
         <mat-form-field>
-          <mat-label>URL</mat-label>
+          <mat-label>УРЛ</mat-label>
           <input
             type="text"
             name="url"
@@ -68,7 +68,7 @@
             required
           >
         </mat-form-field>
-        <button mat-flat-button [disabled]="!socialForm.valid">Create</button>
+        <button mat-flat-button [disabled]="!socialForm.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-social-table *ngIf="client.id"
@@ -78,16 +78,16 @@
     </app-social-table>
   </div>
   <div class="client-tasks" *ngIf="canSeeTasks">
-    <h3>TASKS</h3>
+    <h3>ЗАВДАННЯ</h3>
     <mat-expansion-panel #formpanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE
+          СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)">
         <mat-form-field>
-          <mat-label>Message</mat-label>
+          <mat-label>Повідомлення</mat-label>
           <input
             type="text"
             name="message"
@@ -97,7 +97,7 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Date</mat-label>
+          <mat-label>Дата</mat-label>
           <input
             type="text"
             matInput
@@ -105,13 +105,13 @@
             name="date"
             [matDatepicker]="taskPickerDate"
             readonly
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             (click)="taskPickerDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="taskPickerDate"></mat-datepicker-toggle>
           <mat-datepicker #taskPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
-        <button mat-flat-button [disabled]="!taskForm.valid">Create</button>
+        <button mat-flat-button [disabled]="!taskForm.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-tasks-table
@@ -121,16 +121,16 @@
     ></app-tasks-table>
   </div>
   <div class="audio-calls" *ngIf="canSeeAudioCalls">
-    <h3>AUDIO CALLS</h3>
+    <h3>АУДІО ДЗВІНКИ</h3>
     <mat-expansion-panel #audioCallsFormpanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE
+          СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #audioCallForm="ngForm" (ngSubmit)="createAudioCall(audioCallForm)">
         <mat-form-field>
-          <mat-label>Comment</mat-label>
+          <mat-label>Коментар</mat-label>
           <input
             type="text"
             name="comment"
@@ -140,7 +140,7 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Date</mat-label>
+          <mat-label>Дата</mat-label>
           <input
             type="text"
             matInput
@@ -148,13 +148,13 @@
             name="date"
             [matDatepicker]="audioCallDatepicker"
             readonly
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             (click)="audioCallDatepicker.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
           <mat-datepicker #audioCallDatepicker disabled="false"></mat-datepicker>
         </mat-form-field>
-        <label>File</label>
+        <label>Файл</label>
         <input
           type="file"
           name="files"
@@ -162,7 +162,7 @@
           ngModel
           (change)="audioCallFileChange($event)"
         >
-        <button mat-flat-button [disabled]="!audioCallForm.valid">Create</button>
+        <button mat-flat-button [disabled]="!audioCallForm.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-audio-calls-table
@@ -172,16 +172,16 @@
     ></app-audio-calls-table>
   </div>
   <div class="client-comments" *ngIf="canSeeComments">
-    <h3>COMMENTS</h3>
+    <h3>КОМЕНТАРІ</h3>
     <mat-expansion-panel #formpanelComments>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE
+          СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #commentForm="ngForm" (ngSubmit)="createComment(commentForm)">
         <mat-form-field>
-          <mat-label>Text</mat-label>
+          <mat-label>Текст</mat-label>
           <input
             type="text"
             name="text"
@@ -191,21 +191,21 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Date</mat-label>
+          <mat-label>Дата</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="date"
             [matDatepicker]="commentPickerDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="commentPickerDate.open()"
           >
           <mat-datepicker-toggle matSuffix [for]="commentPickerDate"></mat-datepicker-toggle>
           <mat-datepicker #commentPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
-        <button mat-flat-button [disabled]="!commentForm.valid">Create</button>
+        <button mat-flat-button [disabled]="!commentForm.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-comments-table
@@ -215,23 +215,23 @@
     ></app-comments-table>
   </div>
   <div class="client-applications" *ngIf="canSeeApplications">
-    <h3>APPLICATIONS</h3>
+    <h3>ЗАЯВКИ</h3>
     <mat-expansion-panel #formpanelApplications *ngIf="canCreateApplication">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE
+          СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #formApplication="ngForm" (ngSubmit)="createApplication(formApplication)">
         <mat-form-field>
-          <mat-label>Date</mat-label>
+          <mat-label>Дата</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="date"
             [matDatepicker]="applicationPickerDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="applicationPickerDate.open()"
           >
@@ -239,7 +239,7 @@
           <mat-datepicker #applicationPickerDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>City</mat-label>
+          <mat-label>Місто</mat-label>
           <mat-select ngModel name="cityId" required>
             <mat-option *ngFor="let city of cities" [value]="city.id">
               {{city.name}}
@@ -247,7 +247,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Course</mat-label>
+          <mat-label>Курс</mat-label>
           <mat-select ngModel name="courseId" required>
             <mat-option *ngFor="let course of courses" [value]="course.id">
               {{course.name}}
@@ -255,7 +255,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Source</mat-label>
+          <mat-label>Джерело</mat-label>
           <mat-select ngModel name="sources" multiple>
             <mat-option *ngFor="let source of sources" [value]="source.id">
               {{source.name}}
@@ -263,7 +263,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Discount</mat-label>
+          <mat-label>Знижка</mat-label>
           <input
             type="number"
             name="discount"
@@ -272,8 +272,8 @@
             (input)="validateDiscount($event)"
           >
         </mat-form-field>
-        <mat-checkbox ngModel name="wantPractice">Want practice</mat-checkbox>
-        <button mat-flat-button [disabled]="!formApplication.valid">Create</button>
+        <mat-checkbox ngModel name="wantPractice">Хоче практику</mat-checkbox>
+        <button mat-flat-button [disabled]="!formApplication.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-applications-table

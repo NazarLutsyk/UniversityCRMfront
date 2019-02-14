@@ -1,9 +1,9 @@
 <div class="main-wrapper">
   <div class="left-menu">
-    <h3>UPDATE</h3>
+    <h3>ОНОВИТИ</h3>
     <form #form="ngForm" (ngSubmit)="updateCourse()">
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>Назва</mat-label>
         <input
           type="text"
           name="name"
@@ -13,7 +13,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Price</mat-label>
+        <mat-label>Ціна</mat-label>
         <input
           type="number"
           name="fullPrice"
@@ -23,7 +23,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Discount</mat-label>
+        <mat-label>Знижка</mat-label>
         <input
           type="text"
           name="discount"
@@ -32,31 +32,31 @@
           (input)="validateDiscount($event)"
         >
       </mat-form-field>
-      <button mat-flat-button *ngIf="canUpdateCourse" [disabled]="!form.valid">Update</button>
+      <button mat-flat-button *ngIf="canUpdateCourse" [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
   <div class="course-groups" *ngIf="course.id">
-    <h3>GROUPS</h3>
+    <h3>ГРУПИ</h3>
     <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>
   </div>
   <div class="right-menu">
-    <h3>APPLICATIONS STATISTIC</h3>
+    <h3>СТАТИСТИКА ПО ЗАЯВКАХ</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          FILTER
+          ФІЛЬТРАЦІЯ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #statForm="ngForm">
         <mat-form-field>
-          <mat-label>Start date</mat-label>
+          <mat-label>Від</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="startDate"
             [matDatepicker]="pickerStartDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="pickerStartDate.open()"
           >
@@ -64,14 +64,14 @@
           <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>End date</mat-label>
+          <mat-label>До</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="endDate"
             [matDatepicker]="pickerEndDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="pickerEndDate.open()"
           >
@@ -83,13 +83,13 @@
             mat-flat-button
             (click)="loadApplicationStatistic(statForm, false)"
           >
-            Find
+            Знайти
           </button>
           <button
             mat-flat-button
             (click)="loadApplicationStatistic(statForm, true)"
           >
-            Reset
+            Очистити
           </button>
         </div>
       </form>
@@ -111,23 +111,23 @@
     </div>
   </div>
   <div class="payment-statistic">
-    <h3>PAYMENT STATISTIC</h3>
+    <h3>СТАТИСТИКА ПО ПЛАТЕЖАХ</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          FILTER
+          ФІЛЬТРАЦІЯ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #paymentStatForm="ngForm">
         <mat-form-field>
-          <mat-label>Start date</mat-label>
+          <mat-label>Від</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="startDate"
             [matDatepicker]="paymentPickerStartDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="paymentPickerStartDate.open()"
           >
@@ -135,14 +135,14 @@
           <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>End date</mat-label>
+          <mat-label>До</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="endDate"
             [matDatepicker]="paymentPickerEndDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="paymentPickerEndDate.open()"
           >
@@ -154,13 +154,13 @@
             mat-flat-button
             (click)="loadPaymentStatistic(paymentStatForm, false)"
           >
-            Find
+            Знайти
           </button>
           <button
             mat-flat-button
             (click)="loadPaymentStatistic(paymentStatForm, true)"
           >
-            Reset
+            Очистити
           </button>
         </div>
       </form>

@@ -1,19 +1,19 @@
 <mat-expansion-panel #formpanel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form #form="ngForm" (ngSubmit)="createCompetitorApplication(form)">
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label>Дата</mat-label>
       <input
         type="text"
         matInput
         [(ngModel)]="competitorApplicationForm.date"
         name="date"
         [matDatepicker]="pickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="pickerStartDate.open()"
       >
@@ -21,7 +21,7 @@
       <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field (click)="selectClient($event)">
-      <mat-label>Client</mat-label>
+      <mat-label>Клієнт</mat-label>
       <input
         type="text"
         name="clientId"
@@ -31,7 +31,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Competitor</mat-label>
+      <mat-label>Конкурент</mat-label>
       <mat-select [(ngModel)]="competitorApplicationForm.competitorId" name="cityId" required>
         <mat-option *ngFor="let competitor of competitors" [value]="competitor.id">
           {{competitor.name}}
@@ -39,14 +39,14 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Course</mat-label>
+      <mat-label>Курс</mat-label>
       <mat-select [(ngModel)]="competitorApplicationForm.courseId" name="courseId" required>
         <mat-option *ngFor="let course of courses" [value]="course.id">
           {{course.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 

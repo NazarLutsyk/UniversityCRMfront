@@ -1,12 +1,12 @@
 <mat-expansion-panel *ngIf="canCreateGroup">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form (ngSubmit)="createGroup(form)" #form="ngForm">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>Ім'я</mat-label>
       <input
         type="text"
         name="name"
@@ -16,14 +16,14 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Start Date</mat-label>
+      <mat-label>Початкова дата</mat-label>
       <input
         type="text"
         matInput
         ngModel
         name="startDate"
         [matDatepicker]="pickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="pickerStartDate.open()"
       >
@@ -31,7 +31,7 @@
       <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Start Time</mat-label>
+      <mat-label>Початковий час</mat-label>
       <input
         type="time"
         name="startTime"
@@ -41,7 +41,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Course</mat-label>
+      <mat-label>Курс</mat-label>
       <mat-select ngModel name="courseId" required>
         <mat-option *ngFor="let course of courses" [value]="course.id">
           {{course.name}}
@@ -49,7 +49,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>City</mat-label>
+      <mat-label>Місто</mat-label>
       <mat-select ngModel name="cityId" required>
         <mat-option *ngFor="let city of cities" [value]="city.id">
           {{city.name}}
@@ -57,7 +57,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Free practice places</mat-label>
+      <mat-label>Вільні місця на практиці</mat-label>
       <input
         type="number"
         name="freePractice"
@@ -67,7 +67,7 @@
         (input)="validatePractice(freePractice)"
       >
     </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 

@@ -1,10 +1,10 @@
 <h2 mat-dialog-title
-    class="dialog-header">UPDATE SOCIAL</h2>
+    class="dialog-header">ОНОВИТИ СОЦ. МЕРЕЖУ</h2>
 
 <mat-dialog-content>
   <form class="dialog-form" #form='ngForm'>
     <mat-form-field>
-      <mat-label>URL</mat-label>
+      <mat-label>УРЛ</mat-label>
       <input type="text"
              name="url"
              matInput
@@ -17,14 +17,14 @@
               (click)="updateSocial()"
               [disabled]="form.invalid"
               type="submit">
-        Update
+        Оновити
       </button>
       <button mat-button
               mat-flat-button
               class="dialog-close-button"
               type="button"
               [mat-dialog-close]="true">
-        Close
+        Закрити
       </button>
     </div>
   </form>

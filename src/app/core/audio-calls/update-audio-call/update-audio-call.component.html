@@ -1,10 +1,10 @@
 <h2 mat-dialog-title
-    class="dialog-header">UPDATE AUDIO CALL</h2>
+    class="dialog-header">ОНОВИТИ АУДІО ДЗВІНОК</h2>
 
 <mat-dialog-content>
   <form #form="ngForm" (ngSubmit)="updateAudioCall()">
     <mat-form-field>
-      <mat-label>Comment</mat-label>
+      <mat-label>Коментар</mat-label>
       <input
         type="text"
         name="comment"
@@ -14,7 +14,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label>Дата</mat-label>
       <input
         type="text"
         matInput
@@ -22,7 +22,7 @@
         name="date"
         [matDatepicker]="audioCallDatepicker"
         readonly
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         (click)="audioCallDatepicker.open()"
       >
       <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
@@ -33,14 +33,14 @@
               mat-flat-button
               [disabled]="form.invalid"
               type="submit">
-        Update
+        Оновити
       </button>
       <button mat-button
               mat-flat-button
               class="dialog-close-button"
               type="button"
               [mat-dialog-close]="true">
-        Close
+        Закрити
       </button>
     </div>
 

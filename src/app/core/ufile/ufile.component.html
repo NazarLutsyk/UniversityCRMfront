@@ -15,7 +15,7 @@
             (click)="addFiles()"
             [disabled]="!filesToUpload || filesToUpload.length <= 0"
             type="submit">
-      Add
+      Добавити
     </button>
   </div>
   <div class="file-tiles-wrapper" *ngIf="currentFiles && currentFiles.length > 0">
@@ -28,7 +28,7 @@
               *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
               (click)="deleteFile(file)"
               type="button">
-        DELETE
+        Видалити
       </button>
     </div>
   </div>
@@ -40,6 +40,6 @@
           class="dialog-close-button"
           type="button"
           [mat-dialog-close]="true">
-    Close
+    Закрити
   </button>
 </mat-dialog-actions>

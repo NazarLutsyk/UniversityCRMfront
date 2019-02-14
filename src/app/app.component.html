@@ -11,21 +11,21 @@
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
-      <span>Clients</span>
+      <span>Клієнти</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/ratings"
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal()"
     >
-      <span>Ratings</span>
+      <span>Рейтинги</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/tasks"
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
-      <span>Tasks</span>
+      <span>Завдання</span>
     </div>
     <mat-menu #appMenu="matMenu" class="dropdown-menu">
       <div
@@ -34,7 +34,7 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Apps</span>
+        <span>Заявки</span>
       </div>
       <div
         mat-menu-item
@@ -42,7 +42,7 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>EApps</span>
+        <span>Ел. Заявки</span>
       </div>
       <div
         mat-menu-item
@@ -50,28 +50,28 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Payments</span>
+        <span>Платежі</span>
       </div>
     </mat-menu>
     <div mat-icon-button
          [matMenuTriggerFor]="appMenu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
          class="menu-span-wrapper">
-      <span>Applications</span>
+      <span>Заявки</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/groups"
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
-      <span>Groups</span>
+      <span>Групи</span>
     </div>
     <div class="menu-span-wrapper"
          routerLink="/courses"
          routerLinkActive="active-main-menu"
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
     >
-      <span>Courses</span>
+      <span>Курси</span>
     </div>
     <mat-menu #otherMenu="matMenu"
               class="dropdown-menu">
@@ -81,7 +81,7 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Sources</span>
+        <span>Джерела</span>
       </div>
       <div
         mat-menu-item
@@ -89,7 +89,7 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Cities</span>
+        <span>Міста</span>
       </div>
       <div
         mat-menu-item
@@ -97,7 +97,7 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Managers</span>
+        <span>Менеджери</span>
       </div>
       <div
         mat-menu-item
@@ -105,14 +105,14 @@
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Sending</span>
+        <span>Розсилки</span>
       </div>
     </mat-menu>
     <div mat-icon-button
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
          [matMenuTriggerFor]="otherMenu"
          class="menu-span-wrapper">
-      <span>Other</span>
+      <span>Інше</span>
     </div>
 
 
@@ -123,7 +123,7 @@
            routerLinkActive="active-main-menu"
            *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Competitors</span>
+        <span>Конкуренти</span>
       </div>
       <div class="menu-span-wrapper"
            mat-menu-item
@@ -131,14 +131,14 @@
            routerLinkActive="active-main-menu"
            *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
-        <span>Applications</span>
+        <span>Заявки</span>
       </div>
     </mat-menu>
     <div mat-icon-button
          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
          [matMenuTriggerFor]="competitorsMenu"
          class="menu-span-wrapper">
-      <span>Competitors</span>
+      <span>Конкуренти</span>
     </div>
 
 
@@ -147,13 +147,13 @@
          routerLinkActive="active-main-menu"
          *ngIf="!authService.getLocalPrincipal()"
     >
-      <span>Login</span>
+      <span>Увійти</span>
     </div>
     <div class="menu-span-wrapper"
          (click)="logout()"
          *ngIf="authService.getLocalPrincipal()"
     >
-      <span>Logout</span>
+      <span>Вийти</span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

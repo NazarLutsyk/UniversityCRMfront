@@ -1,12 +1,12 @@
 <mat-expansion-panel #formPanel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      FILTER
+      ФІЛЬТРАЦІЯ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form (ngSubmit)="loadClients()" #form="ngForm">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>Ім'я</mat-label>
       <input
         type="text"
         name="name"
@@ -15,7 +15,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Surname</mat-label>
+      <mat-label>Прізвище</mat-label>
       <input
         type="text"
         name="surname"
@@ -24,7 +24,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Phone</mat-label>
+      <mat-label>Телефон</mat-label>
       <input
         type="tel"
         name="phone"
@@ -33,7 +33,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>Емейл</mat-label>
       <input
         type="email"
         name="email"
@@ -42,24 +42,24 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Group</mat-label>
+      <mat-label>Група</mat-label>
       <mat-select [(ngModel)]="filter.group" name="group">
-        <mat-option value="">None</mat-option>
+        <mat-option value="">Пусто</mat-option>
         <mat-option *ngFor="let group of groups" [value]="group.id">
           {{group.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-checkbox name="freebie" [(ngModel)]="filter.freebie">Freebie</mat-checkbox>
-    <mat-checkbox name="debtor" [(ngModel)]="filter.debtor">Debtors</mat-checkbox>
-    <button mat-flat-button>Find</button>
+    <mat-checkbox name="freebie" [(ngModel)]="filter.freebie">Бзплатники(...)</mat-checkbox>
+    <mat-checkbox name="debtor" [(ngModel)]="filter.debtor">Боржники</mat-checkbox>
+    <button mat-flat-button>Знайти</button>
   </form>
 </mat-expansion-panel>
 
 <div class="main-wrapper">
   <div class="filtered-clients">
     <div class="tile-header">
-      <h3>FILTERED</h3>
+      <h3>ВІДФІЛЬТРОВАНІ</h3>
     </div>
 
     <div class="paginator">
@@ -77,7 +77,7 @@
             (blur)="loadPaginated(0, $event)"
           >
         </mat-form-field>
-        of
+        з
         <span>{{countOfPages}}</span>
       </div>
       <mat-checkbox (change)="checkAllClients()"></mat-checkbox>
@@ -96,7 +96,7 @@
     </div>
   </div>
   <div class="to-send-clients">
-    <h3>TO SEND</h3>
+    <h3>ДЛЯ ВІДПРАВЛЕННЯ</h3>
 
     <div class="paginator" style="justify-content: flex-start;">
       <div class="paginator-buttons">
@@ -112,7 +112,7 @@
           (blur)="loadPaginatedSelectedClients(0, $event)"
         >
       </mat-form-field>
-      <span> of {{selectedClientsCountOfPages}}</span>
+      <span> з {{selectedClientsCountOfPages}}</span>
     </div>
 
     <div class="tile-content">
@@ -129,10 +129,10 @@
   </div>
 
   <div class="send-block">
-    <h3>SEND FORM</h3>
+    <h3>ФОРМА ВІДПРАВЛЕННЯ</h3>
     <form #form="ngForm">
       <mat-form-field>
-        <mat-label>Message</mat-label>
+        <mat-label>Повідомлення</mat-label>
         <textarea
           name="message"
           ngModel
@@ -147,12 +147,12 @@
         <button mat-flat-button
                 (click)="sendBySms(text.value)"
                 [disabled]="!form.valid || selectedClients.length === 0 || disablePhoneButton">
-          SMS
+          СМС
         </button>
         <button mat-flat-button
                 (click)="sendByEmail(text.value)"
                 [disabled]="!form.valid || selectedClients.length === 0 || disableEmailButton">
-          EMAIL
+          ЕМЕЙЛ
         </button>
       </div>
     </form>

@@ -1,10 +1,10 @@
 <h2 mat-dialog-title
-    class="dialog-header">UPDATE TASK</h2>
+    class="dialog-header">ОНОВИТИ ЗАВДАННЯ</h2>
 
 <mat-dialog-content>
   <form #form="ngForm" (ngSubmit)="updateTask()">
     <mat-form-field>
-      <mat-label>Message</mat-label>
+      <mat-label>Повідомлення</mat-label>
       <input
         type="text"
         name="message"
@@ -14,14 +14,14 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label>Дата</mat-label>
       <input
         type="text"
         matInput
         [(ngModel)]="task.date"
         name="date"
         [matDatepicker]="pickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="pickerStartDate.open()"
       >
@@ -33,14 +33,14 @@
               mat-flat-button
               [disabled]="form.invalid"
               type="submit">
-        Update
+        Оновити
       </button>
       <button mat-button
               mat-flat-button
               class="dialog-close-button"
               type="button"
               [mat-dialog-close]="true">
-        Close
+        Закрити
       </button>
     </div>
 

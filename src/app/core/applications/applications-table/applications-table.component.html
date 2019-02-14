@@ -15,7 +15,7 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
@@ -26,36 +26,36 @@
       (click)="loadSorted('client.name',headerBlock,$event)"
       data-sort=""
     >
-      Client
+      Клієнт
     </td>
     <td class="small-td" (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
-      City
+      Місто
     </td>
     <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
-      Course
+      Курс
     </td>
     <td
       *ngIf="!(byGroupId >= 0)"
       (click)="loadSorted('group.name',headerBlock,$event)" data-sort="">
-      Group
+      Група
     </td>
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+      Дата
     </td>
     <td class="small-td" (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
-      With discount
+      З знишкою
     </td>
     <td class="small-td" (click)="loadSorted('leftToPay',headerBlock,$event)" data-sort="">
-      Left to pay
+      До оплати
     </td>
     <td class="small-td" (click)="loadSorted('hasPractice',headerBlock,$event)" data-sort="">
-      Has practice(+/-)
+      Має практику(+/-)
     </td>
     <td (click)="loadSorted('certificate',headerBlock,$event)" data-sort="">
-      Certificate
+      Сертифікат
     </td>
     <td *ngIf="canDeleteApplication" class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

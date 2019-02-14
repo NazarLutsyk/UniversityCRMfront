@@ -15,7 +15,7 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
@@ -24,33 +24,33 @@
     <td *ngIf="!byApplicationId"
         class="small-td"
         (click)="loadSorted('application.client.name',headerBlock,$event)" data-sort="">
-      Client
+      Клієнт
     </td>
     <td *ngIf="!byApplicationId"
         class="small-td"
         (click)="loadSorted('application.course.name',headerBlock,$event)" data-sort="">
-      Course
+      Курс
     </td>
     <td class="small-td" (click)="loadSorted('number',headerBlock,$event)" data-sort="">
-      Number
+      Номер
     </td>
     <td class="small-td" (click)="loadSorted('expectedDate',headerBlock,$event)" data-sort="">
-      Expected Date
+      Очікувана дата
     </td>
     <td class="small-td" (click)="loadSorted('expectedAmount',headerBlock,$event)" data-sort="">
-      Expected Amount
+      Очікувана сума
     </td>
     <td class="small-td" (click)="loadSorted('paymentDate',headerBlock,$event)" data-sort="">
-      Payment Date
+      Дата платежа
     </td>
     <td class="small-td" (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
-      Amount
+      Сума
     </td>
     <td class="small-td">
-      Ufile
+      Чек
     </td>
     <td class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
@@ -193,7 +193,7 @@
       {{payment.amount}}
     </td>
     <td class="link small-td" (click)="editFiles(payment, $event)">
-      {{payment.files ? payment.files.length : 0}} payment files
+      Чеки: {{payment.files ? payment.files.length : 0}}
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(payment.id)" data-controls="true"></div>

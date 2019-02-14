@@ -1,9 +1,9 @@
 <div class="main-wrapper">
   <div class="left-menu">
-    <h3>UPDATE</h3>
+    <h3>ОНОВИТИ</h3>
     <form #form="ngForm" (ngSubmit)="updateGroup()">
       <mat-form-field>
-        <mat-label>City</mat-label>
+        <mat-label>Місто</mat-label>
         <input
           type="text"
           name="cityId"
@@ -13,7 +13,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Course</mat-label>
+        <mat-label>Курс</mat-label>
         <input
           type="text"
           name="courseId"
@@ -23,7 +23,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label>Ім'я</mat-label>
         <input
           type="text"
           name="name"
@@ -33,7 +33,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Free practice</mat-label>
+        <mat-label>Вільна практика</mat-label>
         <input
           type="number"
           name="freePractice"
@@ -45,7 +45,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Used practice</mat-label>
+        <mat-label>Використана практика</mat-label>
         <input
           type="number"
           name="usedPractice"
@@ -55,14 +55,14 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Start date</mat-label>
+        <mat-label>Початкова дата</mat-label>
         <input
           type="text"
           matInput
           [(ngModel)]="group.startDate"
           name="startDate"
           [matDatepicker]="pickerStartDate"
-          placeholder="Choose a date"
+          placeholder="Виберіть дату"
           readonly
           (click)="pickerStartDate.open()"
         >
@@ -70,7 +70,7 @@
         <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Start time</mat-label>
+        <mat-label>Початковий час</mat-label>
         <input
           type="time"
           name="startTime"
@@ -79,11 +79,11 @@
           matInput
         >
       </mat-form-field>
-      <button *ngIf="canUpdateGroup" mat-flat-button [disabled]="!form.valid">Update</button>
+      <button *ngIf="canUpdateGroup" mat-flat-button [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
   <div class="right-menu">
-    <h3>JOURNAL STATISTIC</h3>
+    <h3>СТАТИСТИКА ВІДВІДУВАНОСТІ</h3>
     <div>
       <canvas
         *ngIf="chartDatasets.length > 0"
@@ -103,16 +103,16 @@
 
 
   <div class="group-lesson-block">
-    <h3>LESSONS</h3>
+    <h3>ЗАНЯТТЯ</h3>
     <mat-expansion-panel *ngIf="canCreateLesson">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE LESSON
+          СТВОРИТИ ЗАНЯТТЯ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #formLesson="ngForm" (ngSubmit)="createLesson(formLesson)">
         <mat-form-field>
-          <mat-label>Topic</mat-label>
+          <mat-label>Тема</mat-label>
           <input
             type="text"
             name="topic"
@@ -121,8 +121,8 @@
             required
           >
         </mat-form-field>
-        <mat-checkbox ngModel name="main" [value]="false">Main lesson</mat-checkbox>
-        <button mat-flat-button [disabled]="!formLesson.valid">Create</button>
+        <mat-checkbox ngModel name="main" [value]="false">Ключове заняття</mat-checkbox>
+        <button mat-flat-button [disabled]="!formLesson.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-lessons-table
@@ -135,13 +135,13 @@
 
 
   <div class="group-applications overflow-x" *ngIf="group.id">
-    <h3>APPLICATIONS</h3>
+    <h3>ЗАЯВКИ</h3>
     <app-applications-table *ngIf="group.id" [byGroupId]="group.id"
                             [canDeleteApplicationInput]="canDeleteApplication"></app-applications-table>
   </div>
 
   <div class="group-practice overflow-x">
-    <h3>PRACTICE</h3>
+    <h3>ПРАКТИКА</h3>
     <mat-selection-list #practiceList>
       <ng-container *ngFor="let app of applicationsToPractice">
         <mat-list-option [value]="app.id" [selected]="!!app.hasPractice"

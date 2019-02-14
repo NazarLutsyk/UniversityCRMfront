@@ -15,7 +15,7 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
@@ -26,19 +26,19 @@
       (click)="loadSorted('clientFullname',headerBlock,$event)"
       data-sort=""
     >
-      Client
+      Клієнт
     </td>
     <td (click)="loadSorted('comment',headerBlock,$event)" data-sort="">
-      Comment
+      Коментар
     </td>
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+      Дата
     </td>
     <td>
-      File
+      Файл
     </td>
     <td class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
@@ -109,7 +109,7 @@
       {{audioCall.date | date : 'yyyy/MM/dd'}}
     </td>
     <td class="link" (click)="editFiles(audioCall, $event)">
-      {{audioCall.files ? audioCall.files.length : 0}} audio call files
+      Файли: {{audioCall.files ? audioCall.files.length : 0}}
     </td>
     <td class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(audioCall.id)" data-controls="true"></div>

@@ -1,12 +1,12 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form (ngSubmit)="createManager(form)" #form="ngForm">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>Ім'я</mat-label>
       <input
         type="text"
         name="name"
@@ -16,7 +16,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Surname</mat-label>
+      <mat-label>Прізвище</mat-label>
       <input
         type="text"
         name="surname"
@@ -26,7 +26,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Login</mat-label>
+      <mat-label>Логін</mat-label>
       <input
         type="text"
         name="login"
@@ -36,7 +36,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Password</mat-label>
+      <mat-label>Пароль</mat-label>
       <input
         type="text"
         name="password"
@@ -46,31 +46,31 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Role</mat-label>
+      <mat-label>Роль</mat-label>
       <mat-select ngModel name="role" required>
         <mat-option value="BOSS_ROLE">
-          BOSS_ROLE
+          БОСС
         </mat-option>
         <mat-option value="MANAGER_ROLE">
-          MANAGER_ROLE
+          МЕНЕДЖЕР
         </mat-option>
         <mat-option value="TEACHER_ROLE">
-          TEACHER_ROLE
+          ВИКЛАДАЧ
         </mat-option>
         <mat-option value="REVIEWER_ROLE">
-          REVIEWER_ROLE
+          ХР
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Cities</mat-label>
+      <mat-label>Міста</mat-label>
       <mat-select ngModel name="cities" required multiple>
         <mat-option *ngFor="let city of cities" [value]="city.id">
           {{city.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 

@@ -15,26 +15,26 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
-      Name
+      Ім'я
     </td>
     <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
-      Surname
+      Прізвище
     </td>
     <td (click)="loadSorted('login',headerBlock,$event)" data-sort="">
-      Login
+      Логін
     </td>
     <td (click)="loadSorted('role',headerBlock,$event)" data-sort="">
-      Role
+      Роль
     </td>
     <td class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

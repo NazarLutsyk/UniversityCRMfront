@@ -1,19 +1,19 @@
 <mat-expansion-panel #formpanel>
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form #form="ngForm" (ngSubmit)="createApplication(form)">
     <mat-form-field>
-      <mat-label>Date</mat-label>
+      <mat-label>Дата</mat-label>
       <input
         type="text"
         matInput
         [(ngModel)]="applicationForm.date"
         name="date"
         [matDatepicker]="pickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="pickerStartDate.open()"
       >
@@ -21,7 +21,7 @@
       <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field (click)="selectClient($event)">
-      <mat-label>Client</mat-label>
+      <mat-label>Клієнт</mat-label>
       <input
         type="text"
         name="clientId"
@@ -31,7 +31,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>City</mat-label>
+      <mat-label>Місто</mat-label>
       <mat-select [(ngModel)]="applicationForm.cityId" name="cityId" required>
         <mat-option *ngFor="let city of cities" [value]="city.id">
           {{city.name}}
@@ -39,7 +39,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Course</mat-label>
+      <mat-label>Курс</mat-label>
       <mat-select [(ngModel)]="applicationForm.courseId" name="courseId" required>
         <mat-option *ngFor="let course of courses" [value]="course.id">
           {{course.name}}
@@ -47,7 +47,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Source</mat-label>
+      <mat-label>Джерела</mat-label>
       <mat-select [(ngModel)]="applicationForm.sources" name="sources" multiple>
         <mat-option *ngFor="let source of sources" [value]="source.id">
           {{source.name}}
@@ -55,7 +55,7 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Discount</mat-label>
+      <mat-label>Знижка</mat-label>
       <input
         type="number"
         name="discount"
@@ -64,8 +64,8 @@
         (input)="validateDiscount($event)"
       >
     </mat-form-field>
-    <mat-checkbox ngModel name="wantPractice" [(ngModel)]="applicationForm.wantPractice">Want practice</mat-checkbox>
-    <label>Contract</label>
+    <mat-checkbox ngModel name="wantPractice" [(ngModel)]="applicationForm.wantPractice">Хоче практику</mat-checkbox>
+    <label>Контракт</label>
     <input
       type="file"
       name="file"
@@ -73,7 +73,7 @@
       ngModel
       (change)="contractChange($event)"
     >
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 

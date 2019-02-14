@@ -15,23 +15,23 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('message',headerBlock,$event)" data-sort="">
-      Message
+      Повідомлення
     </td>
     <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+      Дата
     </td>
     <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="" *ngIf="!byClientId">
-      Client
+      Клієнт
     </td>
     <td class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

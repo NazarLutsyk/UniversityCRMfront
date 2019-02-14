@@ -15,26 +15,26 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('client.name',headerBlock,$event)" data-sort="">
-      Client
+      Клієнт
     </td>
     <td (click)="loadSorted('competitor.name',headerBlock,$event)" data-sort="">
-      Competitor
+      Конкурент
     </td>
     <td (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
-      Course
+      Курс
     </td>
     <td (click)="loadSorted('date',headerBlock,$event)" data-sort="">
-      Date
+      Дата
     </td>
     <td class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

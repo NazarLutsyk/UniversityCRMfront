@@ -1,12 +1,12 @@
 <mat-expansion-panel #formPanel *ngIf="canCreateClient">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      CREATE
+      СТВОРИТИ
     </mat-panel-title>
   </mat-expansion-panel-header>
   <form (ngSubmit)="createClient(form)" #form="ngForm" enctype="multipart/form-data">
     <mat-form-field>
-      <mat-label>Name</mat-label>
+      <mat-label>Ім'я</mat-label>
       <input
         type="text"
         name="name"
@@ -16,7 +16,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Surname</mat-label>
+      <mat-label>Прізвище</mat-label>
       <input
         type="text"
         name="surname"
@@ -26,7 +26,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Phone</mat-label>
+      <mat-label>Телефон</mat-label>
       <input
         type="tel"
         name="phone"
@@ -37,7 +37,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>Емейл</mat-label>
       <input
         type="email"
         name="email"
@@ -46,7 +46,7 @@
         email
       >
     </mat-form-field>
-    <button mat-flat-button [disabled]="!form.valid">Create</button>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
 
@@ -67,29 +67,29 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
-      Name
+      Ім'я
     </td>
     <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
-      Surname
+      Прізвище
     </td>
     <td (click)="loadSorted('phone',headerBlock,$event)" data-sort="">
-      Phone
+      Телефон
     </td>
     <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
-      Email
+      Емейл
     </td>
     <td>
-      Social
+      Соціалка
     </td>
     <td *ngIf="canDeleteClient" class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
@@ -177,7 +177,7 @@
     </td>
     <ng-container *ngIf="client.socials">
       <td>
-        {{client.socials.length > 0 ? client.socials.length : 0}} socials
+        Соціалок: {{client.socials.length > 0 ? client.socials.length : 0}}
       </td>
     </ng-container>
     <td *ngIf="canDeleteClient" class="controls-col" data-controls="true">

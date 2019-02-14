@@ -15,35 +15,35 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th *ngIf="canDeleteGroup" data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
-      Name
+      Ім'я
     </td>
     <td (click)="loadSorted('freePractice',headerBlock,$event)" data-sort="">
-      Free practice
+      Вільна практика
     </td>
     <td (click)="loadSorted('usedPractice',headerBlock,$event)" data-sort="">
-      Used practice
+      Використана практика
     </td>
     <td class="small-td" (click)="loadSorted('startDate',headerBlock,$event)" data-sort="">
-      Start Date
+      Початкова дата
     </td>
     <td class="small-td" (click)="loadSorted('startTime',headerBlock,$event)" data-sort="">
-      Start Time
+      Початковий час
     </td>
     <td *ngIf="!(byCourseId >= 0)" (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
-      Course
+      Курс
     </td>
     <td (click)="loadSorted('city.name',headerBlock,$event)" data-sort="">
-      City
+      Місто
     </td>
     <td *ngIf="canDeleteGroup" class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>

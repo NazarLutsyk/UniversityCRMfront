@@ -1,9 +1,9 @@
 <div class="main-wrapper">
   <div class="left-menu">
-    <h3>UPDATE</h3>
+    <h3>ОНОВИТИ</h3>
     <form #form="ngForm" (ngSubmit)="updateApplication()">
       <mat-form-field>
-        <mat-label>Client</mat-label>
+        <mat-label>Клієнт</mat-label>
         <input
           type="text"
           name="clientId"
@@ -13,7 +13,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>City</mat-label>
+        <mat-label>Місто</mat-label>
         <input
           type="text"
           name="cityId"
@@ -23,7 +23,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Course</mat-label>
+        <mat-label>Курс</mat-label>
         <input
           type="text"
           name="courseId"
@@ -33,7 +33,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Group</mat-label>
+        <mat-label>Група</mat-label>
         <input
           type="text"
           name="groupId"
@@ -43,7 +43,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Discount</mat-label>
+        <mat-label>Знижка</mat-label>
         <input
           type="number"
           name="discount"
@@ -53,7 +53,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Full price</mat-label>
+        <mat-label>Повна ціна</mat-label>
         <input
           type="number"
           name="fullPrice"
@@ -63,7 +63,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>With discount</mat-label>
+        <mat-label>З знижкою</mat-label>
         <input
           type="number"
           name="resultPrice"
@@ -73,7 +73,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Left to pay</mat-label>
+        <mat-label>До оплати</mat-label>
         <input
           type="number"
           name="leftToPay"
@@ -82,7 +82,7 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Certificate</mat-label>
+        <mat-label>Сертифікат</mat-label>
         <input
           type="text"
           name="certificate"
@@ -92,13 +92,13 @@
       </mat-form-field>
       <mat-checkbox [(ngModel)]="application.hasPractice" name="hasPractice" [checked]="application.hasPractice"
                     disabled>
-        Has practice
+        Має практику
       </mat-checkbox>
       <mat-checkbox [(ngModel)]="application.wantPractice" name="wantPractice" [checked]="application.wantPractice">
-        Want practice
+        Хоче практику
       </mat-checkbox>
       <mat-form-field>
-        <mat-label>Source</mat-label>
+        <mat-label>Джерело</mat-label>
         <mat-select [(ngModel)]="applicationSources" name="sources" multiple>
           <mat-option *ngFor="let source of sources" [value]="source.id">
             {{source.name}}
@@ -106,14 +106,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Date</mat-label>
+        <mat-label>Дата</mat-label>
         <input
           type="text"
           matInput
           [(ngModel)]="application.date"
           name="date"
           [matDatepicker]="pickerStartDate"
-          placeholder="Choose a date"
+          placeholder="Виберіть дату"
           readonly
           (click)="pickerStartDate.open()"
         >
@@ -121,23 +121,23 @@
         <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
       </mat-form-field>
       <p class="contracts-link" (click)="editFiles(application)">
-        {{ (application.contract && application.contract.files) ? application.contract.files.length : 0}} contract files
+        Контракти: {{ (application.contract && application.contract.files) ? application.contract.files.length : 0}}
       </p>
-      <button mat-flat-button [disabled]="!form.valid">Update</button>
+      <button mat-flat-button [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
 
   <div class="application-payment-block">
-    <h3>PAYMENTS</h3>
+    <h3>ПЛАТЕЖІ</h3>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          CREATE PAYMENT
+          СТВОРИТИ ПЛАТІЖ
         </mat-panel-title>
       </mat-expansion-panel-header>
       <form #formPayment="ngForm" (ngSubmit)="createPayment(formPayment)">
         <mat-form-field>
-          <mat-label>Number</mat-label>
+          <mat-label>Номер</mat-label>
           <input
             type="text"
             name="number"
@@ -147,7 +147,7 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Expected date</mat-label>
+          <mat-label>Очікувана дата</mat-label>
           <input
             type="text"
             matInput
@@ -155,7 +155,7 @@
             required
             name="expectedDate"
             [matDatepicker]="paymentPickerStartDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="paymentPickerStartDate.open()"
           >
@@ -163,7 +163,7 @@
           <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Expected Amount</mat-label>
+          <mat-label>Очікувана сума</mat-label>
           <input
             type="number"
             name="expectedAmount"
@@ -174,14 +174,14 @@
           >
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Payment date</mat-label>
+          <mat-label>Дата платежу</mat-label>
           <input
             type="text"
             matInput
             ngModel
             name="paymentDate"
             [matDatepicker]="paymentDate"
-            placeholder="Choose a date"
+            placeholder="Виберіть дату"
             readonly
             (click)="paymentDate.open()"
           >
@@ -189,7 +189,7 @@
           <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Amount</mat-label>
+          <mat-label>Сума</mat-label>
           <input
             type="number"
             name="amount"
@@ -198,7 +198,7 @@
             (input)="validateAmount($event)"
           >
         </mat-form-field>
-        <label>Check</label>
+        <label>Чек</label>
         <input
           type="file"
           name="file"
@@ -206,7 +206,7 @@
           ngModel
           (change)="paymentChange($event)"
         >
-        <button mat-flat-button [disabled]="!formPayment.valid">Create</button>
+        <button mat-flat-button [disabled]="!formPayment.valid">Створити</button>
       </form>
     </mat-expansion-panel>
     <app-payments-table
@@ -218,7 +218,7 @@
     ></app-payments-table>
   </div>
   <div class="application-groups-block">
-    <h3>GROUPS</h3>
+    <h3>ГРУПИ</h3>
     <mat-selection-list #groupsList>
       <ng-container *ngFor="let group of groups">
         <mat-list-option [value]="group.id" [selected]="group.id === application.groupId">

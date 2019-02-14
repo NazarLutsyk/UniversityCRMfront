@@ -1,10 +1,10 @@
 <h2 mat-dialog-title
-    class="dialog-header">UPDATE PAYMENT</h2>
+    class="dialog-header">ОНОВИТИ ПЛАТІЖ</h2>
 
 <mat-dialog-content>
   <form #form="ngForm" (ngSubmit)="updatePayment()">
     <mat-form-field>
-      <mat-label>Number</mat-label>
+      <mat-label>Номер</mat-label>
       <input
         type="text"
         name="number"
@@ -14,7 +14,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Expected date</mat-label>
+      <mat-label>Очікувана дата</mat-label>
       <input
         type="text"
         matInput
@@ -22,7 +22,7 @@
         required
         name="expectedDate"
         [matDatepicker]="paymentPickerStartDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="paymentPickerStartDate.open()"
       >
@@ -30,14 +30,14 @@
       <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Payment date</mat-label>
+      <mat-label>Дата платежу</mat-label>
       <input
         type="text"
         matInput
         [(ngModel)]="payment.paymentDate"
         name="paymentDate"
         [matDatepicker]="paymentDate"
-        placeholder="Choose a date"
+        placeholder="Виберіть дату"
         readonly
         (click)="paymentDate.open()"
       >
@@ -45,7 +45,7 @@
       <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Amount</mat-label>
+      <mat-label>Сума</mat-label>
       <input
         type="number"
         name="amount"
@@ -54,7 +54,7 @@
       >
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Expected Amount</mat-label>
+      <mat-label>Очікувана сума</mat-label>
       <input
         type="number"
         name="expectedAmount"
@@ -67,14 +67,14 @@
               mat-flat-button
               [disabled]="form.invalid"
               type="submit">
-        Update
+        Оновити
       </button>
       <button mat-button
               mat-flat-button
               class="dialog-close-button"
               type="button"
               [mat-dialog-close]="true">
-        Close
+        Закрити
       </button>
     </div>
   </form>

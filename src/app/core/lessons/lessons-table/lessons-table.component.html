@@ -15,20 +15,20 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      of
+      з
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('topic',headerBlock,$event)" data-sort="">
-      Topic
+      Тема
     </td>
     <td (click)="loadSorted('main',headerBlock,$event)" data-sort="">
-      Main(+/-)
+      Ключовий(+/-)
     </td>
     <td *ngIf="canDeleteLesson" class="controls-col">
-      CONTROLS
+      Управління
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
@@ -67,8 +67,8 @@
       {{lesson.topic}}
     </td>
     <td>
-      <span *ngIf="lesson.main">MAIN</span>
-      <span *ngIf="!lesson.main">NOT MAIN</span>
+      <span *ngIf="lesson.main">КЛЮЧОВИЙ</span>
+      <span *ngIf="!lesson.main">НЕ КЛЮЧОВИЙ</span>
     </td>
     <td *ngIf="canDeleteLesson" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(lesson.id)" data-controls="true"></div>

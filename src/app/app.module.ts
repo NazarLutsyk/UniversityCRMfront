@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
+import {MAT_DATE_LOCALE, MatIconModule, MatMenuModule, MatToolbarModule} from '@angular/material';
 import {MainRouterModule} from './main-router.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CoreModule} from './core/core.module';
@@ -35,7 +35,8 @@ import {NotificationInterceptorService} from './services/interceptors/notificati
       provide: HTTP_INTERCEPTORS,
       useClass: NotificationInterceptorService,
       multi: true
-    }
+    },
+    {provide: MAT_DATE_LOCALE, useValue: 'uk'},
   ],
   bootstrap: [AppComponent]
 })

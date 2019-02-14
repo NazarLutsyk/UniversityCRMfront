@@ -1,6 +1,4 @@
-<div
-  class="tile"
-  *ngIf="eapplication">
+<div class="tile" *ngIf="eapplication">
   <div
     class="tile-header"
     [ngClass]="[
@@ -19,47 +17,47 @@
   </div>
   <div class="tile-content">
     <div *ngIf="eapplication.email" class="tile-content-item">
-      <p class="tile-content-item-header">Email:</p>
+      <p class="tile-content-item-header">Емейл:</p>
       <p>{{eapplication.email}}</p>
     </div>
     <div *ngIf="eapplication.phone" class="tile-content-item">
-      <p class="tile-content-item-header">Phone:</p>
+      <p class="tile-content-item-header">Телефон:</p>
       <p>{{eapplication.phone}}</p>
     </div>
     <div *ngIf="eapplication.city" class="tile-content-item">
-      <p class="tile-content-item-header">City:</p>
+      <p class="tile-content-item-header">Місто:</p>
       <p>{{eapplication.city}}</p>
     </div>
     <div *ngIf="eapplication.course" class="tile-content-item">
-      <p class="tile-content-item-header">Course:</p>
+      <p class="tile-content-item-header">Курс:</p>
       <p>{{eapplication.course}}</p>
     </div>
     <div *ngIf="eapplication.type" class="tile-content-item">
-      <p class="tile-content-item-header">Type:</p>
+      <p class="tile-content-item-header">Тип:</p>
       <p>{{eapplication.type}}</p>
     </div>
     <div *ngIf="eapplication.wantTime" class="tile-content-item">
-      <p class="tile-content-item-header">Want Time:</p>
+      <p class="tile-content-item-header">Очікуваний час:</p>
       <p>{{eapplication.wantTime}}</p>
     </div>
     <div class="tile-content-item">
-      <p class="tile-content-item-header">Want practice:</p>
+      <p class="tile-content-item-header">З практикою:</p>
       <p>{{!!eapplication.wantPractice}}</p>
     </div>
     <div *ngIf="eapplication.social" class="tile-content-item">
-      <p class="tile-content-item-header">Social:</p>
+      <p class="tile-content-item-header">Соціалка:</p>
       <p>{{eapplication.social}}</p>
     </div>
     <div *ngIf="eapplication.source" class="tile-content-item">
-      <p class="tile-content-item-header">Source:</p>
+      <p class="tile-content-item-header">Джерело:</p>
       <p>{{eapplication.source}}</p>
     </div>
     <div *ngIf="eapplication.comment" class="tile-content-item">
-      <p class="tile-content-item-header">Comment:</p>
+      <p class="tile-content-item-header">Коментар:</p>
       <p>{{eapplication.comment}}</p>
     </div>
     <div *ngIf="eapplication.date" class="tile-content-item">
-      <p class="tile-content-item-header">Date:</p>
+      <p class="tile-content-item-header">Дата:</p>
       <p>{{eapplication.date}}</p>
     </div>
   </div>
