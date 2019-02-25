@@ -2,10 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ClientsComponent} from './clients.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
-  MatInputModule, MatNativeDateModule,
+  MatInputModule,
+  MatNativeDateModule,
   MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
@@ -17,7 +21,8 @@ import {ApplicationsModule} from '../applications/applications.module';
 import {AudioCallsModule} from '../audio-calls/audio-calls.module';
 import {UfileModule} from '../ufile/ufile.module';
 import {SocialModule} from '../social/social.module';
-import { ClientMatchDialogComponent } from './client-match-dialog/client-match-dialog.component';
+import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -39,11 +44,12 @@ import { ClientMatchDialogComponent } from './client-match-dialog/client-match-d
     MatDialogModule,
     UfileModule,
     SocialModule,
+    SharedModule
   ],
   declarations: [
     ClientsComponent,
     SingleClientComponent,
-    ClientMatchDialogComponent
+    ClientMatchDialogComponent,
   ]
 })
 export class ClientsModule {

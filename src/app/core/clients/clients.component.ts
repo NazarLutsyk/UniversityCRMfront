@@ -214,4 +214,8 @@ export class ClientsComponent implements OnInit {
   passportChange($event) {
     this.passportFilesToUpload = (<any>$event.target).files;
   }
+
+  setAddress(address: any) {
+    console.log(address);
+  }
 }
