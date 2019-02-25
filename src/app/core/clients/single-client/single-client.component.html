@@ -23,6 +23,17 @@
         >
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Адреса</mat-label>
+        <input
+          name="address"
+          appGooglePlaces
+          ngModel
+          matInput
+          [value]="client?.address?.address"
+          (onSelect)="setAddress($event)"
+        >
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Телефон</mat-label>
         <input
           type="tel"

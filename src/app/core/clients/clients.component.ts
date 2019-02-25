@@ -39,6 +39,7 @@ export class ClientsComponent implements OnInit {
     surname: null,
     phone: null,
     email: null,
+    address: null
   };
 
   canCreateClient = false;
@@ -123,7 +124,7 @@ export class ClientsComponent implements OnInit {
       sort: this.sort ? this.sort : 'createdAt DESC',
       limit: this.pageSize,
       offset: (this.pageIndex * this.pageSize) - this.pageSize,
-      include: ['social']
+      include: ['social', 'address']
     });
   }
 
@@ -173,7 +174,7 @@ export class ClientsComponent implements OnInit {
   }
 
   private sendCreateClient(clientForm: NgForm) {
-    const client: Client = <Client>clientForm.form.value;
+    const client: Client = <Client>this.clientFormObject;
     this.clientsService.create(client).subscribe((clientResponse) => {
       if (this.passportFilesToUpload && this.passportFilesToUpload.length > 0) {
         this.clientsService
@@ -216,6 +217,6 @@ export class ClientsComponent implements OnInit {
   }
 
   setAddress(address: any) {
-    console.log(address);
+    this.clientFormObject.address = address;
   }
 }

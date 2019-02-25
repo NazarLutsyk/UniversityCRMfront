@@ -97,7 +97,7 @@ export class SingleClientComponent implements OnInit {
 
   loadClient(id) {
     this.clientService.getClientById(id, {
-      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: ['files']
+      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: ['files', 'address']
     })
       .subscribe(client => {
         this.client = client;
@@ -206,5 +206,9 @@ export class SingleClientComponent implements OnInit {
       socialForm.resetForm();
       this.socialTable.loadSocials();
     });
+  }
+
+  setAddress(address: any) {
+    this.client.address = address;
   }
 }

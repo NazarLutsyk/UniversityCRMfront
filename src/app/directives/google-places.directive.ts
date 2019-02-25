@@ -21,7 +21,6 @@ export class GooglePlacesDirective implements OnInit {
       google.maps.event.addListener(autocomplete, 'place_changed', () => {
         try {
           const place = autocomplete.getPlace();
-          console.log(place);
           const placeRes = {
             address: place && place.formatted_address ? place.formatted_address : '',
             ltg: place && place.geometry ? place.geometry.location.lat() : 0,
