@@ -23,6 +23,7 @@ import {UfileModule} from '../ufile/ufile.module';
 import {SocialModule} from '../social/social.module';
 import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
 import {SharedModule} from '../../shared/shared.module';
+import { ClientsMapComponent } from './clients-map/clients-map.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import {SharedModule} from '../../shared/shared.module';
     ClientsComponent,
     SingleClientComponent,
     ClientMatchDialogComponent,
+    ClientsMapComponent,
   ]
 })
 export class ClientsModule {

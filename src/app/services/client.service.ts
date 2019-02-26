@@ -5,6 +5,7 @@ import {Client} from '../models/client';
 import {Ufile} from '../models/ufile';
 import {ConfigService} from './config.service';
 import {addParams} from '../helpers/url-helper';
+import {Address} from '../models/address';
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +64,9 @@ export class ClientService {
 
   getClientByIdWithLessons(id) {
     return this.http.get<Client>(`${this.clientsURL}/${id}/lessons`);
+  }
+
+  getLocations(): Observable<Address[]> {
+    return this.http.get<Address[]>(`${this.clientsURL}/addresses`);
   }
 }

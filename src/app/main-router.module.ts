@@ -35,6 +35,7 @@ import {PaymentsComponent} from './core/payments/payments.component';
 import {RatingsComponent} from './core/ratings/ratings.component';
 import {SingleRatingComponent} from './core/ratings/single-rating/single-rating.component';
 import {SingleRatingInfoComponent} from './core/ratings/single-rating-info/single-rating-info.component';
+import {ClientsMapComponent} from './core/clients/clients-map/clients-map.component';
 
 const routes: Routes = [
   {
@@ -174,6 +175,15 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Payments',
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
+    },
+  },
+  {
+    path: 'clients-map',
+    component: ClientsMapComponent,
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {
+      breadcrumb: 'Map',
+      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE, Roles.TEACHER_ROLE]
     },
   },
   {
