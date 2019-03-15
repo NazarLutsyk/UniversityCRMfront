@@ -40,8 +40,9 @@ export class ApplicationsComponent implements OnInit {
     courseId: null,
     cityId: null,
     date: null,
-    discount: 0,
-    wantPractice: false
+    discount: '',
+    wantPractice: false,
+    fullPrice: 0
   };
 
   constructor(
@@ -127,7 +128,8 @@ export class ApplicationsComponent implements OnInit {
       courseId: this.applicationForm.courseId,
       cityId: this.applicationForm.cityId,
       date: this.applicationForm.date,
-      discount: +this.applicationForm.discount ? +this.applicationForm.discount : 0,
+      discount: this.applicationForm.discount,
+      fullPrice: this.applicationForm.fullPrice,
       wantPractice: !!this.applicationForm.wantPractice,
       hasPractice: false
     };
@@ -137,18 +139,6 @@ export class ApplicationsComponent implements OnInit {
       this.selectedClient = new Client();
       this.applicationsTable.loadApplications();
     });
-  }
-
-  validateDiscount($event) {
-    const value = +$event.target.value;
-    if (value < 0) {
-      this.applicationForm.discount = 0;
-      $event.target.value = this.applicationForm.discount;
-    }
-    if (value > 100) {
-      this.applicationForm.discount = 100;
-      $event.target.value = this.applicationForm.discount;
-    }
   }
 
   contractChange($event) {

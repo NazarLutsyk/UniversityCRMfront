@@ -42,8 +42,8 @@
     <td class="small-td" (click)="loadSorted('date',headerBlock,$event)" data-sort="">
       Дата
     </td>
-    <td class="small-td" (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
-      З знишкою
+    <td class="small-td" (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
+      Ціна
     </td>
     <td class="small-td" (click)="loadSorted('leftToPay',headerBlock,$event)" data-sort="">
       До оплати
@@ -131,8 +131,8 @@
         <mat-label></mat-label>
         <input
           type="text"
-          name="resultPrice"
-          data-key="resultPrice"
+          name="fullPrice"
+          data-key="fullPrice"
           ngModel
           matInput
           (keyup)="loadFiltered(filterBlock)"
@@ -217,7 +217,7 @@
       {{application.date | date : 'yyy/MM/dd'}}
     </td>
     <td class="small-td">
-      {{application.resultPrice}}
+      {{application.fullPrice}}
     </td>
     <td class="small-td">
       {{application.leftToPay}}

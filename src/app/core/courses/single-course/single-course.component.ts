@@ -77,7 +77,7 @@ export class SingleCourseComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(({id}) => {
 
-      this.sourceService.getCourseById(id, {attributes: ['id', 'name', 'fullPrice', 'discount', 'resultPrice']})
+      this.sourceService.getCourseById(id, {attributes: ['id', 'name']})
         .subscribe(course => {
           this.course = course;
 
@@ -94,19 +94,6 @@ export class SingleCourseComponent implements OnInit {
   updateCourse() {
     if (this.canUpdateCourse) {
       this.sourceService.update(this.course.id, this.course).subscribe(updated => this.course = updated);
-    }
-  }
-
-
-  validateDiscount($event) {
-    const value = +$event.target.value;
-    if (value < 0) {
-      this.course.discount = 0;
-      $event.target.value = this.course.discount;
-    }
-    if (value > 100) {
-      this.course.discount = 100;
-      $event.target.value = this.course.discount;
     }
   }
 
@@ -153,9 +140,6 @@ export class SingleCourseComponent implements OnInit {
         endDate = datesForm.value.endDate;
       }
     }
-
-    console.log(startDate);
-    console.log(endDate);
 
     this.statisticService.getPaymentsStatistic({q: {startDate, endDate}}).subscribe((res) => {
       this.paymentChartLabels = [];

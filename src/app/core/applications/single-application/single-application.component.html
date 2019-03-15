@@ -43,33 +43,21 @@
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Знижка</mat-label>
-        <input
-          type="number"
-          name="discount"
-          [value]="application.discount"
-          matInput
-          disabled
-        >
-      </mat-form-field>
-      <mat-form-field>
         <mat-label>Повна ціна</mat-label>
         <input
           type="number"
           name="fullPrice"
-          [value]="application.fullPrice"
+          [(ngModel)]="application.fullPrice"
           matInput
-          disabled
         >
       </mat-form-field>
       <mat-form-field>
-        <mat-label>З знижкою</mat-label>
+        <mat-label>Знижка</mat-label>
         <input
-          type="number"
-          name="resultPrice"
-          [value]="application.resultPrice"
+          type="text"
+          name="discount"
+          [(ngModel)]="application.discount"
           matInput
-          disabled
         >
       </mat-form-field>
       <mat-form-field>

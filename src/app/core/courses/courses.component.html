@@ -17,26 +17,6 @@
           required
         >
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>Ціна</mat-label>
-        <input
-          type="number"
-          name="fullPrice"
-          ngModel
-          matInput
-          required
-        >
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Знижка</mat-label>
-        <input
-          type="number"
-          name="discount"
-          ngModel
-          matInput
-          (input)="validateDiscount($event)"
-        >
-      </mat-form-field>
       <button mat-flat-button [disabled]="!form.valid">Створити</button>
     </form>
   </mat-expansion-panel>
@@ -68,15 +48,6 @@
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
       Назва
     </td>
-    <td (click)="loadSorted('fullPrice',headerBlock,$event)" data-sort="">
-      Ціна
-    </td>
-    <td (click)="loadSorted('discount',headerBlock,$event)" data-sort="">
-      Знижка
-    </td>
-    <td (click)="loadSorted('resultPrice',headerBlock,$event)" data-sort="">
-      Результат
-    </td>
     <td *ngIf="canDeleteCourse" class="controls-col">
       Управління
     </td>
@@ -95,46 +66,6 @@
         >
       </mat-form-field>
     </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="number"
-          name="fullPrice"
-          data-key="fullPrice"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="number"
-          name="discount"
-          data-key="discount"
-          ngModel
-          matInput
-          (input)="validateDiscount($event)"
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
-    <td>
-      <mat-form-field>
-        <mat-label></mat-label>
-        <input
-          type="number"
-          name="resultPrice"
-          data-key="resultPrice"
-          ngModel
-          matInput
-          (keyup)="loadFiltered(filterBlock)"
-        >
-      </mat-form-field>
-    </td>
     <td *ngIf="canDeleteCourse" class="controls-col"></td>
   </tr>
   </thead>
@@ -142,15 +73,6 @@
   <tr *ngFor="let course of courses" (click)="open(course.id, 'courses',$event)" class="data-row">
     <td>
       {{course.name}}
-    </td>
-    <td>
-      {{course.fullPrice}}
-    </td>
-    <td>
-      {{course.discount}}%
-    </td>
-    <td>
-      {{course.resultPrice}}
     </td>
     <td *ngIf="canDeleteCourse" class="controls-col" data-controls="true">
       <div class="remove-button" (click)="remove(course.id)" data-controls="true"></div>

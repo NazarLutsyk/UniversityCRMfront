@@ -120,9 +120,6 @@ export class ApplicationsTableComponent implements OnInit {
     if (this.filter.hasPractice === '+' || this.filter.hasPractice === '-') {
       res.hasPractice = this.filter.hasPractice === '+' ? 1 : this.filter.hasPractice === '-' ? 0 : null;
     }
-    if (this.filter.resultPrice) {
-      res.resultPrice = this.filter.resultPrice;
-    }
     if (this.filter.leftToPay) {
       res.leftToPay = this.filter.leftToPay;
     }

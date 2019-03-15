@@ -16,6 +16,14 @@
       >
         <span>Клієнти</span>
       </div>
+      <div class="menu-span-wrapper"
+           mat-menu-item
+           routerLink="/tasks"
+           routerLinkActive="active-main-menu"
+           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Завдання</span>
+      </div>
       <div
         class="menu-span-wrapper"
         mat-menu-item
@@ -39,13 +47,6 @@
          *ngIf="authService.getLocalPrincipal()"
     >
       <span>Рейтинги</span>
-    </div>
-    <div class="menu-span-wrapper"
-         routerLink="/tasks"
-         routerLinkActive="active-main-menu"
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-    >
-      <span>Завдання</span>
     </div>
     <mat-menu #appMenu="matMenu" class="dropdown-menu">
       <div

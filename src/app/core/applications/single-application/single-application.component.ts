@@ -67,7 +67,6 @@ export class SingleApplicationComponent implements OnInit {
         'date',
         'fullPrice',
         'discount',
-        'resultPrice',
         'wantPractice',
         'hasPractice',
         'leftToPay',
@@ -105,7 +104,9 @@ export class SingleApplicationComponent implements OnInit {
       date: this.application.date,
       wantPractice: this.application.wantPractice,
       certificate: this.application.certificate,
-      leftToPay: this.application.leftToPay
+      leftToPay: this.application.leftToPay,
+      discount: this.application.discount,
+      fullPrice: this.application.fullPrice,
     };
     this.applicationService.update(this.application.id, applicationToUpdate).subscribe(updated => {
       this.loadApplication(updated.id);

@@ -14,6 +14,7 @@
             "kebab-case"
         ],
         "triple-equals": false,
-        "no-output-on-prefix" : false
+        "no-output-on-prefix" : false,
+        "forin": false
     }
 }

@@ -142,16 +142,6 @@ export class SingleClientComponent implements OnInit {
     });
   }
 
-  validateDiscount($event) {
-    const value = +$event.target.value;
-    if (value < 0) {
-      $event.target.value = 0;
-    }
-    if (value > 100) {
-      $event.target.value = 100;
-    }
-  }
-
   createApplication(formApplication) {
     const applicationFormValue: Application = <Application>formApplication.form.value;
     const application: Application = <Application>{
@@ -160,7 +150,8 @@ export class SingleClientComponent implements OnInit {
       courseId: applicationFormValue.courseId,
       cityId: applicationFormValue.cityId,
       sources: applicationFormValue.sources ? applicationFormValue.sources : null,
-      discount: applicationFormValue.discount >= 0 ? applicationFormValue.discount : 0,
+      discount: applicationFormValue.discount,
+      fullPrice: applicationFormValue.fullPrice,
       wantPractice: !!applicationFormValue.wantPractice,
       hasPractice: false
     };

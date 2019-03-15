@@ -274,13 +274,21 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-label>Знижка</mat-label>
+          <mat-label>Ціна</mat-label>
           <input
             type="number"
+            name="fullPrice"
+            ngModel
+            matInput
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Знижка</mat-label>
+          <input
+            type="text"
             name="discount"
             ngModel
             matInput
-            (input)="validateDiscount($event)"
           >
         </mat-form-field>
         <mat-checkbox ngModel name="wantPractice">Хоче практику</mat-checkbox>
