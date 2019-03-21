@@ -98,7 +98,4 @@ export class MaterialTableService {
     return deleteSnackBarRef.onAction();
   }
 
-  validatePaginationInput($event) {
-
-  }
 }

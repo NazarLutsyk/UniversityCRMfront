@@ -10,6 +10,7 @@ import {CoreModule} from './core/core.module';
 import {AuthInterceptorService} from './services/interceptors/auth-interceptor.service';
 import {AuthService} from './services/auth.service';
 import {NotificationInterceptorService} from './services/interceptors/notification-interceptor.service';
+import {CheckResponseInterceptorService} from './services/interceptors/checkResponse.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,11 @@ import {NotificationInterceptorService} from './services/interceptors/notificati
     {
       provide: HTTP_INTERCEPTORS,
       useClass: NotificationInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CheckResponseInterceptorService,
       multi: true
     },
     {provide: MAT_DATE_LOCALE, useValue: 'uk'},
