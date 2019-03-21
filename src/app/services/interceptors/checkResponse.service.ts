@@ -1,37 +1,34 @@
 import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {NotificationService} from '../notification.service';
-import {NotificationType} from '../../core/notifications/notification-type';
+import {DbLoadStatusService} from '../db-load-status.service';
 
 @Injectable()
 export class CheckResponseInterceptorService implements HttpInterceptor {
 
+private counter = 0;
   constructor(
-    private notificationService: NotificationService
+    private dbLoadStatusService: DbLoadStatusService
   ) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('req');
     if (req.url.indexOf('api') > -1) {
-      // console.log(req.url.indexOf('api'));
-    } else {
-      // console.log(req);
+      this.dbLoadStatusService.$statusPreloadingData.next('true');
+      this.counter++;
     }
     return next.handle(req).pipe(
       tap((event: HttpResponse<any>) => {
         if (event.url) {
           if (event.url.indexOf('api') > -1) {
-
-
-            // console.log(req.url.indexOf('api'));
-          } else {
-
-            // console.log(req);
+            this.counter--;
+            if (this.counter === 0) {
+              setTimeout(() => {
+                this.dbLoadStatusService.$statusPreloadingData.next('false');
+              }, 50);
+            }
           }
-          console.log(event);
         }
       }
     )
