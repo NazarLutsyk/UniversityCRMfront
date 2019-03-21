@@ -136,10 +136,11 @@ export class SingleApplicationComponent implements OnInit {
       payment.paymentDate = paymentFormValue.paymentDate;
     }
     this.paymentService.create(payment).subscribe((paymentResponse) => {
-      this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe();
-      paymentForm.resetForm();
-      this.paymentTable.loadPayments();
-      this.loadApplication(this.application.id);
+      this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe(() => {
+        paymentForm.resetForm();
+        this.paymentTable.loadPayments();
+        this.loadApplication(this.application.id);
+      });
     });
   }
 
