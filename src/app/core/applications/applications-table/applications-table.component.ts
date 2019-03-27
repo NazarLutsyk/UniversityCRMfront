@@ -6,6 +6,7 @@ import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {isNumber} from 'util';
 import {AuthService} from '../../../services/auth.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-applications-table',
@@ -19,8 +20,9 @@ export class ApplicationsTableComponent implements OnInit {
   @Input() canDeleteApplicationInput = null;
 
   applications: Application[] = [];
-
   count = 0;
+
+  $quantityGroupStudents = new Subject<string>();
 
   pageIndex = 1;
   pageSize = 9;
@@ -55,6 +57,7 @@ export class ApplicationsTableComponent implements OnInit {
       this.count = response.count;
       this.applications = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+      this.$quantityGroupStudents.next(response.count);
     });
   }
 

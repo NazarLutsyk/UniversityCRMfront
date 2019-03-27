@@ -15,7 +15,7 @@ import {RatingService} from '../../../services/rating.service';
 export class RatingsTableComponent implements OnInit {
 
   ratings: Rating[] = [];
-
+  background = 'red';
   courseId = null;
 
   count = 0;
@@ -49,6 +49,10 @@ export class RatingsTableComponent implements OnInit {
       this.count = response.count;
       this.ratings = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+      for (let i = 0; i < this.ratings.length; i++) {
+        this.ratings[i]['background'] = this.randomColor();
+        this.ratings[i]['widthBlock'] = this.widthOfVisitedBlock(this.ratings[i].full, this.ratings[i].visited);
+      }
     });
   }
 
@@ -93,6 +97,20 @@ export class RatingsTableComponent implements OnInit {
       return false;
     }
     this.router.navigate([...url.split('/'), id]);
+  }
+
+  randomColor() {
+    const firstNumber = Math.ceil(Math.random() * 200);
+    const secondNumber = Math.ceil(Math.random() * 200);
+    const thirdNumber = Math.ceil(Math.random() * 200);
+
+    return `rgb(${firstNumber}, ${secondNumber}, ${thirdNumber})`;
+  }
+
+  widthOfVisitedBlock(a, b) {
+    const x = (b * 100) / a;
+    const result = (50 * x) / 100;
+    return `${result}vw`;
   }
 
 }

@@ -50,9 +50,9 @@ export class SingleLessonComponent implements OnInit {
     this.applicationService.getApplications({
       q: {groupId: this.lesson.groupId},
       include: ['client'],
-      attributes: ['id', 'clientId', 'groupId']
+      attributes: ['id', 'clientId', 'groupId'],
     }).subscribe(response => {
-      this.applications = response.models;
+      this.applications = this.sortArrByName(response.models);
       this.clientsList.selectionChange.subscribe((s) => this.updateJournal(s));
     });
   }
@@ -84,4 +84,22 @@ export class SingleLessonComponent implements OnInit {
     $event.stopPropagation();
     this.router.navigate(['clients', clientId]);
   }
+
+  sortArrByName(arr) {
+    const result = arr.sort(function(a, b) {
+      let nameA = a.client.name.toUpperCase(); // ignore upper and lowercase
+      let nameB = b.client.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+    return result;
+  }
+
 }

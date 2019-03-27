@@ -83,7 +83,10 @@
     </form>
   </div>
   <div class="right-menu">
+    <div class="right-menu-header">
     <h3>СТАТИСТИКА ВІДВІДУВАНОСТІ</h3>
+    <h3>Кількість учнів: {{studentsQuantity}}</h3>
+    </div>
     <div>
       <canvas
         *ngIf="chartDatasets.length > 0"
@@ -137,7 +140,7 @@
   <div class="group-applications overflow-x" *ngIf="group.id">
     <h3>ЗАЯВКИ</h3>
     <app-applications-table *ngIf="group.id" [byGroupId]="group.id"
-                            [canDeleteApplicationInput]="canDeleteApplication"></app-applications-table>
+                            [canDeleteApplicationInput]="canDeleteApplication" #appApplctnTable></app-applications-table>
   </div>
 
   <div class="group-practice overflow-x">

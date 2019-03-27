@@ -62,8 +62,8 @@
     <td>
       {{rating.fullname}}
     </td>
-    <td>
-      {{rating.visited}} / {{rating.full}}
+    <td [ngStyle]="{'background-color':rating.background, 'width':rating.widthBlock, 'position':'absolute', 'box-sizing':'border-box'}">
+      <span class='rating-numbers'>{{rating.visited}} / {{rating.full}}</span>
     </td>
   </tr>
   </tbody>

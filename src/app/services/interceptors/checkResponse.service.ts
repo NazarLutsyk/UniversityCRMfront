@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {DbLoadStatusService} from '../db-load-status.service';
@@ -24,14 +24,20 @@ private counter = 0;
           if (event.url.indexOf('api') > -1) {
             this.counter--;
             if (this.counter === 0) {
-              setTimeout(() => {
                 this.dbLoadStatusService.$statusPreloadingData.next('false');
-              }, 50);
+            }
+          }
+        }
+      }, (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.url.indexOf('api') > -1) {
+            this.counter--;
+            if (this.counter === 0) {
+              this.dbLoadStatusService.$statusPreloadingData.next('false');
             }
           }
         }
       }
-    )
-    );
+    ));
   }
 }
