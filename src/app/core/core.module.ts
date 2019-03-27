@@ -31,6 +31,7 @@ import {CompetitorApplicationsModule} from './competitor-applications/competitor
 import {ClientMatchDialogComponent} from './clients/client-match-dialog/client-match-dialog.component';
 import {PaymentUpdateComponent} from './payments/payment-update/payment-update.component';
 import {RatingsModule} from './ratings/ratings.module';
+import { PreloadComponent } from './preload/preload.component';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import {RatingsModule} from './ratings/ratings.module';
     HomeComponent,
     BreadcrumbsComponent,
     DeleteSnackBarComponent,
+    PreloadComponent
   ],
   entryComponents: [
     DeleteSnackBarComponent,
@@ -74,7 +76,8 @@ import {RatingsModule} from './ratings/ratings.module';
   ],
   exports: [
     BreadcrumbsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PreloadComponent
   ]
 })
 export class CoreModule {

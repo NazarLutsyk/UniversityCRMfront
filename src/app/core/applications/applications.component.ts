@@ -45,6 +45,9 @@ export class ApplicationsComponent implements OnInit {
     fullPrice: 0
   };
 
+  one = 1;
+  zero = 0;
+
   constructor(
     public sourceService: SourceService,
     public courseService: CourseService,
@@ -130,8 +133,8 @@ export class ApplicationsComponent implements OnInit {
       date: this.applicationForm.date,
       discount: this.applicationForm.discount,
       fullPrice: this.applicationForm.fullPrice,
-      wantPractice: !!this.applicationForm.wantPractice,
-      hasPractice: false
+      wantPractice: !!this.applicationForm.wantPractice ? this.one : this.zero,
+      hasPractice: 0
     };
     this.applicationService.create(application).subscribe((applicationResponse) => {
       this.contractService.createContracts(applicationResponse.id, this.contractFilesToUpload).subscribe();

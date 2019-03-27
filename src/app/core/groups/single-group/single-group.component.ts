@@ -8,7 +8,7 @@ import {Application} from '../../../models/application';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {MatSelectionListChange} from '@angular/material';
-import {map} from 'rxjs/operators';
+import {count, map} from 'rxjs/operators';
 import {AuthService} from '../../../services/auth.service';
 import {StatisticService} from '../../../services/statistic.service';
 import {ChartService} from '../../../services/chart.service';
@@ -23,6 +23,7 @@ export class SingleGroupComponent implements OnInit {
   @ViewChild('form') updateGroupForm: NgForm;
   @ViewChild('lessonsTable') lessonsTable;
   @ViewChild('practiceList') practiceList;
+  @ViewChild('appApplctnTable') appApplctnTable;
 
   applicationsToPractice: Application[] = [];
   group: Group = new Group();
@@ -55,6 +56,7 @@ export class SingleGroupComponent implements OnInit {
     }
   };
 
+  studentsQuantity: number;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -79,7 +81,7 @@ export class SingleGroupComponent implements OnInit {
             this.loadGroup(this.group.id).subscribe(group => this.group = group);
             const index = this.applicationsToPractice.findIndex(a => a.id === applicationId);
             if (this.applicationsToPractice[index]) {
-              this.applicationsToPractice[index].hasPractice = selected;
+              this.applicationsToPractice[index].hasPractice = selected ? 1 : 0;
             }
           });
       }
@@ -190,6 +192,9 @@ export class SingleGroupComponent implements OnInit {
       this.chartColors = [{
         backgroundColor: this.chartService.getRandomColors(data.length)
       }];
+      this.appApplctnTable.$quantityGroupStudents.subscribe((res) => {
+        this.studentsQuantity = res;
+      });
     });
   }
 

@@ -1,9 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DbLoadStatusService {
 
-  constructor() { }
+  $statusPreloadingData = new Subject<string>();
+
+  constructor() {
+  }
 }

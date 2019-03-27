@@ -193,7 +193,8 @@
   (onNotification)="highlightToggleNotifications()"
 >
 </app-notifications>
-
+<app-preload>
+</app-preload>
 <div [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
   <router-outlet #o="outlet"></router-outlet>
 </div>

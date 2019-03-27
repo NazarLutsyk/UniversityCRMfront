@@ -1,0 +1,28 @@
+.logo-wrapped{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  display: none;
+}
+#logo{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #36416b;
+  background: url("../../../assets/images/logo.png") no-repeat center center;
+  background-size: contain;
+  animation: rotate 3s linear infinite;
+  margin: 41vh auto;
+}
+
+@keyframes rotate {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
+.show-logo {
+  display: flex;
+}
+
+

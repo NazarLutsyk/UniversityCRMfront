@@ -19,10 +19,10 @@
   <div class="right-menu">
     <h3>ЖУРНАЛ</h3>
     <mat-selection-list #clientsList>
-      <ng-container *ngFor="let application of applications">
+      <ng-container *ngFor="let application of applications; let i = index">
         <mat-list-option [value]="application.id" [selected]="isPresent(application.id)">
           <mat-icon mat-list-icon (click)="openClient(application.clientId, $event)">perm_identity</mat-icon>
-          <p>{{application.client.name}} {{application.client.surname}}</p>
+          <p>{{i + 1}}. {{application.client.name}} {{application.client.surname}}</p>
         </mat-list-option>
         <mat-divider></mat-divider>
       </ng-container>
