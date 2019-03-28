@@ -30,9 +30,6 @@ export class SingleApplicationComponent implements OnInit {
   sources: Source[] = [];
   groups: Group[] = [];
 
-  zero = 0;
-  one = 0;
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -105,7 +102,7 @@ export class SingleApplicationComponent implements OnInit {
     const applicationToUpdate = {
       sources: this.applicationSources,
       date: this.application.date,
-      wantPractice: this.application.wantPractice ? this.one : this.zero,
+      wantPractice: this.application.wantPractice ? 1 : 0,
       certificate: this.application.certificate,
       leftToPay: this.application.leftToPay,
       discount: this.application.discount,
