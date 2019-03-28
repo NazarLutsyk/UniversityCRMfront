@@ -152,7 +152,7 @@ export class SingleClientComponent implements OnInit {
       sources: applicationFormValue.sources ? applicationFormValue.sources : null,
       discount: applicationFormValue.discount,
       fullPrice: applicationFormValue.fullPrice,
-      wantPractice: !!applicationFormValue.wantPractice ? 1 : 0,
+      wantPractice: applicationFormValue.wantPractice ? 1 : 0,
       hasPractice: 0
     };
     this.applicationService.create(application).subscribe(() => {
