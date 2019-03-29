@@ -7,21 +7,55 @@ import {DbLoadStatusService} from '../db-load-status.service';
 @Injectable()
 export class CheckResponseInterceptorService implements HttpInterceptor {
 
-private counter = 0;
+  private counter = 0;
+  apiUrlsArr = [];
+  interval: any;
+  reqst: any;
+
   constructor(
     private dbLoadStatusService: DbLoadStatusService
   ) {
   }
 
+  startInterval() {
+    this.interval = setInterval(() => {
+      if (this.apiUrlsArr) {
+        this.apiUrlsArr.shift();
+      }
+    }, 5);
+  }
+
+  stopIntervar() {
+    setTimeout( () => {
+      clearInterval(this.interval);
+    }, 20);
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url.indexOf('api') > -1) {
-      this.dbLoadStatusService.$statusPreloadingData.next('true');
-      this.counter++;
+    const updatedReq = req.clone({
+      url: 'http://localhost:3000'
+    });
+    this.reqst = req;
+    if (this.apiUrlsArr.indexOf(req.url) > -1) {
+      this.startInterval();
+      this.reqst = updatedReq;
+      this.stopIntervar();
     }
-    return next.handle(req).pipe(
+    if (req.url.indexOf('api') > -1) {
+      if (req.method === 'POST' || req.method === 'UPDATE' || req.method === 'DELETE') {
+        if (this.apiUrlsArr.indexOf(req.url) > -1) {
+        } else {
+          this.apiUrlsArr.push(req.url);
+        }
+      }
+        this.dbLoadStatusService.$statusPreloadingData.next('true');
+        this.counter++;
+    }
+
+    return next.handle(this.reqst).pipe(
       tap((event: HttpResponse<any>) => {
         if (event.url) {
-          if (event.url.indexOf('api') > -1) {
+          if (event.url.indexOf('api') > -1 || event.url.indexOf('http://localhost:3000') > -1) {
             this.counter--;
             if (this.counter === 0) {
                 this.dbLoadStatusService.$statusPreloadingData.next('false');
