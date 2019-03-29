@@ -1,9 +1,12 @@
 .logo-wrapped{
-  display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
   display: none;
+  position: fixed;
+  width: 100vw;
+  background: #f9f9f9;
+  z-index: 100;
 }
 #logo{
   width: 50px;
