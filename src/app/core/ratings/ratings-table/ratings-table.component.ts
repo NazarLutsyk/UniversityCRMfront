@@ -18,10 +18,10 @@ export class RatingsTableComponent implements OnInit {
   background = 'red';
   courseId = null;
 
-  count = 0;
+  count: number;
 
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = 8;
   countOfPages = 1;
 
   sort = '';
@@ -46,7 +46,6 @@ export class RatingsTableComponent implements OnInit {
 
   loadRatings() {
     this.sendLoadRatings().subscribe(response => {
-      this.count = response.count;
       this.ratings = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
       for (let i = 0; i < this.ratings.length; i++) {
@@ -74,6 +73,11 @@ export class RatingsTableComponent implements OnInit {
 
   private sendLoadRatings(): Observable<any> {
     const filterToSend = this.getFilterToSend();
+   this.ratingService.getRatingByCourseId(this.courseId, {
+      q: filterToSend
+    }).subscribe((res: any) => {
+     this.count = res.models.length;
+   });
     return this.ratingService.getRatingByCourseId(this.courseId, {
       q: filterToSend,
       sort: this.sort ? this.sort : '',

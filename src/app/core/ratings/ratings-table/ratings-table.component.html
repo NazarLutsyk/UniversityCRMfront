@@ -59,10 +59,10 @@
   </thead>
   <tbody>
   <tr *ngFor="let rating of ratings" (click)="open(rating.clientId, 'ratings/info',$event)" class="data-row">
-    <td>
+    <td class="td-rating">
       {{rating.fullname}}
     </td>
-    <td [ngStyle]="{'background-color':rating.background, 'width':rating.widthBlock, 'position':'absolute', 'box-sizing':'border-box'}">
+    <td class="td-rating" [ngStyle]="{'background-color':rating.background, 'width':rating.widthBlock, 'position':'absolute', 'box-sizing':'border-box'}">
       <span class='rating-numbers'>{{rating.visited}} / {{rating.full}}</span>
     </td>
   </tr>

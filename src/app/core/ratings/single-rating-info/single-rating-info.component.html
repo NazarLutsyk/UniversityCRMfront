@@ -1,6 +1,9 @@
 <div class="main-wrapper" *ngIf="client && client.applications">
   <div class="lessons-group" *ngFor="let app of client.applications">
-    <h3>{{app.course.name}}</h3>
+<div class="user-and-course">
+    <h3 class="about">{{app.course.name}}</h3>
+    <h3 class="about">{{client.name}} {{client.surname}}</h3>
+</div>
     <div class="lessons-wrapper">
       <div class="lesson-tile" *ngFor="let lesson of app.lessons">
         {{lesson.topic}}

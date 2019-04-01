@@ -13,9 +13,16 @@
   padding: 0 15px 15px 15px;
 }
 
-.lessons-group h3 {
-  text-align: center;
+.user-and-course {
+  display: flex;
+  justify-content: space-between;
 }
+
+.about {
+  text-align: center;
+  padding: 0 20px;
+}
+
 
 .lesson-tile {
   padding: 10px;
@@ -37,3 +44,4 @@
   padding: 10px;
   border-bottom: 1px solid #dadada;
 }
+
