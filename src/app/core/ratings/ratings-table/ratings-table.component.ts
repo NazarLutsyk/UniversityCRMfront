@@ -21,7 +21,7 @@ export class RatingsTableComponent implements OnInit {
   count: number;
 
   pageIndex = 1;
-  pageSize = 8;
+  pageSize = 40;
   countOfPages = 1;
 
   sort = '';
@@ -73,7 +73,7 @@ export class RatingsTableComponent implements OnInit {
 
   private sendLoadRatings(): Observable<any> {
     const filterToSend = this.getFilterToSend();
-   this.ratingService.getRatingByCourseId(this.courseId, {
+    this.ratingService.getRatingByCourseId(this.courseId, {
       q: filterToSend
     }).subscribe((res: any) => {
      this.count = res.models.length;
