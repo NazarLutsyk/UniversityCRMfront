@@ -3,6 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {DbLoadStatusService} from '../db-load-status.service';
+import {ConfigService} from '../config.service';
 
 @Injectable()
 export class CheckResponseInterceptorService implements HttpInterceptor {
@@ -13,7 +14,8 @@ export class CheckResponseInterceptorService implements HttpInterceptor {
   reqst: any;
 
   constructor(
-    private dbLoadStatusService: DbLoadStatusService
+    private dbLoadStatusService: DbLoadStatusService,
+    private configService: ConfigService
   ) {
   }
 
@@ -33,7 +35,7 @@ export class CheckResponseInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const updatedReq = req.clone({
-      url: 'http://localhost:3000', method: 'GET'
+      url: this.configService.host, method: 'GET'
     });
     this.reqst = req;
     if (req.url.indexOf('api') > -1) {
@@ -63,7 +65,7 @@ export class CheckResponseInterceptorService implements HttpInterceptor {
         }
       }, (err: any) => {
         if (err instanceof HttpErrorResponse) {
-          if (err.url.indexOf('api') > -1  || err.url.indexOf('http://localhost:3000') > -1) {
+          if (err.url.indexOf('api') > -1  || err.url.indexOf(this.configService.host) > -1) {
             this.counter--;
             if (this.counter === 0) {
               this.dbLoadStatusService.$statusPreloadingData.next('false');
