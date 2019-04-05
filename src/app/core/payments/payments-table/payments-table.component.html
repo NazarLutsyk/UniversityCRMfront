@@ -47,6 +47,9 @@
       Сума
     </td>
     <td class="small-td">
+      Додати чек
+    </td>
+    <td class="small-td">
       Чек
     </td>
     <td class="controls-col">
@@ -191,6 +194,9 @@
     </td>
     <td class="small-td">
       {{payment.amount}}
+    </td>
+    <td class="link small-td" (click)="generatePaymentFile(payment, $event)">
+      Створити чек
     </td>
     <td class="link small-td" (click)="editFiles(payment, $event)">
       Чеки: {{payment.files ? payment.files.length : 0}}

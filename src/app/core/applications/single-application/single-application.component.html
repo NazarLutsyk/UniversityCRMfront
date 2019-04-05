@@ -200,6 +200,7 @@
     <app-payments-table
       *ngIf="application.id"
       #paymentTable
+      [openedApplication] = "application"
       [byApplicationId]="application.id"
       (onPaymentRemove)="loadApplication(application.id)"
       (onPaymentUpdate)="loadApplication(application.id)"

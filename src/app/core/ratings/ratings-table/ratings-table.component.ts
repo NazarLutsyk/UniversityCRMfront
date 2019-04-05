@@ -15,7 +15,6 @@ import {RatingService} from '../../../services/rating.service';
 export class RatingsTableComponent implements OnInit {
 
   ratings: Rating[] = [];
-  background = 'red';
   courseId = null;
 
   count: number;
@@ -47,6 +46,7 @@ export class RatingsTableComponent implements OnInit {
   loadRatings() {
     this.sendLoadRatings().subscribe(response => {
       this.ratings = response.models;
+      this.count = response.count;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
       for (let i = 0; i < this.ratings.length; i++) {
         this.ratings[i]['background'] = this.randomColor();
@@ -73,11 +73,6 @@ export class RatingsTableComponent implements OnInit {
 
   private sendLoadRatings(): Observable<any> {
     const filterToSend = this.getFilterToSend();
-    this.ratingService.getRatingByCourseId(this.courseId, {
-      q: filterToSend
-    }).subscribe((res: any) => {
-     this.count = res.models.length;
-   });
     return this.ratingService.getRatingByCourseId(this.courseId, {
       q: filterToSend,
       sort: this.sort ? this.sort : '',
@@ -98,6 +93,7 @@ export class RatingsTableComponent implements OnInit {
     $event.stopPropagation();
     const isControl = $event.target.dataset.controls;
     if (isControl || !isNumber(id)) {
+
       return false;
     }
     this.router.navigate([...url.split('/'), id]);

@@ -53,6 +53,13 @@ export class PaymentService {
     );
   }
 
+  createFile(paymentId: number, application): Observable<Payment[]> {
+    return this.http.post<Payment[]>(
+      `${this.paymentsURL}/${paymentId}/create`,
+      application
+    );
+  }
+
   update(id: number, payment: Payment): Observable<Payment> {
     return this.http.put<Payment>(`${this.paymentsURL}/${id}`, payment);
   }

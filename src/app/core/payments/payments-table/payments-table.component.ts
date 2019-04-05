@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable} from 'rxjs';
 import {PaymentService} from '../../../services/payment.service';
+import {ConfigService} from '../../../services/config.service';
 import {Payment} from '../../../models/payment';
 import {MatDialog} from '@angular/material';
 import {UfileComponent} from '../../ufile/ufile.component';
@@ -18,6 +19,7 @@ import {Router} from '@angular/router';
 export class PaymentsTableComponent implements OnInit {
 
   @Input() byApplicationId;
+  @Input() openedApplication;
   @Output() onPaymentRemove = new EventEmitter<any>();
   @Output() onPaymentUpdate = new EventEmitter<any>();
 
@@ -39,6 +41,7 @@ export class PaymentsTableComponent implements OnInit {
     private paymentService: PaymentService,
     public materialTableService: MaterialTableService,
     private dialog: MatDialog,
+    private configService: ConfigService,
     private router: Router
   ) {
   }
@@ -142,6 +145,25 @@ export class PaymentsTableComponent implements OnInit {
     filesDialogRef.afterClosed().subscribe((result) => {
       this.loadPayments();
     });
+  }
+
+  generatePaymentFile(payment, $event) {
+    $event.stopPropagation();
+    payment.application = this.openedApplication;
+    this.paymentService
+      .createFile(<number>payment.id, payment)
+      .subscribe((files) => {
+        if (files) {
+          for (let i = 0; i < files.length; i++) {
+            this.downloadFile(files[i]);
+          }
+          this.loadPayments();
+        }
+      });
+  }
+
+  downloadFile(file) {
+    window.open(`${this.configService.public}/${file.path}`);
   }
 
   open(payment: Payment, $event) {
