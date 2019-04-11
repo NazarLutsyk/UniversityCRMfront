@@ -11,6 +11,7 @@ export class Group {
     public startTime: string = '',
     public freePractice: number = 0,
     public usedPractice: number = 0,
+    public teacher: string = '',
     public applications: Application[] = [],
     public lessons: Lesson[] = [],
     public course: Course = null,

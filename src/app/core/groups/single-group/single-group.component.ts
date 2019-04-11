@@ -123,7 +123,7 @@ export class SingleGroupComponent implements OnInit {
 
   loadGroup(id): Observable<Group> {
     return this.groupService.getGroupById(id, {
-      attributes: ['id', 'name', 'freePractice', 'usedPractice', 'startDate', 'startTime'],
+      attributes: ['id', 'name', 'freePractice', 'usedPractice', 'teacher', 'startDate', 'startTime'],
       include: ['course', 'city']
     }).pipe(map((group) => {
       if (group.freePractice > 0) {
@@ -141,9 +141,11 @@ export class SingleGroupComponent implements OnInit {
       freePractice: this.group.freePractice,
       startDate: this.group.startDate,
       startTime: this.group.startTime,
+      teacher: this.group.teacher
     };
     this.groupService.update(this.group.id, <Group>groupToUpdate).subscribe(updated => {
       this.loadGroup(updated.id).subscribe(group => this.group = group);
+      console.log(this.group);
     });
   }
 

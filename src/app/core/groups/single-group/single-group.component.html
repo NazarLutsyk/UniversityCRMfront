@@ -79,13 +79,26 @@
           matInput
         >
       </mat-form-field>
+      <mat-form-field>
+        <mat-label>Викладач</mat-label>
+        <input
+          type="text"
+          name="teacher"
+          [(ngModel)]="group.teacher"
+          matInput
+        >
+      </mat-form-field>
+
       <button *ngIf="canUpdateGroup" mat-flat-button [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
   <div class="right-menu">
     <div class="right-menu-header">
-    <h3>СТАТИСТИКА ВІДВІДУВАНОСТІ</h3>
-    <h3>Кількість учнів: {{studentsQuantity}}</h3>
+      <div>
+        <h3>СТАТИСТИКА ВІДВІДУВАНОСТІ</h3>
+        <h3>Кількість учнів: {{studentsQuantity}}</h3>
+      </div>
+    <h3>Викладач: {{group.teacher}}</h3>
     </div>
     <div>
       <canvas

@@ -148,18 +148,20 @@ export class PaymentsTableComponent implements OnInit {
   }
 
   generatePaymentFile(payment, $event) {
-    $event.stopPropagation();
-    payment.application = this.openedApplication;
-    this.paymentService
-      .createFile(<number>payment.id, payment)
-      .subscribe((files) => {
-        if (files) {
-          for (let i = 0; i < files.length; i++) {
-            this.downloadFile(files[i]);
+    if (payment.amount && payment.paymentDate) {
+      $event.stopPropagation();
+      payment.application = this.openedApplication;
+      this.paymentService
+        .createFile(<number>payment.id, payment)
+        .subscribe((files) => {
+          if (files) {
+            for (let i = 0; i < files.length; i++) {
+              this.downloadFile(files[i]);
+            }
+            this.loadPayments();
           }
-          this.loadPayments();
-        }
-      });
+        });
+    }
   }
 
   downloadFile(file) {
