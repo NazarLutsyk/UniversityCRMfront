@@ -23,6 +23,8 @@ import {UfileTypes} from '../../ufile/ufile-types';
 import {MatDialog} from '@angular/material';
 import {Social} from '../../../models/social';
 import {SocialService} from '../../../services/social.service';
+import {ClientStatusService} from '../../../services/client-status.service';
+import {ClientStatus} from '../../../models/client-status';
 
 @Component({
   selector: 'app-single-client',
@@ -39,6 +41,7 @@ export class SingleClientComponent implements OnInit {
   @ViewChild('socialTable') socialTable;
 
   client: Client = new Client();
+  clientStatuses: ClientStatus[] = [];
   sources: Source[] = [];
   courses: Course[] = [];
   cities: City[] = [];
@@ -66,7 +69,8 @@ export class SingleClientComponent implements OnInit {
     public authService: AuthService,
     private audioCallService: AudioCallService,
     private filesDialog: MatDialog,
-    private socialService: SocialService
+    private socialService: SocialService,
+    private clientStatusesService: ClientStatusService
   ) {
   }
 
@@ -93,11 +97,13 @@ export class SingleClientComponent implements OnInit {
       this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
       this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
     }
+
+    this.clientStatusesService.getStatuses({}).subscribe(res => this.clientStatuses = res.models);
   }
 
   loadClient(id) {
     this.clientService.getClientById(id, {
-      attributes: ['id', 'name', 'surname', 'phone', 'email'], include: ['files', 'address']
+      attributes: ['id', 'name', 'surname', 'phone', 'email', 'statusId'], include: ['files', 'address']
     })
       .subscribe(client => {
         this.client = client;

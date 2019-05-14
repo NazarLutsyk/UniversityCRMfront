@@ -73,6 +73,14 @@
       >
         <span>Платежі</span>
       </div>
+      <div
+        mat-menu-item
+        routerLink="/reports"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Статистика по платежам</span>
+      </div>
     </mat-menu>
     <div mat-icon-button
          [matMenuTriggerFor]="appMenu"
@@ -119,6 +127,14 @@
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
       >
         <span>Менеджери</span>
+      </div>
+      <div
+        mat-menu-item
+        routerLink="/statuses"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <span>Статуси клієнтів</span>
       </div>
       <div
         mat-menu-item

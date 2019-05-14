@@ -36,6 +36,9 @@ import {RatingsComponent} from './core/ratings/ratings.component';
 import {SingleRatingComponent} from './core/ratings/single-rating/single-rating.component';
 import {SingleRatingInfoComponent} from './core/ratings/single-rating-info/single-rating-info.component';
 import {ClientsMapComponent} from './core/clients/clients-map/clients-map.component';
+import {ReportsComponent} from './core/reports/reports.component';
+import {ClientsStatusesComponent} from './core/clients-statuses/clients-statuses.component';
+import {SingleClientStatusComponent} from './core/clients-statuses/single-client-status/single-client-status.component';
 
 const routes: Routes = [
   {
@@ -132,6 +135,16 @@ const routes: Routes = [
       ]
   },
   {
+    path: 'statuses',
+    data: {breadcrumb: 'Statuses', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
+      [
+        {path: '', component: ClientsStatusesComponent},
+        {path: ':id', component: SingleClientStatusComponent, data: {breadcrumb: 'Status'}},
+      ]
+  },
+  {
     path: 'login',
     component: LoginComponent,
     canActivate: [NotAuthenticatedGuard],
@@ -174,6 +187,15 @@ const routes: Routes = [
     canActivate: [AuthenticatedGuard, RoleGuard],
     data: {
       breadcrumb: 'Payments',
+      expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
+    },
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    data: {
+      breadcrumb: 'reports',
       expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]
     },
   },

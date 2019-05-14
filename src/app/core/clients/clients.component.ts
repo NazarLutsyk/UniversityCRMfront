@@ -9,6 +9,8 @@ import {isNumber} from 'util';
 import {AuthService} from '../../services/auth.service';
 import {MatDialog, MatExpansionPanel} from '@angular/material';
 import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
+import {ClientStatusService} from '../../services/client-status.service';
+import {ClientStatus} from '../../models/client-status';
 
 @Component({
   selector: 'app-clients',
@@ -21,6 +23,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild('formPanel') formPanel: MatExpansionPanel;
 
   clients: Client[] = [];
+  clientStatuses: ClientStatus[] = [];
 
   passportFilesToUpload: File[] = [];
 
@@ -39,7 +42,8 @@ export class ClientsComponent implements OnInit {
     surname: null,
     phone: null,
     email: null,
-    address: null
+    address: null,
+    statusId: ''
   };
 
   canCreateClient = false;
@@ -51,7 +55,8 @@ export class ClientsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public materialTableService: MaterialTableService,
     public authService: AuthService,
-    private createClientDialog: MatDialog
+    private createClientDialog: MatDialog,
+    private clientStatusesService: ClientStatusService
   ) {
   }
 
@@ -86,7 +91,9 @@ export class ClientsComponent implements OnInit {
     const p = this.authService.getLocalPrincipal();
     this.canCreateClient = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
     this.canDeleteClient = this.canCreateClient;
+    this.clientStatusesService.getStatuses({}).subscribe(res => this.clientStatuses = res.models);
   }
+
 
   loadClients() {
     this.sendLoadClients().subscribe(response => {

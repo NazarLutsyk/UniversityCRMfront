@@ -56,6 +56,14 @@
         email
       >
     </mat-form-field>
+    <mat-form-field>
+      <mat-label>Статус</mat-label>
+      <mat-select [(ngModel)]="clientFormObject.statusId" name="statusId" required>
+        <mat-option *ngFor="let status of clientStatuses" [value]="status.id">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-flat-button [disabled]="!form.valid">Створити</button>
   </form>
 </mat-expansion-panel>
@@ -172,7 +180,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let client of clients" (click)="open(client, 'clients',$event)" class="data-row">
+  <tr *ngFor="let client of clients" (click)="open(client, 'clients', $event)" class="data-row">
     <td>
       {{client.name}}
     </td>

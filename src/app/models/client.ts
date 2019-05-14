@@ -17,6 +17,7 @@ export class Client {
     public comments: Comment[] = [],
     public files: Ufile[] = [],
     public socials: Social[] = [],
+    public statusId: string = '',
   ) {
   }
 }

@@ -54,6 +54,14 @@
           email
         >
       </mat-form-field>
+      <mat-form-field>
+        <mat-label>Статус</mat-label>
+        <mat-select [(ngModel)]="client.statusId" name="statusId" required>
+          <mat-option *ngFor="let status of clientStatuses" [value]="status.id">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <p class="passport-link" (click)="editFiles(client)">
         Паспорти: {{client.files ? client.files.length : 0}}
       </p>

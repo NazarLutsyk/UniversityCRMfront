@@ -3,7 +3,7 @@ import {Group} from '../../../models/group';
 import {GroupService} from '../../../services/group.service';
 import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {isNumber} from 'util';
 import {AuthService} from '../../../services/auth.service';
 
@@ -29,6 +29,7 @@ export class GroupsTableComponent implements OnInit {
   filter: any = {};
 
   canDeleteGroup = false;
+  sendGroups = new Subject<Group[]>();
 
   constructor(
     private groupsService: GroupService,
@@ -52,6 +53,7 @@ export class GroupsTableComponent implements OnInit {
     this.sendLoadGroups().subscribe(response => {
       this.count = response.count;
       this.groups = response.models;
+      this.sendGroups.next(this.groups);
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }

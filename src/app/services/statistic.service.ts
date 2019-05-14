@@ -10,12 +10,14 @@ import {addParams} from '../helpers/url-helper';
 export class StatisticService {
 
   private statisticURL = '';
+  private reportsURL = '';
 
   constructor(
     private http: HttpClient,
     private config: ConfigService
   ) {
     this.statisticURL = config.api + '/statistic';
+    this.reportsURL = config.api + '/reports';
   }
 
   getManagersStatisticByCity(): Observable<any> {
@@ -50,6 +52,16 @@ export class StatisticService {
 
   getPaymentsStatistic(query) {
     const urlToRequest = addParams(`${this.statisticURL}/payments-statistic`, query);
+    return this.http.get<any>(urlToRequest);
+  }
+
+  getNumberOfClientByStatus(query) {
+    const urlToRequest = addParams(`${this.statisticURL}/client-statuses-statistic`, query);
+    return this.http.get<any>(urlToRequest);
+  }
+
+  getPaymentsForReport(query) {
+    const urlToRequest = addParams(`${this.reportsURL}`, query);
     return this.http.get<any>(urlToRequest);
   }
 }
