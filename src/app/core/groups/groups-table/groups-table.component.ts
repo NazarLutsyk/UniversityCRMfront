@@ -53,7 +53,7 @@ export class GroupsTableComponent implements OnInit {
     this.sendLoadGroups().subscribe(response => {
       this.count = response.count;
       this.groups = response.models;
-      this.sendGroups.next(this.groups);
+      this.loadGroupsForReport();
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
     });
   }
@@ -144,5 +144,21 @@ export class GroupsTableComponent implements OnInit {
     }
     this.router.navigate([...url.split('/'), id]);
   }
+
+  private loadGroupsForReport() {
+    this.sendLoadGroupsForReports().subscribe(res => {
+      this.sendGroups.next(res.models);
+    });
+  }
+
+  private sendLoadGroupsForReports(): Observable<any> {
+    const filterToSend = this.getFilterToSend();
+    return this.groupsService.getGroups({
+      q: filterToSend,
+      sort: this.sort ? this.sort : 'createdAt DESC',
+      include: ['course', 'city']
+    });
+  }
+
 
 }
