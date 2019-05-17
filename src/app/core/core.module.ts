@@ -32,7 +32,6 @@ import {ClientMatchDialogComponent} from './clients/client-match-dialog/client-m
 import {PaymentUpdateComponent} from './payments/payment-update/payment-update.component';
 import {RatingsModule} from './ratings/ratings.module';
 import { PreloadComponent } from './preload/preload.component';
-import { ReportsComponent } from './reports/reports.component';
 import {ClientsStatusesModule} from './clients-statuses/clients-statuses.module';
 import {ReportsModule} from './reports/reports.module';
 

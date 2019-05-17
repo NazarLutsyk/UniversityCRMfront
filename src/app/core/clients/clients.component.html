@@ -26,6 +26,15 @@
       >
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Вік</mat-label>
+      <input
+        type="number"
+        name="age"
+        [(ngModel)]="clientFormObject.age"
+        matInput
+      >
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Адреса</mat-label>
       <input
         name="address"
@@ -103,6 +112,12 @@
     <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
       Емейл
     </td>
+    <td (click)="loadSorted('age',headerBlock,$event)" data-sort="">
+      Вік
+    </td>
+    <td>
+      Статус
+    </td>
     <td>
       Соціалка
     </td>
@@ -168,6 +183,32 @@
         <mat-label></mat-label>
         <input
           type="text"
+          name="age"
+          data-key="age"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <mat-select [(ngModel)]="statusIdForSearch" name="statusId" matInput>
+          <mat-option [value]="" (click)="loadFiltered(filterBlock)">
+            ------
+          </mat-option>
+          <mat-option *ngFor="let status of clientStatuses" [value]="status.id" (click)="loadFiltered(filterBlock)">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
           name="social.url"
           data-key="social.url"
           ngModel
@@ -179,7 +220,7 @@
     <td *ngIf="canDeleteClient" class="controls-col"></td>
   </tr>
   </thead>
-  <tbody>
+  <tbody >
   <tr *ngFor="let client of clients" (click)="open(client, 'clients', $event)" class="data-row">
     <td>
       {{client.name}}
@@ -193,6 +234,12 @@
     <td>
       {{client.email}}
     </td>
+    <td>
+      {{client.age}}
+    </td>
+      <td *ngIf="client.statusId" [ngStyle]="{ 'background': clientStatuses | statusColor: client.statusId }">
+        {{clientStatuses | statusName: client.statusId}}
+      </td>
     <ng-container *ngIf="client.socials">
       <td>
         Соціалок: {{client.socials.length > 0 ? client.socials.length : 0}}

@@ -9,6 +9,7 @@ export class Client {
     public id: number = null,
     public name: string = '',
     public surname: string = '',
+    public age: number = null,
     public phone: string = '',
     public email: string = '',
     public address: Address = null,

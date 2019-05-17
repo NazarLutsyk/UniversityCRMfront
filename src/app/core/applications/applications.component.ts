@@ -14,6 +14,7 @@ import {City} from '../../models/city';
 import {CityService} from '../../services/city.service';
 import {Eapplication} from '../../models/eapplication';
 import {ContractService} from '../../services/contract.service';
+import {ClientService} from '../../services/client.service';
 
 @Component({
   selector: 'app-applications',
@@ -53,7 +54,8 @@ export class ApplicationsComponent implements OnInit {
     public storageService: StorageService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
-    private contractService: ContractService
+    private contractService: ContractService,
+    private clientService: ClientService
   ) {
   }
 
@@ -66,6 +68,31 @@ export class ApplicationsComponent implements OnInit {
         eapplication = JSON.parse(eapplicationJSON);
         this.applicationForm.wantPractice = eapplication.wantPractice;
         this.applicationForm.date = eapplication.date;
+        this.citiesService.getCities({q: {name: {$like: eapplication.city}}}).subscribe(res => {
+          if (res.models[0] != undefined) {
+            this.applicationForm.cityId = res.models.id;
+          }
+        });
+        this.courseService.getCourses({q: {name: {$like: eapplication.course}}}).subscribe(res => {
+          if (res.models[0] != undefined) {
+            this.applicationForm.courseId = res.models.id;
+          }
+        });
+        this.sourceService.getSources({q: {name: {$like: eapplication.source}}}).subscribe(res => {
+          if (res.models[0] != undefined) {
+            this.applicationForm.sources = [res.models[0]];
+          }
+        });
+          if (eapplication.wantPractice === true) {
+            this.applicationForm.wantPractice = true;
+          }
+        this.clientService.getClients(
+          {q: {phone: {$like: eapplication.phone}, email: {$like: eapplication.email}}})
+          .subscribe((res: any) => {
+            if (res.models[0] != undefined) {
+              this.selectedClient = res.models[0];
+            }
+          });
         this.formPanel.open();
       } catch (e) {
         this.byEapplication = false;

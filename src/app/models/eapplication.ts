@@ -3,6 +3,7 @@ export class Eapplication {
     public id: number = null,
     public name: string = '',
     public surname: string = '',
+    public age: number = null,
     public city: string = '',
     public phone: string = '',
     public email: string = '',

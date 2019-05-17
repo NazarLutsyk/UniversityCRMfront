@@ -5,12 +5,14 @@ import {Observable} from 'rxjs';
 import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../services/material-table.service';
+// @ts-ignore
 import {isNumber} from 'util';
 import {AuthService} from '../../services/auth.service';
 import {MatDialog, MatExpansionPanel} from '@angular/material';
 import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
 import {ClientStatusService} from '../../services/client-status.service';
 import {ClientStatus} from '../../models/client-status';
+import {query} from '@angular/animations';
 
 @Component({
   selector: 'app-clients',
@@ -40,14 +42,17 @@ export class ClientsComponent implements OnInit {
   clientFormObject = {
     name: null,
     surname: null,
+    age: null,
     phone: null,
     email: null,
     address: null,
-    statusId: ''
+    statusId: null
   };
 
   canCreateClient = false;
   canDeleteClient = false;
+
+  statusIdForSearch: number;
 
   constructor(
     private clientsService: ClientService,
@@ -76,8 +81,10 @@ export class ClientsComponent implements OnInit {
           this.formPanel.open();
           this.clientFormObject.name = clientFromEapp.name;
           this.clientFormObject.surname = clientFromEapp.surname;
-          this.clientFormObject.email = clientFromEapp.phone;
-          this.clientFormObject.phone = clientFromEapp.email;
+          this.clientFormObject.age = clientFromEapp.age;
+          this.clientFormObject.email = clientFromEapp.email;
+          this.clientFormObject.phone = clientFromEapp.phone;
+          this.clientFormObject.address = clientFromEapp.city;
         } catch (e) {
           this.clientFormObject.name = null;
           this.clientFormObject.surname = null;
@@ -144,11 +151,17 @@ export class ClientsComponent implements OnInit {
     if (this.filter.surname) {
       res.surname = {$like: `${this.filter.surname}`};
     }
+    if (this.filter.age) {
+      res.age = {$like: `${this.filter.age}`};
+    }
     if (this.filter.phone) {
       res.phone = {$like: `${this.filter.phone}`};
     }
     if (this.filter.email) {
       res.email = {$like: `${this.filter.email}`};
+    }
+    if (this.statusIdForSearch) {
+      res.statusId = {$like: `${this.statusIdForSearch}`};
     }
     if (this.filter['social.url']) {
       res.social = {url: `${this.filter['social.url']}`};

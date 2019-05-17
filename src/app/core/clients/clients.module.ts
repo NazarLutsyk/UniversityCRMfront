@@ -24,6 +24,8 @@ import {SocialModule} from '../social/social.module';
 import {ClientMatchDialogComponent} from './client-match-dialog/client-match-dialog.component';
 import {SharedModule} from '../../shared/shared.module';
 import { ClientsMapComponent } from './clients-map/clients-map.component';
+import {StatusColorPipe} from '../../pipes/status-color.pipe';
+import {StatusNamePipe} from '../../pipes/status-name.pipe';
 
 @NgModule({
   imports: [
@@ -52,6 +54,8 @@ import { ClientsMapComponent } from './clients-map/clients-map.component';
     SingleClientComponent,
     ClientMatchDialogComponent,
     ClientsMapComponent,
+    StatusColorPipe,
+    StatusNamePipe
   ]
 })
 export class ClientsModule {

@@ -23,6 +23,16 @@
         >
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Вік</mat-label>
+        <input
+          type="number"
+          name="age"
+          [(ngModel)]="client.age"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Адреса</mat-label>
         <input
           name="address"

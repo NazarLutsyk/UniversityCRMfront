@@ -49,6 +49,9 @@ export class EApplicationsComponent implements OnInit {
       surname: eapplication.surname,
       email: eapplication.email,
       phone: eapplication.phone,
+      comment: eapplication.comment,
+      age: eapplication.age,
+      address: eapplication.city
     };
     this.router.navigate(['/clients'], {
       queryParams: {
