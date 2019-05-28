@@ -1,0 +1,51 @@
+.display-none {
+  display: none;
+}
+.table {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.table-header {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  padding-bottom: 15px;
+}
+
+.group, .table-header {
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.group>.cell, .table-header>.cell {
+  width: 25%;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.group>.cell:first-child, .table-header>.cell:first-child {
+  border-left: 1px solid black;
+  width: 5%;
+}
+
+.table-header>.cell {
+  color: darkgray;
+  font-size: small;
+}
+
+.date-pickers {
+  padding: 0 20px 20px 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.near-date-pickers {
+  padding: 10px 10px 10px 10px;
+}
+
+.date-input {
+  border-bottom: 1px solid black;
+}

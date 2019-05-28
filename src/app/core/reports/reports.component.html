@@ -1,0 +1,67 @@
+<app-groups-table class="display-none" #groupsTable></app-groups-table>
+
+
+<div class="table">
+  <div class="table-header">
+    <div class="cell"><input id="all-groups-checkbox" type="checkbox" checked></div>
+    <div class="cell">Група</div>
+    <div class="cell">Розпочаток</div>
+    <div class="cell">Викладач</div>
+    <div class="cell">Місто</div>
+  </div>
+  <div class="group" *ngFor="let group of groups">
+    <div class="for-checkbox cell"><input class="group-id-input" type="checkbox" value="{{group.id}}" checked></div>
+    <div class="name cell">{{group.name}}</div>
+    <div class="createdAt cell">{{group.startDate}} {{group.startTime}}</div>
+    <div class="teacher cell">{{group.teacher}}</div>
+    <div class="city cell">{{group.city.name}}</div>
+  </div>
+</div>
+
+<div class="date-pickers">
+  <div class="near-date-pickers">Від:</div>
+  <input
+    class="date-input"
+    type="text"
+    matInput
+    ngModel
+    name="fromDate"
+    id="fromDate"
+    [matDatepicker]="pickerFromDate"
+    placeholder="Виберіть дату"
+    readonly
+    (click)="pickerFromDate.open()"
+  >
+  <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFromDate disabled="false"></mat-datepicker>
+  <div class="near-date-pickers">до:</div>
+  <input
+    class="date-input"
+    type="text"
+    matInput
+    ngModel
+    name="toDate"
+    id="toDate"
+    [matDatepicker]="pickerToDate"
+    placeholder="Виберіть дату"
+    readonly
+    (click)="pickerToDate.open()"
+  >
+  <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+  <mat-datepicker #pickerToDate disabled="false"></mat-datepicker>
+</div>
+
+<div id="canvasFather" #canvasFather *ngIf="chartDatasets.length > 0">
+  <canvas
+    baseChart
+    chartType="bar"
+    [labels]="chartLabels"
+    [datasets]="chartDatasets"
+    [legend]="false"
+    [colors]="chartColors"
+    [options]="chartOptions"
+    width="100%"
+    height="48%"
+  >
+  </canvas>
+</div>
