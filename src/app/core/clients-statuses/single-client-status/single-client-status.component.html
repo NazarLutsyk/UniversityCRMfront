@@ -1,0 +1,100 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <h3>ОНОВИТИ</h3>
+    <form #form="ngForm" (ngSubmit)="updateCity()">
+      <mat-form-field>
+        <mat-label>Назва</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="status.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+      <mat-label>Колір</mat-label>
+      <input
+        class="cursor-pointer"
+        type="color"
+        name="color"
+        [(ngModel)]="status.color"
+        matInput
+        required
+      >
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Оновити</button>
+    </form>
+  </div>
+  <div class="right-menu">
+    <h3>СТАТИСТИКА ПО ЗАЯВКАХ</h3>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          ФІЛЬТРАЦІЯ
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #statForm="ngForm">
+        <mat-form-field>
+          <mat-label>Від</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="startDate"
+            [matDatepicker]="pickerStartDate"
+            placeholder="Виберіть дату"
+            readonly
+            (click)="pickerStartDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>До</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="endDate"
+            [matDatepicker]="pickerEndDate"
+            placeholder="Виберіть дату"
+            readonly
+            (click)="pickerEndDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEndDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div class="stat-form-buttons">
+          <button
+            mat-flat-button
+            (click)="loadStatistic(statForm, false)"
+          >
+            Знайти
+          </button>
+          <button
+            mat-flat-button
+            (click)="loadStatistic(statForm, true)"
+          >
+            Очистити
+          </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+    <div>
+      <canvas
+        *ngIf="chartDatasets.length > 0"
+        baseChart
+        chartType="bar"
+        [labels]="chartLabels"
+        [datasets]="chartDatasets"
+        [legend]="false"
+        [colors]="chartColors"
+        [options]="chartOptions"
+        width="100%"
+        height="50%"
+      >
+      </canvas>
+    </div>
+  </div>
+</div>

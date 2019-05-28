@@ -46,7 +46,7 @@ export class ClientsComponent implements OnInit {
     phone: null,
     email: null,
     address: null,
-    statusId: null
+    statusId: null,
   };
 
   canCreateClient = false;
@@ -85,6 +85,7 @@ export class ClientsComponent implements OnInit {
           this.clientFormObject.email = clientFromEapp.email;
           this.clientFormObject.phone = clientFromEapp.phone;
           this.clientFormObject.address = clientFromEapp.city;
+          this.clientFormObject.statusId = clientFromEapp.statusId;
         } catch (e) {
           this.clientFormObject.name = null;
           this.clientFormObject.surname = null;

@@ -14,6 +14,7 @@ export class Eapplication {
     public wantTime: string = '',
     public comment: string = '',
     public date: string = '',
+    public createdAt: string = '',
     public wantPractice: boolean = false,
   ) {
   }

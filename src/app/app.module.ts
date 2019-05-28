@@ -14,7 +14,7 @@ import {CheckResponseInterceptorService} from './services/interceptors/checkResp
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -40,6 +40,9 @@ export class EApplicationsComponent implements OnInit {
   loadEapplications() {
     this.eaplicationService.getEapplications({}).subscribe(eas => {
       this.eapplications = eas.models;
+      for (let i = 0; i < this.eapplications.length; i++) {
+        this.eapplications[i].date = this.eapplications[i].createdAt;
+      }
     });
   }
 
@@ -51,7 +54,8 @@ export class EApplicationsComponent implements OnInit {
       phone: eapplication.phone,
       comment: eapplication.comment,
       age: eapplication.age,
-      address: eapplication.city
+      address: eapplication.city,
+      statusId: 1
     };
     this.router.navigate(['/clients'], {
       queryParams: {

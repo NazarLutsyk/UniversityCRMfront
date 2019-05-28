@@ -85,6 +85,8 @@ export class ApplicationsComponent implements OnInit {
         });
           if (eapplication.wantPractice === true) {
             this.applicationForm.wantPractice = true;
+          } else {
+            this.applicationForm.wantPractice = false;
           }
         this.clientService.getClients(
           {q: {phone: {$like: eapplication.phone}, email: {$like: eapplication.email}}})

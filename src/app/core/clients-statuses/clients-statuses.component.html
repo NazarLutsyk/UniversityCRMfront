@@ -1,0 +1,96 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      СТВОРИТИ
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <form (ngSubmit)="createStatus(form)" #form="ngForm">
+    <mat-form-field>
+      <mat-label>Назва</mat-label>
+      <input
+        type="text"
+        name="name"
+        ngModel
+        matInput
+        required
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Колір</mat-label>
+      <input
+        class="cursor-pointer"
+        type="color"
+        name="color"
+        ngModel
+        matInput
+        required
+      >
+    </mat-form-field>
+    <button mat-flat-button [disabled]="!form.valid">Створити</button>
+  </form>
+</mat-expansion-panel>
+
+<table>
+  <thead>
+  <tr class="material-table-paginator" #paginator>
+    <th colspan="9">
+      <div class="paginator-buttons">
+        <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
+        <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
+      </div>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [value]="pageIndex"
+          matInput
+          (blur)="loadPaginated(0, $event)"
+        >
+      </mat-form-field>
+      з
+      <span>{{countOfPages}}</span>
+    </th>
+    <th data-controls="true"></th>
+  </tr>
+  <tr #headerBlock>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Назва
+    </td>
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+      Колір
+    </td>
+    <td class="controls-col">
+      Управління
+    </td>
+  </tr>
+  <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="name"
+          data-key="name"
+          ngModel
+          matInput
+          (keyup)="loadFiltered(filterBlock)"
+        >
+      </mat-form-field>
+    </td>
+    <td class="controls-col"></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let status of statuses" (click)="open(status.id, 'statuses', $event)" class="data-row">
+    <td>
+      {{status.name}}
+    </td>
+    <td>
+      <input type="color" value="{{status.color}}" disabled>
+    </td>
+    <td class="controls-col" data-controls="true">
+      <div class="remove-button" (click)="remove(status.id)" data-controls="true"></div>
+    </td>
+  </tr>
+  </tbody>
+</table>

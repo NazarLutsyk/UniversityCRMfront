@@ -58,7 +58,7 @@
     </div>
     <div *ngIf="eapplication.date" class="tile-content-item">
       <p class="tile-content-item-header">Дата:</p>
-      <p>{{eapplication.date}}</p>
+      <p>{{ eapplication.date | date:'medium' }}</p>
     </div>
   </div>
 </div>
