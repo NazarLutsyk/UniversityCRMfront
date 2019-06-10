@@ -13,15 +13,26 @@
         >
       </mat-form-field>
       <mat-form-field>
-      <mat-label>Колір</mat-label>
-      <input
-        class="cursor-pointer"
-        type="color"
-        name="color"
-        [(ngModel)]="status.color"
-        matInput
-        required
-      >
+        <mat-label>Колір</mat-label>
+        <input
+          class="cursor-pointer"
+          type="color"
+          name="color"
+          [(ngModel)]="status.color"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Опис</mat-label>
+        <textarea
+          class="cursor-pointer"
+          type="text"
+          name="description"
+          [(ngModel)]="status.description"
+          matInput
+          required>
+        </textarea>
       </mat-form-field>
       <button mat-flat-button [disabled]="!form.valid">Оновити</button>
     </form>

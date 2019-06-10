@@ -41,6 +41,20 @@
       >
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Дата закінчення</mat-label>
+      <input
+        type="text"
+        matInput
+        ngModel
+        name="expirationDate"
+        placeholder="Дата закінчення"
+        readonly
+        [matDatepicker]="pickerEndDate"
+        (click)="pickerEndDate.open()">
+      <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEndDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Курс</mat-label>
       <mat-select ngModel name="courseId" required>
         <mat-option *ngFor="let course of courses" [value]="course.id">

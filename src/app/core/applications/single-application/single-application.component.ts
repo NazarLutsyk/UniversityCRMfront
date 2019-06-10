@@ -91,11 +91,15 @@ export class SingleApplicationComponent implements OnInit {
     this.groupService.getGroups({
         q: {
           courseId: this.application.courseId,
-          cityId: this.application.cityId
+          cityId: this.application.cityId,
+          expirationDate: new Date().toJSON().slice(0, 10).replace(/-/g, '-')
         }
       }
     )
-      .subscribe(response => this.groups = response.models);
+      .subscribe(response => {
+          this.groups = response.models;
+        }
+      );
   }
 
   updateApplication() {
@@ -125,23 +129,27 @@ export class SingleApplicationComponent implements OnInit {
 
   createPayment(paymentForm) {
     const paymentFormValue: Payment = <Payment>paymentForm.form.value;
-      const payment: Payment = <Payment>{
-        number: paymentFormValue.number,
-        expectedDate: paymentFormValue.expectedDate,
-        amount: paymentFormValue.amount ? paymentFormValue.amount : 0,
-        expectedAmount: paymentFormValue.expectedAmount ? paymentFormValue.expectedAmount : 0,
-        applicationId: this.application.id,
-      };
-      if (paymentFormValue.paymentDate) {
-        payment.paymentDate = paymentFormValue.paymentDate;
-      }
-      this.paymentService.create(payment).subscribe((paymentResponse) => {
-        this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe(() => {
-          paymentForm.resetForm();
-          this.paymentTable.loadPayments();
-          this.loadApplication(this.application.id);
-        });
+    const payment: Payment = <Payment>{
+      number: paymentFormValue.number,
+      expectedDate: `${this.dateCreator(paymentFormValue.expectedDate)}`,
+      amount: paymentFormValue.amount ? paymentFormValue.amount : 0,
+      expectedAmount: paymentFormValue.expectedAmount ? paymentFormValue.expectedAmount : 0,
+      applicationId: this.application.id,
+    };
+    if (paymentFormValue.paymentDate) {
+      payment.paymentDate = `${this.dateCreator(paymentFormValue.paymentDate)}`;
+    }
+    this.paymentService.create(payment).subscribe((paymentResponse) => {
+      this.paymentService.uploadFiles(paymentResponse.id, this.paymentFilesToUpload).subscribe(() => {
+        paymentForm.resetForm();
+        this.paymentTable.loadPayments();
+        this.loadApplication(this.application.id);
       });
+    });
+  }
+
+  dateCreator(string) {
+    return `${string.getFullYear()}-${string.getMonth() + 1}-${string.getDate()}`;
   }
 
   openGroup(id: number, $event) {

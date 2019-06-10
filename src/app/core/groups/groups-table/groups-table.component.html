@@ -15,7 +15,6 @@
           (blur)="loadPaginated(0, $event)"
         >
       </mat-form-field>
-      з
       <span>{{countOfPages}}</span>
     </th>
     <th *ngIf="canDeleteGroup" data-controls="true"></th>
@@ -35,6 +34,9 @@
     </td>
     <td class="small-td" (click)="loadSorted('startTime',headerBlock,$event)" data-sort="">
       Початковий час
+    </td>
+    <td class="small-td" (click)="loadSorted('expirationData',headerBlock,$event)" data-sort="">
+      Дата закінчення
     </td>
     <td *ngIf="!(byCourseId >= 0)" (click)="loadSorted('course.name',headerBlock,$event)" data-sort="">
       Курс
@@ -112,6 +114,19 @@
         >
       </mat-form-field>
     </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="expirationDate"
+          data-key="expirationDate"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+    </td>
     <td
       *ngIf="!(byCourseId >= 0)"
     >
@@ -159,6 +174,9 @@
     </td>
     <td class="small-td">
       {{group.startTime.split(':')[0]}}:{{group.startTime.split(':')[1]}}
+    </td>
+    <td class="small-td">
+      {{group.expirationDate | date : 'yyy/MM/dd'}}
     </td>
     <ng-container *ngIf="!(byCourseId >= 0)">
       <td [ngClass]="{'link': !!group.course, 'no-link': !!!group.course}"

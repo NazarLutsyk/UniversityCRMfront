@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClientStatus} from '../../../models/client-status';
 import {ActivatedRoute} from '@angular/router';
 import {StatisticService} from '../../../services/statistic.service';
@@ -14,7 +14,7 @@ import {ClientStatusService} from '../../../services/client-status.service';
 })
 export class SingleClientStatusComponent implements OnInit {
 
-    status: ClientStatus = new ClientStatus();
+  status: ClientStatus = new ClientStatus();
 
   chartLabels: String[] = [];
   chartDatasets: any[] = [];
@@ -49,12 +49,11 @@ export class SingleClientStatusComponent implements OnInit {
 
     this.loadStatistic();
     this.activatedRoute.params.subscribe(({id}) => {
-      this.clientStatusService.getStatusById(id, {attributes: ['id', 'name', 'color']})
+      this.clientStatusService.getStatusById(id, {attributes: ['id', 'name', 'color', 'description']})
         .subscribe(status => {
           this.status = status;
         });
     });
-
   }
 
   loadStatistic(datesForm: NgForm = null, reset: boolean = false) {
@@ -71,6 +70,7 @@ export class SingleClientStatusComponent implements OnInit {
       }
     }
     this.statisticService.getNumberOfClientByStatus({q: {startDate, endDate}}).subscribe((res) => {
+      console.log(res);
       this.chartLabels = res.map(s => s.status);
       const data = res.map(s => s.count);
       this.chartDatasets = [

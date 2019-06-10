@@ -80,6 +80,20 @@
         >
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Дата закінчення</mat-label>
+        <input
+          type="text"
+          matInput
+          [(ngModel)]="group.expirationDate"
+          name="expirationDate"
+          readonly
+          placeholder="Дата закінчення"
+          [matDatepicker]="pickerEndDate"
+          (click)="pickerEndDate.open()">
+        <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickerEndDate disabled="false"></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
         <mat-label>Викладач</mat-label>
         <input
           type="text"
@@ -98,7 +112,7 @@
         <h3>СТАТИСТИКА ВІДВІДУВАНОСТІ</h3>
         <h3>Кількість учнів: {{studentsQuantity}}</h3>
       </div>
-    <h3>Викладач: {{group.teacher}}</h3>
+      <h3>Викладач: {{group.teacher}}</h3>
     </div>
     <div>
       <canvas

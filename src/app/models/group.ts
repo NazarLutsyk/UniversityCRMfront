@@ -9,6 +9,7 @@ export class Group {
     public name: string = '',
     public startDate: string = '',
     public startTime: string = '',
+    public expirationDate: string = '',
     public freePractice: number = 0,
     public usedPractice: number = 0,
     public teacher: string = '',

@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
-import {City} from '../models/city';
-import {Client} from '../models/client';
 import {ClientStatus} from '../models/client-status';
 
 @Injectable({
