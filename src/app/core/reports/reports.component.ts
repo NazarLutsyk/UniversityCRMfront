@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core
 import {Group} from '../../models/group';
 import {StatisticService} from '../../services/statistic.service';
 import {NgForm} from '@angular/forms';
-import {ChartService} from '../../services/chart.service';
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 
 @Component({
@@ -44,6 +43,7 @@ export class ReportsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.groupsTable.sendGroups.subscribe(res => {
         this.groups = res;
         setTimeout(() => {

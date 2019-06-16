@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {AuthService} from '../../../services/auth.service';
 import {Observable} from 'rxjs';
+// @ts-ignore
 import {isNumber} from 'util';
 import {Rating} from '../../../models/Rating';
 import {RatingService} from '../../../services/rating.service';

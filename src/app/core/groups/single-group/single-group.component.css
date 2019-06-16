@@ -5,12 +5,17 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
-
+.group-applications-statistic {
+  margin: 15px;
+  width: inherit;
+  border-left: 3px solid #000000;
+  border-top: 3px solid #000000;
+}
 mat-list {
   padding-top: 0;
 }
 
-.left-menu, .right-menu, .group-applications, .group-lesson-block, .group-practice {
+.left-menu, .right-menu, .group-applications, .group-applications-statistic, .group-lesson-block, .group-practice {
   background: white;
   padding: 15px 25px;
 }
@@ -97,3 +102,124 @@ mat-icon{
   background: #b22424;
 }
 
+.head-app-statistic {
+  display: flex;
+  justify-content: space-between;
+}
+
+.group-app-all-frame {
+  width: 100%;
+  height: 33px;
+  display: flex;
+  background: #808080;
+}
+
+.applications-info {
+  display: none;
+  padding: 20px;
+  z-index: 1000;
+  background: black;
+  color: white;
+}
+.app-statistic {z-index: 100}
+.border-right {
+  border-left: white 1px solid;
+  padding: 0 20px;
+}
+.flex-r {
+  display: flex;
+}
+
+.flex-r:first-child:first-child {
+  border-left: 0px;
+  padding: 0;
+}
+
+.modal-clients-info {
+  display: flex;
+  padding: 0 30px;
+  background: #20b2aa;
+  width: 80vw;
+  height: 80vh;
+  margin: auto;
+  z-index: 2001;
+  overflow-y: scroll;
+}
+
+.table-modal-clients {
+  margin: auto;
+}
+
+.table-modal-clients th {
+  width: 400px;
+  background: #d0d0d0;
+}
+
+.group-desc th {
+  background: #ffffff;
+  font-weight: lighter;
+}
+
+.modal-clients-background {
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  background: black;
+  opacity: 0.5;
+}
+
+.modal-clients {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.close-modal-clients {
+  color: red;
+  padding: 24px;
+  font-size: 34px;
+  float: right;
+  position: fixed;
+  right: 0;
+  z-index: 2100;
+  cursor: pointer;
+}
+
+.top-bamper {
+  top: 10vh;
+  z-index: 2200;
+  left: 10vw;
+  position: fixed;
+  background: #20b2aa;
+  height: 30px;
+  width: 80vw;
+}
+
+.bottom-bamper{
+  bottom: 10vh;
+  z-index: 2200;
+  left: 10vw;
+  position: fixed;
+  background: #20b2aa;
+  height: 30px;
+  width: 80vw;
+}
+
+.app-from-another-group-bar{
+  background-color: green;
+  position: absolute;
+  box-sizing: border-box;
+  height: 33px;
+  color: white;
+  display: flex;
+  padding: 3px;
+  align-items: center;
+  justify-content: center;
+}

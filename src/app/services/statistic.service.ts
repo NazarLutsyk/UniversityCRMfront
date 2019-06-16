@@ -64,4 +64,8 @@ export class StatisticService {
     const urlToRequest = addParams(`${this.reportsURL}`, query);
     return this.http.get<any>(urlToRequest);
   }
+
+  getStatisticByGroupByApplications(id) {
+    return this.http.get<any>(`${this.statisticURL}/free-courses-group-statistic/${id}`);
+  }
 }

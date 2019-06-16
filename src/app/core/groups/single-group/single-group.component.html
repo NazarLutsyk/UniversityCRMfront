@@ -1,4 +1,5 @@
 <div class="main-wrapper">
+
   <div class="left-menu">
     <h3>ОНОВИТИ</h3>
     <form #form="ngForm" (ngSubmit)="updateGroup()">
@@ -129,6 +130,20 @@
       >
       </canvas>
     </div>
+
+    <div class="app-statistic">
+      <div class="head-app-statistic"><h3>УЧНІ З ЗАЯВКАМИ З ІНШИХ ГРУП</h3></div>
+      <button *ngIf="!appStatisticAll" mat-flat-button [ngStyle]="{'width':'100%'}" (click)="showGroupAppStat()">Завантажити</button>
+      <div class="group-app-all-frame"  *ngIf="appStatisticAll">
+        <div *ngIf="appFromThisAndAnotherGroupPercent" class="app-from-another-group-bar"
+             [ngStyle]="{'width': appFromThisAndAnotherGroupPercent}">
+          {{quantityClientsFromAnotherGroup}}/{{appStatisticAll.applicationsByGroup.length}}
+        </div>
+      </div>
+    </div>
+    <div class="users-from-another-groups">
+
+    </div>
   </div>
 
 
@@ -170,6 +185,8 @@
                             [canDeleteApplicationInput]="canDeleteApplication" #appApplctnTable></app-applications-table>
   </div>
 
+
+
   <div class="group-practice overflow-x">
     <h3>ПРАКТИКА</h3>
     <mat-selection-list #practiceList>
@@ -183,4 +200,68 @@
       </ng-container>
     </mat-selection-list>
   </div>
+</div>
+
+<div class="applications-info" #applicationsInfo *ngIf="arrOfAnotherGroups">
+  <h1>Заявки з інших груп:</h1>
+  <div class="flex-r">
+    <div *ngFor="let appAndGroup of arrOfAnotherGroups">
+      <div *ngIf="appAndGroup" class="border-right">
+        <h2>{{appAndGroup.name}}</h2>
+        <span *ngIf="appAndGroup.applications">{{appAndGroup.applications.length}}</span>
+        <!--<div *ngFor="let app of appAndGroup.applications">-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+  <button
+    mat-flat-button
+    [ngStyle]="{'width':'100%', 'background':'white', 'color':'black', 'margin-top':'20px'}"
+    (click)="showClientsFromAnotherGroups()"
+  >
+    Show clients
+  </button>
+</div>
+<div class="modal-clients" #modelClients>
+  <div class="modal-clients-info" *ngIf="arrOfAnotherGroupsAndClients">
+    <div class="top-bamper"></div>
+    <div class="table-modal-clients" [ngStyle]="{'width':'100%'}">
+      <table *ngFor="let g of arrOfAnotherGroupsAndClients" [ngStyle]="{'margin-bottom':'20px'}">
+        <tbody *ngIf="g" [ngStyle]="{'width':'100%', 'background':'white', 'color':'black'}">
+          <tr>
+            <th>Група</th>
+            <th>Викладач</th>
+            <th>Початок навчання</th>
+            <th>Дата закінчення:</th>
+            <th>Місто</th>
+          </tr>
+          <tr class="group-desc" [ngStyle]="{'background':'white', 'color':'black'}">
+            <th>{{g.name}}</th>
+            <th>{{g.teacher}}</th>
+            <th>{{g.startDate}}</th>
+            <th>{{g.expirationDate}}</th>
+            <th>{{g.city.name}}</th>
+          </tr>
+          <tr>
+            <th>Ім'я Призвіще</th>
+            <th>Вік</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Статус</th>
+          </tr>
+            <tr *ngFor="let client of g.clients" (click)="open(client, 'clients', $event)">
+              <td>{{client.name}} {{client.surname}}</td>
+              <td>{{client.age}}</td>
+              <td>{{client.email}}</td>
+              <td>{{client.phone}}</td>
+              <td [ngStyle]="{'background':client.status.color}">{{client.status.name}}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bottom-bamper"></div>
+  </div>
+  <div class="modal-clients-background">
+  </div>
+  <span class="close-modal-clients">X</span>
 </div>

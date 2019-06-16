@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {Group} from '../../../models/group';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../../../services/group.service';
@@ -8,10 +8,14 @@ import {Application} from '../../../models/application';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
 import {MatSelectionListChange} from '@angular/material';
-import {count, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {AuthService} from '../../../services/auth.service';
 import {StatisticService} from '../../../services/statistic.service';
 import {ChartService} from '../../../services/chart.service';
+import {ClientService} from '../../../services/client.service';
+import {CityService} from '../../../services/city.service';
+import {ClientStatusService} from '../../../services/client-status.service';
+import {isNumber} from "util";
 
 @Component({
   selector: 'app-single-group',
@@ -21,9 +25,12 @@ import {ChartService} from '../../../services/chart.service';
 export class SingleGroupComponent implements OnInit {
 
   @ViewChild('form') updateGroupForm: NgForm;
+  @ViewChild('applicationsInfo') applicationsInfo: ElementRef;
   @ViewChild('lessonsTable') lessonsTable;
   @ViewChild('practiceList') practiceList;
   @ViewChild('appApplctnTable') appApplctnTable;
+  @ViewChild('groupId') groupIdentify: ElementRef;
+  @ViewChild('modelClients') modelClients: ElementRef;
 
   applicationsToPractice: Application[] = [];
   group: Group = new Group();
@@ -55,8 +62,19 @@ export class SingleGroupComponent implements OnInit {
       responsive: true
     }
   };
-
+  appStatisticAll;
   studentsQuantity: number;
+
+  appFromThisAndAnotherGroupPercent: string;
+  arrOfAnotherGroups = [];
+  currentGroupID;
+
+  arrOfAnotherGroupsAndClients = [];
+  allClientStatuses;
+  allCities;
+  selectEvent = null;
+  clientsWithAppsInAnotherGroups = [];
+  quantityClientsFromAnotherGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -66,11 +84,17 @@ export class SingleGroupComponent implements OnInit {
     private router: Router,
     public authService: AuthService,
     private statisticService: StatisticService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private renderer: Renderer2,
+    private clientService: ClientService,
+    private cityService: CityService,
+    private clientStatusService: ClientStatusService
   ) {
   }
 
   ngOnInit() {
+    this.getAllStatuses();
+    this.getAllCities();
     this.practiceList.selectionChange.subscribe((s: MatSelectionListChange) => {
       if (this.canSelectPractice && this.hasFreePracticePlaces) {
         const applicationId = s.option.value;
@@ -88,6 +112,7 @@ export class SingleGroupComponent implements OnInit {
     });
 
     this.activatedRoute.params.subscribe(({id}) => {
+      this.currentGroupID = id;
       this.loadGroup(id).subscribe(group => {
         this.group = group;
         this.loadStatistic();
@@ -101,7 +126,6 @@ export class SingleGroupComponent implements OnInit {
         if (!this.canUpdateGroup) {
           this.updateGroupForm.form.disable();
         }
-
         this.loadPractice();
       });
     });
@@ -194,10 +218,162 @@ export class SingleGroupComponent implements OnInit {
       this.chartColors = [{
         backgroundColor: this.chartService.getRandomColors(data.length)
       }];
-      this.appApplctnTable.$quantityGroupStudents.subscribe((res) => {
-        this.studentsQuantity = res;
+      this.appApplctnTable.$quantityGroupStudents.subscribe((resp) => {
+        this.studentsQuantity = resp;
       });
     });
+  }
+
+  showGroupAppStat() {
+    this.statisticService.getStatisticByGroupByApplications(this.currentGroupID).subscribe(res => {
+      this.appStatisticAll = res;
+      for (let i = 0; i < this.appStatisticAll.result.length; i++) {
+        this.groupService.getGroupById(this.appStatisticAll.result[i].groupId, {}).subscribe( (group: any) => {
+          let curGrupId = group.id;
+          if (this.arrOfAnotherGroups[curGrupId]) {
+          } else {
+            this.arrOfAnotherGroups[curGrupId] = group;
+          }
+          if (this.arrOfAnotherGroups[curGrupId]) {
+            if (this.arrOfAnotherGroups[curGrupId].applications) {
+              this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+            } else {
+              this.arrOfAnotherGroups[curGrupId].applications = [];
+              this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+            }
+          }
+          if (this.appStatisticAll.result.length - 1 === i) {
+            this.getClientsFromAnotherGroup(res.applicationsByGroup.length);
+          }
+        });
+      }
+      const blockAppStatic = document.getElementsByClassName('app-statistic');
+      blockAppStatic[0].addEventListener('mouseover', (event: any) => {
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'left', `${event.target.offsetLeft}px`);
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'top', `${event.target.offsetTop - 200}px`);
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
+      });
+      this.applicationsInfo.nativeElement.addEventListener('mouseover', (event: any) => {
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
+      });
+      blockAppStatic[0].addEventListener('mouseleave', (event: any) => {
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
+      });
+      this.applicationsInfo.nativeElement.addEventListener('mouseleave', (event: any) => {
+        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
+      });
+    });
+  }
+
+  showClientsFromAnotherGroups () {
+    this.renderer.setStyle(this.modelClients.nativeElement, 'display', 'flex');
+    document.addEventListener('click' , (e: any) => {
+      if (e.target.classList.contains('modal-clients-background')) {
+        this.closeModalClients();
+      } else if (e.target.classList.contains('close-modal-clients')) {
+        this.closeModalClients();
+      }
+    });
+  }
+
+  getClientsFromAnotherGroup(appByCurrentGroup) {
+    for (let group of this.arrOfAnotherGroups) {
+      if (group) {
+        let cGId = group.id;
+        let i = 1;
+        for (let app of group.applications) {
+          this.clientService.getClientById(app.clientId, {}).subscribe((client: any) => {
+            this.clientsWithAppsInAnotherGroups[client.id] = client;
+            group.city = this.getGroupCity(group.cityId);
+            this.arrOfAnotherGroupsAndClients[cGId] = group;
+            if (this.arrOfAnotherGroupsAndClients[cGId].clients) {
+              client.status = this.getClientStatus(client.statusId);
+              this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
+            } else {
+              this.arrOfAnotherGroupsAndClients[cGId].clients = [];
+              client.status = this.getClientStatus(client.statusId);
+              this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
+            }
+            if (i === group.applications.length && app.groupId === this.arrOfAnotherGroups[this.arrOfAnotherGroups.length - 1].id) {
+              this.getClientsQuantity().then(res => {
+                this.quantityClientsFromAnotherGroup = res;
+                this.appFromThisAndAnotherGroupPercent = this.widthOfVisitedBlock(appByCurrentGroup, this.quantityClientsFromAnotherGroup);
+                console.log(res);
+              });
+            }
+            i++;
+          });
+        }
+      }
+    }
+  }
+
+ async getClientsQuantity () {
+    const clients = [];
+    for (let cl of this.clientsWithAppsInAnotherGroups) {
+      if (cl) {
+        clients.push(cl);
+      }
+    }
+    return clients.length;
+}
+
+  getClientStatus(statusId) {
+    for (let i = 0; i < this.allClientStatuses.length; i++) {
+      if (this.allClientStatuses[i].id === statusId) {
+        return this.allClientStatuses[i];
+      }
+    }
+  }
+
+  getGroupCity(cityId) {
+    for (let i = 0; i < this.allCities.length; i++) {
+      if (this.allCities[i].id === cityId) {
+        return this.allCities[i];
+      }
+    }
+  }
+
+  closeModalClients() {
+    for (let group of this.arrOfAnotherGroups) {
+      if (group) {
+        group.clients = [];
+      }
+    }
+    this.renderer.setStyle(this.modelClients.nativeElement, 'display', 'none');
+  }
+
+  getAllStatuses() {
+    this.clientStatusService.getStatuses({}).subscribe((statuses) => {
+      this.allClientStatuses = statuses.models;
+    });
+  }
+  getAllCities() {
+    this.cityService.getCities({}).subscribe((cities) => {
+      this.allCities = cities.models;
+    });
+  }
+
+  widthOfVisitedBlock(a, b) {
+    const x = (b * 100) / a;
+    const result = (59.8 * x) / 100;
+    return `${result}vw`;
+  }
+
+  open(client, url, $event) {
+    $event.stopPropagation();
+    if (this.selectEvent) {
+      this.router.navigate(this.selectEvent.backURL, {queryParams: {client: JSON.stringify(client)}});
+      this.selectEvent = null;
+    } else {
+      const isControl = $event.target.dataset.controls;
+      if (isControl || !isNumber(client.id)) {
+        return false;
+      }
+      this.router.navigate([...url.split('/'), client.id]);
+    }
   }
 
 }
