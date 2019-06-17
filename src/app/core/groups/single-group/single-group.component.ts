@@ -30,7 +30,7 @@ export class SingleGroupComponent implements OnInit {
   @ViewChild('practiceList') practiceList;
   @ViewChild('appApplctnTable') appApplctnTable;
   @ViewChild('groupId') groupIdentify: ElementRef;
-  @ViewChild('modelClients') modelClients: ElementRef;
+  @ViewChild('modalClients') modalClients: ElementRef;
 
   applicationsToPractice: Application[] = [];
   group: Group = new Group();
@@ -41,6 +41,7 @@ export class SingleGroupComponent implements OnInit {
   canCreateLesson = false;
   canDeleteLesson = false;
   canDeleteApplication = false;
+  canSeeStatisticOfAppsFromAnotherGroups = false;
 
   chartLabels: String[] = [];
   chartDatasets: any[] = [];
@@ -74,7 +75,8 @@ export class SingleGroupComponent implements OnInit {
   allCities;
   selectEvent = null;
   clientsWithAppsInAnotherGroups = [];
-  quantityClientsFromAnotherGroup;
+  quantityClientsFromAnotherGroups;
+  appByCurrentGroup;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -118,6 +120,9 @@ export class SingleGroupComponent implements OnInit {
         this.loadStatistic();
         const p = this.authService.getLocalPrincipal();
         this.canUpdateGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
+        this.canSeeStatisticOfAppsFromAnotherGroups = (
+          p && [this.authService.roles.BOSS_ROLE].indexOf(p.role) > -1
+        );
         this.canSelectPractice = this.canUpdateGroup;
         this.canCreateLesson = this.canUpdateGroup
           || [this.authService.roles.TEACHER_ROLE].indexOf(this.authService.getLocalPrincipal().role) > -1;
@@ -225,60 +230,92 @@ export class SingleGroupComponent implements OnInit {
   }
 
   showGroupAppStat() {
-    this.statisticService.getStatisticByGroupByApplications(this.currentGroupID).subscribe(res => {
-      this.appStatisticAll = res;
-      for (let i = 0; i < this.appStatisticAll.result.length; i++) {
-        this.groupService.getGroupById(this.appStatisticAll.result[i].groupId, {}).subscribe( (group: any) => {
-          let curGrupId = group.id;
-          if (this.arrOfAnotherGroups[curGrupId]) {
-          } else {
-            this.arrOfAnotherGroups[curGrupId] = group;
-          }
-          if (this.arrOfAnotherGroups[curGrupId]) {
-            if (this.arrOfAnotherGroups[curGrupId].applications) {
-              this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+    if (this.canSeeStatisticOfAppsFromAnotherGroups) {
+      this.statisticService.getStatisticByGroupByApplications(this.currentGroupID).subscribe(res => {
+        this.appStatisticAll = res;
+        for (let i = 0; i < this.appStatisticAll.result.length; i++) {
+          this.groupService.getGroupById(this.appStatisticAll.result[i].groupId, {}).subscribe((group: any) => {
+            let curGrupId = group.id;
+            if (this.arrOfAnotherGroups[curGrupId]) {
             } else {
-              this.arrOfAnotherGroups[curGrupId].applications = [];
-              this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+              this.arrOfAnotherGroups[curGrupId] = group;
             }
-          }
-          if (this.appStatisticAll.result.length - 1 === i) {
-            this.getClientsFromAnotherGroup(res.applicationsByGroup.length);
-          }
+            if (this.arrOfAnotherGroups[curGrupId]) {
+              if (this.arrOfAnotherGroups[curGrupId].applications) {
+                this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+              } else {
+                this.arrOfAnotherGroups[curGrupId].applications = [];
+                this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+              }
+            }
+            if (this.appStatisticAll.result.length - 1 === i) {
+              this.appByCurrentGroup = res.applicationsByGroup.length;
+              this.getClientsQuantity(this.appByCurrentGroup);
+            }
+          });
+        }
+        const blockAppStatic = document.getElementsByClassName('app-statistic');
+        blockAppStatic[0].addEventListener('mouseover', (event: any) => {
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'left', `${event.target.offsetLeft}px`);
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'top', `${event.target.offsetTop - 200}px`);
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
         });
-      }
-      const blockAppStatic = document.getElementsByClassName('app-statistic');
-      blockAppStatic[0].addEventListener('mouseover', (event: any) => {
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'left', `${event.target.offsetLeft}px`);
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'top', `${event.target.offsetTop - 200}px`);
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
+        this.applicationsInfo.nativeElement.addEventListener('mouseover', (event: any) => {
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
+        });
+        blockAppStatic[0].addEventListener('mouseleave', (event: any) => {
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
+        });
+        this.applicationsInfo.nativeElement.addEventListener('mouseleave', (event: any) => {
+          this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
+        });
       });
-      this.applicationsInfo.nativeElement.addEventListener('mouseover', (event: any) => {
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'position', 'absolute');
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'block');
-      });
-      blockAppStatic[0].addEventListener('mouseleave', (event: any) => {
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
-      });
-      this.applicationsInfo.nativeElement.addEventListener('mouseleave', (event: any) => {
-        this.renderer.setStyle(this.applicationsInfo.nativeElement, 'display', 'none');
-      });
-    });
+    }
   }
 
   showClientsFromAnotherGroups () {
-    this.renderer.setStyle(this.modelClients.nativeElement, 'display', 'flex');
-    document.addEventListener('click' , (e: any) => {
-      if (e.target.classList.contains('modal-clients-background')) {
-        this.closeModalClients();
-      } else if (e.target.classList.contains('close-modal-clients')) {
-        this.closeModalClients();
-      }
-    });
+    if (this.canSeeStatisticOfAppsFromAnotherGroups) {
+      this.getClientsFromAnotherGroup(this.appByCurrentGroup);
+      this.renderer.setStyle(this.modalClients.nativeElement, 'display', 'flex');
+      document.addEventListener('click', (e: any) => {
+        if (e.target.classList.contains('modal-clients-background')) {
+          this.closeModalClients();
+        } else if (e.target.classList.contains('close-modal-clients')) {
+          this.closeModalClients();
+        }
+      });
+    }
   }
 
   getClientsFromAnotherGroup(appByCurrentGroup) {
+    if (this.canSeeStatisticOfAppsFromAnotherGroups) {
+      for (let group of this.arrOfAnotherGroups) {
+        if (group) {
+          let cGId = group.id;
+          let i = 1;
+          for (let app of group.applications) {
+            this.clientService.getClientById(app.clientId, {}).subscribe((client: any) => {
+              group.city = this.getGroupCity(group.cityId);
+              this.arrOfAnotherGroupsAndClients[cGId] = group;
+              if (this.arrOfAnotherGroupsAndClients[cGId].clients) {
+                client.status = this.getClientStatus(client.statusId);
+                this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
+              } else {
+                this.arrOfAnotherGroupsAndClients[cGId].clients = [];
+                client.status = this.getClientStatus(client.statusId);
+                this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
+              }
+            });
+          }
+        }
+      }
+    }
+  }
+
+getClientsQuantity (appByCurrentGroup) {
+  if (this.canSeeStatisticOfAppsFromAnotherGroups) {
     for (let group of this.arrOfAnotherGroups) {
       if (group) {
         let cGId = group.id;
@@ -286,22 +323,18 @@ export class SingleGroupComponent implements OnInit {
         for (let app of group.applications) {
           this.clientService.getClientById(app.clientId, {}).subscribe((client: any) => {
             this.clientsWithAppsInAnotherGroups[client.id] = client;
-            group.city = this.getGroupCity(group.cityId);
-            this.arrOfAnotherGroupsAndClients[cGId] = group;
-            if (this.arrOfAnotherGroupsAndClients[cGId].clients) {
-              client.status = this.getClientStatus(client.statusId);
-              this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
-            } else {
-              this.arrOfAnotherGroupsAndClients[cGId].clients = [];
-              client.status = this.getClientStatus(client.statusId);
-              this.arrOfAnotherGroupsAndClients[cGId].clients.push(client);
-            }
             if (i === group.applications.length && app.groupId === this.arrOfAnotherGroups[this.arrOfAnotherGroups.length - 1].id) {
-              this.getClientsQuantity().then(res => {
-                this.quantityClientsFromAnotherGroup = res;
-                this.appFromThisAndAnotherGroupPercent = this.widthOfVisitedBlock(appByCurrentGroup, this.quantityClientsFromAnotherGroup);
-                console.log(res);
-              });
+              const clients = [];
+              for (let cl of this.clientsWithAppsInAnotherGroups) {
+                if (cl) {
+                  clients.push(cl);
+                }
+              }
+              this.quantityClientsFromAnotherGroups = clients.length;
+              this.appFromThisAndAnotherGroupPercent = this.widthOfVisitedBlock(
+                this.appByCurrentGroup,
+                this.quantityClientsFromAnotherGroups
+              );
             }
             i++;
           });
@@ -309,15 +342,6 @@ export class SingleGroupComponent implements OnInit {
       }
     }
   }
-
- async getClientsQuantity () {
-    const clients = [];
-    for (let cl of this.clientsWithAppsInAnotherGroups) {
-      if (cl) {
-        clients.push(cl);
-      }
-    }
-    return clients.length;
 }
 
   getClientStatus(statusId) {
@@ -342,7 +366,7 @@ export class SingleGroupComponent implements OnInit {
         group.clients = [];
       }
     }
-    this.renderer.setStyle(this.modelClients.nativeElement, 'display', 'none');
+    this.renderer.setStyle(this.modalClients.nativeElement, 'display', 'none');
   }
 
   getAllStatuses() {

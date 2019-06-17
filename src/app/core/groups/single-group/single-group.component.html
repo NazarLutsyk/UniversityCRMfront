@@ -131,13 +131,13 @@
       </canvas>
     </div>
 
-    <div class="app-statistic">
+    <div class="app-statistic" *ngIf="canSeeStatisticOfAppsFromAnotherGroups">
       <div class="head-app-statistic"><h3>УЧНІ З ЗАЯВКАМИ З ІНШИХ ГРУП</h3></div>
       <button *ngIf="!appStatisticAll" mat-flat-button [ngStyle]="{'width':'100%'}" (click)="showGroupAppStat()">Завантажити</button>
       <div class="group-app-all-frame"  *ngIf="appStatisticAll">
         <div *ngIf="appFromThisAndAnotherGroupPercent" class="app-from-another-group-bar"
              [ngStyle]="{'width': appFromThisAndAnotherGroupPercent}">
-          {{quantityClientsFromAnotherGroup}}/{{appStatisticAll.applicationsByGroup.length}}
+          {{quantityClientsFromAnotherGroups}}/{{appStatisticAll.applicationsByGroup.length}}
         </div>
       </div>
     </div>
@@ -219,10 +219,10 @@
     [ngStyle]="{'width':'100%', 'background':'white', 'color':'black', 'margin-top':'20px'}"
     (click)="showClientsFromAnotherGroups()"
   >
-    Show clients
+    Показати список учнів та груп
   </button>
 </div>
-<div class="modal-clients" #modelClients>
+<div class="modal-clients" #modalClients>
   <div class="modal-clients-info" *ngIf="arrOfAnotherGroupsAndClients">
     <div class="top-bamper"></div>
     <div class="table-modal-clients" [ngStyle]="{'width':'100%'}">
