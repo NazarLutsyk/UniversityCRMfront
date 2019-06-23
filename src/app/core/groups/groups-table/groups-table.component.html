@@ -1,7 +1,7 @@
 <table>
   <thead>
   <tr class="material-table-paginator" #paginator>
-    <th colspan="9">
+    <th colspan="6">
       <div class="paginator-buttons">
         <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
         <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
@@ -18,6 +18,18 @@
       <span>{{countOfPages}}</span>
     </th>
     <th *ngIf="canDeleteGroup" data-controls="true"></th>
+    <th colspan="4">
+      <span>Ліміт груп на сторінці:</span>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="number"
+          [(ngModel)]="pageSize"
+          matInput
+          (input)="loadGroups()"
+        >
+      </mat-form-field>
+    </th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">

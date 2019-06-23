@@ -32,7 +32,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Місто</mat-label>
-      <mat-select [(ngModel)]="applicationForm.cityId" name="cityId" required>
+      <mat-select [(ngModel)]="applicationForm.cityId" name="cityId" (ngModelChange)="loadGroups()"  required>
         <mat-option *ngFor="let city of cities" [value]="city.id">
           {{city.name}}
         </mat-option>
@@ -40,7 +40,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Курс</mat-label>
-      <mat-select [(ngModel)]="applicationForm.courseId" name="courseId" required>
+      <mat-select [(ngModel)]="applicationForm.courseId" name="courseId" (ngModelChange)="loadGroups()"  required>
         <mat-option *ngFor="let course of courses" [value]="course.id">
           {{course.name}}
         </mat-option>
@@ -51,6 +51,14 @@
       <mat-select [(ngModel)]="applicationForm.sources" name="sources" multiple>
         <mat-option *ngFor="let source of sources" [value]="source.id">
           {{source.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="groups">
+      <mat-label>Групи</mat-label>
+      <mat-select [(ngModel)]="applicationForm.groupId" name="sources" multiple>
+        <mat-option *ngFor="let group of groups" [value]="group.id">
+          {{group.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>

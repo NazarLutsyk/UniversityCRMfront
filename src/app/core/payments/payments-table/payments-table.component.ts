@@ -28,7 +28,7 @@ export class PaymentsTableComponent implements OnInit {
   count = 0;
 
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = 50;
   countOfPages = 1;
 
   sort = '';
@@ -51,11 +51,13 @@ export class PaymentsTableComponent implements OnInit {
   }
 
   loadPayments() {
-    this.sendLoadPayments().subscribe(response => {
-      this.count = response.count;
-      this.payments = response.models;
-      this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
-    });
+    if (this.pageSize) {
+      this.sendLoadPayments().subscribe(response => {
+        this.count = response.count;
+        this.payments = response.models;
+        this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+      });
+    }
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {

@@ -14,3 +14,25 @@ form input {
 .denial {
   width: 20px;
 }
+th {
+  width: 1000px;
+}
+
+
+table {
+  background-color: #aaa;
+}
+tbody {
+  background-color: #ddd;
+  height: 678px;
+  padding-bottom: 20px;
+  overflow: auto;
+}
+td {
+  width: 220px;
+  padding: 3px 10px;
+}
+
+thead > tr, tbody{
+  display:block;
+}

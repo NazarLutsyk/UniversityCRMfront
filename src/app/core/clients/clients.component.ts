@@ -31,7 +31,7 @@ export class ClientsComponent implements OnInit {
 
   count = 0;
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = 50;
   countOfPages = 1;
 
   sort = '';
@@ -104,11 +104,13 @@ export class ClientsComponent implements OnInit {
 
 
   loadClients() {
-    this.sendLoadClients().subscribe(response => {
-      this.count = response.count;
-      this.clients = response.models;
-      this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
-    });
+    if (this.pageSize) {
+      this.sendLoadClients().subscribe(response => {
+        this.count = response.count;
+        this.clients = response.models;
+        this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+      });
+    }
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {

@@ -15,6 +15,8 @@ import {CityService} from '../../services/city.service';
 import {Eapplication} from '../../models/eapplication';
 import {ContractService} from '../../services/contract.service';
 import {ClientService} from '../../services/client.service';
+import {GroupService} from '../../services/group.service';
+import {Group} from '../../models/group';
 
 @Component({
   selector: 'app-applications',
@@ -40,11 +42,13 @@ export class ApplicationsComponent implements OnInit {
     sources: null,
     courseId: null,
     cityId: null,
+    groupId: null,
     date: null,
     discount: '',
     wantPractice: false,
     fullPrice: 0
   };
+  groups: Group;
 
   constructor(
     public sourceService: SourceService,
@@ -55,7 +59,8 @@ export class ApplicationsComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router,
     private contractService: ContractService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private groupService: GroupService
   ) {
   }
 
@@ -156,6 +161,7 @@ export class ApplicationsComponent implements OnInit {
       sources: this.applicationForm.sources ? this.applicationForm.sources : null,
       courseId: this.applicationForm.courseId,
       cityId: this.applicationForm.cityId,
+      groupId: this.applicationForm.groupId,
       date: this.applicationForm.date,
       discount: this.applicationForm.discount,
       fullPrice: this.applicationForm.fullPrice,
@@ -172,6 +178,23 @@ export class ApplicationsComponent implements OnInit {
 
   contractChange($event) {
     this.contractFilesToUpload = (<any>event.target).files;
+  }
+
+  loadGroups() {
+    if (this.applicationForm.courseId && this.applicationForm.cityId) {
+      this.groupService.getGroups({
+          q: {
+            courseId: this.applicationForm.courseId,
+            cityId: this.applicationForm.cityId,
+            expirationDate: new Date().toJSON().slice(0, 10).replace(/-/g, '-')
+          }
+        }
+      )
+        .subscribe(response => {
+            this.groups = response.models;
+          }
+        );
+    }
   }
 
 }

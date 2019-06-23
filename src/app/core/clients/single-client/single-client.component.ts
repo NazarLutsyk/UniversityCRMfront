@@ -71,7 +71,7 @@ export class SingleClientComponent implements OnInit {
     private filesDialog: MatDialog,
     private socialService: SocialService,
     private clientStatusesService: ClientStatusService
-  ) {
+    ) {
   }
 
   ngOnInit() {
@@ -140,7 +140,7 @@ export class SingleClientComponent implements OnInit {
     const comment: Comment = <Comment>{
       clientId: this.client.id,
       text: commentForm.value.text,
-      date: commentForm.value.date,
+      date: commentForm.value.date
     };
     this.commentService.create(comment).subscribe(() => {
       commentForm.resetForm();

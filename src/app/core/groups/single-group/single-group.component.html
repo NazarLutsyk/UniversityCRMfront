@@ -132,10 +132,10 @@
     </div>
 
     <div class="app-statistic" *ngIf="canSeeStatisticOfAppsFromAnotherGroups">
-      <div class="head-app-statistic"><h3>УЧНІ З ЗАЯВКАМИ З ІНШИХ ГРУП</h3></div>
+      <div class="head-app-statistic"><h3>УЧНІ З ЗАЯВКАМИ З ІНШИХ ГРУП: {{quantityClientsFromAnotherGroups}}</h3></div>
       <button *ngIf="!appStatisticAll" mat-flat-button [ngStyle]="{'width':'100%'}" (click)="showGroupAppStat()">Завантажити</button>
       <div class="group-app-all-frame"  *ngIf="appStatisticAll">
-        <div *ngIf="appFromThisAndAnotherGroupPercent" class="app-from-another-group-bar"
+        <div *ngIf="quantityClientsFromAnotherGroups" class="app-from-another-group-bar"
              [ngStyle]="{'width': appFromThisAndAnotherGroupPercent}">
           {{quantityClientsFromAnotherGroups}}/{{appStatisticAll.applicationsByGroup.length}}
         </div>
@@ -226,7 +226,8 @@
   <div class="modal-clients-info" *ngIf="arrOfAnotherGroupsAndClients">
     <div class="top-bamper"></div>
     <div class="table-modal-clients" [ngStyle]="{'width':'100%'}">
-      <table *ngFor="let g of arrOfAnotherGroupsAndClients" [ngStyle]="{'margin-bottom':'20px'}">
+      <div *ngFor="let g of arrOfAnotherGroupsAndClients" [ngStyle]="{'margin-bottom':'20px'}">
+      <table *ngIf="g">
         <tbody *ngIf="g" [ngStyle]="{'width':'100%', 'background':'white', 'color':'black'}">
           <tr>
             <th>Група</th>
@@ -258,6 +259,7 @@
             </tr>
         </tbody>
       </table>
+      </div>
     </div>
     <div class="bottom-bamper"></div>
   </div>

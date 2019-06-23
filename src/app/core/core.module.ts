@@ -10,7 +10,7 @@ import {ApplicationsModule} from './applications/applications.module';
 import {CoursesModule} from './courses/courses.module';
 import {SourcesModule} from './sources/sources.module';
 import {DeleteSnackBarComponent} from './delete-snack-bar/delete-snack-bar.component';
-import {MatButtonModule, MatSnackBarModule} from '@angular/material';
+import {MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatSnackBarModule} from '@angular/material';
 import {CitiesModule} from './cities/cities.module';
 import {ManagersModule} from './managers/managers.module';
 import {AuthModule} from './auth/auth.module';
@@ -34,6 +34,7 @@ import {RatingsModule} from './ratings/ratings.module';
 import { PreloadComponent } from './preload/preload.component';
 import {ClientsStatusesModule} from './clients-statuses/clients-statuses.module';
 import {ReportsModule} from './reports/reports.module';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -60,7 +61,10 @@ import {ReportsModule} from './reports/reports.module';
     CompetitorApplicationsModule,
     RatingsModule,
     ClientsStatusesModule,
-    ReportsModule
+    ReportsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   declarations: [
     HomeComponent,

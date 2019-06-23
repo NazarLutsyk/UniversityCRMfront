@@ -5,3 +5,7 @@
 .failed-payment {
   background: rgba(219, 38, 38, 0.3);
 }
+
+th, td {
+  padding: 3px 15px;
+}

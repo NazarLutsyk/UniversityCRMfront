@@ -6,6 +6,7 @@ import {StatisticService} from '../../../services/statistic.service';
 import {ChartService} from '../../../services/chart.service';
 import {NgForm} from '@angular/forms';
 import {MatDatepicker} from '@angular/material';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-single-city',
@@ -15,6 +16,8 @@ import {MatDatepicker} from '@angular/material';
 export class SingleCityComponent implements OnInit {
 
   city: City = new City();
+
+  canUpdateCity = false;
 
   chartLabels: String[] = [];
   chartDatasets: any[] = [];
@@ -41,7 +44,8 @@ export class SingleCityComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private cityService: CityService,
     private statisticService: StatisticService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private authService: AuthService
   ) {
   }
 
@@ -53,10 +57,14 @@ export class SingleCityComponent implements OnInit {
           this.city = city;
         });
     });
+    const p = this.authService.getLocalPrincipal();
+    this.canUpdateCity = (p && [this.authService.roles.BOSS_ROLE].indexOf(p.role) > -1);
   }
 
   updateCity() {
-    this.cityService.update(this.city.id, this.city).subscribe(updated => this.city = updated);
+    if (this.canUpdateCity) {
+      this.cityService.update(this.city.id, this.city).subscribe(updated => this.city = updated);
+    }
   }
 
   loadStatistic(datesForm: NgForm = null, reset: boolean = false) {

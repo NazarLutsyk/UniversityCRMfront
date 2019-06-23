@@ -235,22 +235,22 @@ export class SingleGroupComponent implements OnInit {
         this.appStatisticAll = res;
         for (let i = 0; i < this.appStatisticAll.result.length; i++) {
           this.groupService.getGroupById(this.appStatisticAll.result[i].groupId, {}).subscribe((group: any) => {
-            let curGrupId = group.id;
-            if (this.arrOfAnotherGroups[curGrupId]) {
-            } else {
-              this.arrOfAnotherGroups[curGrupId] = group;
-            }
-            if (this.arrOfAnotherGroups[curGrupId]) {
-              if (this.arrOfAnotherGroups[curGrupId].applications) {
-                this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+            if (group) {
+              let curGrupId = group.id;
+              if (this.arrOfAnotherGroups[curGrupId]) {
               } else {
-                this.arrOfAnotherGroups[curGrupId].applications = [];
-                this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+                this.arrOfAnotherGroups[curGrupId] = group;
               }
-            }
-            if (this.appStatisticAll.result.length - 1 === i) {
-              this.appByCurrentGroup = res.applicationsByGroup.length;
-              this.getClientsQuantity(this.appByCurrentGroup);
+              if (this.arrOfAnotherGroups[curGrupId]) {
+                if (this.arrOfAnotherGroups[curGrupId].applications) {
+                  this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+                } else {
+                  this.arrOfAnotherGroups[curGrupId].applications = [];
+                  this.arrOfAnotherGroups[curGrupId].applications.push(this.appStatisticAll.result[i]);
+                }
+              }
+                this.appByCurrentGroup = res.applicationsByGroup.length;
+                this.getClientsQuantity(this.appByCurrentGroup);
             }
           });
         }

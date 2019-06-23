@@ -70,7 +70,6 @@ export class SingleClientStatusComponent implements OnInit {
       }
     }
     this.statisticService.getNumberOfClientByStatus({q: {startDate, endDate}}).subscribe((res) => {
-      console.log(res);
       this.chartLabels = res.map(s => s.status);
       const data = res.map(s => s.count);
       this.chartDatasets = [
@@ -86,7 +85,7 @@ export class SingleClientStatusComponent implements OnInit {
     });
   }
 
-  updateCity() {
+  updateStatus() {
     this.clientStatusService.update(this.status.id, this.status).subscribe(updated => this.status = updated);
   }
 

@@ -22,7 +22,7 @@ export class GroupsTableComponent implements OnInit {
   count = 0;
 
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = 50;
   countOfPages = 1;
 
   sort = '';
@@ -50,12 +50,14 @@ export class GroupsTableComponent implements OnInit {
   }
 
   loadGroups() {
-    this.sendLoadGroups().subscribe(response => {
-      this.count = response.count;
-      this.groups = response.models;
-      this.loadGroupsForReport();
-      this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
-    });
+    if (this.pageSize) {
+      this.sendLoadGroups().subscribe(response => {
+        this.count = response.count;
+        this.groups = response.models;
+        this.loadGroupsForReport();
+        this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+      });
+    }
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {

@@ -77,33 +77,48 @@
       <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Оновити</button>
     </form>
   </div>
-  <div class="client-socials" *ngIf="canSeeSocials">
-    <h3>СОЦІАЛКИ</h3>
-    <mat-expansion-panel #socialsFormpanel>
+  <div class="client-comments" *ngIf="canSeeComments">
+    <h3>КОМЕНТАРІ</h3>
+    <mat-expansion-panel #formpanelComments>
       <mat-expansion-panel-header>
         <mat-panel-title>
           СТВОРИТИ
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <form #socialForm="ngForm" (ngSubmit)="createSocial(socialForm)">
+      <form #commentForm="ngForm" (ngSubmit)="createComment(commentForm)">
         <mat-form-field>
-          <mat-label>УРЛ</mat-label>
+          <mat-label>Текст</mat-label>
           <input
             type="text"
-            name="url"
+            name="text"
             ngModel
             matInput
             required
           >
         </mat-form-field>
-        <button mat-flat-button [disabled]="!socialForm.valid">Створити</button>
+        <mat-form-field>
+          <mat-label>Дата</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="date"
+            [matDatepicker]="commentPickerDate"
+            placeholder="Виберіть дату"
+            readonly
+            (click)="commentPickerDate.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="commentPickerDate"></mat-datepicker-toggle>
+          <mat-datepicker #commentPickerDate disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!commentForm.valid">Створити</button>
       </form>
     </mat-expansion-panel>
-    <app-social-table *ngIf="client.id"
-                      #socialTable
-                      [byClientId]="client.id">
-
-    </app-social-table>
+    <app-comments-table
+      *ngIf="client.id"
+      #commentTable
+      [byClientId]="client.id"
+    ></app-comments-table>
   </div>
   <div class="client-tasks" *ngIf="canSeeTasks">
     <h3>ЗАВДАННЯ</h3>
@@ -147,100 +162,6 @@
       [byClientId]="client.id"
       #tasksTable
     ></app-tasks-table>
-  </div>
-  <div class="audio-calls" *ngIf="canSeeAudioCalls">
-    <h3>АУДІО ДЗВІНКИ</h3>
-    <mat-expansion-panel #audioCallsFormpanel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          СТВОРИТИ
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <form #audioCallForm="ngForm" (ngSubmit)="createAudioCall(audioCallForm)">
-        <mat-form-field>
-          <mat-label>Коментар</mat-label>
-          <input
-            type="text"
-            name="comment"
-            ngModel
-            matInput
-            required
-          >
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Дата</mat-label>
-          <input
-            type="text"
-            matInput
-            ngModel
-            name="date"
-            [matDatepicker]="audioCallDatepicker"
-            readonly
-            placeholder="Виберіть дату"
-            (click)="audioCallDatepicker.open()"
-          >
-          <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #audioCallDatepicker disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <label>Файл</label>
-        <input
-          type="file"
-          name="files"
-          multiple
-          ngModel
-          (change)="audioCallFileChange($event)"
-        >
-        <button mat-flat-button [disabled]="!audioCallForm.valid">Створити</button>
-      </form>
-    </mat-expansion-panel>
-    <app-audio-calls-table
-      *ngIf="client.id"
-      #audioCallsTable
-      [byClientId]="client.id"
-    ></app-audio-calls-table>
-  </div>
-  <div class="client-comments" *ngIf="canSeeComments">
-    <h3>КОМЕНТАРІ</h3>
-    <mat-expansion-panel #formpanelComments>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          СТВОРИТИ
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <form #commentForm="ngForm" (ngSubmit)="createComment(commentForm)">
-        <mat-form-field>
-          <mat-label>Текст</mat-label>
-          <input
-            type="text"
-            name="text"
-            ngModel
-            matInput
-            required
-          >
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Дата</mat-label>
-          <input
-            type="text"
-            matInput
-            ngModel
-            name="date"
-            [matDatepicker]="commentPickerDate"
-            placeholder="Виберіть дату"
-            readonly
-            (click)="commentPickerDate.open()"
-          >
-          <mat-datepicker-toggle matSuffix [for]="commentPickerDate"></mat-datepicker-toggle>
-          <mat-datepicker #commentPickerDate disabled="false"></mat-datepicker>
-        </mat-form-field>
-        <button mat-flat-button [disabled]="!commentForm.valid">Створити</button>
-      </form>
-    </mat-expansion-panel>
-    <app-comments-table
-      *ngIf="client.id"
-      #commentTable
-      [byClientId]="client.id"
-    ></app-comments-table>
   </div>
   <div class="client-applications" *ngIf="canSeeApplications">
     <h3>ЗАЯВКИ</h3>
@@ -319,4 +240,84 @@
       #applicationTable
     ></app-applications-table>
   </div>
+  <div class="audio-calls" *ngIf="canSeeAudioCalls">
+    <h3>АУДІО ДЗВІНКИ</h3>
+    <mat-expansion-panel #audioCallsFormpanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          СТВОРИТИ
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #audioCallForm="ngForm" (ngSubmit)="createAudioCall(audioCallForm)">
+        <mat-form-field>
+          <mat-label>Коментар</mat-label>
+          <input
+            type="text"
+            name="comment"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Дата</mat-label>
+          <input
+            type="text"
+            matInput
+            ngModel
+            name="date"
+            [matDatepicker]="audioCallDatepicker"
+            readonly
+            placeholder="Виберіть дату"
+            (click)="audioCallDatepicker.open()"
+          >
+          <mat-datepicker-toggle matSuffix [for]="audioCallDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #audioCallDatepicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <label>Файл</label>
+        <input
+          type="file"
+          name="files"
+          multiple
+          ngModel
+          (change)="audioCallFileChange($event)"
+        >
+        <button mat-flat-button [disabled]="!audioCallForm.valid">Створити</button>
+      </form>
+    </mat-expansion-panel>
+    <app-audio-calls-table
+      *ngIf="client.id"
+      #audioCallsTable
+      [byClientId]="client.id"
+    ></app-audio-calls-table>
+  </div>
+  <div class="client-socials" *ngIf="canSeeSocials">
+    <h3>СОЦІАЛКИ</h3>
+    <mat-expansion-panel #socialsFormpanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          СТВОРИТИ
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form #socialForm="ngForm" (ngSubmit)="createSocial(socialForm)">
+        <mat-form-field>
+          <mat-label>УРЛ</mat-label>
+          <input
+            type="text"
+            name="url"
+            ngModel
+            matInput
+            required
+          >
+        </mat-form-field>
+        <button mat-flat-button [disabled]="!socialForm.valid">Створити</button>
+      </form>
+    </mat-expansion-panel>
+    <app-social-table *ngIf="client.id"
+                      #socialTable
+                      [byClientId]="client.id">
+
+    </app-social-table>
+  </div>
+
 </div>

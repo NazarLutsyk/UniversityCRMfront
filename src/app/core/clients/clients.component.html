@@ -79,8 +79,8 @@
 
 <table>
   <thead>
-  <tr class="material-table-paginator" #paginator>
-    <th colspan="9">
+  <tr class="material-table-paginator"  #paginator>
+    <th colspan="5">
       <div class="paginator-buttons">
         <span class="paginator-back" (click)="loadPaginated(-1, null)"></span>
         <span class="paginator-next" (click)="loadPaginated(1, null)"></span>
@@ -98,6 +98,18 @@
       <span>{{countOfPages}}</span>
     </th>
     <th data-controls="true"></th>
+    <th colspan="4">
+      <span>Ліміт клієнтів на сторінці:</span>
+      <mat-form-field>
+      <mat-label></mat-label>
+      <input
+        type="number"
+        [(ngModel)]="pageSize"
+        matInput
+        (input)="loadClients()"
+      >
+    </mat-form-field>
+    </th>
   </tr>
   <tr #headerBlock>
     <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
@@ -220,7 +232,7 @@
     <td *ngIf="canDeleteClient" class="controls-col"></td>
   </tr>
   </thead>
-  <tbody >
+  <tbody>
   <tr *ngFor="let client of clients" (click)="open(client, 'clients', $event)" class="data-row">
     <td>
       {{client.name}}

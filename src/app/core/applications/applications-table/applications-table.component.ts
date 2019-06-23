@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {ApplicationService} from '../../../services/application.service';
 import {Observable} from 'rxjs';
+// @ts-ignore
 import {isNumber} from 'util';
 import {AuthService} from '../../../services/auth.service';
 import {Subject} from 'rxjs';
@@ -25,7 +26,7 @@ export class ApplicationsTableComponent implements OnInit {
   $quantityGroupStudents = new Subject<string>();
 
   pageIndex = 1;
-  pageSize = 9;
+  pageSize = 50;
   countOfPages = 1;
 
   sort = '';
@@ -53,12 +54,14 @@ export class ApplicationsTableComponent implements OnInit {
   }
 
   loadApplications() {
+    if (this.pageSize) {
     this.sendLoadApplications().subscribe(response => {
       this.count = response.count;
       this.applications = response.models;
       this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
       this.$quantityGroupStudents.next(response.count);
     });
+    }
   }
 
   loadSorted(key: string, headerBlock: HTMLElement, event: any) {

@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 // @ts-ignore
 import {isNumber} from 'util';
 import {ClientStatus} from '../../models/client-status';
+import {StatisticService} from '../../services/statistic.service';
 
 @Component({
   selector: 'app-clients-statuses',
@@ -27,15 +28,38 @@ export class ClientsStatusesComponent implements OnInit {
   sort = '';
   filter: any = {};
 
+  chartLabels: String[] = [];
+  chartDatasets: any[] = [];
+  chartColors: any[] = [];
+  chartOptions = {
+    scales: {
+      xAxes: [{
+        ticks: {
+          min: 0,
+          stepSize: 1
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          stepSize: 1000
+        }
+      }],
+      responsive: true
+    }
+  };
+
   constructor(
     private statusesService: ClientStatusService,
     private router: Router,
-    public materialTableService: MaterialTableService
+    public materialTableService: MaterialTableService,
+    private statisticService: StatisticService
   ) {
   }
 
   ngOnInit() {
     this.loadStatuses();
+    this.loadStatistic();
   }
 
   loadStatuses() {
@@ -113,6 +137,35 @@ export class ClientsStatusesComponent implements OnInit {
       return false;
     }
     this.router.navigate([...url.split('/'), id]);
+  }
+
+  loadStatistic(datesForm: NgForm = null, reset: boolean = false) {
+    let startDate = '';
+    let endDate = '';
+    if (datesForm) {
+      if (reset) {
+        startDate = '';
+        endDate = '';
+        datesForm.resetForm({startDate: '', endDate: ''});
+      } else {
+        startDate = datesForm.value.startDate;
+        endDate = datesForm.value.endDate;
+      }
+    }
+    this.statisticService.getNumberOfClientByStatus({q: {startDate, endDate}}).subscribe((res) => {
+      this.chartLabels = res.map(s => s.status);
+      const data = res.map(s => s.count);
+      this.chartDatasets = [
+        {
+          label: 'Clients',
+          data,
+        }
+      ];
+      const arr = res.map(s => s.color);
+      this.chartColors = [{
+        backgroundColor: arr
+      }];
+    });
   }
 
 }
