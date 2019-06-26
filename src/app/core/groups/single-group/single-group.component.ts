@@ -15,7 +15,7 @@ import {ChartService} from '../../../services/chart.service';
 import {ClientService} from '../../../services/client.service';
 import {CityService} from '../../../services/city.service';
 import {ClientStatusService} from '../../../services/client-status.service';
-import {isNumber} from "util";
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-single-group',

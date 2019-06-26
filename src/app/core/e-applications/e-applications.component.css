@@ -10,3 +10,14 @@ app-single-eapplication{
   width: 24%;
   margin-bottom: 20px;
 }
+
+.single-app {
+  width: 339px;
+  padding: 10px;
+}
+.tab {
+  width: 95vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap
+}

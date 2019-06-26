@@ -26,6 +26,29 @@ export class EApplicationsComponent implements OnInit {
   }
 
   buildEapp(eapplication: Eapplication) {
+    const eappToUpdate = new Eapplication(
+      eapplication.id,
+      eapplication.name,
+      eapplication.surname,
+      eapplication.age,
+      eapplication.city,
+      eapplication.phone,
+      eapplication.email,
+      eapplication.course,
+      eapplication.type,
+      eapplication.social,
+      eapplication.source,
+      eapplication.wantTime,
+      eapplication.comment,
+      eapplication.date,
+      eapplication.updateAt,
+      eapplication.createdAt,
+      eapplication.wantPractice,
+      0
+    );
+    // this.eaplicationService.update(eapplication.id, eappToUpdate).subscribe(res => {
+    //   console.log(res);
+    // });
     this.router.navigate(['/applications'], {
       queryParams: {
         eapplication: JSON.stringify(eapplication)
@@ -48,6 +71,7 @@ export class EApplicationsComponent implements OnInit {
 
   buildClient(eapplication: Eapplication) {
     const client = {
+      id: eapplication.id,
       name: eapplication.name,
       surname: eapplication.surname,
       email: eapplication.email,
@@ -55,9 +79,19 @@ export class EApplicationsComponent implements OnInit {
       comment: eapplication.comment,
       age: eapplication.age,
       address: eapplication.city,
-      statusId: 1
+      statusId: 1,
+      city: eapplication.city,
+      course: eapplication.course,
+      type: eapplication.type,
+      social: eapplication.social,
+      source: eapplication.source,
+      wantTime: eapplication.wantTime,
+      date: eapplication.date,
+      updateAt: eapplication.updateAt,
+      createdAt: eapplication.createdAt,
+      wantPractice: eapplication.wantPractice,
     };
-    this.router.navigate(['/clients'], {
+    this.router.navigate(['/clients-and-applications'], {
       queryParams: {
         client: JSON.stringify(client)
       }

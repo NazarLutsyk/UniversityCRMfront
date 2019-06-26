@@ -33,6 +33,10 @@ export class ApplicationService {
     return this.http.post<Application>(this.applicationsURL, model);
   }
 
+  createByEapp(model): Observable<any> {
+    return this.http.post<any>(`${this.config.api}/app-by-eapp`, model);
+  }
+
   remove(id: number | string): Observable<Application> {
     return this.http.delete<Application>(`${this.applicationsURL}/${id}`);
   }
@@ -40,4 +44,5 @@ export class ApplicationService {
   update(id: number, application: any): Observable<Application> {
     return this.http.put<Application>(`${this.applicationsURL}/${id}`, application);
   }
+
 }

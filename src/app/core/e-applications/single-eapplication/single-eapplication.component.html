@@ -7,7 +7,7 @@
     ? 'free-tile-header-bg'
     : 'paid-tile-header-bg']"
   >
-    <i class="material-icons ok-button" (click)="buildEapp(eapplication)">
+    <i class="material-icons ok-button"  (click)="buildClient(eapplication)">
       done
     </i>
     <h3 (click)="buildClient(eapplication)">{{eapplication.name}} {{eapplication.surname}}</h3>
@@ -23,6 +23,10 @@
     <div *ngIf="eapplication.phone" class="tile-content-item">
       <p class="tile-content-item-header">Телефон:</p>
       <p>{{eapplication.phone}}</p>
+    </div>
+    <div *ngIf="eapplication.age" class="tile-content-item">
+      <p class="tile-content-item-header">Вік:</p>
+      <p>{{eapplication.age}}</p>
     </div>
     <div *ngIf="eapplication.city" class="tile-content-item">
       <p class="tile-content-item-header">Місто:</p>
@@ -59,6 +63,8 @@
     <div *ngIf="eapplication.date" class="tile-content-item">
       <p class="tile-content-item-header">Дата:</p>
       <p>{{ eapplication.date | date:'medium' }}</p>
+    </div>
+    <div *ngIf="eapplication.active || !eapplication.active" class="tile-content-item" [ngClass]="{'firstShow' : eapplication.active, 'secondShowOrMore' : !eapplication.active}">
     </div>
   </div>
 </div>

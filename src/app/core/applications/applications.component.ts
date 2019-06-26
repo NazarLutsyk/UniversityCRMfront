@@ -48,7 +48,7 @@ export class ApplicationsComponent implements OnInit {
     wantPractice: false,
     fullPrice: 0
   };
-  groups: Group;
+  groups: Group[];
 
   constructor(
     public sourceService: SourceService,
@@ -76,11 +76,17 @@ export class ApplicationsComponent implements OnInit {
         this.citiesService.getCities({q: {name: {$like: eapplication.city}}}).subscribe(res => {
           if (res.models[0] != undefined) {
             this.applicationForm.cityId = res.models.id;
+            setTimeout(() => {
+              this.loadGroups();
+            }, 500);
           }
         });
         this.courseService.getCourses({q: {name: {$like: eapplication.course}}}).subscribe(res => {
           if (res.models[0] != undefined) {
             this.applicationForm.courseId = res.models.id;
+            setTimeout(() => {
+              this.loadGroups();
+            }, 500);
           }
         });
         this.sourceService.getSources({q: {name: {$like: eapplication.source}}}).subscribe(res => {
@@ -88,11 +94,7 @@ export class ApplicationsComponent implements OnInit {
             this.applicationForm.sources = [res.models[0]];
           }
         });
-          if (eapplication.wantPractice === true) {
-            this.applicationForm.wantPractice = true;
-          } else {
-            this.applicationForm.wantPractice = false;
-          }
+        this.applicationForm.wantPractice = eapplication.wantPractice;
         this.clientService.getClients(
           {q: {phone: {$like: eapplication.phone}, email: {$like: eapplication.email}}})
           .subscribe((res: any) => {

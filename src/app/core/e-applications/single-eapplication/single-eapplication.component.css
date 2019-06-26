@@ -62,3 +62,10 @@
   font-weight: bold;
   color: #808080;
 }
+
+.firstShow{
+  background: #20b2aa;
+}
+.secondShowOrMore{
+  background: #444444;
+}

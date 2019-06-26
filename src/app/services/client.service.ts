@@ -62,6 +62,10 @@ export class ClientService {
     return this.http.post<Client[]>(this.clientsURL + '/exists', client);
   }
 
+  existsForEapp(client): Observable<any[]> {
+    return this.http.post<any[]>(this.clientsURL + '/exists', client);
+  }
+
   getClientByIdWithLessons(id) {
     return this.http.get<Client>(`${this.clientsURL}/${id}/lessons`);
   }

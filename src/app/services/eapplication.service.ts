@@ -48,6 +48,10 @@ export class EapplicationService {
     return this.http.put<Eapplication>(`${this.eapplicationsURL}/${id}`, eapplication);
   }
 
+  updateStatus(id: number, active: object) {
+    return this.http.put<object>(`${this.eapplicationsURL}/${id}`, active);
+  }
+
   checkEapps() {
     this.socketService.onEvent(this.socketService.EMAIL_EVENT).subscribe((eapp) => {
       this.notificationService.$notificationData.next({

@@ -1,10 +1,35 @@
 <div class="main-wrapper">
-  <app-single-eapplication
-    *ngFor="let eapplication of eapplications"
-    [eapplication]="eapplication"
-    (onBuildEapp)="buildEapp($event)"
-    (onDeleteEapp)="deleteEapp($event)"
-    (onBuildClient)="buildClient($event)"
-  >
-  </app-single-eapplication>
-</div>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Нові заявк">
+      <div class="tab">
+        <div *ngFor="let eapplication of eapplications">
+          <div *ngIf="eapplication.active" class="single-app">
+            <app-single-eapplication
+              [eapplication]="eapplication"
+              (onBuildEapp)="buildEapp($event)"
+              (onDeleteEapp)="deleteEapp($event)"
+              (onBuildClient)="buildClient($event)"
+            >
+            </app-single-eapplication>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Архів">
+      <div class="tab">
+        <div *ngFor="let eapplication of eapplications">
+          <div *ngIf="!eapplication.active" class="single-app">
+            <app-single-eapplication
+              [eapplication]="eapplication"
+              (onBuildEapp)="buildEapp($event)"
+              (onDeleteEapp)="deleteEapp($event)"
+              (onBuildClient)="buildClient($event)"
+            >
+            </app-single-eapplication>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  </div>
+

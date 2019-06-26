@@ -39,6 +39,7 @@ import {ClientsMapComponent} from './core/clients/clients-map/clients-map.compon
 import {ReportsComponent} from './core/reports/reports.component';
 import {ClientsStatusesComponent} from './core/clients-statuses/clients-statuses.component';
 import {SingleClientStatusComponent} from './core/clients-statuses/single-client-status/single-client-status.component';
+import {AppAndClientByEappComponent} from './core/app-and-client-by-eapp/app-and-client-by-eapp.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,15 @@ const routes: Routes = [
     children:
       [
         {path: '', component: TasksComponent},
+      ]
+  },
+  {
+    path: 'clients-and-applications',
+    data: {breadcrumb: 'Eapplications', expectedRoles: [Roles.BOSS_ROLE, Roles.MANAGER_ROLE]},
+    canActivate: [AuthenticatedGuard, RoleGuard],
+    children:
+      [
+        {path: '', component: AppAndClientByEappComponent},
       ]
   },
   {
