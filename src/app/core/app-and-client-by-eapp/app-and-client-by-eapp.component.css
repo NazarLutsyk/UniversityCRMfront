@@ -1,0 +1,113 @@
+.app-form-by-eapp {
+  padding: 20px;
+}
+.client-tip {
+  padding-bottom: 40px;
+  font-size: 14px;
+  color: grey;
+}
+.remove-client-btn {
+  right: -1px;
+  position: absolute;
+  color: #ff0000;
+  cursor: pointer;
+}
+.add-client-to-eapp {
+  color: #00b500;
+  cursor: pointer;
+}
+.remove-client-from-eapp {
+  color: #ff0000;
+  cursor: pointer;
+}
+.existed-client-quantity {
+  padding-left: 10px;
+  color: #ff0000;
+}
+.display-none {
+  display: none;
+}
+.block-with-form-and-eapp {
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+/*e-app-style*/
+.tile {
+  background: white;
+  width: 100%;
+  padding: 0 20px;
+  border-top: 2px solid gray;
+}
+
+.tile-header {
+  padding: 0 0;
+  margin: 0 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tile-header h3 {
+  padding: 15px 0;
+  margin: 0 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  width: 70%;
+}
+
+.tile-header i {
+  width: 15%;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.ok-button {
+  color: white;
+}
+
+.delete-button {
+  color: #b22424;
+}
+
+.free-tile-header-bg {
+  background: #3f51b5;
+}
+
+.paid-tile-header-bg {
+  background: #3fb54e;
+}
+
+.tile-content-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.tile-content-item > * {
+  padding: 0 20px;
+  margin: 5px;
+}
+
+.tile-content-item-header {
+  font-size: 13px;
+  font-weight: bold;
+  color: #808080;
+}
+
+.firstShow{
+  background: #20b2aa;
+}
+.secondShowOrMore{
+  background: #444444;
+}

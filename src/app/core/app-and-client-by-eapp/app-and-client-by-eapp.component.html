@@ -1,0 +1,306 @@
+<div [ngClass]="{'display-none': !clientsByEapp.length}">
+    <mat-expansion-panel #clientsPanel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Клієнти знайдені на основі данної заявки: <span class="existed-client-quantity">{{clientsByEapp.length}}</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="clients-by-eapp" *ngIf="clientsByEapp">
+        <table>
+          <thead>
+          <tr>
+            <td></td>
+            <td>Ім'я</td>
+            <td>Призвіще</td>
+            <td>Телефон</td>
+            <td>Email</td>
+            <td>Вік</td>
+            <td>Статус</td>
+            <td>
+              Управління
+            </td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cl of clientsByEapp">
+              <td><button mat-button (click)="openClientPage(cl, 'clients', $event)">Відкрити</button></td>
+              <td>{{cl.name}}</td>
+              <td>{{cl.surname}}</td>
+              <td>{{cl.phone}}</td>
+              <td>{{cl.email}}</td>
+              <td>{{cl.age}}</td>
+              <td>
+                <mat-select
+                  [(ngModel)]="cl.statusId"
+                  name="statusId"
+                  disabled
+                >
+                  <mat-option *ngFor="let status of clientStatuses" [value]="status.id" [ngStyle]="{'background': status.color}">
+                    {{status.name}}
+                  </mat-option>
+                </mat-select>
+              </td>
+              <td>
+                <i *ngIf="eappFormObject.clientId === cl.id" (click)="removeClient()" class="material-icons  remove-client-from-eapp">
+                  close
+                </i>
+                <i *ngIf="eappFormObject.clientId !== cl.id" (click)="addClientToEappForm(cl)" class="material-icons add-client-to-eapp">
+                  add
+                </i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-expansion-panel>
+</div>
+<div class="block-with-form-and-eapp">
+<form (ngSubmit)="createAppByEapp()" #form="ngForm" enctype="multipart/form-data" class="app-form-by-eapp">
+  <mat-form-field *ngIf="eappFormObject.clientId">
+    <mat-label>
+      Клієнт
+      <span class="client-tip">
+        [ Заявку було сформовано на основі вже існуючого клієнта, якщо ви хочете відмінити дану дію натисніть на 'x' в полі "Клієнт". ]
+      </span>
+    </mat-label>
+    <input
+      type="text"
+      name="clientId"
+      [(ngModel)]="selectedClient.name + ' ' + selectedClient.surname"
+      matInput
+      [disabled]="disableSelect.value"
+      required
+      readonly
+    >
+    <i class="material-icons remove-client-btn" (click)="removeClient()">
+      close
+    </i>
+  </mat-form-field>
+  <mat-form-field *ngIf="!eappFormObject.clientId">
+    <mat-label>Ім'я</mat-label>
+    <input
+      type="text"
+      name="name"
+      [(ngModel)]="eappFormObject.name"
+      matInput
+      [disabled]="disableSelect.value"
+      required
+    >
+  </mat-form-field>
+  <mat-form-field *ngIf="!eappFormObject.clientId">
+    <mat-label>Прізвище</mat-label>
+    <input
+      type="text"
+      name="surname"
+      [(ngModel)]="eappFormObject.surname"
+      matInput
+      [disabled]="disableSelect.value"
+      required
+    >
+  </mat-form-field>
+  <mat-form-field *ngIf="!eappFormObject.clientId">
+    <mat-label>Вік</mat-label>
+    <input
+      type="number"
+      name="age"
+      [(ngModel)]="eappFormObject.age"
+      [disabled]="disableSelect.value"
+      matInput
+    >
+  </mat-form-field>
+  <mat-form-field  *ngIf="!eappFormObject.clientId">
+    <mat-label>Адреса</mat-label>
+    <input
+      name="address"
+      appGooglePlaces
+      ngModel
+      matInput
+      (onSelect)="setAddress($event)"
+      [disabled]="disableSelect.value"
+    >
+  </mat-form-field>
+  <mat-form-field  *ngIf="!eappFormObject.clientId">
+    <mat-label>Телефон</mat-label>
+    <input
+      type="tel"
+      name="phone"
+      [(ngModel)]="eappFormObject.phone"
+      matInput
+      minlength="6"
+      maxlength="15"
+      [disabled]="disableSelect.value"
+    >
+  </mat-form-field>
+  <mat-form-field  *ngIf="!eappFormObject.clientId">
+    <mat-label>Емейл</mat-label>
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="eappFormObject.email"
+      matInput
+      [disabled]="disableSelect.value"
+      email
+    >
+  </mat-form-field>
+  <mat-form-field *ngIf="!eappFormObject.clientId">
+    <mat-label>Статус</mat-label>
+    <mat-select
+      [(ngModel)]="eappFormObject.statusId"
+      name="statusId"
+      required>
+      <mat-option *ngFor="let status of clientStatuses" [value]="status.id">
+        {{status.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Дата</mat-label>
+    <input
+      type="text"
+      matInput
+      [(ngModel)]="eappFormObject.date"
+      name="date"
+      [matDatepicker]="pickerStartDate"
+      placeholder="Виберіть дату"
+      readonly
+      [disabled]="disableSelect.value"
+      (click)="pickerStartDate.open()"
+    >
+    <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+    <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label *ngIf="cities">Місто</mat-label>
+    <mat-select [(ngModel)]="eappFormObject.cityId" name="cityId" (ngModelChange)="loadGroups()" [disabled]="disableSelect.value" required>
+      <mat-option *ngFor="let city of cities" [value]="city.id">
+        {{city.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label *ngIf="courses">Курс</mat-label>
+    <mat-select [(ngModel)]="eappFormObject.courseId" name="courseId" (ngModelChange)="loadGroups()" [disabled]="disableSelect.value" required>
+      <mat-option *ngFor="let course of courses" [value]="course.id">
+        {{course.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label *ngIf="sources">Джерела</mat-label>
+    <mat-select [(ngModel)]="eappFormObject.sourceId" name="sources" [disabled]="disableSelect.value" multiple>
+      <mat-option *ngFor="let source of sources" [value]="source.id">
+        {{source.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="groups">
+    <mat-label>Групи</mat-label>
+    <mat-select [(ngModel)]="eappFormObject.groupId" name="sources" multiple>
+      <mat-option *ngFor="let group of groups" [value]="group.id">
+        {{group.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ціна</mat-label>
+    <input
+      type="text"
+      name="fullPrice"
+      [(ngModel)]="eappFormObject.fullPrice"
+      matInput
+      required
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Знижка</mat-label>
+    <input
+      type="text"
+      name="discount"
+      [(ngModel)]="eappFormObject.discount"
+      matInput
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Коментар</mat-label>
+    <input
+      type="text"
+      name="text"
+      [(ngModel)]="eappFormObject.comment"
+      matInput
+      [disabled]="disableSelect.value"
+      required
+    >
+  </mat-form-field>
+  <p>
+    <mat-checkbox [formControl]="disableSelect">Заблокувати поля</mat-checkbox>
+  </p>
+  <button mat-flat-button [disabled]="!form.valid">Створити</button>
+</form>
+
+
+
+  <div>
+    <div class="tile" *ngIf="clientAngAppFromEapp">
+    <div
+      class="tile-header"
+      [ngClass]="[
+    (clientAngAppFromEapp.wantTime || clientAngAppFromEapp.source || clientAngAppFromEapp.social)
+    && !clientAngAppFromEapp.wantPractice
+    ? 'free-tile-header-bg'
+    : 'paid-tile-header-bg']"
+    >
+      <h3>{{clientAngAppFromEapp.name}} {{clientAngAppFromEapp.surname}}</h3>
+    </div>
+    <div class="tile-content">
+      <div *ngIf="clientAngAppFromEapp.email" class="tile-content-item">
+        <p class="tile-content-item-header">Емейл:</p>
+        <p>{{clientAngAppFromEapp.email}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.phone" class="tile-content-item">
+        <p class="tile-content-item-header">Телефон:</p>
+        <p>{{clientAngAppFromEapp.phone}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.age" class="tile-content-item">
+        <p class="tile-content-item-header">Вік:</p>
+        <p>{{clientAngAppFromEapp.age}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.city" class="tile-content-item">
+        <p class="tile-content-item-header">Місто:</p>
+        <p>{{clientAngAppFromEapp.city}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.course" class="tile-content-item">
+        <p class="tile-content-item-header">Курс:</p>
+        <p>{{clientAngAppFromEapp.course}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.type" class="tile-content-item">
+        <p class="tile-content-item-header">Тип:</p>
+        <p>{{clientAngAppFromEapp.type}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.wantTime" class="tile-content-item">
+        <p class="tile-content-item-header">Очікуваний час:</p>
+        <p>{{clientAngAppFromEapp.wantTime}}</p>
+      </div>
+      <div class="tile-content-item">
+        <p class="tile-content-item-header">З практикою:</p>
+        <p>{{!!clientAngAppFromEapp.wantPractice}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.social" class="tile-content-item">
+        <p class="tile-content-item-header">Соціалка:</p>
+        <p>{{clientAngAppFromEapp.social}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.source" class="tile-content-item">
+        <p class="tile-content-item-header">Джерело:</p>
+        <p>{{clientAngAppFromEapp.source}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.comment" class="tile-content-item">
+        <p class="tile-content-item-header">Коментар:</p>
+        <p>{{clientAngAppFromEapp.comment}}</p>
+      </div>
+      <div *ngIf="clientAngAppFromEapp.date" class="tile-content-item">
+        <p class="tile-content-item-header">Дата:</p>
+        <p>{{ clientAngAppFromEapp.date | date:'medium' }}</p>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
