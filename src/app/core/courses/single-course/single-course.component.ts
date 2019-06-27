@@ -30,13 +30,13 @@ export class SingleCourseComponent implements OnInit {
       xAxes: [{
         ticks: {
           min: 0,
-          stepSize: 1
+          stepSize: 500
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          stepSize: 1
+          stepSize: 500
         }
       }],
       responsive: true

@@ -21,11 +21,14 @@ import {NotificationInterceptorService} from './services/interceptors/notificati
 import {CheckResponseInterceptorService} from './services/interceptors/checkResponse.service';
 import {MAT_MOMENT_DATE_FORMATS, MatMomentDateModule} from '@angular/material-moment-adapter';
 import {MomentUtcDateAdapter} from './adapters/moment-utc-date-adapter';
+import {TasksModule} from './core/tasks/tasks.module';
+import {HeaderComponent} from './elements/header/header.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import {MomentUtcDateAdapter} from './adapters/moment-utc-date-adapter';
     MatIconModule,
     MatDatepickerModule,
     MatMomentDateModule,
+    TasksModule,
   ],
   providers: [
     {

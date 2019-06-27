@@ -1,0 +1,230 @@
+<ul class="nav">
+  <li class="drop"
+      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      routerLink="/clients">
+    Клієнти
+    <ul class="down-drop">
+      <li
+        routerLink="/clients"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
+        <a>
+          Клієнти
+        </a>
+      </li>
+      <li
+        routerLink="/tasks"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Завдання
+        </a>
+      </li>
+      <li
+        routerLink="/clients-map"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Карта
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="drop"
+      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      routerLink="/applications">
+    Заявки
+    <ul class="down-drop">
+      <li
+        routerLink="/applications"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Заявки
+        </a>
+      </li>
+      <li
+        routerLink="/e-applications"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Ел. Заявки
+        </a>
+      </li>
+      <li
+        routerLink="/payments"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Платежі
+        </a>
+      </li>
+      <li
+        routerLink="/reports"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Статистика по платежам
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li
+    routerLink="/groups"
+    routerLinkActive="active-main-menu"
+    *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+  >
+    <a class="menu-i">
+      Групи
+    </a>
+  </li>
+  <li
+    routerLink="/courses"
+    routerLinkActive="active-main-menu"
+    *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+  >
+    <a class="menu-i">
+      Курси
+    </a>
+  </li>
+  <li class="drop"
+      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
+    Інше
+    <ul class="down-drop">
+      <li
+        routerLink="/sources"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Джерела
+        </a>
+      </li>
+      <li
+        routerLink="/cities"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Міста
+        </a>
+      </li>
+      <li
+        routerLink="/managers"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Менеджери
+        </a>
+      </li>
+      <li
+        routerLink="/statuses"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Статуси Клієнтів
+        </a>
+      </li>
+      <li
+        routerLink="/sending"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Розсилки
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li class="drop"
+      routerLink="/competitors"
+      routerLinkActive="active-main-menu"
+      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
+    Конкуренти
+    <ul class="down-drop">
+      <li
+        routerLink="/competitors"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Конкуренти
+        </a>
+      </li>
+      <li
+        routerLink="/cities"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Заявки
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li
+    routerLink="/login"
+    routerLinkActive="active-main-menu"
+    *ngIf="!authService.getLocalPrincipal()">
+    <a class="menu-i">
+      Увійти
+    </a>
+  </li>
+  <li
+    routerLink="/ratings"
+    routerLinkActive="active-main-menu"
+    *ngIf="authService.getLocalPrincipal()"
+  >
+    <a class="menu-i">
+      Рейтинги
+    </a>
+  </li>
+  <li
+    (click)="logout()"
+    *ngIf="authService.getLocalPrincipal()"
+  >
+    <a class="menu-i">
+      Вийти
+    </a>
+  </li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/login"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="!authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Увійти</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/ratings"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Рейтинги</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         (click)="logout()"-->
+<!--         *ngIf="authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Вийти</span>-->
+<!--    </div>-->

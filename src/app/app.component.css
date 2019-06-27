@@ -8,6 +8,7 @@
   height: 100%;
   padding: 0 25px;
   outline: none;
+  z-index: 9999;
 }
 
 mat-toolbar {
@@ -64,3 +65,10 @@ app-notifications {
   z-index: 1000!important;
 }
 
+.menu-show {
+  display: block;
+}
+
+.menu-hidden {
+  display: none;
+}

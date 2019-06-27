@@ -1,5 +1,8 @@
 .app-form-by-eapp {
+  width: 50vw;
   padding: 20px;
+  background: #ffffff;
+  border-top: #444444 2px solid;
 }
 .client-tip {
   padding-bottom: 40px;
@@ -29,6 +32,7 @@
 }
 .block-with-form-and-eapp {
   display: flex;
+  max-width: 96vw;
   justify-content: space-around;
 }
 

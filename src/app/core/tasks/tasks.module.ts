@@ -26,7 +26,7 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
     MatDialogModule
   ],
   declarations: [TasksComponent, TasksTableComponent, UpdateTaskComponent],
-  exports: [TasksTableComponent]
+  exports: [TasksTableComponent, TasksComponent]
 })
 export class TasksModule {
 }

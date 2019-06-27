@@ -6,192 +6,190 @@
     >
       <span class="main-logo">OWU CRM</span>
     </div>
+    <app-header></app-header>
+<!--    <mat-menu #clientsMenu="matMenu" class="dropdown-menu">-->
+<!--      <div class="menu-span-wrapper"-->
+<!--           mat-menu-item-->
+<!--           routerLink="/clients"-->
+<!--           routerLinkActive="active-main-menu"-->
+<!--           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Клієнти</span>-->
+<!--      </div>-->
+<!--      <div class="menu-span-wrapper"-->
+<!--           mat-menu-item-->
+<!--           routerLink="/tasks"-->
+<!--           routerLinkActive="active-main-menu"-->
+<!--           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Завдання</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        class="menu-span-wrapper"-->
+<!--        mat-menu-item-->
+<!--        routerLink="/clients-map"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Карта</span>-->
+<!--      </div>-->
+<!--    </mat-menu>-->
+<!--    <div mat-icon-button-->
+<!--         [matMenuTriggerFor]="clientsMenu"-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--         class="menu-span-wrapper">-->
+<!--      <span>Клієнти</span>-->
+<!--    </div>-->
 
-    <mat-menu #clientsMenu="matMenu" class="dropdown-menu">
-      <div class="menu-span-wrapper"
-           mat-menu-item
-           routerLink="/clients"
-           routerLinkActive="active-main-menu"
-           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Клієнти</span>
-      </div>
-      <div class="menu-span-wrapper"
-           mat-menu-item
-           routerLink="/tasks"
-           routerLinkActive="active-main-menu"
-           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Завдання</span>
-      </div>
-      <div
-        class="menu-span-wrapper"
-        mat-menu-item
-        routerLink="/clients-map"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Карта</span>
-      </div>
-    </mat-menu>
-    <div mat-icon-button
-         [matMenuTriggerFor]="clientsMenu"
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-         class="menu-span-wrapper">
-      <span>Клієнти</span>
-    </div>
-
-    <div class="menu-span-wrapper"
-         routerLink="/ratings"
-         routerLinkActive="active-main-menu"
-         *ngIf="authService.getLocalPrincipal()"
-    >
-      <span>Рейтинги</span>
-    </div>
-    <mat-menu #appMenu="matMenu" class="dropdown-menu">
-      <div
-        mat-menu-item
-        routerLink="/applications"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Заявки</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/e-applications"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Ел. Заявки</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/payments"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Платежі</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/reports"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Статистика по платежам</span>
-      </div>
-    </mat-menu>
-    <div mat-icon-button
-         [matMenuTriggerFor]="appMenu"
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-         class="menu-span-wrapper">
-      <span>Заявки</span>
-    </div>
-    <div class="menu-span-wrapper"
-         routerLink="/groups"
-         routerLinkActive="active-main-menu"
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-    >
-      <span>Групи</span>
-    </div>
-    <div class="menu-span-wrapper"
-         routerLink="/courses"
-         routerLinkActive="active-main-menu"
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-    >
-      <span>Курси</span>
-    </div>
-    <mat-menu #otherMenu="matMenu"
-              class="dropdown-menu">
-      <div
-        mat-menu-item
-        routerLink="/sources"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Джерела</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/cities"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Міста</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/managers"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Менеджери</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/statuses"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Статуси клієнтів</span>
-      </div>
-      <div
-        mat-menu-item
-        routerLink="/sending"
-        routerLinkActive="active-main-menu"
-        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Розсилки</span>
-      </div>
-    </mat-menu>
-    <div mat-icon-button
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-         [matMenuTriggerFor]="otherMenu"
-         class="menu-span-wrapper">
-      <span>Інше</span>
-    </div>
+<!--    <mat-menu #appMenu="matMenu" class="dropdown-menu">-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/applications"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Заявки</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/e-applications"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Ел. Заявки</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/payments"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Платежі</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/reports"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Статистика по платежам</span>-->
+<!--      </div>-->
+<!--    </mat-menu>-->
+<!--    <div mat-icon-button-->
+<!--         [matMenuTriggerFor]="appMenu"-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--         class="menu-span-wrapper">-->
+<!--      <span>Заявки</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/groups"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--    >-->
+<!--      <span>Групи</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/courses"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--    >-->
+<!--      <span>Курси</span>-->
+<!--    </div>-->
+<!--    <mat-menu #otherMenu="matMenu"-->
+<!--              class="dropdown-menu">-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/sources"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Джерела</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/cities"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Міста</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/managers"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Менеджери</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/statuses"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Статуси клієнтів</span>-->
+<!--      </div>-->
+<!--      <div-->
+<!--        mat-menu-item-->
+<!--        routerLink="/sending"-->
+<!--        routerLinkActive="active-main-menu"-->
+<!--        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Розсилки</span>-->
+<!--      </div>-->
+<!--    </mat-menu>-->
+<!--    <div mat-icon-button-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--         [matMenuTriggerFor]="otherMenu"-->
+<!--         class="menu-span-wrapper">-->
+<!--      <span>Інше</span>-->
+<!--    </div>-->
 
 
-    <mat-menu #competitorsMenu="matMenu" class="dropdown-menu">
-      <div class="menu-span-wrapper"
-           mat-menu-item
-           routerLink="/competitors"
-           routerLinkActive="active-main-menu"
-           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Конкуренти</span>
-      </div>
-      <div class="menu-span-wrapper"
-           mat-menu-item
-           routerLink="/competitor-applications"
-           routerLinkActive="active-main-menu"
-           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      >
-        <span>Заявки</span>
-      </div>
-    </mat-menu>
-    <div mat-icon-button
-         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-         [matMenuTriggerFor]="competitorsMenu"
-         class="menu-span-wrapper">
-      <span>Конкуренти</span>
-    </div>
-
-
-    <div class="menu-span-wrapper"
-         routerLink="/login"
-         routerLinkActive="active-main-menu"
-         *ngIf="!authService.getLocalPrincipal()"
-    >
-      <span>Увійти</span>
-    </div>
-    <div class="menu-span-wrapper"
-         (click)="logout()"
-         *ngIf="authService.getLocalPrincipal()"
-    >
-      <span>Вийти</span>
-    </div>
+<!--    <mat-menu #competitorsMenu="matMenu" class="dropdown-menu">-->
+<!--      <div class="menu-span-wrapper"-->
+<!--           mat-menu-item-->
+<!--           routerLink="/competitors"-->
+<!--           routerLinkActive="active-main-menu"-->
+<!--           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Конкуренти</span>-->
+<!--      </div>-->
+<!--      <div class="menu-span-wrapper"-->
+<!--           mat-menu-item-->
+<!--           routerLink="/competitor-applications"-->
+<!--           routerLinkActive="active-main-menu"-->
+<!--           *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--      >-->
+<!--        <span>Заявки</span>-->
+<!--      </div>-->
+<!--    </mat-menu>-->
+<!--    <div mat-icon-button-->
+<!--         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"-->
+<!--         [matMenuTriggerFor]="competitorsMenu"-->
+<!--         class="menu-span-wrapper">-->
+<!--      <span>Конкуренти</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/login"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="!authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Увійти</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         routerLink="/ratings"-->
+<!--         routerLinkActive="active-main-menu"-->
+<!--         *ngIf="authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Рейтинги</span>-->
+<!--    </div>-->
+<!--    <div class="menu-span-wrapper"-->
+<!--         (click)="logout()"-->
+<!--         *ngIf="authService.getLocalPrincipal()"-->
+<!--    >-->
+<!--      <span>Вийти</span>-->
+<!--    </div>-->
   </mat-toolbar-row>
 </mat-toolbar>
 

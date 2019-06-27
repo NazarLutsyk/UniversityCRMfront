@@ -23,14 +23,12 @@ export class ReportsComponent implements OnInit {
     scales: {
       xAxes: [{
         ticks: {
-          min: 0,
-          stepSize: 1
+          min: 0
         }
       }],
       yAxes: [{
         ticks: {
-          min: 0,
-          stepSize: 10000
+          min: 0
         }
       }],
       responsive: true

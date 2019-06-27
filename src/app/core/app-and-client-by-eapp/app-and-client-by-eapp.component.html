@@ -211,6 +211,9 @@
       required
     >
   </mat-form-field>
+  <mat-checkbox [(ngModel)]="eappFormObject.wantPractice" name="wantPractice" [checked]="eappFormObject.wantPractice">
+    Хоче практику
+  </mat-checkbox>
   <mat-form-field>
     <mat-label>Знижка</mat-label>
     <input

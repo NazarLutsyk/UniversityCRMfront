@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {EapplicationService} from './services/eapplication.service';
+import {MatMenu, MatMenuTrigger} from '@angular/material';
 
 
 @Component({
@@ -18,7 +19,7 @@ import {EapplicationService} from './services/eapplication.service';
     ])]
 })
 export class AppComponent implements OnInit {
-
+@ViewChild('levelOneTrigger')clientsMenu: MatMenuTrigger;
   hideNotifications = true;
   highlightNotificationButton = false;
 
@@ -34,11 +35,11 @@ export class AppComponent implements OnInit {
     this.eapplicationService.checkEapps();
   }
 
-  logout() {
-    this.authService.logout().subscribe(_ => {
-      this.router.navigate(['/']);
-    });
-  }
+  // logout() {
+  //   this.authService.logout().subscribe(_ => {
+  //     this.router.navigate(['/']);
+  //   });
+  // }
 
   toggleNotifications() {
     this.hideNotifications = !this.hideNotifications;
