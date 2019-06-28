@@ -71,7 +71,9 @@ export class ReportsComponent implements OnInit {
         }
       });
   }
-
+  refreshDate() {
+    this.loadStatistic();
+  }
   createQuery() {
     this.query.q = {};
     const arr = [];

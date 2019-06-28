@@ -46,7 +46,12 @@
     </div>
     <div class="tile-content-item">
       <p class="tile-content-item-header">З практикою:</p>
-      <p>{{!!eapplication.wantPractice}}</p>
+      <p *ngIf="!!eapplication.wantPractice">Так<i class="material-icons">
+        mood
+      </i></p>
+      <p *ngIf="!eapplication.wantPractice">Ні<i class="material-icons">
+        mood_bad
+      </i></p>
     </div>
     <div *ngIf="eapplication.social" class="tile-content-item">
       <p class="tile-content-item-header">Соціалка:</p>
@@ -62,7 +67,7 @@
     </div>
     <div *ngIf="eapplication.date" class="tile-content-item">
       <p class="tile-content-item-header">Дата:</p>
-      <p>{{ eapplication.date | date:'medium' }}</p>
+      <p>{{ eapplication.date | date:'dd/MM/yy, hh:mm a' }}</p>
     </div>
     <div *ngIf="eapplication.active || !eapplication.active" class="tile-content-item" [ngClass]="{'firstShow' : eapplication.active, 'secondShowOrMore' : !eapplication.active}">
     </div>

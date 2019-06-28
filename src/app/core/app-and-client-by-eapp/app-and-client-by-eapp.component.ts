@@ -143,7 +143,7 @@ export class AppAndClientByEappComponent implements OnInit {
             }
 
             if (this.clientAngAppFromEapp.city) {
-              this.citiesService.getCities({q: {name: this.clientAngAppFromEapp.city}}).subscribe(res => {
+              this.citiesService.getCities({q: {name: {$like: this.clientAngAppFromEapp.city}}}).subscribe(res => {
                 if (res.models[0] != undefined) {
                   this.eappFormObject.cityId = res.models[0].id;
                   setTimeout(() => {

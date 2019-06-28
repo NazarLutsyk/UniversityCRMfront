@@ -211,7 +211,12 @@
       required
     >
   </mat-form-field>
-  <mat-checkbox [(ngModel)]="eappFormObject.wantPractice" name="wantPractice" [checked]="eappFormObject.wantPractice">
+  <mat-checkbox
+    [(ngModel)]="eappFormObject.wantPractice"
+    name="wantPractice"
+    [checked]="eappFormObject.wantPractice"
+    [disabled]="disableSelect.value"
+  >
     Хоче практику
   </mat-checkbox>
   <mat-form-field>
@@ -220,6 +225,7 @@
       type="text"
       name="discount"
       [(ngModel)]="eappFormObject.discount"
+      [disabled]="disableSelect.value"
       matInput
     >
   </mat-form-field>
@@ -285,7 +291,12 @@
       </div>
       <div class="tile-content-item">
         <p class="tile-content-item-header">З практикою:</p>
-        <p>{{!!clientAngAppFromEapp.wantPractice}}</p>
+        <p *ngIf="!!clientAngAppFromEapp.wantPractice">Так<i class="material-icons">
+          mood
+        </i></p>
+        <p *ngIf="!clientAngAppFromEapp.wantPractice">Ні<i class="material-icons">
+          mood_bad
+        </i></p>
       </div>
       <div *ngIf="clientAngAppFromEapp.social" class="tile-content-item">
         <p class="tile-content-item-header">Соціалка:</p>
@@ -301,7 +312,7 @@
       </div>
       <div *ngIf="clientAngAppFromEapp.date" class="tile-content-item">
         <p class="tile-content-item-header">Дата:</p>
-        <p>{{ clientAngAppFromEapp.date | date:'medium' }}</p>
+        <p>{{ clientAngAppFromEapp.date | date:'dd/MM/yy, hh:mm a' }}</p>
       </div>
     </div>
   </div>

@@ -75,6 +75,8 @@
         Паспорти: {{client.files ? client.files.length : 0}}
       </p>
       <button mat-flat-button *ngIf="canUpdateClient" [disabled]="!form.valid">Оновити</button>
+      <p>Створено: <br>{{ client.createdAt | date:'dd/MM/yy, hh:mm a' }}</p>
+      <p>Оновлено: <br>{{ client.updatedAt | date:'dd/MM/yy, hh:mm a' }}</p>
     </form>
   </div>
   <div class="client-comments" *ngIf="canSeeComments">

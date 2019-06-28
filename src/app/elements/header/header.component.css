@@ -2,7 +2,9 @@
   background: white;
   z-index: 100;
 }
-
+.with-drop-nav {
+  z-index: 110;
+}
 h1, a, li {
   font-family: Roboto, sans-serif;
   font-size: 17px;
@@ -110,3 +112,12 @@ li{
     margin: 400px auto 0;
   }
 }
+active-main-menu{
+  border-bottom: #7aadff 3px solid;
+}
+.can-be-active{
+  /*border-bottom: #7aadff 3px solid;*/
+}
+.cant-be-active{
+}
+

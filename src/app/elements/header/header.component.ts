@@ -15,6 +15,15 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    addEventListener('click', (e: any) => {
+      if (e.target.classList.contains('can-be-active')) {
+        const elems = document.getElementsByClassName('can-be-active');
+        for (let i = 0; i < elems.length; i++) {
+
+        }
+        e.target.classList.remove('can-be-active');
+      }
+    });
   }
   logout() {
     this.authService.logout().subscribe(_ => {

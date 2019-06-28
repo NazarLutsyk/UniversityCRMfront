@@ -19,6 +19,8 @@ export class Client {
     public files: Ufile[] = [],
     public socials: Social[] = [],
     public statusId: string = '',
+    public createdAt: string = '',
+    public updatedAt: string = ''
   ) {
   }
 }

@@ -103,7 +103,7 @@ export class SingleClientComponent implements OnInit {
 
   loadClient(id) {
     this.clientService.getClientById(id, {
-      attributes: ['id', 'name', 'age', 'surname', 'phone', 'email', 'statusId'], include: ['files', 'address']
+      attributes: ['id', 'name', 'age', 'surname', 'phone', 'email', 'statusId', 'createdAt', 'updatedAt'], include: ['files', 'address']
     })
       .subscribe(client => {
         this.client = client;

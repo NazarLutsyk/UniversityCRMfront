@@ -23,12 +23,14 @@ import {MAT_MOMENT_DATE_FORMATS, MatMomentDateModule} from '@angular/material-mo
 import {MomentUtcDateAdapter} from './adapters/moment-utc-date-adapter';
 import {TasksModule} from './core/tasks/tasks.module';
 import {HeaderComponent} from './elements/header/header.component';
+import {NotFoundComponentComponent} from './elements/not-found-component/not-found-component.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponentComponent
   ],
   imports: [
     BrowserModule,

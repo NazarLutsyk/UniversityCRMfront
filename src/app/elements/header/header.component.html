@@ -1,8 +1,11 @@
 <ul class="nav">
-  <li class="drop"
-      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      routerLink="/clients">
-    Клієнти
+  <li class="drop can-be-active">
+    <span class="with-drop-nav"
+          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+          routerLink="/clients"
+    >
+      Клієнти
+    </span>
     <ul class="down-drop">
       <li
         routerLink="/clients"
@@ -32,10 +35,12 @@
       </li>
     </ul>
   </li>
-  <li class="drop"
-      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
-      routerLink="/applications">
-    Заявки
+  <li class="drop can-be-active">
+    <span class="with-drop-nav"
+          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+          routerLink="/applications">
+      Заявки
+    </span>
     <ul class="down-drop">
       <li
         routerLink="/applications"
@@ -75,7 +80,7 @@
       </li>
     </ul>
   </li>
-  <li
+  <li class="can-be-active"
     routerLink="/groups"
     routerLinkActive="active-main-menu"
     *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
@@ -84,7 +89,7 @@
       Групи
     </a>
   </li>
-  <li
+  <li class="can-be-active"
     routerLink="/courses"
     routerLinkActive="active-main-menu"
     *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE, authService.roles.TEACHER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
@@ -93,7 +98,7 @@
       Курси
     </a>
   </li>
-  <li class="drop"
+  <li class="drop can-be-active"
       *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
     Інше
     <ul class="down-drop">
@@ -144,11 +149,14 @@
       </li>
     </ul>
   </li>
-  <li class="drop"
-      routerLink="/competitors"
-      routerLinkActive="active-main-menu"
-      *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1">
-    Конкуренти
+  <li class="drop can-be-active">
+    <span class="with-drop-nav"
+          routerLink="/competitors"
+          routerLinkActive="active-main-menu"
+          *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+    >
+      Конкуренти
+    </span>
     <ul class="down-drop">
       <li
         routerLink="/competitors"
@@ -178,7 +186,7 @@
       Увійти
     </a>
   </li>
-  <li
+  <li class="can-be-active"
     routerLink="/ratings"
     routerLinkActive="active-main-menu"
     *ngIf="authService.getLocalPrincipal()"
@@ -187,7 +195,7 @@
       Рейтинги
     </a>
   </li>
-  <li
+  <li class="cant-be-active"
     (click)="logout()"
     *ngIf="authService.getLocalPrincipal()"
   >

@@ -30,6 +30,11 @@ export class AuthService {
           p.role = p.role[0];
         }
         this.principal = p;
+        const principalForLocalStorage = {
+          role: p.role,
+        };
+        const principalJson = JSON.stringify(principalForLocalStorage);
+        window.localStorage.setItem('principal', principalJson);
         return this.principal;
       }));
   }
@@ -37,6 +42,7 @@ export class AuthService {
   public logout(): Observable<any> {
     return this.http.get<any>(`${this.authURL}/logout`).pipe(map(p => {
       this.principal = null;
+      window.localStorage.removeItem('principal');
       return null;
     }));
   }

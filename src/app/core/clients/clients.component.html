@@ -112,28 +112,31 @@
     </th>
   </tr>
   <tr #headerBlock>
-    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="">
+    <td (click)="loadSorted('name',headerBlock,$event)" data-sort="" class="name">
       Ім'я
     </td>
-    <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="">
+    <td (click)="loadSorted('surname',headerBlock,$event)" data-sort="" class="surname">
       Прізвище
     </td>
-    <td (click)="loadSorted('phone',headerBlock,$event)" data-sort="">
+    <td (click)="loadSorted('phone',headerBlock,$event)" data-sort="" class="phone">
       Телефон
     </td>
-    <td (click)="loadSorted('email',headerBlock,$event)" data-sort="">
+    <td (click)="loadSorted('email',headerBlock,$event)" data-sort="" class="email">
       Емейл
     </td>
-    <td (click)="loadSorted('age',headerBlock,$event)" data-sort="">
+    <td (click)="loadSorted('age',headerBlock,$event)" data-sort="" class="age">
       Вік
     </td>
-    <td>
+    <td class="status">
       Статус
     </td>
-    <td>
-      Соціалка
+    <td  class="small-td" (click)="loadSorted('createdAt',headerBlock,$event)" data-sort="">
+      Cтворено
     </td>
-    <td *ngIf="canDeleteClient" class="controls-col">
+    <td  class="small-td" (click)="loadSorted('updatedAt',headerBlock,$event)" data-sort="">
+      Оновлено
+    </td>
+    <td *ngIf="canDeleteClient" class="controls-col controls">
       Управління
     </td>
   </tr>
@@ -217,19 +220,59 @@
       </mat-form-field>
     </td>
     <td>
+
       <mat-form-field>
         <mat-label></mat-label>
         <input
           type="text"
-          name="social.url"
-          data-key="social.url"
+          name="createdAt"
+          data-key="createdAt"
           ngModel
           matInput
-          (keyup)="loadFiltered(filterBlock)"
+          disabled
         >
       </mat-form-field>
+
+<!--      <mat-form-field>-->
+<!--        <mat-label></mat-label>-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          name="social.url"-->
+<!--          data-key="social.url"-->
+<!--          ngModel-->
+<!--          matInput-->
+<!--          (keyup)="loadFiltered(filterBlock)"-->
+<!--        >-->
+<!--      </mat-form-field>-->
     </td>
-    <td *ngIf="canDeleteClient" class="controls-col"></td>
+    <td>
+
+      <mat-form-field>
+        <mat-label></mat-label>
+        <input
+          type="text"
+          name="updatedAt"
+          data-key="updatedAt"
+          ngModel
+          matInput
+          disabled
+        >
+      </mat-form-field>
+
+
+<!--      <mat-form-field>-->
+<!--        <mat-label></mat-label>-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          name="social.url"-->
+<!--          data-key="social.url"-->
+<!--          ngModel-->
+<!--          matInput-->
+<!--          (keyup)="loadFiltered(filterBlock)"-->
+<!--        >-->
+<!--      </mat-form-field>-->
+    </td>
+    <td *ngIf="canDeleteClient" class="controls-col width-523-px"></td>
   </tr>
   </thead>
   <tbody>
@@ -254,7 +297,10 @@
       </td>
     <ng-container *ngIf="client.socials">
       <td>
-        Соціалок: {{client.socials.length > 0 ? client.socials.length : 0}}
+        {{ client.createdAt | date:'dd/MM/yy, hh:mm a' }}
+      </td>
+      <td>
+        {{ client.updatedAt | date:'dd/MM/yy, hh:mm a' }}
       </td>
     </ng-container>
     <td *ngIf="canDeleteClient" class="controls-col" data-controls="true">

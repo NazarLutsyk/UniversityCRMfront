@@ -17,9 +17,9 @@ export class RoleGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-
+    const principal = JSON.parse(window.localStorage.getItem('principal'));
     const expectedRoles = [...next.data.expectedRoles];
-
-    return expectedRoles.indexOf(this.authService.getLocalPrincipal().role) > -1;
+    return expectedRoles.indexOf(principal.role) > -1;
+    // return expectedRoles.indexOf(!!this.authService.getLocalPrincipal().role) > -1;
   }
 }

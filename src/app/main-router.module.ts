@@ -40,6 +40,7 @@ import {ReportsComponent} from './core/reports/reports.component';
 import {ClientsStatusesComponent} from './core/clients-statuses/clients-statuses.component';
 import {SingleClientStatusComponent} from './core/clients-statuses/single-client-status/single-client-status.component';
 import {AppAndClientByEappComponent} from './core/app-and-client-by-eapp/app-and-client-by-eapp.component';
+import {NotFoundComponentComponent} from './elements/not-found-component/not-found-component.component';
 
 const routes: Routes = [
   {
@@ -229,6 +230,7 @@ const routes: Routes = [
         {path: 'info/:id', component: SingleRatingInfoComponent, data: {breadcrumb: 'Info'}},
       ]
   },
+  { path: '**', component: NotFoundComponentComponent }
 ];
 
 @NgModule({

@@ -36,3 +36,30 @@ td {
 thead > tr, tbody{
   display:block;
 }
+
+.width-523-px {
+  width: 523px;
+}
+
+.name{
+  width: 234px;
+}
+.surname{
+  width: 228px;
+}
+.phone{
+  width: 226px;
+}
+.email{
+  width: 233px;
+}
+.age{
+  width: 236px;
+}
+.status{
+  width: 232px;
+}
+.controls{
+  width: 215px;
+}
+
