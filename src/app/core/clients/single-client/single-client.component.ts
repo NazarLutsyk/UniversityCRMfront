@@ -76,27 +76,28 @@ export class SingleClientComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(({id}) => {
-      this.loadClient(id);
+      this.authService.getPrincipal().subscribe(() => {
+        this.loadClient(id);
+        const p = this.authService.getLocalPrincipal();
+        const isBoss = p.role === this.authService.roles.BOSS_ROLE;
+        const isTeacher = p.role === this.authService.roles.TEACHER_ROLE;
+        const isManager = p.role === this.authService.roles.MANAGER_ROLE;
+
+        this.canSeeTasks = isBoss || isManager;
+        this.canSeeComments = isBoss || isManager || isTeacher;
+        this.canSeeApplications = isBoss || isManager;
+        this.canCreateApplication = isBoss || isManager;
+        this.canDeleteApplication = isBoss || isManager;
+        this.canSeeAudioCalls = isBoss || isManager;
+        this.canSeeSocials = isBoss || isManager || isTeacher;
+
+        if (isBoss || isManager || isTeacher) {
+          this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
+          this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
+          this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
+        }
+      });
     });
-
-    const p = this.authService.getLocalPrincipal();
-    const isBoss = p.role === this.authService.roles.BOSS_ROLE;
-    const isTeacher = p.role === this.authService.roles.TEACHER_ROLE;
-    const isManager = p.role === this.authService.roles.MANAGER_ROLE;
-
-    this.canSeeTasks = isBoss || isManager;
-    this.canSeeComments = isBoss || isManager || isTeacher;
-    this.canSeeApplications = isBoss || isManager;
-    this.canCreateApplication = isBoss || isManager;
-    this.canDeleteApplication = isBoss || isManager;
-    this.canSeeAudioCalls = isBoss || isManager;
-    this.canSeeSocials = isBoss || isManager || isTeacher;
-
-    if (isBoss || isManager || isTeacher) {
-      this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
-      this.courseService.getCourses({}).subscribe(response => this.courses = response.models);
-      this.citiesService.getCities({}).subscribe(response => this.cities = response.models);
-    }
 
     this.clientStatusesService.getStatuses({}).subscribe(res => this.clientStatuses = res.models);
   }

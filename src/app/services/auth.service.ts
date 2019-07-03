@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Manager} from '../models/manager';
 import {map} from 'rxjs/operators';
 import {Roles} from '../models/roles';
@@ -13,7 +13,7 @@ export class AuthService {
 
   public principal: Manager = null;
   public roles = Roles;
-
+  public logoutLoginSubject = new Subject();
   private authURL = '';
 
   constructor(
@@ -33,6 +33,7 @@ export class AuthService {
         const principalForLocalStorage = {
           role: p.role,
         };
+        this.logoutLoginSubject.next(principalForLocalStorage.role);
         const principalJson = JSON.stringify(principalForLocalStorage);
         window.localStorage.setItem('principal', principalJson);
         return this.principal;
@@ -43,6 +44,7 @@ export class AuthService {
     return this.http.get<any>(`${this.authURL}/logout`).pipe(map(p => {
       this.principal = null;
       window.localStorage.removeItem('principal');
+      this.logoutLoginSubject.next('exit');
       return null;
     }));
   }

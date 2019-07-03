@@ -1,4 +1,4 @@
 <!--<div class="logo-wrapper">-->
 <!--  <div class="logo"></div>-->
 <!--</div>-->
-<app-tasks *ngIf="principal"></app-tasks>
+<app-tasks *ngIf="principal.role === 'BOSS_ROLE' || principal.role === 'MANAGER_ROLE'"></app-tasks>

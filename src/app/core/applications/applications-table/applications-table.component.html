@@ -33,6 +33,7 @@
     </th>
   </tr>
   <tr #headerBlock>
+    <td>№</td>
     <td
       *ngIf="!(byClientId >= 0)"
       (click)="loadSorted('client.name',headerBlock,$event)"
@@ -71,6 +72,7 @@
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
+    <td>-</td>
     <td *ngIf="!(byClientId >= 0)">
       <mat-form-field>
         <mat-label></mat-label>
@@ -194,7 +196,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let application of applications" (click)="open(application.id, 'applications',$event)" class="data-row">
+  <tr *ngFor="let application of applications, let i = index" (click)="open(application.id, 'applications',$event)" class="data-row">
+    <td>{{i + 1}}</td>
     <ng-container *ngIf="!(byClientId >= 0)">
       <td [ngClass]="{'link': !!application.client, 'no-link': !!!application.client}"
           (click)="open(application.client?.id, 'clients',$event)">

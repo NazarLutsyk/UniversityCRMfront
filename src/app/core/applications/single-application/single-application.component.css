@@ -68,3 +68,8 @@ mat-icon {
   border-bottom: 1px solid rgba(0, 0, 0, .42);
   padding-bottom: 10px;
 }
+.open-client{
+  position: absolute;
+  right: 3px;
+  cursor: pointer;
+}

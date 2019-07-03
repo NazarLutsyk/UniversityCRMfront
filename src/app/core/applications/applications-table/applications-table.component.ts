@@ -55,12 +55,14 @@ export class ApplicationsTableComponent implements OnInit {
 
   loadApplications() {
     if (this.pageSize) {
-    this.sendLoadApplications().subscribe(response => {
-      this.count = response.count;
-      this.applications = response.models;
-      this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
-      this.$quantityGroupStudents.next(response.count);
-    });
+      this.authService.getPrincipal().subscribe(() => {
+        this.sendLoadApplications().subscribe(response => {
+          this.count = response.count;
+          this.applications = response.models;
+          this.countOfPages = this.materialTableService.calcCountOfPages(this.count, this.pageSize);
+          this.$quantityGroupStudents.next(response.count);
+        });
+      });
     }
   }
 

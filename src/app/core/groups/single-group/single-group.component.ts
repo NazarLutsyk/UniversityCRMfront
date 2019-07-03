@@ -15,7 +15,9 @@ import {ChartService} from '../../../services/chart.service';
 import {ClientService} from '../../../services/client.service';
 import {CityService} from '../../../services/city.service';
 import {ClientStatusService} from '../../../services/client-status.service';
+// @ts-ignore
 import {isNumber} from 'util';
+import {ConfigService} from '../../../services/config.service';
 
 @Component({
   selector: 'app-single-group',
@@ -90,7 +92,8 @@ export class SingleGroupComponent implements OnInit {
     private renderer: Renderer2,
     private clientService: ClientService,
     private cityService: CityService,
-    private clientStatusService: ClientStatusService
+    private clientStatusService: ClientStatusService,
+    private configService: ConfigService
   ) {
   }
 
@@ -132,6 +135,10 @@ export class SingleGroupComponent implements OnInit {
           this.updateGroupForm.form.disable();
         }
         this.loadPractice();
+        setTimeout(() => {
+          this.appApplctnTable.sort = 'leftToPay ASC';
+          this.appApplctnTable.loadApplications();
+        }, 0);
       });
     });
   }
@@ -399,6 +406,22 @@ getClientsQuantity (appByCurrentGroup) {
       this.router.navigate([...url.split('/'), client.id]);
     }
   }
+
+  getPhoneNumbers() {
+    this.groupService.getNumbersByGroupId(this.currentGroupID).subscribe((res: {path: string}) => {
+      this.downloadFile(res.path);
+    });
+  }
+
+  getEmails() {
+    this.groupService.getEmailsByGroupId(this.currentGroupID).subscribe((res: {path: string}) => {
+      this.downloadFile(res.path);
+    });
+  }
+
+private downloadFile(path) {
+  window.open(`${this.configService.public}/${path}`);
+}
 
 }
 

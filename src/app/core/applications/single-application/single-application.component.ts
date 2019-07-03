@@ -71,6 +71,7 @@ export class SingleApplicationComponent implements OnInit {
         'hasPractice',
         'leftToPay',
         'certificate',
+        'clientId',
         'courseId',
         'groupId',
         'cityId'
@@ -151,6 +152,11 @@ export class SingleApplicationComponent implements OnInit {
   openGroup(id: number, $event) {
     $event.stopPropagation();
     this.router.navigate(['groups', id]);
+  }
+
+  openClient($event) {
+    $event.stopPropagation();
+    this.router.navigate(['clients', this.application.clientId]);
   }
 
   paymentChange($event) {

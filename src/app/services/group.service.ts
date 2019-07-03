@@ -24,6 +24,16 @@ export class GroupService {
     return this.http.get<Group>(urlToRequest);
   }
 
+  getNumbersByGroupId(id: number): Observable<{path: string}> {
+    const urlToRequest = addParams(`${this.groupsURL}/phones/${id}`);
+    return this.http.get<{path: string}>(urlToRequest);
+  }
+
+  getEmailsByGroupId(id: number): Observable<{path: string}> {
+    const urlToRequest = addParams(`${this.groupsURL}/emails/${id}`);
+    return this.http.get<{path: string}>(urlToRequest);
+  }
+
   getGroups(query = {}): Observable<any> {
     const urlToRequest = addParams(this.groupsURL, query);
     return this.http.get<Group[]>(urlToRequest);

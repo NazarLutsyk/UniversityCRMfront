@@ -223,3 +223,9 @@ mat-icon{
   align-items: center;
   justify-content: center;
 }
+
+.btn-get-data{
+  margin-top: 4px;
+  background: #828e829e;;
+  width: -webkit-fill-available;
+}

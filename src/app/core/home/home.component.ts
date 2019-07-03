@@ -8,15 +8,21 @@ import {AuthService} from '../../services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  principal;
+  principal: { role: string };
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.principal = this.authService.getLocalPrincipal();
-    }, 0);
+    const p: { role: string } = JSON.parse(window.localStorage.getItem('principal'));
+      this.principal = p;
+      this.authService.logoutLoginSubject.subscribe((res: string) => {
+        if (res) {
+          this.principal.role = res;
+        } else {
+          this.principal.role = res;
+        }
+      });
   }
 
 }

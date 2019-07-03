@@ -106,6 +106,8 @@
 
       <button *ngIf="canUpdateGroup" mat-flat-button [disabled]="!form.valid">Оновити</button>
     </form>
+    <button *ngIf="canUpdateGroup" class="btn-get-data" mat-button (click)="getPhoneNumbers()">Номери клієнтів данної групи</button>
+    <button *ngIf="canUpdateGroup" class="btn-get-data" mat-button (click)="getEmails()">Адреси е-почти клієнтів данної групи</button>
   </div>
   <div class="right-menu">
     <div class="right-menu-header">
