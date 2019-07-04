@@ -139,6 +139,15 @@
         </a>
       </li>
       <li
+        routerLink="/payment-statuses"
+        routerLinkActive="active-main-menu"
+        *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"
+      >
+        <a>
+          Статуси Платежів
+        </a>
+      </li>
+      <li
         routerLink="/sending"
         routerLinkActive="active-main-menu"
         *ngIf="authService.getLocalPrincipal() && [authService.roles.BOSS_ROLE, authService.roles.MANAGER_ROLE].indexOf(authService.getLocalPrincipal().role) > -1"

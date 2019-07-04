@@ -49,6 +49,10 @@ import {StatusNamePipe} from '../../pipes/status-name.pipe';
     SocialModule,
     SharedModule
   ],
+  exports: [
+    StatusNamePipe,
+    StatusNamePipe
+  ],
   declarations: [
     ClientsComponent,
     SingleClientComponent,

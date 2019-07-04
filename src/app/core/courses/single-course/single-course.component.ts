@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {StatisticService} from '../../../services/statistic.service';
 import {ChartService} from '../../../services/chart.service';
 import * as _ from 'lodash';
+import {GroupsTableComponent} from '../../groups/groups-table/groups-table.component';
 
 @Component({
   selector: 'app-single-course',
@@ -16,6 +17,7 @@ import * as _ from 'lodash';
 export class SingleCourseComponent implements OnInit {
 
   @ViewChild('form') updateCourseForm: NgForm;
+  @ViewChild('groupsTable') groupsTable: GroupsTableComponent;
 
   course: Course = new Course();
 
@@ -87,6 +89,11 @@ export class SingleCourseComponent implements OnInit {
           if (!this.canUpdateCourse) {
             this.updateCourseForm.form.disable();
           }
+          setTimeout(() => {
+            this.groupsTable.sort = 'startDate DESC';
+            this.groupsTable.pageSize = 10;
+            this.groupsTable.loadGroups();
+          }, 0);
         });
     });
   }

@@ -17,7 +17,7 @@
   </div>
   <div class="course-groups" *ngIf="course.id">
     <h3>ГРУПИ</h3>
-    <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup"></app-groups-table>
+    <app-groups-table [byCourseId]="course.id" [canDeleteGroupInput]="canDeleteGroup" #groupsTable></app-groups-table>
   </div>
   <div class="right-menu">
     <h3>СТАТИСТИКА ПО ЗАЯВКАХ</h3>

@@ -1,0 +1,31 @@
+<div class="main-wrapper">
+  <div class="left-menu">
+    <h3>ОНОВИТИ</h3>
+    <form #form="ngForm" (ngSubmit)="updateStatus()">
+      <mat-form-field>
+        <mat-label>Назва</mat-label>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="status.name"
+          matInput
+          required
+        >
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Опис</mat-label>
+        <textarea
+          class="cursor-pointer"
+          type="text"
+          name="description"
+          [(ngModel)]="status.description"
+          matInput
+          required>
+        </textarea>
+      </mat-form-field>
+      <button mat-flat-button [disabled]="!form.valid">Оновити</button>
+    </form>
+  </div>
+  <div class="right-menu">
+  </div>
+</div>

@@ -58,6 +58,9 @@
     <td class="small-td" (click)="loadSorted('amount',headerBlock,$event)" data-sort="">
       Сума
     </td>
+    <td class="status">
+      Статус
+    </td>
     <td class="small-td">
       Додати чек
     </td>
@@ -160,6 +163,19 @@
         >
       </mat-form-field>
     </td>
+    <td>
+      <mat-form-field>
+        <mat-label></mat-label>
+        <mat-select [(ngModel)]="default" name="statusId" matInput>
+          <mat-option [value]="" (click)="loadFiltered(filterBlock)">
+            ------
+          </mat-option>
+          <mat-option *ngFor="let status of paymentStatuses" [value]="status.id" (click)="loadFiltered(filterBlock)">
+            {{status.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
     <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
@@ -206,6 +222,12 @@
     </td>
     <td class="small-td">
       {{payment.amount}}
+    </td>
+    <td *ngIf="payment.paymentStatusId" >
+      {{ paymentStatuses | paymentStatusName : payment.paymentStatusId}}
+    </td>
+    <td *ngIf="!payment.paymentStatusId" >
+      {{ default }}
     </td>
     <td class="link small-td" (click)="generatePaymentFile(payment, $event)">
       Створити чек

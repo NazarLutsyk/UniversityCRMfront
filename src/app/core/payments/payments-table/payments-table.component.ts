@@ -10,6 +10,8 @@ import {UfileTypes} from '../../ufile/ufile-types';
 import {PaymentUpdateComponent} from '../payment-update/payment-update.component';
 import {isNumber} from 'util';
 import {Router} from '@angular/router';
+import {PaymentStatusService} from '../../../services/payment-status.service';
+import {PaymentStatus} from '../../../models/paymentStatus';
 
 @Component({
   selector: 'app-payments-table',
@@ -24,9 +26,9 @@ export class PaymentsTableComponent implements OnInit {
   @Output() onPaymentUpdate = new EventEmitter<any>();
 
   payments: Payment[] = [];
-
+  paymentStatuses: PaymentStatus[] = [];
   count = 0;
-
+  default = '-----';
   pageIndex = 1;
   pageSize = 50;
   countOfPages = 1;
@@ -42,12 +44,16 @@ export class PaymentsTableComponent implements OnInit {
     public materialTableService: MaterialTableService,
     private dialog: MatDialog,
     private configService: ConfigService,
-    private router: Router
+    private router: Router,
+    private paymentStatusService: PaymentStatusService
   ) {
   }
 
   ngOnInit() {
     this.loadPayments();
+    this.paymentStatusService.getStatuses({}).subscribe(value => {
+      this.paymentStatuses = value.models;
+    });
   }
 
   loadPayments() {

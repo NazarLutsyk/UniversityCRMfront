@@ -11,6 +11,7 @@ export class Payment {
     public expectedAmount: number = 0,
     public application: Application = null,
     public applicationId: number = null,
+    public paymentStatusId: number = null,
     public files: Ufile[] = []
   ) {
   }

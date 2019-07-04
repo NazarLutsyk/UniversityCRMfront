@@ -41,6 +41,8 @@ import {ClientsStatusesComponent} from './core/clients-statuses/clients-statuses
 import {SingleClientStatusComponent} from './core/clients-statuses/single-client-status/single-client-status.component';
 import {AppAndClientByEappComponent} from './core/app-and-client-by-eapp/app-and-client-by-eapp.component';
 import {NotFoundComponentComponent} from './elements/not-found-component/not-found-component.component';
+import {PaymentStatusComponent} from './core/payment-status/payment-status.component';
+import {SinglePaymentStatusComponent} from './core/payment-status/single-payment-status/single-payment-status.component';
 
 const routes: Routes = [
   {
@@ -228,6 +230,16 @@ const routes: Routes = [
         {path: '', component: RatingsComponent},
         {path: ':id', component: SingleRatingComponent, data: {breadcrumb: 'Rating'}},
         {path: 'info/:id', component: SingleRatingInfoComponent, data: {breadcrumb: 'Info'}},
+      ]
+  },
+  {
+    path: 'payment-statuses',
+    canActivate: [AuthenticatedGuard],
+    data: {breadcrumb: 'Payments'},
+    children:
+      [
+        {path: '', component: PaymentStatusComponent},
+        {path: ':id', component: SinglePaymentStatusComponent, data: {breadcrumb: 'Payment'}}
       ]
   },
   { path: '**', component: NotFoundComponentComponent }

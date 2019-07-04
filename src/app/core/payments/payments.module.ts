@@ -9,12 +9,13 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
-  MatNativeDateModule
+  MatNativeDateModule, MatSelectModule
 } from '@angular/material';
 import {UfileModule} from '../ufile/ufile.module';
 import {PaymentsComponent} from './payments.component';
 import {PaymentUpdateComponent} from './payment-update/payment-update.component';
 import {ChartsModule} from 'ng2-charts';
+import {PaymentStatusNamePipe} from '../../pipes/payment-status-name.pipe';
 
 @NgModule({
   imports: [
@@ -29,8 +30,9 @@ import {ChartsModule} from 'ng2-charts';
     MatDatepickerModule,
     ChartsModule,
     MatNativeDateModule,
+    MatSelectModule
   ],
-  declarations: [PaymentsTableComponent, PaymentsComponent, PaymentUpdateComponent],
+  declarations: [PaymentsTableComponent, PaymentsComponent, PaymentUpdateComponent, PaymentStatusNamePipe],
   exports: [PaymentsTableComponent]
 })
 export class PaymentsModule {

@@ -30,6 +30,14 @@
       <mat-datepicker #paymentPickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Статус</mat-label>
+      <mat-select [(ngModel)]="payment.paymentStatusId" name="statusId" required>
+        <mat-option *ngFor="let status of paymentStatuses" [value]="status.id">
+          {{status.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
       <mat-label>Дата платежу</mat-label>
       <input
         type="text"

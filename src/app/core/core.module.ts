@@ -43,6 +43,8 @@ import {ClientsStatusesModule} from './clients-statuses/clients-statuses.module'
 import {ReportsModule} from './reports/reports.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppAndClientByEappComponent } from './app-and-client-by-eapp/app-and-client-by-eapp.component';
+import { PaymentStatusComponent } from './payment-status/payment-status.component';
+import { SinglePaymentStatusComponent } from './payment-status/single-payment-status/single-payment-status.component';
 
 @NgModule({
   imports: [
@@ -84,7 +86,9 @@ import { AppAndClientByEappComponent } from './app-and-client-by-eapp/app-and-cl
     BreadcrumbsComponent,
     DeleteSnackBarComponent,
     PreloadComponent,
-    AppAndClientByEappComponent
+    AppAndClientByEappComponent,
+    PaymentStatusComponent,
+    SinglePaymentStatusComponent
   ],
   entryComponents: [
     DeleteSnackBarComponent,
