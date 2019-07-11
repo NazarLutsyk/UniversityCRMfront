@@ -33,6 +33,7 @@ export class ApplicationsTableComponent implements OnInit {
   filter: any = {};
 
   canDeleteApplication = false;
+  appDateInput;
 
   constructor(
     public router: Router,
@@ -147,6 +148,10 @@ export class ApplicationsTableComponent implements OnInit {
         }
       ];
     }
+    if (this.appDateInput) {
+      res.date = this.appDateInput;
+    }
+
     return res;
   }
 
@@ -172,4 +177,8 @@ export class ApplicationsTableComponent implements OnInit {
   }
 
 
+  cleanAppDateInput() {
+    this.appDateInput = null;
+    this.loadApplications();
+  }
 }

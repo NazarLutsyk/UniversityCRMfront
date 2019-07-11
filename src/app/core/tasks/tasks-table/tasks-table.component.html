@@ -21,6 +21,9 @@
     <th data-controls="true"></th>
   </tr>
   <tr #headerBlock>
+    <td>
+      Виконане
+    </td>
     <td (click)="loadSorted('message',headerBlock,$event)" data-sort="">
       Повідомлення
     </td>
@@ -35,6 +38,14 @@
     </td>
   </tr>
   <tr class="filter-row" #filterBlock>
+    <td>
+      <mat-checkbox
+        name="done"
+        *ngIf="!byClientId"
+        [(ngModel)]="done"
+        (ngModelChange)="loadFiltered(filterBlock)"
+      ></mat-checkbox>
+    </td>
     <td>
       <mat-form-field>
         <mat-label></mat-label>
@@ -55,10 +66,23 @@
           type="text"
           name="date"
           data-key="date"
-          ngModel
+          [(ngModel)]="dateInput"
           matInput
-          disabled
+          (click)="paymentDate.open()"
+          [matDatepicker]="paymentDate"
+          (ngModelChange)="loadTasks()"
+          readonly
+          placeholder="Виберіть дату"
         >
+        <mat-datepicker-toggle matSuffix [for]="paymentDate"></mat-datepicker-toggle>
+        <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
+        <i
+          class="material-icons"
+          [ngClass]="{'cleanTaskDateInput': dateInput, 'display-none': !dateInput}"
+          (click)="cleanTaskDateInput()"
+        >
+          close
+        </i>
       </mat-form-field>
     </td>
     <td *ngIf="!byClientId">
@@ -80,6 +104,14 @@
   <tbody>
   <tr *ngFor="let task of tasks" (click)="open(task, $event)" class="data-row">
     <td>
+      <i *ngIf="task.done" class="material-icons">
+        check_box
+      </i>
+      <i *ngIf="!task.done" class="material-icons">
+        check_box_outline_blank
+      </i>
+    </td>
+    <td>
       {{task.message}}
     </td>
     <td>
@@ -87,7 +119,7 @@
     </td>
     <ng-container *ngIf="!byClientId">
       <td [ngClass]="{'link': !!task.client, 'no-link': !!!task.client}"
-          (click)="open(task.client?.id, 'clients',$event)">
+          (click)="openClient(task.client.id, 'clients', $event)">
         <span *ngIf="task.client">
           {{task.client.surname}} {{task.client.name}}
         </span>

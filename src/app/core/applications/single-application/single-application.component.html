@@ -188,6 +188,14 @@
             matInput
             (input)="validateAmount($event)">
         </mat-form-field>
+        <mat-form-field *ngIf="paymentStatuses">
+          <mat-label>Статус</mat-label>
+          <mat-select ngModel name="paymentStatusId" required>
+            <mat-option *ngFor="let status of paymentStatuses" [value]="status.id">
+              {{status.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <label>Чек</label>
         <input
           type="file"

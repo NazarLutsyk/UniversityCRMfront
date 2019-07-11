@@ -32,7 +32,7 @@ export class PaymentsTableComponent implements OnInit {
   pageIndex = 1;
   pageSize = 50;
   countOfPages = 1;
-
+  paymentDateInput;
   sort = '';
   filter: any = {};
 
@@ -54,6 +54,14 @@ export class PaymentsTableComponent implements OnInit {
     this.paymentStatusService.getStatuses({}).subscribe(value => {
       this.paymentStatuses = value.models;
     });
+    this.paymentService.refreshPaymentsTableSubject.subscribe( () => {
+      this.loadPayments();
+    });
+  }
+
+  cleanPaymentDateInput() {
+    this.paymentDateInput = null;
+    this.loadPayments();
   }
 
   loadPayments() {
@@ -121,6 +129,9 @@ export class PaymentsTableComponent implements OnInit {
     }
     if (this.filter['course.name']) {
       res.course = {name: `${this.filter['course.name']}`};
+    }
+    if (this.paymentDateInput) {
+      res.paymentDate = this.paymentDateInput;
     }
 
     return res;

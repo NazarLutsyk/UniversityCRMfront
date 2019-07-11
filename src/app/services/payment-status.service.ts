@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
 import {ConfigService} from './config.service';
 import {PaymentStatus} from '../models/paymentStatus';
@@ -10,7 +10,6 @@ import {PaymentStatus} from '../models/paymentStatus';
 })
 export class PaymentStatusService {
   private statusesURL = '';
-
   constructor(
     private http: HttpClient,
     private config: ConfigService

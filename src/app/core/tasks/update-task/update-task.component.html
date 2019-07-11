@@ -28,6 +28,10 @@
       <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
       <mat-datepicker #pickerStartDate disabled="false"></mat-datepicker>
     </mat-form-field>
+          <mat-label class="padding-l-20px">Виконане:</mat-label>
+          <mat-checkbox name="done" [(ngModel)]="done"></mat-checkbox>
+    <br>
+    <br>
     <div class="form-buttons">
       <button mat-button
               mat-flat-button

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Task} from '../models/task';
 import {addParams} from '../helpers/url-helper';
 
@@ -11,7 +11,7 @@ import {addParams} from '../helpers/url-helper';
 export class TaskService {
 
   private tasksURL = '';
-
+  refreshTableSubject = new Subject();
   constructor(
     private http: HttpClient,
     private config: ConfigService

@@ -4,6 +4,7 @@ import {GroupService} from '../../../services/group.service';
 import {Router} from '@angular/router';
 import {MaterialTableService} from '../../../services/material-table.service';
 import {Observable, Subject} from 'rxjs';
+// @ts-ignore
 import {isNumber} from 'util';
 import {AuthService} from '../../../services/auth.service';
 
@@ -40,13 +41,15 @@ export class GroupsTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.getPrincipal().subscribe(() => {
+      this.loadGroups();
     if (typeof this.canDeleteGroupInput !== 'boolean') {
       const p = this.authService.getLocalPrincipal();
       this.canDeleteGroup = (p && [this.authService.roles.BOSS_ROLE, this.authService.roles.MANAGER_ROLE].indexOf(p.role) > -1);
     } else {
       this.canDeleteGroup = this.canDeleteGroupInput;
     }
-    this.loadGroups();
+    });
   }
 
   loadGroups() {

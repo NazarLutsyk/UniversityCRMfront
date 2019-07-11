@@ -36,7 +36,7 @@ export class PaymentUpdateComponent implements OnInit {
       expectedDate: this.payment.expectedDate,
       paymentDate: this.payment.paymentDate,
       amount: this.payment.amount ? this.payment.amount : 0,
-      paymentStatusId: this.payment.paymentStatusId ? this.payment.paymentStatusId : 0,
+      paymentStatusId: this.payment.paymentStatusId,
       expectedAmount: this.payment.expectedAmount ? this.payment.expectedAmount : 0,
     };
     this.paymentService.update(
@@ -44,6 +44,7 @@ export class PaymentUpdateComponent implements OnInit {
       paymentToUpdate
     ).subscribe((updated) => {
       this.dialogRef.close(updated);
+      this.paymentService.refreshPaymentsTableSubject.next('refreshTable');
     });
   }
 

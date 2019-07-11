@@ -57,7 +57,7 @@ export class TasksComponent implements OnInit {
     const task: Task = <Task>{
       clientId: this.selectedClient.id,
       date: this.taskForm.date,
-      message: this.taskForm.message,
+      message: this.taskForm.message
     };
     this.tasksService.create(task).subscribe((response) => {
       form.resetForm();

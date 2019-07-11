@@ -45,6 +45,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppAndClientByEappComponent } from './app-and-client-by-eapp/app-and-client-by-eapp.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { SinglePaymentStatusComponent } from './payment-status/single-payment-status/single-payment-status.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import { SinglePaymentStatusComponent } from './payment-status/single-payment-st
     MatInputModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    SharedModule
   ],
   declarations: [
     HomeComponent,

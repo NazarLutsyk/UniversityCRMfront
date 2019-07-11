@@ -18,11 +18,11 @@ export class TasksTableComponent implements OnInit {
 
   tasks: Task[] = [];
   count = 0;
-
+  dateInput = new Date();
   pageIndex = 1;
   pageSize = 9;
   countOfPages = 1;
-
+  done = null;
   sort = '';
   filter: any = {};
 
@@ -37,9 +37,15 @@ export class TasksTableComponent implements OnInit {
 
   ngOnInit() {
     this.loadTasks();
+    this.tasksService.refreshTableSubject.subscribe(() => {
+      this.loadTasks();
+    });
   }
 
   loadTasks() {
+    if (this.byClientId) {
+      this.dateInput = null;
+    }
     this.sendLoadTasks().subscribe(response => {
       this.count = response.count;
       this.tasks = response.models;
@@ -70,6 +76,13 @@ export class TasksTableComponent implements OnInit {
 
   private sendLoadTasks(): Observable<any> {
     const filterToSend = this.getFilterToSend();
+    if (!this.byClientId) {
+      if (this.done) {
+        filterToSend.done = 1;
+      } else {
+        filterToSend.done = 0;
+      }
+    }
     return this.tasksService.getTasks({
       q: filterToSend,
       include: ['client'],
@@ -90,6 +103,9 @@ export class TasksTableComponent implements OnInit {
     }
     if (this.byClientId) {
       res.client = {id: this.byClientId, ...res.group};
+    }
+    if (this.dateInput) {
+      res.date = this.dateInput;
     }
     return res;
   }
@@ -128,4 +144,13 @@ export class TasksTableComponent implements OnInit {
   }
 
 
+  cleanTaskDateInput() {
+    this.dateInput = null;
+    this.loadTasks();
+  }
+
+  openClient(id: number, clients: string, $event: MouseEvent) {
+    $event.stopPropagation();
+      this.router.navigate([clients, id]);
+    }
 }

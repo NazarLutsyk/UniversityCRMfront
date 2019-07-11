@@ -133,11 +133,24 @@
         <input
           type="text"
           name="date"
-          data-key="date"
-          ngModel
+          data-key="appDate"
+          [(ngModel)]="appDateInput"
           matInput
-          disabled
+          (click)="appDate.open()"
+          [matDatepicker]="appDate"
+          (ngModelChange)="loadApplications()"
+          readonly
+          placeholder="Виберіть дату"
         >
+        <mat-datepicker-toggle matSuffix [for]="appDate"></mat-datepicker-toggle>
+        <mat-datepicker #appDate disabled="false"></mat-datepicker>
+        <i
+          class="material-icons"
+          [ngClass]="{'cleanAppDateInput': appDateInput, 'display-none': !appDateInput}"
+          (click)="cleanAppDateInput()"
+        >
+          close
+        </i>
       </mat-form-field>
     </td>
     <td class="small-td">

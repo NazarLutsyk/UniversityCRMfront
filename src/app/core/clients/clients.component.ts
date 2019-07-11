@@ -242,4 +242,6 @@ export class ClientsComponent implements OnInit {
   setAddress(address: any) {
     this.clientFormObject.address = address;
   }
+
+
 }

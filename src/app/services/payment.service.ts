@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {addParams} from '../helpers/url-helper';
 import {Payment} from '../models/payment';
 import {Ufile} from '../models/ufile';
@@ -10,7 +10,7 @@ import {Ufile} from '../models/ufile';
   providedIn: 'root'
 })
 export class PaymentService {
-
+  refreshPaymentsTableSubject = new Subject();
   private paymentsURL = '';
 
   constructor(

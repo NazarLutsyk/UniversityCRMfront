@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {TasksComponent} from './tasks.component';
 import {FormsModule} from '@angular/forms';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCheckboxModule,
   MatDatepickerModule, MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
@@ -12,6 +12,7 @@ import {
 } from '@angular/material';
 import { TasksTableComponent } from './tasks-table/tasks-table.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
+import {CheckboxPipe} from '../../pipes/checkbox.pipe';
 
 @NgModule({
   imports: [
@@ -23,9 +24,10 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
-  declarations: [TasksComponent, TasksTableComponent, UpdateTaskComponent],
+  declarations: [TasksComponent, TasksTableComponent, UpdateTaskComponent, CheckboxPipe],
   exports: [TasksTableComponent, TasksComponent]
 })
 export class TasksModule {

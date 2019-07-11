@@ -73,7 +73,6 @@ export class SingleClientComponent implements OnInit {
     private clientStatusesService: ClientStatusService
     ) {
   }
-
   ngOnInit() {
     this.activatedRoute.params.subscribe(({id}) => {
       this.authService.getPrincipal().subscribe(() => {

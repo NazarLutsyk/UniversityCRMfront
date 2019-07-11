@@ -11,6 +11,8 @@ import {Group} from '../../../models/group';
 import {MatDialog, MatSelectionListChange} from '@angular/material';
 import {UfileComponent} from '../../ufile/ufile.component';
 import {UfileTypes} from '../../ufile/ufile-types';
+import {PaymentStatus} from '../../../models/paymentStatus';
+import {PaymentStatusService} from '../../../services/payment-status.service';
 
 @Component({
   selector: 'app-single-application',
@@ -29,6 +31,7 @@ export class SingleApplicationComponent implements OnInit {
 
   sources: Source[] = [];
   groups: Group[] = [];
+  paymentStatuses: PaymentStatus[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,6 +40,7 @@ export class SingleApplicationComponent implements OnInit {
     private sourceService: SourceService,
     private paymentService: PaymentService,
     private groupService: GroupService,
+    private paymentStatusService: PaymentStatusService,
     private filesDialog: MatDialog
   ) {
   }
@@ -53,7 +57,9 @@ export class SingleApplicationComponent implements OnInit {
           this.loadApplication(this.application.id);
         });
     });
-
+    this.paymentStatusService.getStatuses({}).subscribe((status) => {
+      this.paymentStatuses = status.models;
+    });
     this.activatedRoute.params.subscribe(({id}) => {
       this.sourceService.getSources({}).subscribe(response => this.sources = response.models);
       this.loadApplication(id);
@@ -135,6 +141,7 @@ export class SingleApplicationComponent implements OnInit {
       expectedDate: paymentFormValue.expectedDate,
       amount: paymentFormValue.amount ? paymentFormValue.amount : 0,
       expectedAmount: paymentFormValue.expectedAmount ? paymentFormValue.expectedAmount : 0,
+      paymentStatusId: paymentFormValue.paymentStatusId,
       applicationId: this.application.id,
     };
     if (paymentFormValue.paymentDate) {

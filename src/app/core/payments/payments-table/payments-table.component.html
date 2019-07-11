@@ -140,14 +140,27 @@
     <td class="small-td">
       <mat-form-field>
         <mat-label></mat-label>
-        <input
-          type="text"
-          name="paymentDate"
-          data-key="paymentDate"
-          ngModel
-          matInput
-          disabled
+                <input
+                  type="text"
+                  name="paymentDate"
+                  data-key="paymentDate"
+                  [(ngModel)]="paymentDateInput"
+                  matInput
+                  (click)="paymentDate.open()"
+                  [matDatepicker]="paymentDate"
+                  (ngModelChange)="loadPayments()"
+                  readonly
+                  placeholder="Виберіть дату"
+                >
+        <mat-datepicker-toggle matSuffix [for]="paymentDate"></mat-datepicker-toggle>
+        <mat-datepicker #paymentDate disabled="false"></mat-datepicker>
+        <i
+          class="material-icons"
+          [ngClass]="{'cleanPaymentDateInput': paymentDateInput, 'display-none': !paymentDateInput}"
+          (click)="cleanPaymentDateInput()"
         >
+          close
+        </i>
       </mat-form-field>
     </td>
     <td class="small-td">

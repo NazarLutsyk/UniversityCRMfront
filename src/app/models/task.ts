@@ -6,7 +6,8 @@ export class Task {
     public message: string = '',
     public date: string = '',
     public client: Client = null,
-    public clientId: number = null
+    public clientId: number = null,
+    public done: number = null
   ) {
   }
 }

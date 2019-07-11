@@ -12,6 +12,7 @@ import {TaskService} from '../../../services/task.service';
 export class UpdateTaskComponent implements OnInit {
 
   task: Task;
+  done: boolean;
 
   constructor(
     private dialogRef: MatDialogRef<UfileComponent>,
@@ -22,11 +23,17 @@ export class UpdateTaskComponent implements OnInit {
 
   ngOnInit() {
     this.task = {...this.data.task};
+    this.done = this.task.done === 1;
   }
 
   updateTask() {
-    this.taskService.update(this.task.id, {message: this.task.message, date: this.task.date}).subscribe((updated) => {
+    this.taskService.update(this.task.id, {
+      message: this.task.message,
+      date: this.task.date,
+      done: this.done ? 1 : 0
+    }).subscribe((updated) => {
       this.dialogRef.close(updated);
+      this.taskService.refreshTableSubject.next('refresh');
     });
   }
 

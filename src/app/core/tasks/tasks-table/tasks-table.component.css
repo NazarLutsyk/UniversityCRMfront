@@ -1,0 +1,11 @@
+.cleanTaskDateInput {
+  display: block;
+  position: absolute;
+  right: -32px;
+  color: red;
+  z-index: 1000;
+  font-size: unset;
+}
+.display-none{
+  display: none;
+}
